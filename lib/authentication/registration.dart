@@ -54,7 +54,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   _email = value;
                 });
               },
-              decoration: InputDecoration(labelText: 'Enter Email'),
+              decoration: InputDecoration(labelText: ' Email'),
             ),
             SizedBox(height: 16.0),
             TextField(
