@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "377430239166",
+    "project_id": "bottle-f89fd",
+    "storage_bucket": "bottle-f89fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:377430239166:android:2cf7685b9ea082b22b3bef",
+        "android_client_info": {
+          "package_name": "com.example.bottle_ver2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6mZT-b51nPe6JSbPZxB9SVil8tyOAfMU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
