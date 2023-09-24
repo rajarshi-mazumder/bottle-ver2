@@ -19,17 +19,19 @@ class _NavBarState extends State<NavBar> {
     return AppBar(
       leading: Builder(
         builder: (BuildContext context) {
-          return IconButton(
-            icon: Icon(Icons.menu), // Hamburger menu icon
-            onPressed: () {
-              Scaffold.of(context).openDrawer(); // Open the sidebar
-            },
-          );
+          return Row(
+            children: [
+              SizedBox(width: 20),
+              Icon(
+                Icons.headphones,
+                size: 30,
+              ),
+            ],
+          ); // Hamburger menu icon
         },
       ),
       title: Row(
         children: [
-          Text('Your Logo'),
           SizedBox(width: 20),
           Container(
             constraints: BoxConstraints(maxWidth: 500),

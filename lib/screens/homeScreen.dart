@@ -23,12 +23,20 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Row(
         children: [
           Sidebar(isExpanded: isSidebarExpanded),
-
           Expanded(
-            child: Container(
-              decoration: BoxDecoration(color: Colors.white),
+              child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  bgPrimaryColor,
+                  bgSecondaryColor
+                ], // Replace with your desired gradient colors
+              ),
             ),
-          ),
+            // Other properties of your Container
+          )),
         ],
       ),
       floatingActionButton: FloatingActionButton(
