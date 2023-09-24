@@ -1,3 +1,6 @@
+import 'package:bottle_ver2/themes/customIconButtons.dart';
+import 'package:bottle_ver2/themes/themes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatefulWidget implements PreferredSizeWidget {
@@ -14,7 +17,6 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.blue, // Change the background color as needed
       leading: Builder(
         builder: (BuildContext context) {
           return IconButton(
@@ -37,10 +39,10 @@ class _NavBarState extends State<NavBar> {
               child: Container(
                 height: 40,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade50,
+                  color: bgSecondaryColor,
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'Search...',
@@ -58,28 +60,17 @@ class _NavBarState extends State<NavBar> {
               ),
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // Implement search functionality here
-            },
+          SizedBox(
+            width: 10,
           ),
+          CustomIconButton(icon: Icon(CupertinoIcons.search), onPressed: () {}),
         ],
       ),
-
       actions: [
-        IconButton(
-          icon: Icon(Icons.notifications),
-          onPressed: () {
-            // Implement notifications functionality here
-          },
-        ),
-        IconButton(
-          icon: Icon(Icons.person),
-          onPressed: () {
-            // Implement profile details functionality here
-          },
-        ),
+        CustomIconButton(icon: Icon(CupertinoIcons.bell), onPressed: () {}),
+        SizedBox(width: 20),
+        CustomIconButton(icon: Icon(CupertinoIcons.person), onPressed: () {}),
+        SizedBox(width: 20)
       ],
     );
   }

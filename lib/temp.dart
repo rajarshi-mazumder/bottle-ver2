@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue, // Change the background color as needed
+        // Change the background color as needed
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -61,9 +61,8 @@ class HomePage extends StatelessWidget {
             DrawerHeader(
               child: Text('Sidebar Header'),
               decoration: BoxDecoration(
-                color:
-                    Colors.blue, // Change the sidebar header background color
-              ),
+                  // Change the sidebar header background color
+                  ),
             ),
             ListTile(
               title: Text('Menu Item 1'),
