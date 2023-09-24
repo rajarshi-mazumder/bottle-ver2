@@ -28,3 +28,29 @@ class CustomIconButton extends StatelessWidget {
     );
   }
 }
+
+class CustomIcon extends StatelessWidget {
+  CustomIcon({
+    super.key,
+    required this.iconData,
+    this.iconSize = 18,
+  });
+
+  IconData iconData;
+  double iconSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      shape: CircleBorder(),
+      color: primaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Icon(
+          iconData,
+          size: iconSize,
+        ),
+      ),
+    );
+  }
+}
