@@ -18,7 +18,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           GameProfileLeftSection(),
-          SizedBox(width: 40),
+          SizedBox(width: 10),
           GameProfileRightSection()
         ],
       ),
