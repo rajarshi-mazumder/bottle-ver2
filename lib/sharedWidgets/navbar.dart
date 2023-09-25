@@ -39,15 +39,16 @@ class _NavBarState extends State<NavBar> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(25),
               child: Container(
-                height: 40,
+                height: 35,
                 decoration: BoxDecoration(
                   color: bgSecondaryColor,
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'Search...',
+                      hintStyle: TextStyle(fontSize: 15),
                       border: InputBorder.none, // Remove the underline
                     ),
                     // Implement search functionality here

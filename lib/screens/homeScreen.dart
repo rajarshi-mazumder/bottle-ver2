@@ -1,3 +1,4 @@
+import 'package:bottle_ver2/screens/gamrProfileScreen.dart';
 import 'package:bottle_ver2/sharedWidgets/navbar.dart';
 import 'package:bottle_ver2/sharedWidgets/sidebar.dart';
 import 'package:bottle_ver2/themes/themes.dart';
@@ -20,23 +21,22 @@ class _HomeScreenState extends State<HomeScreen> {
     int selectedIndex = 0;
     return Scaffold(
       appBar: NavBar(),
-      body: Row(
+      body: Stack(
         children: [
-          Sidebar(isExpanded: isSidebarExpanded),
-          Expanded(
-              child: Container(
+          Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  bgPrimaryColor,
-                  bgSecondaryColor
-                ], // Replace with your desired gradient colors
+                colors: [bgPrimaryColor, bgSecondaryColor],
+                // Replace with your desired gradient colors
               ),
             ),
+            child: GameProfileScreen(),
             // Other properties of your Container
-          )),
+          ),
+          Positioned(
+              top: 0, left: 0, child: Sidebar(isExpanded: isSidebarExpanded)),
         ],
       ),
       floatingActionButton: FloatingActionButton(

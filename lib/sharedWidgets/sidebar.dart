@@ -41,12 +41,13 @@ class _SidebarState extends State<Sidebar> {
           duration: Duration(milliseconds: 300),
           curve: Curves.easeInOut,
           width: widget.isExpanded ? 300.0 : 80.0,
+          height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
             color: secondaryColor,
           ),
           child: Column(
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               ListTile(
                 title: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -58,6 +59,28 @@ class _SidebarState extends State<Sidebar> {
                       if (widget.isExpanded)
                         Text(
                           "Game Profile",
+                          style: TextStyle(color: Colors.white),
+                        )
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  setState(() {
+                    widget.isExpanded = !widget.isExpanded;
+                  });
+                },
+              ),
+              SizedBox(height: 20),
+              ListTile(
+                title: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      CustomIcon(iconData: CupertinoIcons.grid),
+                      if (widget.isExpanded) SizedBox(width: 20),
+                      if (widget.isExpanded)
+                        Text(
+                          "Stats",
                           style: TextStyle(color: Colors.white),
                         )
                     ],
