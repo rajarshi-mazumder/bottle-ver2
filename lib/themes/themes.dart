@@ -6,13 +6,13 @@ const secondaryColor = Color.fromARGB(255, 17, 0, 0);
 const bgPrimaryColor = Color.fromARGB(255, 19, 19, 19);
 const bgSecondaryColor = Color.fromARGB(255, 30, 30, 30);
 ThemeData customTheme = ThemeData(
-  primaryColor: primaryColor,
-  textTheme: GoogleFonts.nunitoTextTheme(),
-  colorScheme: ColorScheme.dark(),
-  appBarTheme: const AppBarTheme(
-    shadowColor: Colors.black,
-    backgroundColor: secondaryColor,
-    iconTheme: IconThemeData(color: Colors.white),
-    centerTitle: true,
-  ),
-);
+    primaryColor: primaryColor,
+    textTheme: GoogleFonts.nunitoTextTheme(),
+    colorScheme: ColorScheme.dark(),
+    appBarTheme: const AppBarTheme(
+      shadowColor: Colors.black,
+      backgroundColor: secondaryColor,
+      iconTheme: IconThemeData(color: Colors.white),
+      centerTitle: true,
+    ),
+    tabBarTheme: TabBarTheme());
