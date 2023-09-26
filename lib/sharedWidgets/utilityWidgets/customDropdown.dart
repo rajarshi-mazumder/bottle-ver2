@@ -34,14 +34,14 @@ class _CustomDropdownState extends State<CustomDropdown> {
         child: DropdownButton<String>(
             value: widget.value,
             isExpanded: true,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: primaryColor),
             selectedItemBuilder: (BuildContext context) => items
                 .map<Widget>((item) => Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 16.0),
-                            child: Icon(Icons.palette, color: Colors.white)),
+                            child: Icon(Icons.palette, color: primaryColor)),
                         Text(item),
                       ],
                     ))
