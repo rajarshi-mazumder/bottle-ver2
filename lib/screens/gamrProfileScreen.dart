@@ -22,6 +22,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
       child: Scaffold(
         appBar: GameProfileTopSection(
           tabBar: TabBar(
+
             tabs: [
               Tab(text: 'Game Profiles'), // Tab 1 text
               Tab(text: 'Posts'), // Tab 2 text
@@ -32,6 +33,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
                 _selectedTabIndex = index; // Update selected tab index
               });
             },
+
           ),
         ),
         body: Stack(
@@ -47,7 +49,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
               ],
             ),
             Positioned(
-              top: 120,
+              top: 20,
               left: 350,
               child: GameProfileLeftSection(),
             ),
@@ -60,7 +62,10 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
   // Helper function to build tab content based on the selected index
   Widget _buildTabContent(int tabIndex) {
     return Container(
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
       child: SingleChildScrollView(
         child: Column(
           children: [

@@ -34,7 +34,7 @@ class _GameProfileRightSectionState extends State<GameProfileRightSection> {
                   child: CustomDropdown(),
                 ),
                 Container(
-                  height: 1200,
+                  height: 800,
                 )
               ],
             ),

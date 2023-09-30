@@ -39,12 +39,16 @@ class _SidebarState extends State<Sidebar> {
         },
         child: AnimatedContainer(
           duration: Duration(milliseconds: 300),
+          margin: EdgeInsets.only(top: 130),
           curve: Curves.easeInOut,
           width: widget.isExpanded ? 300.0 : 80.0,
-          height: MediaQuery.of(context).size.height,
+          height: (MediaQuery.of(context).size.height) * 0.7,
           decoration: BoxDecoration(
-            color: secondaryColor,
-          ),
+              color: secondaryColor,
+              borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(50),
+                topRight: Radius.circular(50),
+              )),
           child: Column(
             children: [
               SizedBox(height: 40),

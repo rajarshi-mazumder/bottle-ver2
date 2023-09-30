@@ -4,28 +4,54 @@ import 'package:flutter/material.dart';
 class GameProfileTopSection extends StatelessWidget
     implements PreferredSizeWidget {
   GameProfileTopSection({Key? key, required this.tabBar}) : super(key: key);
-  TabBar tabBar;
+  final TabBar tabBar;
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        alignment: Alignment.center,
+        alignment: Alignment.centerLeft,
+        // Align the Container to the left
         color: bgPrimaryColor,
-        margin: EdgeInsets.only(left: 300, top: 30),
-        width: 1200,
-        child: Column(
+        margin: EdgeInsets.only(top: 0),
+        width: MediaQuery.of(context).size.width,
+        child: Stack(
           children: [
-            SizedBox(height: 40),
-            Expanded(child: tabBar),
+            Container(
+              height: 180,
+              color: Colors.green,
+              child: Image.asset(
+                '/fade1.png',
+                width: MediaQuery.of(context).size.width,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Container(
+                  width: 1200,
+                  // Set the fixed width of the Container
+                  decoration: BoxDecoration(
+                      color: Color.fromARGB(180, 0, 0, 0),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(
+                            20,
+                          ),
+                          topRight: Radius.circular(20))),
+                  child: tabBar,
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  ///width doesnt matter
   @override
-  Size get preferredSize => Size(200, 150);
+  Size get preferredSize => Size(200, 180);
 }
