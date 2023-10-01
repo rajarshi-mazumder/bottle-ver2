@@ -1,5 +1,6 @@
 import 'package:bottle_ver2/screens/gamrProfileScreen.dart';
 import 'package:bottle_ver2/sharedWidgets/navbar.dart';
+import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
 import 'package:bottle_ver2/sharedWidgets/sidebar.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,6 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Positioned(
               top: 0, left: 0, child: Sidebar(isExpanded: isSidebarExpanded)),
+          Positioned(
+              top: 0,
+              right: 0,
+              child: RightSidebar(isExpanded: isSidebarExpanded)),
         ],
       ),
       floatingActionButton: FloatingActionButton(

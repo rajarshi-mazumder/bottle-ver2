@@ -20,28 +20,33 @@ class GameProfileTopSection extends StatelessWidget
           children: [
             Container(
               height: 180,
-              color: Colors.green,
-              child: Image.asset(
-                '/fade1.png',
-                width: MediaQuery.of(context).size.width,
-                fit: BoxFit.cover,
+              color: Colors.black,
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Image.asset(
+                  '/fade5_1.jpg',
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Positioned(
               bottom: 0,
-              left: 0,
+              left: -140,
               right: 0,
-              child: Center(
+              child: Align(
+                alignment: Alignment.center,
                 child: Container(
-                  width: 1200,
+                  width: 1060,
+                  height: 60,
                   // Set the fixed width of the Container
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(180, 0, 0, 0),
+                      color: Color.fromARGB(230, 0, 0, 0),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(
-                            20,
+                            10,
                           ),
-                          topRight: Radius.circular(20))),
+                          topRight: Radius.circular(10))),
                   child: tabBar,
                 ),
               ),

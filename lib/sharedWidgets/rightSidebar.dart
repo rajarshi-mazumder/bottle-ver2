@@ -4,16 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hovering/hovering.dart';
 
-class Sidebar extends StatefulWidget {
-  Sidebar({super.key, required this.isExpanded});
+class RightSidebar extends StatefulWidget {
+  RightSidebar({super.key, required this.isExpanded});
 
   bool isExpanded;
 
   @override
-  _SidebarState createState() => _SidebarState();
+  _RightSidebarState createState() => _RightSidebarState();
 }
 
-class _SidebarState extends State<Sidebar> {
+class _RightSidebarState extends State<RightSidebar> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -46,8 +46,8 @@ class _SidebarState extends State<Sidebar> {
           decoration: BoxDecoration(
               color: secondaryColor,
               borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(10),
-                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                topLeft: Radius.circular(10),
               )),
           child: Column(
             children: [
@@ -57,8 +57,7 @@ class _SidebarState extends State<Sidebar> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      CustomIcon(
-                          iconData: CupertinoIcons.game_controller_solid),
+                      CustomIcon(iconData: Icons.person),
                       if (widget.isExpanded) SizedBox(width: 20),
                       if (widget.isExpanded)
                         Text(

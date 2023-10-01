@@ -1,6 +1,7 @@
 import 'package:bottle_ver2/screens/gameProfileWidgets/gameProfileLeftSection.dart';
 import 'package:bottle_ver2/screens/gameProfileWidgets/gameProfileRightSection.dart';
 import 'package:bottle_ver2/screens/gameProfileWidgets/gameProfileTopSection.dart';
+import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/material.dart';
 
 class GameProfileScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
       child: Scaffold(
         appBar: GameProfileTopSection(
           tabBar: TabBar(
-
+            indicatorColor: primaryColor,
             tabs: [
               Tab(text: 'Game Profiles'), // Tab 1 text
               Tab(text: 'Posts'), // Tab 2 text
@@ -33,27 +34,33 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
                 _selectedTabIndex = index; // Update selected tab index
               });
             },
-
           ),
         ),
-        body: Stack(
-          children: [
-            TabBarView(
-              children: [
-                // Content for Tab 1
-                _buildTabContent(0),
-                // Content for Tab 2
-                _buildTabContent(1),
-                // Content for Tab 3
-                _buildTabContent(2),
-              ],
-            ),
-            Positioned(
-              top: 20,
-              left: 350,
-              child: GameProfileLeftSection(),
-            ),
-          ],
+        body: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [bgPrimaryColor, bgSecondaryColor])),
+          child: Stack(
+            children: [
+              TabBarView(
+                children: [
+                  // Content for Tab 1
+                  _buildTabContent(0),
+                  // Content for Tab 2
+                  _buildTabContent(1),
+                  // Content for Tab 3
+                  _buildTabContent(2),
+                ],
+              ),
+              Positioned(
+                top: 20,
+                left: 350,
+                child: GameProfileLeftSection(),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -62,10 +69,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
   // Helper function to build tab content based on the selected index
   Widget _buildTabContent(int tabIndex) {
     return Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
+      width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
         child: Column(
           children: [
