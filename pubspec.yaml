@@ -42,6 +42,9 @@ dependencies:
   google_fonts: ^6.1.0
   hoverover: ^0.1.1
   hovering: ^1.0.4
+  flutter_sticky_widgets: ^0.0.3
+  flutter_sticky_header: ^0.6.5
+  sticky_headers: ^0.3.0+2
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,8 @@
 import 'package:bottle_ver2/authentication/login.dart';
 import 'package:bottle_ver2/providers/userProvider.dart';
+import 'package:bottle_ver2/screens/gamrProfileScreen.dart';
 import 'package:bottle_ver2/screens/homeScreen.dart';
+import 'package:bottle_ver2/screens/temp.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -1,99 +1,67 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:bottle_ver2/screens/gameProfileWidgets/gameProfileLeftSection.dart';
 import 'package:bottle_ver2/screens/gameProfileWidgets/gameProfileRightSection.dart';
 import 'package:bottle_ver2/screens/gameProfileWidgets/gameProfileTopSection.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sticky_widgets/flutter_sticky_widgets.dart';
+
+import '../sharedWidgets/rightSidebar.dart';
+import '../sharedWidgets/sidebar.dart';
 
 class GameProfileScreen extends StatefulWidget {
-  const GameProfileScreen({super.key});
+  const GameProfileScreen({Key? key});
 
   @override
   State<GameProfileScreen> createState() => _GameProfileScreenState();
 }
 
 class _GameProfileScreenState extends State<GameProfileScreen> {
-  int _selectedTabIndex = 0; // Track the selected tab index
+  bool _isBlueContainerSticky = false;
+  bool isSidebarExpanded = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      animationDuration: Duration.zero, // Number of tabs
-      initialIndex: 0, // Initial selected tab index
-      child: Scaffold(
-        appBar: GameProfileTopSection(
-          tabBar: TabBar(
-            indicatorColor: primaryColor,
-            tabs: [
-              Tab(text: 'Game Profiles'), // Tab 1 text
-              Tab(text: 'Posts'), // Tab 2 text
-              Tab(text: 'Communities'), // Tab 3 text
-            ],
-            onTap: (index) {
-              setState(() {
-                _selectedTabIndex = index; // Update selected tab index
-              });
-            },
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          pinned: true,
+          expandedHeight: 600,
+          flexibleSpace: FlexibleSpaceBar(
+            background: Image.asset(
+              "/fade5_1_bw.jpg",
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-        body: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [bgPrimaryColor, bgSecondaryColor])),
-          child: Stack(
-            children: [
-              TabBarView(
-                children: [
-                  // Content for Tab 1
-                  _buildTabContent(0),
-                  // Content for Tab 2
-                  _buildTabContent(1),
-                  // Content for Tab 3
-                  _buildTabContent(2),
-                ],
-              ),
+        SliverToBoxAdapter(
+          child: Container(
+            height: MediaQuery.of(context).size.height - 100,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [bgPrimaryColor, bgSecondaryColor])),
+            child: Stack(children: [
               Positioned(
-                top: 20,
-                left: 350,
-                child: GameProfileLeftSection(),
-              ),
-            ],
+                  top: 50,
+                  left: 0,
+                  child: Sidebar(isExpanded: isSidebarExpanded)),
+              Positioned(
+                  top: 50,
+                  right: 0,
+                  child: RightSidebar(isExpanded: isSidebarExpanded)),
+            ]),
           ),
-        ),
-      ),
-    );
-  }
-
-  // Helper function to build tab content based on the selected index
-  Widget _buildTabContent(int tabIndex) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            if (tabIndex == _selectedTabIndex)
-              Container(
-                width: 900,
-                child: IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: Container(
-                          margin: EdgeInsets.only(left: 200, top: 70),
-                          child: GameProfileRightSection(),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
+        )
+      ],
     );
   }
 }

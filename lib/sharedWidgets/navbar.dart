@@ -7,7 +7,7 @@ class NavBar extends StatefulWidget implements PreferredSizeWidget {
   NavBar({Key? key}) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(100);
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -17,6 +17,7 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: bgPrimaryColor,
       leading: Builder(
         builder: (BuildContext context) {
           return Row(

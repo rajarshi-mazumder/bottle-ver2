@@ -1,62 +1,48 @@
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/material.dart';
 
-class GameProfileTopSection extends StatelessWidget
-    implements PreferredSizeWidget {
+class GameProfileTopSection
+    extends StatelessWidget // implements PreferredSizeWidget
+{
   GameProfileTopSection({Key? key, required this.tabBar}) : super(key: key);
   final TabBar tabBar;
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        alignment: Alignment.centerLeft,
-        // Align the Container to the left
-        color: bgPrimaryColor,
-        margin: EdgeInsets.only(top: 0),
-        width: MediaQuery.of(context).size.width,
-        child: Stack(
-          children: [
-            Container(
-              height: 180,
-              color: Colors.black,
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Image.asset(
-                  '/fade5_1.jpg',
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.cover,
-                ),
-              ),
+    return Column(
+      children: [
+        Container(
+          height: 400,
+          color: Colors.black,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset(
+              '/fade5_1.jpg',
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.cover,
             ),
-            Positioned(
-              bottom: 0,
-              left: -140,
-              right: 0,
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
-                  width: 1060,
-                  height: 60,
-                  // Set the fixed width of the Container
-                  decoration: BoxDecoration(
-                      color: Color.fromARGB(230, 0, 0, 0),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(
-                            10,
-                          ),
-                          topRight: Radius.circular(10))),
-                  child: tabBar,
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+        // Align(
+        //   alignment: Alignment.center,
+        //   child: Container(
+        //     width: 1060,
+        //     height: 60,
+        //     // Set the fixed width of the Container
+        //     decoration: BoxDecoration(
+        //         color: Color.fromARGB(230, 0, 0, 0),
+        //         borderRadius: BorderRadius.only(
+        //             topLeft: Radius.circular(
+        //               10,
+        //             ),
+        //             topRight: Radius.circular(10))),
+        //     child: tabBar,
+        //   ),
+        // ),
+      ],
     );
   }
 
-  @override
-  Size get preferredSize => Size(200, 180);
+// @override
+// Size get preferredSize => Size(200, 800);
 }

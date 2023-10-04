@@ -25,23 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [bgPrimaryColor, bgSecondaryColor],
-                // Replace with your desired gradient colors
-              ),
-            ),
             child: GameProfileScreen(),
-            // Other properties of your Container
           ),
-          Positioned(
-              top: 0, left: 0, child: Sidebar(isExpanded: isSidebarExpanded)),
-          Positioned(
-              top: 0,
-              right: 0,
-              child: RightSidebar(isExpanded: isSidebarExpanded)),
         ],
       ),
       floatingActionButton: FloatingActionButton(
