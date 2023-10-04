@@ -25,7 +25,7 @@ class _GameProfileRightSectionState extends State<GameProfileRightSection> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [secondaryColor, bgPrimaryColor])),
-            width: 800,
+            width: MediaQuery.of(context).size.width * 0.5,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

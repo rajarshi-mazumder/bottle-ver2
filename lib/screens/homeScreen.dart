@@ -1,4 +1,4 @@
-import 'package:bottle_ver2/screens/gamrProfileScreen.dart';
+import 'package:bottle_ver2/screens/gamerProfileScreen.dart';
 import 'package:bottle_ver2/sharedWidgets/navbar.dart';
 import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
 import 'package:bottle_ver2/sharedWidgets/sidebar.dart';
@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     int selectedIndex = 0;
     return Scaffold(
-      appBar: NavBar(),
+      // appBar: NavBar(),
       body: Stack(
         children: [
           Container(

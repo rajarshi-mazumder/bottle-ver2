@@ -51,6 +51,17 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
                     colors: [bgPrimaryColor, bgSecondaryColor])),
             child: Stack(children: [
               Positioned(
+                  left: MediaQuery.of(context).size.width * 0.17,
+                  top: 0,
+                  child: GameProfileLeftSection()),
+              // Left gamerProfileSection
+              Positioned(
+                top: 52,
+                right: 200,
+                child: GameProfileRightSection(),
+              ),
+              // Right gamerProfileSection
+              Positioned(
                   top: 50,
                   left: 0,
                   child: Sidebar(isExpanded: isSidebarExpanded)),
