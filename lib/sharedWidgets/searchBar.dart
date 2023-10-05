@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../themes/themes.dart';
 
 class CustomSearchBar extends StatefulWidget {
-  CustomSearchBar({
-    super.key,
-  });
+  CustomSearchBar({super.key, this.backgroundColor = bgSecondaryColor});
+
+  Color backgroundColor;
 
   @override
   State<CustomSearchBar> createState() => _CustomSearchBarState();
@@ -19,7 +19,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          color: bgSecondaryColor,
+          color: widget.backgroundColor,
         ),
         child: Padding(
           padding: EdgeInsets.only(left: 20, bottom: 9),

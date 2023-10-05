@@ -41,7 +41,8 @@ class _CustomDropdownState extends State<CustomDropdown> {
                       children: <Widget>[
                         Padding(
                             padding: EdgeInsets.only(right: 16.0),
-                            child: Icon(Icons.palette, color: primaryColor)),
+                            child: Icon(CupertinoIcons.game_controller_solid,
+                                color: primaryColor)),
                         Text(item),
                       ],
                     ))

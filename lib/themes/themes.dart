@@ -5,6 +5,7 @@ const primaryColor = Color.fromRGBO(255, 70, 85, 1);
 const secondaryColor = Color.fromARGB(255, 14, 14, 14);
 const bgPrimaryColor = Color.fromARGB(255, 19, 19, 19);
 const bgSecondaryColor = Color.fromARGB(255, 30, 30, 30);
+const bgTertiaryColor = Color.fromARGB(255, 100, 100, 100);
 const double sidebarBorderRadius = 30;
 ThemeData customTheme = ThemeData(
     primaryColor: primaryColor,

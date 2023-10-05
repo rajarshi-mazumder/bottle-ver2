@@ -40,6 +40,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
               children: [
                 Image.asset(
                   "/fade5_1_bw.jpg",
+                  width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
                 ),
                 Container(
@@ -56,7 +57,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
                             Text("VALORANT",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 50)),
-                            CustomSearchBar(),
+                            CustomSearchBar(backgroundColor: bgTertiaryColor),
                           ],
                         ),
                         // Set the color for the blue container

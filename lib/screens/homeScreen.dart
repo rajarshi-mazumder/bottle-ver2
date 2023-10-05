@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hovering/hovering.dart';
 
+import '../themes/customIconButtons.dart';
+
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
@@ -28,9 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
             child: GameProfileScreen(),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
       ),
     );
   }
