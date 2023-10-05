@@ -2,7 +2,9 @@ import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/material.dart';
 
 class GameProfileLeftSection extends StatefulWidget {
-  const GameProfileLeftSection({super.key});
+  GameProfileLeftSection({super.key, this.cardLength = "long"});
+
+  String cardLength;
 
   @override
   State<GameProfileLeftSection> createState() => _GameProfileLeftSectionState();
@@ -35,7 +37,7 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                         end: Alignment.bottomCenter,
                         colors: [secondaryColor, bgPrimaryColor]),
                   ),
-                  height: 400,
+                  height: widget.cardLength == "long" ? 400 : 100,
                   width: 300,
                 ),
               )

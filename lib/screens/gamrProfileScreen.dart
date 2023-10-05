@@ -42,7 +42,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
                   fit: BoxFit.cover,
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                  margin: EdgeInsets.symmetric(horizontal: 100, vertical: 50),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -53,13 +53,26 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
                             Colors.blue, // Set the color for the blue container
                       ),
                       Container(
-                        height: 200,
+                        // height: 200,
                         width: 300,
-                        color: Colors.green,
-                        child: Image.asset(
-                          "/Reyna-1.png",
-                          width: 300,
-                          fit: BoxFit.cover,
+                        child: Column(
+                          children: [
+                            GameProfileLeftSection(cardLength: "short"),
+                            ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [secondaryColor, bgPrimaryColor]),
+                                ),
+                                height: 100,
+                                width: 300,
+                              ),
+                            )
+                          ],
                         ), // Set the color for the green container
                       ),
                     ],

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import '../../themes/themes.dart';
 
 class GameProfileRightSection extends StatefulWidget {
-  const GameProfileRightSection({super.key});
+  const GameProfileRightSection({
+    super.key,
+  });
 
   @override
   State<GameProfileRightSection> createState() =>
