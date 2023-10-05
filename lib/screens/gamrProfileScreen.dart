@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:bottle_ver2/screens/gameProfileWidgets/gameProfileLeftSection.dart';
 import 'package:bottle_ver2/screens/gameProfileWidgets/gameProfileRightSection.dart';
 import 'package:bottle_ver2/screens/gameProfileWidgets/gameProfileTopSection.dart';
+import 'package:bottle_ver2/sharedWidgets/searchBar.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_widgets/flutter_sticky_widgets.dart';
@@ -49,8 +50,16 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
                       Container(
                         height: 200,
                         width: 300,
-                        color:
-                            Colors.blue, // Set the color for the blue container
+
+                        child: Column(
+                          children: [
+                            Text("VALORANT",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 50)),
+                            CustomSearchBar(),
+                          ],
+                        ),
+                        // Set the color for the blue container
                       ),
                       Container(
                         // height: 200,
