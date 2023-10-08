@@ -1,4 +1,3 @@
-import 'package:bottle_ver2/screens/mainScreen.dart';
 import 'package:bottle_ver2/sharedWidgets/navbar.dart';
 import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
 import 'package:bottle_ver2/sharedWidgets/sidebar.dart';
@@ -28,6 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: NavBar(
         menuItemPlay: true,
+        menuItemShop: false,
+        menuItemWatch: false,
       ),
       body: Stack(
         children: [
@@ -35,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
+                  automaticallyImplyLeading: false,
                   pinned: true,
                   expandedHeight: 550,
                   flexibleSpace: FlexibleSpaceBar(
@@ -100,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: MainScreen(),
+                  child: GameProfileScreen(),
                 ),
               ],
             ),

@@ -1,3 +1,6 @@
+import 'package:bottle_ver2/screens/gamerProfileScreen.dart';
+import 'package:bottle_ver2/screens/homeScreen.dart';
+import 'package:bottle_ver2/screens/tournamentsScreen.dart';
 import 'package:bottle_ver2/sharedWidgets/searchBar.dart';
 import 'package:bottle_ver2/themes/customIconButtons.dart';
 import 'package:bottle_ver2/themes/themes.dart';
@@ -54,15 +57,23 @@ class _NavBarState extends State<NavBar> {
               child:
                   NavbarMenuItem(text: "Play", isActive: widget.menuItemPlay),
               onTap: () {
-                setState(() {
-                  // menuItemPlay = !menuItemPlay;
-                });
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()));
               },
             ),
             SizedBox(width: 30),
-            NavbarMenuItem(text: "Watch", isActive: widget.menuItemShop),
+            GestureDetector(
+              child:
+                  NavbarMenuItem(text: "Watch", isActive: widget.menuItemWatch),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TournamentsScreen()));
+              },
+            ),
             SizedBox(width: 30),
-            NavbarMenuItem(text: "Shop", isActive: widget.menuItemWatch),
+            NavbarMenuItem(text: "Shop", isActive: widget.menuItemShop),
             SizedBox(width: 30),
             Container(
               constraints: BoxConstraints(maxWidth: 500),
