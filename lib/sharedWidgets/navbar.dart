@@ -4,10 +4,22 @@ import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../themes/navbarThemes.dart';
+
 const double navbarTopMargin = 10;
 
 class NavBar extends StatefulWidget implements PreferredSizeWidget {
-  NavBar({Key? key}) : super(key: key);
+  NavBar(
+      {Key? key,
+      this.menuItemPlay = true,
+      this.menuItemWatch = false,
+      this.menuItemShop = false})
+      : super(key: key);
+  bool menuItemPlay;
+
+  bool menuItemWatch;
+
+  bool menuItemShop;
 
   @override
   Size get preferredSize => Size.fromHeight(110);
@@ -37,7 +49,21 @@ class _NavBarState extends State<NavBar> {
         margin: EdgeInsets.only(top: navbarTopMargin),
         child: Row(
           children: [
-            SizedBox(width: 20),
+            SizedBox(width: 30),
+            GestureDetector(
+              child:
+                  NavbarMenuItem(text: "Play", isActive: widget.menuItemPlay),
+              onTap: () {
+                setState(() {
+                  // menuItemPlay = !menuItemPlay;
+                });
+              },
+            ),
+            SizedBox(width: 30),
+            NavbarMenuItem(text: "Watch", isActive: widget.menuItemShop),
+            SizedBox(width: 30),
+            NavbarMenuItem(text: "Shop", isActive: widget.menuItemWatch),
+            SizedBox(width: 30),
             Container(
               constraints: BoxConstraints(maxWidth: 500),
               // Limit search bar width
@@ -122,36 +148,6 @@ class _NavBarState extends State<NavBar> {
           ]),
         )
       ],
-    );
-  }
-}
-
-class temp extends StatelessWidget {
-  const temp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: Colors.blue),
-      width: 300,
-      height: 200,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Container(
-          margin: EdgeInsets.only(top: navbarTopMargin),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              CustomIconButton_Type2(
-                  icon: Icon(CupertinoIcons.bell), onPressed: () {}),
-              SizedBox(width: 20),
-              CustomIconButton_Type2(
-                  icon: Icon(CupertinoIcons.person), onPressed: () {}),
-              SizedBox(width: 20),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

@@ -23,7 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     int selectedIndex = 0;
     return Scaffold(
-      appBar: NavBar(),
+      appBar: NavBar(
+        menuItemPlay: true,
+      ),
       body: Stack(
         children: [
           Container(
