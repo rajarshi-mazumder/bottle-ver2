@@ -1,4 +1,4 @@
-import 'package:bottle_ver2/screens/gamrProfileScreen.dart';
+import 'package:bottle_ver2/screens/mainScreen.dart';
 import 'package:bottle_ver2/sharedWidgets/navbar.dart';
 import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
 import 'package:bottle_ver2/sharedWidgets/sidebar.dart';
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: [
           Container(
-            child: GameProfileScreen(),
+            child: MainScreenScreen(),
           ),
         ],
       ),

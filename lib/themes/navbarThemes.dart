@@ -8,7 +8,7 @@ TextStyle navbarTextStyle({double fontSize = 15}) {
 
 class NavbarMenuItem extends StatefulWidget {
   NavbarMenuItem(
-      {super.key, required this.text, this.isActive = false, this.onPressed});
+      {super.key, required this.text, required this.isActive, this.onPressed});
 
   String text;
   bool isActive;
@@ -21,10 +21,15 @@ class NavbarMenuItem extends StatefulWidget {
 class _NavbarMenuItemState extends State<NavbarMenuItem> {
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     setState(() {
-      widget.isActive = !widget.isActive;
+      widget.isActive;
     });
   }
 
