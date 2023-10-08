@@ -1,4 +1,4 @@
-import 'package:bottle_ver2/themes/customIconButtons.dart';
+import 'package:bottle_ver2/themes/profileIcons.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,90 +16,96 @@ class RightSidebar extends StatefulWidget {
 class _RightSidebarState extends State<RightSidebar> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          widget.isExpanded = !widget.isExpanded;
-        });
-      },
-      child: MouseRegion(
-        onEnter: (event) {
-          if (!widget.isExpanded) {
-            setState(() {
-              widget.isExpanded = true;
-            });
-          }
-        },
-        onExit: (event) {
-          if (widget.isExpanded) {
-            setState(() {
-              widget.isExpanded = false;
-            });
-          }
-        },
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: 300),
-          // margin: EdgeInsets.only(top: 120),
-          curve: Curves.easeInOut,
-          width: widget.isExpanded ? 300.0 : 80.0,
-          height: (MediaQuery.of(context).size.height) * 0.7,
-          decoration: BoxDecoration(
-              color: secondaryColor,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(sidebarBorderRadius),
-                topLeft: Radius.circular(sidebarBorderRadius),
-              )),
-          child: Column(
-            children: [
-              SizedBox(height: 40),
-              ListTile(
-                title: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      CustomIcon(iconData: Icons.person),
-                      if (widget.isExpanded) SizedBox(width: 20),
-                      if (widget.isExpanded)
-                        Text(
-                          "Game Profile",
-                          style: TextStyle(color: Colors.white),
-                        )
-                    ],
+    return Container(
+      width: widget.isExpanded ? 300.0 : 80.0,
+      height: (MediaQuery.of(context).size.height) * 0.7,
+      decoration: BoxDecoration(
+          color: secondaryColor,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(sidebarBorderRadius),
+            topLeft: Radius.circular(sidebarBorderRadius),
+          )),
+      child: Column(
+        children: [
+          SizedBox(height: 40),
+          ListTile(
+            title: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ProfileIconButton(
+                    imgUrl: "/profilePics/yay.webp",
+                    onPressed: () {},
+                    isOnline: true,
                   ),
-                ),
-                onTap: () {
-                  setState(() {
-                    widget.isExpanded = !widget.isExpanded;
-                  });
-                },
+                  if (widget.isExpanded) SizedBox(width: 20),
+                  if (widget.isExpanded)
+                    Text(
+                      "Game Profile",
+                      style: TextStyle(color: Colors.white),
+                    )
+                ],
               ),
-              SizedBox(height: 20),
-              ListTile(
-                title: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      CustomIcon(iconData: CupertinoIcons.grid),
-                      if (widget.isExpanded) SizedBox(width: 20),
-                      if (widget.isExpanded)
-                        Text(
-                          "Stats",
-                          style: TextStyle(color: Colors.white),
-                        )
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  setState(() {
-                    widget.isExpanded = !widget.isExpanded;
-                  });
-                },
-              ),
-
-              // Add more items as needed
-            ],
+            ),
+            onTap: () {
+              setState(() {
+                widget.isExpanded = !widget.isExpanded;
+              });
+            },
           ),
-        ),
+          SizedBox(height: 20),
+          ListTile(
+            title: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ProfileIconButton(
+                    imgUrl: "/profilePics/fns.webp",
+                    onPressed: () {},
+                  ),
+                  if (widget.isExpanded) SizedBox(width: 20),
+                  if (widget.isExpanded)
+                    Text(
+                      "Game Profile",
+                      style: TextStyle(color: Colors.white),
+                    )
+                ],
+              ),
+            ),
+            onTap: () {
+              setState(() {
+                widget.isExpanded = !widget.isExpanded;
+              });
+            },
+          ),
+          SizedBox(height: 20),
+          ListTile(
+            title: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ProfileIconButton(
+                    imgUrl: "/profilePics/boaster.jpg",
+                    onPressed: () {},
+                    isOnline: true,
+                  ),
+                  if (widget.isExpanded) SizedBox(width: 20),
+                  if (widget.isExpanded)
+                    Text(
+                      "Game Profile",
+                      style: TextStyle(color: Colors.white),
+                    )
+                ],
+              ),
+            ),
+            onTap: () {
+              setState(() {
+                widget.isExpanded = !widget.isExpanded;
+              });
+            },
+          ),
+          // Add more items as needed
+        ],
       ),
     );
   }

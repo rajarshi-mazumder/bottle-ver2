@@ -39,7 +39,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
             background: Stack(
               children: [
                 Image.asset(
-                  "/fade5_1_bw.jpg",
+                  "/omen3.png",
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
                 ),
