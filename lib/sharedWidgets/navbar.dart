@@ -1,13 +1,28 @@
+import 'package:bottle_ver2/sharedWidgets/searchBar.dart';
 import 'package:bottle_ver2/themes/customIconButtons.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../themes/navbarThemes.dart';
+
+const double navbarTopMargin = 10;
+
 class NavBar extends StatefulWidget implements PreferredSizeWidget {
-  NavBar({Key? key}) : super(key: key);
+  NavBar(
+      {Key? key,
+      this.menuItemPlay = true,
+      this.menuItemWatch = false,
+      this.menuItemShop = false})
+      : super(key: key);
+  bool menuItemPlay;
+
+  bool menuItemWatch;
+
+  bool menuItemShop;
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(110);
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -17,63 +32,121 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: Builder(
-        builder: (BuildContext context) {
-          return Row(
-            children: [
-              SizedBox(width: 20),
-              Icon(
-                Icons.headphones,
-                size: 30,
-              ),
-            ],
-          ); // Hamburger menu icon
-        },
-      ),
-      title: Row(
-        children: [
-          SizedBox(width: 20),
-          Container(
-            constraints: BoxConstraints(maxWidth: 500),
-            // Limit search bar width
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(25),
-              child: Container(
-                height: 35,
-                decoration: BoxDecoration(
-                  color: bgSecondaryColor,
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search...',
-                      hintStyle: TextStyle(fontSize: 15),
-                      border: InputBorder.none, // Remove the underline
-                    ),
-                    // Implement search functionality here
-                    onChanged: (text) {
-                      // Handle search text changes
-                    },
-                    onSubmitted: (text) {
-                      // Handle search submission
-                    },
-                  ),
-                ),
-              ),
+      backgroundColor: bgPrimaryColor,
+      leading: Container(
+        margin: EdgeInsets.only(top: navbarTopMargin),
+        child: Row(
+          children: [
+            SizedBox(width: 20),
+            Icon(
+              Icons.headphones,
+              size: 30,
             ),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          CustomIconButton(icon: Icon(CupertinoIcons.search), onPressed: () {}),
-        ],
+          ],
+        ),
+      ),
+      title: Container(
+        margin: EdgeInsets.only(top: navbarTopMargin),
+        child: Row(
+          children: [
+            SizedBox(width: 30),
+            GestureDetector(
+              child:
+                  NavbarMenuItem(text: "Play", isActive: widget.menuItemPlay),
+              onTap: () {
+                setState(() {
+                  // menuItemPlay = !menuItemPlay;
+                });
+              },
+            ),
+            SizedBox(width: 30),
+            NavbarMenuItem(text: "Watch", isActive: widget.menuItemShop),
+            SizedBox(width: 30),
+            NavbarMenuItem(text: "Shop", isActive: widget.menuItemWatch),
+            SizedBox(width: 30),
+            Container(
+              constraints: BoxConstraints(maxWidth: 500),
+              // Limit search bar width
+              child: CustomSearchBar(),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            CustomIconButton(
+                icon: Icon(CupertinoIcons.search), onPressed: () {}),
+          ],
+        ),
       ),
       actions: [
-        CustomIconButton(icon: Icon(CupertinoIcons.bell), onPressed: () {}),
-        SizedBox(width: 20),
-        CustomIconButton(icon: Icon(CupertinoIcons.person), onPressed: () {}),
-        SizedBox(width: 20)
+        Container(
+          decoration: BoxDecoration(
+            color: bgSecondaryColor,
+            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(100)),
+          ),
+          width: 270,
+          height: 200,
+          child: Stack(children: [
+            Positioned(
+              top: 10,
+              right: 20,
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: primaryColor,
+                    radius: 17,
+                    child: Icon(
+                      Icons.notification_important_rounded,
+                      size: 17,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  CircleAvatar(
+                    backgroundColor: primaryColor,
+                    radius: 17,
+                    child: Icon(
+                      Icons.person,
+                      size: 17,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                      width: 110,
+                      height: 34,
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Row(
+                        children: [
+                          SizedBox(width: 15),
+                          Text(
+                            "Profile",
+                            style: TextStyle(color: Colors.white, fontSize: 13),
+                          ),
+                          SizedBox(width: 15),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border:
+                                    Border.all(color: Colors.white, width: 1)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.network(
+                                "https://riseupgamer.com/wp-content/uploads/2022/01/yayster-Valorant-Settings.jpeg",
+                                height: 28,
+                                width: 28,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                ],
+              ),
+            )
+          ]),
+        )
       ],
     );
   }

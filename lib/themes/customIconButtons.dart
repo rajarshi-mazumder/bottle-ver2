@@ -54,3 +54,34 @@ class CustomIcon extends StatelessWidget {
     );
   }
 }
+
+class CustomIconButton_Type2 extends StatelessWidget {
+  CustomIconButton_Type2({
+    super.key,
+    required this.icon,
+    required this.onPressed,
+    this.iconSize = 20,
+  });
+
+  Icon icon;
+  Function onPressed;
+  double iconSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      width: 100,
+      decoration: BoxDecoration(
+          color: primaryColor, borderRadius: BorderRadius.circular(50)),
+      child: IconButton(
+        icon: icon,
+        color: Colors.white,
+        iconSize: 12,
+        onPressed: () {
+          onPressed();
+        },
+      ),
+    );
+  }
+}
