@@ -1,6 +1,6 @@
 import 'package:bottle_ver2/screens/gamerProfileScreen.dart';
-import 'package:bottle_ver2/screens/homeScreen.dart';
-import 'package:bottle_ver2/screens/tournamentsScreen.dart';
+import 'package:bottle_ver2/screens/gameProfileScreenLayout.dart';
+import 'package:bottle_ver2/screens/tournamentsScreenLayout.dart';
 import 'package:bottle_ver2/sharedWidgets/searchBar.dart';
 import 'package:bottle_ver2/themes/customIconButtons.dart';
 import 'package:bottle_ver2/themes/themes.dart';
@@ -57,7 +57,7 @@ class _NavBarState extends State<NavBar> {
               child:
                   NavbarMenuItem(text: "Play", isActive: widget.menuItemPlay),
               onTap: () {
-                Navigator.push(context,
+                Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => HomeScreen()));
               },
             ),
@@ -66,10 +66,10 @@ class _NavBarState extends State<NavBar> {
               child:
                   NavbarMenuItem(text: "Watch", isActive: widget.menuItemWatch),
               onTap: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => TournamentsScreen()));
+                        builder: (context) => TournamentsScreenLayout()));
               },
             ),
             SizedBox(width: 30),

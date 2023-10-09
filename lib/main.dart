@@ -1,8 +1,8 @@
 import 'package:bottle_ver2/authentication/login.dart';
 import 'package:bottle_ver2/providers/userProvider.dart';
-import 'package:bottle_ver2/screens/homeScreen.dart';
+import 'package:bottle_ver2/screens/gameProfileScreenLayout.dart';
 import 'package:bottle_ver2/screens/temp.dart';
-import 'package:bottle_ver2/screens/tournamentsScreen.dart';
+import 'package:bottle_ver2/screens/tournamentsScreenLayout.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,15 +25,15 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<UserProvider>(create: (context) {
-          userProvider.getAllUsersStream();
-          if (authUser != null) userProvider.setLoggedInUser(authUser!.email!);
+          // userProvider.getAllUsersStream();
+          // if (authUser != null) userProvider.setLoggedInUser(authUser!.email!);
           return userProvider;
         })
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: customTheme,
-        home: TournamentsScreen(),
+        home: TournamentsScreenLayout(),
       ),
     );
   }
