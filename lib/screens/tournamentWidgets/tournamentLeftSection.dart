@@ -27,62 +27,102 @@ class _TournamentLeftSectionState extends State<TournamentLeftSection> {
                     end: Alignment.bottomCenter,
                     colors: [secondaryColor, bgPrimaryColor]),
               ),
-              height: widget.cardLength == "long" ? 400 : 100,
+              height: widget.cardLength == "long" ? 500 : 100,
               width: 300,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(height: 20),
-                  Text(
-                    "Tournaments",
-                    style: TextStyle(fontSize: 18),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20),
+                        Text(
+                          "Tournaments",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        SizedBox(height: 10),
+                        ListTile(
+                          title: RichText(
+                            text: TextSpan(
+                              text:
+                                  "Find tournaments happening near you, and participate with your own team!",
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: tournaments.length >= 3
+                                ? 3
+                                : tournaments.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  ListTile(
+                                    title: Text(tournaments[index]['title']),
+                                    trailing:
+                                        Text(tournaments[index]['organizer']),
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          tournaments[index]['date'],
+                                          style: TextStyle(
+                                              fontSize: 12, color: Colors.grey),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ],
+                                    ),
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 15),
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 15),
+                                    child: const Divider(
+                                      thickness: 1,
+                                    ),
+                                  ), // Divider
+                                  SizedBox(height: 10),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: bgSecondaryColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                          alignment: Alignment.centerLeft, child: Text("Hubs")),
+                    ),
                   ),
                   SizedBox(height: 10),
-                  ListTile(
-                    title: RichText(
-                      text: TextSpan(
-                        text:
-                            "Find tournaments happening near you, and participate with your own team!",
-                        style: TextStyle(color: Colors.grey),
-                      ),
+                  Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: bgSecondaryColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text("Teams")),
                     ),
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount:
-                          tournaments.length >= 3 ? 3 : tournaments.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            ListTile(
-                              title: Text(tournaments[index]['title']),
-                              trailing: Text(tournaments[index]['organizer']),
-                            ),
-                            Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    tournaments[index]['date'],
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.grey),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ],
-                              ),
-                              margin: EdgeInsets.symmetric(horizontal: 15),
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(horizontal: 15),
-                              child: const Divider(
-                                thickness: 1,
-                              ),
-                            ), // Divider
-                            SizedBox(height: 10),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
+                  SizedBox(height: 10),
                 ],
               ),
             ),
