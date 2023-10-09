@@ -16,33 +16,28 @@ class GameProfileRightSection extends StatefulWidget {
 class _GameProfileRightSectionState extends State<GameProfileRightSection> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          child: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [secondaryColor, bgPrimaryColor])),
-            width: MediaQuery.of(context).size.width * 0.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: CustomDropdown(),
-                ),
-                Container(
-                  height: 800,
-                )
-              ],
+    return ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+      child: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [secondaryColor, bgPrimaryColor])),
+        width: MediaQuery.of(context).size.width * 0.5,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: CustomDropdown(),
             ),
-          ),
-        )
-      ],
+            Container(
+              height: 800,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

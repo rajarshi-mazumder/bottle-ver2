@@ -1,3 +1,4 @@
+import 'package:bottle_ver2/screens/temp.dart';
 import 'package:bottle_ver2/sharedWidgets/navbar.dart';
 import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
 import 'package:bottle_ver2/sharedWidgets/sidebar.dart';
@@ -102,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: GameProfileScreen(),
+                  child: Tempppp(),
                 ),
               ],
             ),

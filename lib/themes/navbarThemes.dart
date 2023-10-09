@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 TextStyle navbarTextStyle({double fontSize = 15}) {
-  return TextStyle(fontSize: fontSize);
+  return TextStyle(fontSize: fontSize, color: Colors.white);
 }
 
 class NavbarMenuItem extends StatefulWidget {
@@ -19,7 +19,6 @@ class NavbarMenuItem extends StatefulWidget {
 }
 
 class _NavbarMenuItemState extends State<NavbarMenuItem> {
-
   @override
   void initState() {
     super.initState();
@@ -35,23 +34,31 @@ class _NavbarMenuItemState extends State<NavbarMenuItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            widget.text,
-            style: navbarTextStyle(),
-          ),
-          SizedBox(height: 10),
-          Container(
-            height: 2,
-            width: 40,
-            color: (widget.isActive) ? primaryColor : Colors.transparent,
-          )
-        ],
+    return TextButton(
+      style: ButtonStyle(
+        overlayColor: MaterialStateProperty.all<Color>(bgSecondaryColor),
       ),
+      child: Container(
+        margin: EdgeInsets.only(top: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              widget.text,
+              style: navbarTextStyle(),
+            ),
+            SizedBox(height: 10),
+            Container(
+              height: 2,
+              width: 40,
+              color: (widget.isActive) ? primaryColor : Colors.transparent,
+            )
+          ],
+        ),
+      ),
+      onPressed: () {
+        widget.onPressed!();
+      },
     );
   }
 }

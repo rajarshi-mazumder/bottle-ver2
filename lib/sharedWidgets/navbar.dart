@@ -53,19 +53,19 @@ class _NavBarState extends State<NavBar> {
         child: Row(
           children: [
             SizedBox(width: 30),
-            GestureDetector(
-              child:
-                  NavbarMenuItem(text: "Play", isActive: widget.menuItemPlay),
-              onTap: () {
+            NavbarMenuItem(
+              text: "Play",
+              isActive: widget.menuItemPlay,
+              onPressed: () {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => HomeScreen()));
               },
             ),
             SizedBox(width: 30),
-            GestureDetector(
-              child:
-                  NavbarMenuItem(text: "Watch", isActive: widget.menuItemWatch),
-              onTap: () {
+            NavbarMenuItem(
+              text: "Watch",
+              isActive: widget.menuItemWatch,
+              onPressed: () {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

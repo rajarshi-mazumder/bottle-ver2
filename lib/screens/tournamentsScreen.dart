@@ -1,5 +1,6 @@
 import 'package:bottle_ver2/screens/tournamentWidgets/TournamentTile.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentLeftSection.dart';
+import 'package:bottle_ver2/screens/tournamentWidgets/tournamentRightSection.dart';
 import 'package:flutter/material.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import '../sharedWidgets/rightSidebar.dart';
@@ -34,38 +35,9 @@ class _TournamentsScreenState extends State<TournamentsScreen> {
             top: 60,
             child: TournamentLeftSection(),
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: EdgeInsets.only(top: 60, right: 200),
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                child: Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [secondaryColor, bgPrimaryColor])),
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    child: ListView.builder(
-                      itemCount: tournaments.length,
-                      itemBuilder: (context, index) {
-                        return TournamentTile(
-                          date: tournaments[index]['date'],
-                          title: tournaments[index]['title'],
-                          organizer: tournaments[index]['organizer'],
-                          tournamentType: tournaments[index]['tournamentType'],
-                          status: tournaments[index]['status'],
-                          statusColor: tournaments[index]['statusColor'],
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          Padding(
+            padding: const EdgeInsets.only(right: 200, top: 60),
+            child: TournamentRightSection(),
           ),
           Positioned(
             top: 50,
