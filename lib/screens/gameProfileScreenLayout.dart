@@ -40,7 +40,7 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
                 SliverAppBar(
                   automaticallyImplyLeading: false,
                   pinned: true,
-                  expandedHeight: 500,
+                  expandedHeight: 400,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Stack(
                       children: [
@@ -50,8 +50,7 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
                           fit: BoxFit.cover,
                         ),
                         Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 100, vertical: 20),
+                          margin: EdgeInsets.only(left: 100, right: 100),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -73,9 +72,11 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
                               Container(
                                 // height: 200,
                                 width: 300,
+
                                 child: Column(
                                   children: [
                                     GameProfileLeftSection(cardLength: "short"),
+                                    SizedBox(height: 20),
                                     ClipRRect(
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(20)),
@@ -89,7 +90,7 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
                                                 bgPrimaryColor
                                               ]),
                                         ),
-                                        height: 100,
+                                        height: 80,
                                         width: 300,
                                       ),
                                     )

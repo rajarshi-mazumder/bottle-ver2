@@ -150,12 +150,7 @@ class TournamentTile extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            RichText(
-                              text: TextSpan(
-                                  text: "Status :   ",
-                                  style: TextStyle(color: Colors.white),
-                                  children: []),
-                            ),
+                            Text("Status :   "),
                             Text(status, style: TextStyle(color: statusColor)),
                           ],
                         ),

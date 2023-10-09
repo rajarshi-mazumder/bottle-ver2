@@ -14,7 +14,7 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 30),
+      margin: EdgeInsets.only(top: 30),
       decoration: BoxDecoration(
           // color: Colors.blue,
           ),
@@ -24,8 +24,11 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
           child: Column(
             children: [
               ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: 400),
-                  child: Image.asset('/Reyna-1.png')),
+                constraints: BoxConstraints(maxWidth: 400),
+                child: Image.asset(
+                  '/Reyna-1.png',
+                ),
+              ),
               ClipRRect(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
@@ -37,7 +40,7 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                         end: Alignment.bottomCenter,
                         colors: [secondaryColor, bgPrimaryColor]),
                   ),
-                  height: widget.cardLength == "long" ? 400 : 100,
+                  height: widget.cardLength == "long" ? 400 : 70,
                   width: 300,
                 ),
               )
