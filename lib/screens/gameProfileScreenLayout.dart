@@ -12,14 +12,15 @@ import '../themes/customIconButtons.dart';
 import 'gameProfileWidgets/gameProfileLeftSection.dart';
 import 'gamerProfileScreen.dart';
 
-class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+class GameProfileScreenLayout extends StatefulWidget {
+  GameProfileScreenLayout({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<GameProfileScreenLayout> createState() =>
+      _GameProfileScreenLayoutState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
   bool isSidebarExpanded = false;
 
   @override
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SliverAppBar(
                   automaticallyImplyLeading: false,
                   pinned: true,
-                  expandedHeight: 550,
+                  expandedHeight: 500,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Stack(
                       children: [
@@ -50,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(
-                              horizontal: 100, vertical: 50),
+                              horizontal: 100, vertical: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -103,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Tempppp(),
+                  child: GameProfileScreen(),
                 ),
               ],
             ),

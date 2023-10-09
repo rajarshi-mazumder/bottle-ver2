@@ -4,14 +4,20 @@ import '../../themes/themes.dart';
 import 'TournamentTile.dart';
 
 class TournamentRightSection extends StatelessWidget {
-  const TournamentRightSection({super.key});
+  TournamentRightSection({super.key, this.allBordersRounded = true});
+
+  bool allBordersRounded;
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: allBordersRounded
+            ? BorderRadius.all(Radius.circular(20))
+            : BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20)),
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(

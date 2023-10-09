@@ -17,7 +17,8 @@ class _GameProfileRightSectionState extends State<GameProfileRightSection> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(20)),
+      borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
       child: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(

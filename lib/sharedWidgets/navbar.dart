@@ -52,16 +52,18 @@ class _NavBarState extends State<NavBar> {
         margin: EdgeInsets.only(top: navbarTopMargin),
         child: Row(
           children: [
-            SizedBox(width: 30),
+            SizedBox(width: 20),
             NavbarMenuItem(
               text: "Play",
               isActive: widget.menuItemPlay,
               onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => GameProfileScreenLayout()));
               },
             ),
-            SizedBox(width: 30),
+            SizedBox(width: 20),
             NavbarMenuItem(
               text: "Watch",
               isActive: widget.menuItemWatch,
