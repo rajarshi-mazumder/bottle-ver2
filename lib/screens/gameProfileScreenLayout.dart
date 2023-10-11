@@ -75,7 +75,8 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
 
                                 child: Column(
                                   children: [
-                                    GameProfileLeftSection(cardLength: "short"),
+                                    GameProfileLeftSection(
+                                        cardLengthType: "short"),
                                     SizedBox(height: 20),
                                     ClipRRect(
                                       borderRadius:
