@@ -46,6 +46,95 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                       ),
                       height: widget.cardLengthType == "long" ? 400 : 70,
                       width: 300,
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            top: 30,
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: widget.cardWidth,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 20),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Peak Rank"),
+                                        Image.asset(
+                                          "/valoRanks/immortallLogo.webp",
+                                          height: 40,
+                                          width: 40,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 1,
+                                  width: widget.cardWidth,
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  child: Container(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Container(
+                                  width: widget.cardWidth,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 20),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Region"),
+                                        Text("Tokyo, Japan")
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 1,
+                                  width: widget.cardWidth,
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  child: Container(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Container(
+                                  width: widget.cardWidth,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 20),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(child: Text("Availability: ")),
+                                        Expanded(
+                                            child: Text(
+                                          "[Mon-Tue, 10:30 PM - 12:30 AM]",
+                                          style: TextStyle(fontSize: 12),
+                                        ))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 1,
+                                  width: widget.cardWidth,
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  child: Container(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(child: Text())
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -58,7 +147,7 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                           child: Text(
                         "TenZ",
                         style: TextStyle(fontSize: 25),
-                      ))))
+                      )))),
             ],
           ),
         ),
