@@ -47,14 +47,62 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                             end: Alignment.bottomCenter,
                             colors: [secondaryColor, bgPrimaryColor]),
                       ),
-                      height: widget.cardLengthType == "long" ? 400 : 70,
+                      height: widget.cardLengthType == "long" ? 500 : 70,
                       width: 300,
                       child: Stack(
                         children: [
                           Positioned(
                             top: 30,
+                            width: widget.cardWidth,
                             child: Column(
                               children: [
+                                Container(
+                                  width: widget.cardWidth,
+                                  height: 40,
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          child: Center(
+                                            child: Text(
+                                              "Follow",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          decoration: BoxDecoration(
+                                              color: bgSecondaryColor,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          child: Center(
+                                            child: Text(
+                                              "Message",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          decoration: BoxDecoration(
+                                              color: bgSecondaryColor,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 Container(
                                   width: widget.cardWidth,
                                   height: 120,
@@ -90,7 +138,7 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                                   rowItems: [
                                     Text("Peak Rank"),
                                     Image.asset(
-                                      "/valoRanks/immortallLogo.webp",
+                                      "/valoRanks/immortallLogo.png",
                                       height: 40,
                                       width: 40,
                                     )
@@ -123,13 +171,24 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
               ),
               Positioned(
                   top: 160,
+                  width: widget.cardWidth,
                   child: Container(
                       width: widget.cardWidth,
-                      child: Center(
-                          child: Text(
-                        "TenZ",
-                        style: TextStyle(fontSize: 25),
-                      )))),
+                      margin: EdgeInsets.symmetric(horizontal: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Something",
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          Image.asset(
+                            "/valoRanks/immortallLogo.png",
+                            height: 40,
+                            width: 40,
+                          )
+                        ],
+                      ))),
             ],
           ),
         ),

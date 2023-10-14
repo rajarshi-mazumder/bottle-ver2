@@ -31,9 +31,18 @@ class ValorantRole extends StatelessWidget {
               height: 50,
               width: 50,
               child: CircularProgressIndicator(
-                backgroundColor: Colors.black,
+                color: Colors.black,
+                strokeWidth: 10,
+                value: 100,
+              ),
+            ),
+            Container(
+              height: 50,
+              width: 50,
+              child: CircularProgressIndicator(
+                backgroundColor: bgSecondaryColor,
                 color: primaryColor,
-                strokeWidth: 5,
+                strokeWidth: 3,
                 value: value,
               ),
             ),
