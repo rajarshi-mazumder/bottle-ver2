@@ -1,6 +1,9 @@
 import 'package:bottle_ver2/themes/themes.dart';
-import 'package:bottle_ver2/themes/playerCardWidgets/valorantRoles.dart';
+import 'package:bottle_ver2/themes/playerCardWidgets/valorantPlayerCardWidgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class GameProfileLeftSection extends StatefulWidget {
   GameProfileLeftSection(
@@ -52,7 +55,7 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                       child: Stack(
                         children: [
                           Positioned(
-                            top: 30,
+                            top: 80,
                             width: widget.cardWidth,
                             child: Column(
                               children: [
@@ -134,26 +137,35 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                                   ),
                                 ),
                                 PlayerCardStatItem(
-                                  cardWidth: widget.cardWidth,
-                                  rowItems: [
-                                    Text("Peak Rank"),
-                                    Image.asset(
-                                      "/valoRanks/immortallLogo.png",
-                                      height: 40,
-                                      width: 40,
-                                    )
-                                  ],
-                                ),
-                                PlayerCardStatItem(
                                     cardWidth: widget.cardWidth,
                                     rowItems: [
-                                      Text("Region"),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.location_on_sharp,
+                                            size: 15,
+                                          ),
+                                          SizedBox(width: 10),
+                                          Text("Region"),
+                                        ],
+                                      ),
                                       Text("Tokyo, Japan")
                                     ]),
                                 PlayerCardStatItem(
                                     cardWidth: widget.cardWidth,
                                     rowItems: [
-                                      Expanded(child: Text("Availability: ")),
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              CupertinoIcons.clock,
+                                              size: 15,
+                                            ),
+                                            SizedBox(width: 10),
+                                            Text("Availability"),
+                                          ],
+                                        ),
+                                      ),
                                       Expanded(
                                           child: Text(
                                         "[Mon-Tue, 10:30 PM - 12:30 AM]",
@@ -170,23 +182,59 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                 ],
               ),
               Positioned(
-                  top: 160,
+                  top: 120,
                   width: widget.cardWidth,
                   child: Container(
                       width: widget.cardWidth,
                       margin: EdgeInsets.symmetric(horizontal: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Something",
-                            style: TextStyle(fontSize: 25),
+                          Stack(
+                            children: [
+                              PlayerCardProfilePic(
+                                  profilePicUrl:
+                                      "/profilePics/Something-prx.webp"),
+                              Container(
+                                height: 80,
+                                width: 80,
+                                child: RotationTransition(
+                                  turns: AlwaysStoppedAnimation(305 / 360),
+                                  child: const CircularProgressIndicator(
+                                    color: bgTertiaryColor,
+                                    strokeWidth: 2,
+                                    value: 1,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: 80,
+                                width: 80,
+                                child: RotationTransition(
+                                  turns: AlwaysStoppedAnimation(305 / 360),
+                                  child: const CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 5,
+                                    value: 0.3,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          Image.asset(
-                            "/valoRanks/immortallLogo.png",
-                            height: 40,
-                            width: 40,
-                          )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Something",
+                                style: TextStyle(fontSize: 25),
+                              ),
+                              Image.asset(
+                                "/valoRanks/immortallLogo.png",
+                                height: 40,
+                                width: 40,
+                              )
+                            ],
+                          ),
                         ],
                       ))),
             ],
