@@ -146,7 +146,7 @@ class _NavBarState extends State<NavBar> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: Image.network(
-                                "https://riseupgamer.com/wp-content/uploads/2022/01/yayster-Valorant-Settings.jpeg",
+                                "https://www.dexerto.com/cdn-cgi/image/width=3840,quality=75,format=auto/https://editors.dexerto.com/wp-content/uploads/2022/09/03/optic-yay.jpg",
                                 height: 28,
                                 width: 28,
                                 fit: BoxFit.cover,
