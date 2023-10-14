@@ -10,11 +10,13 @@ class ValorantRole extends StatelessWidget {
       {super.key,
       required this.iconUrl,
       required this.iconTitle,
-      this.value = 0.5});
+      this.value = 0.5,
+      this.radius = 50});
 
   String iconUrl;
   String iconTitle;
   double value;
+  double radius;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +26,12 @@ class ValorantRole extends StatelessWidget {
           children: [
             Image.network(
               iconUrl,
-              width: 50,
-              height: 50,
+              width: radius,
+              height: radius,
             ),
             Container(
-              height: 50,
-              width: 50,
+              height: radius,
+              width: radius,
               child: CircularProgressIndicator(
                 color: Colors.black,
                 strokeWidth: 10,
@@ -37,8 +39,8 @@ class ValorantRole extends StatelessWidget {
               ),
             ),
             Container(
-              height: 50,
-              width: 50,
+              height: radius,
+              width: radius,
               child: CircularProgressIndicator(
                 backgroundColor: bgSecondaryColor,
                 color: primaryColor,

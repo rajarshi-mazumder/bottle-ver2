@@ -1,5 +1,5 @@
 import 'package:bottle_ver2/themes/themes.dart';
-import 'package:bottle_ver2/themes/playerCardWidgets/valorantPlayerCardWidgets.dart';
+import 'package:bottle_ver2/screens/gameProfileWidgets/playerCardWidgets/valorantPlayerCardWidgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -50,7 +50,7 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                             end: Alignment.bottomCenter,
                             colors: [secondaryColor, bgPrimaryColor]),
                       ),
-                      height: widget.cardLengthType == "long" ? 500 : 70,
+                      height: widget.cardLengthType == "long" ? 430 : 70,
                       width: 300,
                       child: Stack(
                         children: [
