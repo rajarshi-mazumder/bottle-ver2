@@ -1,10 +1,12 @@
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsLeftSection.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsWidgets/tournamentOverviewSection.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentRightSection.dart';
+import 'package:bottle_ver2/temp.dart';
 import 'package:flutter/material.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
 import 'package:bottle_ver2/sharedWidgets/sidebar.dart';
+import 'package:flutter/rendering.dart';
 
 import '../themes/customTabBarThemes.dart';
 import 'gameProfileWidgets/gameProfileLeftSection.dart';
@@ -85,12 +87,37 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                               padding: const EdgeInsets.only(top: 40),
                               child: Text("No posts"),
                             )),
-                        Align(
-                            alignment: Alignment.topCenter,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 40),
-                              child: Text("No matches"),
-                            )),
+                        Stack(children: [
+                          ClipRect(child: TournamentDisplay()),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text("Tournament Progression"),
+                                          content: Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: TournamentDisplay()),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: const Text('Close'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                },
+                                icon: Icon(Icons.fullscreen)),
+                          )
+                        ]),
                       ]),
                     ),
                   ],
@@ -111,5 +138,14 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
         ],
       ),
     );
+  }
+}
+
+class TournamentDisplayFullScreen extends StatelessWidget {
+  TournamentDisplayFullScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TournamentDisplay();
   }
 }
