@@ -198,20 +198,17 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                               Container(
                                 height: 80,
                                 width: 80,
-                                child: RotationTransition(
-                                  turns: AlwaysStoppedAnimation(305 / 360),
-                                  child: const CircularProgressIndicator(
-                                    color: bgTertiaryColor,
-                                    strokeWidth: 2,
-                                    value: 1,
-                                  ),
+                                child: const CircularProgressIndicator(
+                                  color: bgTertiaryColor,
+                                  strokeWidth: 2,
+                                  value: 1,
                                 ),
                               ),
                               Container(
                                 height: 80,
                                 width: 80,
                                 child: RotationTransition(
-                                  turns: AlwaysStoppedAnimation(305 / 360),
+                                  turns: AlwaysStoppedAnimation(306 / 360),
                                   child: const CircularProgressIndicator(
                                     color: Colors.white,
                                     strokeWidth: 5,
