@@ -49,6 +49,22 @@ class _TournamentDisplayState extends State<TournamentDisplay> {
       Team(),
       Team(),
       Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
     ]);
     tournament.generateRounds();
     generateRoundWidgets();
@@ -63,10 +79,10 @@ class _TournamentDisplayState extends State<TournamentDisplay> {
           marginTop = 0;
           break;
         case 2:
-          marginTop = tournament.rounds.length > 3 ? 200 : 100;
+          marginTop = tournament.rounds.length > 3 ? 0 : 100;
           break;
         case 3:
-          marginTop = tournament.rounds.length > 3 ? 300 : 150;
+          marginTop = tournament.rounds.length > 3 ? 0 : 150;
           break;
         case 4:
           marginTop = 350;
@@ -75,18 +91,34 @@ class _TournamentDisplayState extends State<TournamentDisplay> {
           break;
       }
       roundWidgets.add(Container(
-        margin: EdgeInsets.only(top: marginTop),
+        margin: EdgeInsets.only(top: 0),
         child: Column(
           children: List.generate(round.noOfMatches, (index) {
             return Container(
               width: 200,
               margin: EdgeInsets.all(10),
-              color: Colors.blue,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration:
-                      InputDecoration(hintText: "Round ${round.roundIndex}"),
+                child: Container(
+                  constraints: BoxConstraints(minHeight: 50),
+                  margin: EdgeInsets.symmetric(vertical: 20),
+                  child: Column(
+                    children: [
+                      Container(
+                        color: Colors.blue,
+                        child: TextFormField(
+                          decoration: InputDecoration(hintText: "Team A"),
+                        ),
+                      ),
+                      Text("VS"),
+                      Container(
+                        color: Colors.red,
+                        child: TextFormField(
+                          decoration: InputDecoration(hintText: "Team B"),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -99,11 +131,13 @@ class _TournamentDisplayState extends State<TournamentDisplay> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Row(
-            children: List.generate(roundWidgets.length, (index) {
-          return roundWidgets[index];
-        })),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Row(
+              children: List.generate(roundWidgets.length, (index) {
+            return roundWidgets[index];
+          })),
+        ),
       ),
     );
   }
