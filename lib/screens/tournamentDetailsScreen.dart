@@ -1,5 +1,6 @@
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsLeftSection.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsWidgets/tournamentOverviewSection.dart';
+import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsWidgets/tournamentProgressionDisplay.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentRightSection.dart';
 import 'package:bottle_ver2/temp.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +89,7 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                               child: Text("No posts"),
                             )),
                         Stack(children: [
-                          ClipRect(child: TournamentDisplay()),
+                          ClipRect(child: TournamentProgressionDisplay()),
                           Positioned(
                             top: 0,
                             right: 0,
@@ -103,7 +104,8 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                                               width: MediaQuery.of(context)
                                                   .size
                                                   .width,
-                                              child: TournamentDisplay()),
+                                              child:
+                                                  TournamentProgressionDisplay()),
                                           actions: <Widget>[
                                             TextButton(
                                               child: const Text('Close'),
@@ -146,6 +148,6 @@ class TournamentDisplayFullScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TournamentDisplay();
+    return TournamentProgressionDisplay();
   }
 }
