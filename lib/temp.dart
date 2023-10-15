@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(TournamentDisplayApp());
 
-class MyApp extends StatelessWidget {
+class TournamentDisplayApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,52 +16,42 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class TournamentDisplay extends StatelessWidget {
+class TournamentDisplay extends StatefulWidget {
+  @override
+  _TournamentDisplayState createState() => _TournamentDisplayState();
+}
+
+class _TournamentDisplayState extends State<TournamentDisplay> {
+  int numberOfTeams = 16; // Change this to set the initial number of teams
+  List<List<String>> rounds = [];
+
+  @override
+  void initState() {
+    super.initState();
+    generateRounds();
+  }
+
+  void generateRounds() {
+    int totalTeams = numberOfTeams;
+    while (totalTeams > 0) {
+      List<String> teams = [];
+      for (int i = 0; i < totalTeams; i++) {
+        teams.add("Team ${i + 1}");
+      }
+      rounds.add(teams);
+      totalTeams ~/= 2;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Tournament Display'),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            RoundDisplay(
-              teams: [
-                "Team 1",
-                "Team 2",
-                "Team 3",
-                "Team 4",
-                "Team 5",
-                "Team 6",
-                "Team 7",
-                "Team 8",
-              ],
-            ),
-            SizedBox(height: 20),
-            RoundDisplay(
-              teams: [
-                "Match 1 Winner",
-                "Match 2 Winner",
-                "Match 3 Winner",
-                "Match 4 Winner",
-              ],
-            ),
-            SizedBox(height: 20),
-            RoundDisplay(
-              teams: [
-                "Semifinal 1 Winner",
-                "Semifinal 2 Winner",
-              ],
-            ),
-            SizedBox(height: 20),
-            RoundDisplay(
-              teams: [
-                "Final Winner",
-              ],
-            ),
-          ],
+          children: rounds.map((round) {
+            return RoundDisplay(teams: round);
+          }).toList(),
         ),
       ),
     );
