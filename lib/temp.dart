@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() => runApp(TournamentDisplayApp());
 
@@ -24,61 +25,126 @@ class TournamentDisplay extends StatefulWidget {
 class _TournamentDisplayState extends State<TournamentDisplay> {
   int numberOfTeams = 16; // Change this to set the initial number of teams
   List<List<String>> rounds = [];
+  late Tournament tournament;
+  List<Widget> roundWidgets = [];
 
   @override
   void initState() {
     super.initState();
-    generateRounds();
+
+    tournament = Tournament(teams: [
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+      Team(),
+    ]);
+    tournament.generateRounds();
+    generateRoundWidgets();
   }
 
-  void generateRounds() {
-    int totalTeams = numberOfTeams;
-    while (totalTeams > 0) {
-      List<String> teams = [];
-      for (int i = 0; i < totalTeams; i++) {
-        teams.add("Team ${i + 1}");
+  generateRoundWidgets() {
+    tournament.rounds.forEach((round) {
+      double marginTop = 0;
+      int temp = tournament.rounds.length - round.roundIndex;
+      switch (temp) {
+        case 1:
+          marginTop = 0;
+          break;
+        case 2:
+          marginTop = tournament.rounds.length > 3 ? 200 : 100;
+          break;
+        case 3:
+          marginTop = tournament.rounds.length > 3 ? 300 : 150;
+          break;
+        case 4:
+          marginTop = 350;
+          break;
+        default:
+          break;
       }
-      rounds.add(teams);
-      totalTeams ~/= 2;
-    }
+      roundWidgets.add(Container(
+        margin: EdgeInsets.only(top: marginTop),
+        child: Column(
+          children: List.generate(round.noOfMatches, (index) {
+            return Container(
+              width: 200,
+              margin: EdgeInsets.all(10),
+              color: Colors.blue,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration:
+                      InputDecoration(hintText: "Round ${round.roundIndex}"),
+                ),
+              ),
+            );
+          }),
+        ),
+      ));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: rounds.map((round) {
-            return RoundDisplay(teams: round);
-          }).toList(),
-        ),
+        child: Row(
+            children: List.generate(roundWidgets.length, (index) {
+          return roundWidgets[index];
+        })),
       ),
     );
   }
 }
 
-class RoundDisplay extends StatelessWidget {
-  final List<String> teams;
+class Team {
+  String name = "";
+}
 
-  RoundDisplay({required this.teams});
+class Tournament {
+  List<Team>? teams = [];
+  List<Round> rounds = [];
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: teams
-          .map(
-            (team) => Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                border: Border.all(),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Text(team),
-            ),
-          )
-          .toList(),
-    );
+  Tournament({this.teams});
+
+  void generateRounds() {
+    double totalTeams =
+        double.parse(teams!.length.toString()); // totalTeams= 16
+    int noOfRounds = log(totalTeams) ~/ log(2);
+    for (int i = noOfRounds; i > 0; i--) {
+      rounds.add(Round(
+        roundIndex: i - 1,
+        noOfMatches: (pow(2, i - 1)).toInt(),
+      ));
+    }
+    rounds.forEach((element) {
+      print(
+          "Matches in round: ${pow(2, element.roundIndex)},,${element.roundIndex}");
+    });
   }
+}
+
+class Round {
+  int roundIndex = 0;
+  List<Match>? matches;
+  int noOfMatches;
+
+  Round({required this.roundIndex, this.matches, required this.noOfMatches});
+}
+
+class Match {
+  Team? teamA;
+  Team? teamB;
 }
