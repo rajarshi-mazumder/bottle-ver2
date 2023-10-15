@@ -45,15 +45,6 @@ class _TournamentOverviewSectionState extends State<TournamentOverviewSection> {
                   child: Column(
                     children: [
                       TournamentIndividualSection(
-                        label: "About : ",
-                        labelIcon: Icon(Icons.info_rounded),
-                        contentWidget: Text(
-                          """VCT Masters is the coveted trophy that determines who the best Valorant team in the world is ! Winner also gets a reserved slot at VCT Champions later this year!""",
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      TournamentIndividualSection(
                           label: "Details :",
                           labelIcon: Icon(Icons.insert_chart),
                           contentWidget: Container(
@@ -195,6 +186,25 @@ class _TournamentOverviewSectionState extends State<TournamentOverviewSection> {
                               ],
                             ),
                           )),
+                      SizedBox(height: 30),
+                      TournamentIndividualSection(
+                        label: "About : ",
+                        labelIcon: Icon(Icons.info_rounded),
+                        contentWidget: Text(
+                          """VCT Masters is the coveted trophy that determines who the best Valorant team in the world is ! Winner also gets a reserved slot at VCT Champions later this year!
+
+                              8 Low Seed teams
+                              Each group has 4 teams
+                              All matches are Bo3
+                              Top 2 teams from each group advance to the Playoffs
+                              
+                              8 teams, 4 High Seeds and 4 Qualified teams
+                              All matches (excl. Lower Bracket Final and Grand Final) are Bo3
+                              Lower Final and Grand Final are Bo5
+                              Three best-placed EMEA teams qualify to Champions '23""",
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
                     ],
                   )),
             )
