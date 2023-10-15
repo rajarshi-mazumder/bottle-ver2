@@ -41,30 +41,6 @@ class _TournamentDisplayState extends State<TournamentDisplay> {
       Team(),
       Team(),
       Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
     ]);
     tournament.generateRounds();
     generateRoundWidgets();
@@ -72,24 +48,6 @@ class _TournamentDisplayState extends State<TournamentDisplay> {
 
   generateRoundWidgets() {
     tournament.rounds.forEach((round) {
-      double marginTop = 0;
-      int temp = tournament.rounds.length - round.roundIndex;
-      switch (temp) {
-        case 1:
-          marginTop = 0;
-          break;
-        case 2:
-          marginTop = tournament.rounds.length > 3 ? 0 : 100;
-          break;
-        case 3:
-          marginTop = tournament.rounds.length > 3 ? 0 : 150;
-          break;
-        case 4:
-          marginTop = 350;
-          break;
-        default:
-          break;
-      }
       roundWidgets.add(Container(
         margin: EdgeInsets.only(top: 0),
         child: Column(
