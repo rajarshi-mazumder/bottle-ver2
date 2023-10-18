@@ -50,7 +50,7 @@ class _GameProfileRightSectionState extends State<GameProfileRightSection> {
                         label: "About : ",
                         labelIcon: Icon(Icons.info),
                         contentWidget: Text(
-                            """私が日本の競技シーンで活動していたという理由で、多くの選手やチームが私は日本人選手しかキルできないだろうと考えてたようです。私がPRXに加入する前、実はRRQに問い合わせたことがあります。しかし、トライアルなしで断られてしまいました。"""),
+                            """I am Illya, also known as Something. I have been playing Valorant professionally for a long time now, previously with Sengoku Gaming, Japan, and now with Paper Rex, Singapore."""),
                       ),
                       SizedBox(height: 20),
                       GameProfileStatSection(
