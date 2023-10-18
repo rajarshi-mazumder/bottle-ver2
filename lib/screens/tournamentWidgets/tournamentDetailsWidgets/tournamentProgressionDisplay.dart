@@ -131,53 +131,51 @@ class MatchInputWidget extends StatefulWidget {
 class _MatchInputWidgetState extends State<MatchInputWidget> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 200,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              constraints: BoxConstraints(minHeight: 50),
-              margin: EdgeInsets.symmetric(vertical: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    color: Colors.blue,
-                    child: TextFormField(
-                      controller: widget.teamAController,
-                      decoration: InputDecoration(hintText: "Team A"),
-                    ),
-                  ),
-                  Text("VS"),
-                  Container(
-                    color: Colors.red,
-                    child: TextFormField(
-                      controller: widget.teamBController,
-                      decoration: InputDecoration(hintText: "Team B"),
-                    ),
-                  ),
-                ],
+    return Container(
+      width: 200,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          constraints: BoxConstraints(minHeight: 50),
+          margin: EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                color: Colors.blue,
+                child: TextFormField(
+                  controller: widget.teamAController,
+                  decoration: InputDecoration(hintText: "Team A"),
+                  onChanged: (value) {
+                    setState(() {
+                      roundMatchesData[widget.roundIndex][widget.matchIndex]
+                          ["teamA"] = widget.teamAController.text;
+                      roundMatchesData[widget.roundIndex][widget.matchIndex]
+                          ["teamB"] = widget.teamBController.text;
+                    });
+                  },
+                ),
               ),
-            ),
+              Text("VS"),
+              Container(
+                color: Colors.red,
+                child: TextFormField(
+                  controller: widget.teamBController,
+                  decoration: InputDecoration(hintText: "Team B"),
+                  onChanged: (value) {
+                    setState(() {
+                      roundMatchesData[widget.roundIndex][widget.matchIndex]
+                          ["teamA"] = widget.teamAController.text;
+                      roundMatchesData[widget.roundIndex][widget.matchIndex]
+                          ["teamB"] = widget.teamBController.text;
+                    });
+                  },
+                ),
+              ),
+            ],
           ),
         ),
-        IconButton(
-          icon: Icon(Icons.check_circle_rounded),
-          onPressed: () {
-            setState(() {
-              roundMatchesData[widget.roundIndex][widget.matchIndex]["teamA"] =
-                  widget.teamAController.text;
-              roundMatchesData[widget.roundIndex][widget.matchIndex]["teamB"] =
-                  widget.teamBController.text;
-
-              print(
-                  "Round Indexxxxx ${widget.roundIndex}, MatchIndex ${widget.matchIndex} ,,, ${roundMatchesData}");
-            });
-          },
-        )
-      ],
+      ),
     );
   }
 }
