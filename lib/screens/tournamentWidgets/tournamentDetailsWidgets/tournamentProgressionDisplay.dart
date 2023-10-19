@@ -99,7 +99,21 @@ class _TournamentProgressionDisplayState
               top: 50,
               child: ElevatedButton(
                   onPressed: () {
-                    print(roundMatchesData);
+                    // print(roundMatchesData);
+                    for (int i = 0; i < roundMatchesData.length; i++) {
+                      tournament.rounds[i].matches = [];
+                      for (int j = 0; j < roundMatchesData[i].length; j++) {
+                        Match match = Match(
+                            teamA: Team(name: roundMatchesData[i][j]["teamA"]),
+                            teamB: Team(name: roundMatchesData[i][j]["teamB"]));
+                        tournament.rounds[i].matches!.add(match);
+                      }
+                    }
+                    tournament.rounds.forEach((element) {
+                      element.matches?.forEach((match) {
+                        print("${match.teamA}, ${match.teamB}");
+                      });
+                    });
                   },
                   child: Text(
                     "Submit ",

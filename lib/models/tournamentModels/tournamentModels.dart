@@ -1,7 +1,9 @@
 import 'dart:math';
 
 class Team {
-  String name = "";
+  String? name = "";
+
+  Team({this.name});
 }
 
 class Tournament {
@@ -12,7 +14,7 @@ class Tournament {
 
   void generateRounds() {
     double totalTeams =
-    double.parse(teams!.length.toString()); // totalTeams= 16
+        double.parse(teams!.length.toString()); // totalTeams= 16
     int noOfRounds = log(totalTeams) ~/ log(2);
     for (int i = noOfRounds; i > 0; i--) {
       rounds.add(Round(
@@ -22,8 +24,7 @@ class Tournament {
     }
     rounds.forEach((element) {
       print(
-          "Matches in round: ${pow(2, element.roundIndex)},,${element
-              .roundIndex}");
+          "Matches in round: ${pow(2, element.roundIndex)},,${element.roundIndex}");
     });
   }
 }
@@ -39,6 +40,7 @@ class Round {
 class Match {
   Team? teamA;
   Team? teamB;
+  Team? winner;
 
-  Match({ this.teamA, this.teamB});
+  Match({this.teamA, this.teamB, this.winner});
 }
