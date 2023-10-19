@@ -22,22 +22,22 @@ class _TournamentProgressionDisplayState
     super.initState();
     roundMatchesData = [];
     tournament = Tournament(teams: [
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
-      Team(),
+      Team(name: "Fnatic"),
+      Team(name: "PRX"),
+      Team(name: "DRX"),
+      Team(name: "Loud"),
+      Team(name: "Team Liquid"),
+      Team(name: "Optic"),
+      Team(name: "Zeta Division"),
+      Team(name: "Sentinels"),
+      Team(name: "T1"),
+      Team(name: "G2"),
+      Team(name: "Bleed"),
+      Team(name: "NAVI"),
+      Team(name: "Cloud 9"),
+      Team(name: "Global Esports"),
+      Team(name: "Leviatan"),
+      Team(name: "Karmine Corps"),
     ]);
     roundMatchesData = List.generate(tournament.rounds.length, (index) {
       return List.generate(tournament.rounds[index].noOfMatches, (index) {
