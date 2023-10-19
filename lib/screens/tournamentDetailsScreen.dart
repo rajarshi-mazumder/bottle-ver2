@@ -89,7 +89,11 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                               child: Text("No posts"),
                             )),
                         Stack(children: [
-                          ClipRect(child: TournamentProgressionDisplay()),
+                          ClipRect(
+                              child: SizedBox(
+                            height: 1200,
+                            child: TournamentProgressionDisplay(),
+                          )),
                           Positioned(
                             top: 0,
                             right: 0,

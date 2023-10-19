@@ -30,14 +30,6 @@ class _TournamentProgressionDisplayState
       Team(name: "Optic"),
       Team(name: "Zeta Division"),
       Team(name: "Sentinels"),
-      Team(name: "T1"),
-      Team(name: "G2"),
-      Team(name: "Bleed"),
-      Team(name: "NAVI"),
-      Team(name: "Cloud 9"),
-      Team(name: "Global Esports"),
-      Team(name: "Leviatan"),
-      Team(name: "Karmine Corps"),
     ]);
     roundMatchesData = List.generate(tournament.rounds.length, (index) {
       return List.generate(tournament.rounds[index].noOfMatches, (index) {
@@ -69,10 +61,13 @@ class _TournamentProgressionDisplayState
             });
 
             return MatchInputWidget(
-                teamAController: teamAController,
-                teamBController: teamBController,
-                matchIndex: matchIndex,
-                roundIndex: roundIndex);
+              teamAController: teamAController,
+              teamBController: teamBController,
+              matchIndex: matchIndex,
+              roundIndex: roundIndex,
+              teamNames: List.generate(tournament.teams!.length,
+                  (index) => tournament.teams![index].name!),
+            );
           }),
         ),
       ));
@@ -110,9 +105,11 @@ class _TournamentProgressionDisplayState
                       }
                     }
                     tournament.rounds.forEach((element) {
-                      element.matches?.forEach((match) {
-                        print("${match.teamA}, ${match.teamB}");
+                      element.matches?.forEach((element) {
+                        print(
+                            "${element.teamA!.name}  VS  ${element.teamB!.name}");
                       });
+                      print("------------");
                     });
                   },
                   child: Text(
@@ -126,25 +123,41 @@ class _TournamentProgressionDisplayState
 }
 
 class MatchInputWidget extends StatefulWidget {
-  MatchInputWidget(
-      {super.key,
-      required this.teamAController,
-      required this.teamBController,
-      required this.matchIndex,
-      required this.roundIndex});
+  MatchInputWidget({
+    super.key,
+    required this.teamAController,
+    required this.teamBController,
+    required this.matchIndex,
+    required this.roundIndex,
+    required this.teamNames, // Add a parameter for team names
+  });
 
   TextEditingController teamAController;
   TextEditingController teamBController;
   final int roundIndex;
   final int matchIndex;
+  final List<String> teamNames; // List of team names
 
   @override
   State<MatchInputWidget> createState() => _MatchInputWidgetState();
 }
 
 class _MatchInputWidgetState extends State<MatchInputWidget> {
+  String selectedTeamA = ''; // Track selected team A
+  String selectedTeamB = ''; // Track selected team B
+  @override
+  void initState() {
+    super.initState();
+    widget.teamNames.add("");
+    selectedTeamA = widget.teamNames.last;
+    selectedTeamB = widget.teamNames.last;
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (widget.roundIndex == 0) {
+      print("Match addedddddddd ${widget.matchIndex}");
+    }
     return Container(
       width: 200,
       child: Padding(
@@ -157,15 +170,21 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
             children: [
               Container(
                 color: Colors.blue,
-                child: TextFormField(
-                  controller: widget.teamAController,
-                  decoration: InputDecoration(hintText: "Team A"),
+                child: DropdownButton<String>(
+                  value: selectedTeamA,
+                  items: widget.teamNames.map((team) {
+                    return DropdownMenuItem<String>(
+                      value: team,
+                      child: Text(team),
+                    );
+                  }).toList(),
                   onChanged: (value) {
                     setState(() {
+                      selectedTeamA = value!;
                       roundMatchesData[widget.roundIndex][widget.matchIndex]
-                          ["teamA"] = widget.teamAController.text;
+                          ["teamA"] = value;
                       roundMatchesData[widget.roundIndex][widget.matchIndex]
-                          ["teamB"] = widget.teamBController.text;
+                          ["teamB"] = selectedTeamB;
                     });
                   },
                 ),
@@ -173,15 +192,21 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
               Text("VS"),
               Container(
                 color: Colors.red,
-                child: TextFormField(
-                  controller: widget.teamBController,
-                  decoration: InputDecoration(hintText: "Team B"),
+                child: DropdownButton<String>(
+                  value: selectedTeamB,
+                  items: widget.teamNames.map((team) {
+                    return DropdownMenuItem<String>(
+                      value: team,
+                      child: Text(team),
+                    );
+                  }).toList(),
                   onChanged: (value) {
                     setState(() {
+                      selectedTeamB = value!;
                       roundMatchesData[widget.roundIndex][widget.matchIndex]
-                          ["teamA"] = widget.teamAController.text;
+                          ["teamA"] = selectedTeamA;
                       roundMatchesData[widget.roundIndex][widget.matchIndex]
-                          ["teamB"] = widget.teamBController.text;
+                          ["teamB"] = value;
                     });
                   },
                 ),
