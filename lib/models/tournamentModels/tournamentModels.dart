@@ -9,6 +9,7 @@ class Team {
 class Tournament {
   List<Team>? teams = [];
   List<Round> rounds = [];
+  Team? winner;
 
   Tournament({this.teams});
 

@@ -72,6 +72,16 @@ class _TournamentProgressionDisplayState
         ),
       ));
     });
+    roundWidgets.add(Container(
+      width: 100,
+      child: Column(
+        children: [
+          WinnerInputData(
+              teamNames: List.generate(tournament.teams!.length,
+                  (index) => tournament.teams![index].name!)),
+        ],
+      ),
+    ));
   }
 
   void submitMatches() {}
@@ -214,6 +224,49 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class WinnerInputData extends StatefulWidget {
+  WinnerInputData({super.key, required this.teamNames});
+
+  final List<String> teamNames;
+
+  @override
+  State<WinnerInputData> createState() => _WinnerInputDataState();
+}
+
+class _WinnerInputDataState extends State<WinnerInputData> {
+  String winner = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    winner = widget.teamNames.last;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 200,
+      height: 50,
+      color: Colors.green,
+      child: DropdownButton<String>(
+        value: winner,
+        items: widget.teamNames.map((team) {
+          return DropdownMenuItem<String>(
+            value: team,
+            child: Text(team),
+          );
+        }).toList(),
+        onChanged: (value) {
+          setState(() {
+            winner = value!;
+          });
+        },
       ),
     );
   }
