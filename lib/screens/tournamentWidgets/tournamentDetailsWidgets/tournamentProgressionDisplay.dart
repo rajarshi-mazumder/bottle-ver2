@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../models/tournamentModels/tournamentModels.dart';
+import '../tournamentProgressionWidgets/matchInputWidget.dart';
+import '../tournamentProgressionWidgets/winnerInputWidget.dart';
 
 List roundMatchesData = [];
+String? winner;
 
 class TournamentProgressionDisplay extends StatefulWidget {
   @override
@@ -61,8 +64,6 @@ class _TournamentProgressionDisplayState
             });
 
             return MatchInputWidget(
-              teamAController: teamAController,
-              teamBController: teamBController,
               matchIndex: matchIndex,
               roundIndex: roundIndex,
               teamNames: List.generate(tournament.teams!.length,
@@ -114,6 +115,7 @@ class _TournamentProgressionDisplayState
                         tournament.rounds[i].matches!.add(match);
                       }
                     }
+                    tournament.winner = Team(name: winner);
                     tournament.rounds.forEach((element) {
                       element.matches?.forEach((element) {
                         print(
@@ -121,152 +123,14 @@ class _TournamentProgressionDisplayState
                       });
                       print("------------");
                     });
+                    print("------------");
+                    print("WINNER: ${tournament.winner}");
                   },
                   child: Text(
                     "Submit ",
                     style: TextStyle(color: Colors.white),
                   )))
         ],
-      ),
-    );
-  }
-}
-
-class MatchInputWidget extends StatefulWidget {
-  MatchInputWidget({
-    super.key,
-    required this.teamAController,
-    required this.teamBController,
-    required this.matchIndex,
-    required this.roundIndex,
-    required this.teamNames, // Add a parameter for team names
-  });
-
-  TextEditingController teamAController;
-  TextEditingController teamBController;
-  final int roundIndex;
-  final int matchIndex;
-  final List<String> teamNames; // List of team names
-
-  @override
-  State<MatchInputWidget> createState() => _MatchInputWidgetState();
-}
-
-class _MatchInputWidgetState extends State<MatchInputWidget> {
-  String selectedTeamA = ''; // Track selected team A
-  String selectedTeamB = ''; // Track selected team B
-  @override
-  void initState() {
-    super.initState();
-    widget.teamNames.add("");
-    selectedTeamA = widget.teamNames.last;
-    selectedTeamB = widget.teamNames.last;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (widget.roundIndex == 0) {
-      print("Match addedddddddd ${widget.matchIndex}");
-    }
-    return Container(
-      width: 200,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          constraints: BoxConstraints(minHeight: 50),
-          margin: EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                color: Colors.blue,
-                child: DropdownButton<String>(
-                  value: selectedTeamA,
-                  items: widget.teamNames.map((team) {
-                    return DropdownMenuItem<String>(
-                      value: team,
-                      child: Text(team),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedTeamA = value!;
-                      roundMatchesData[widget.roundIndex][widget.matchIndex]
-                          ["teamA"] = value;
-                      roundMatchesData[widget.roundIndex][widget.matchIndex]
-                          ["teamB"] = selectedTeamB;
-                    });
-                  },
-                ),
-              ),
-              Text("VS"),
-              Container(
-                color: Colors.red,
-                child: DropdownButton<String>(
-                  value: selectedTeamB,
-                  items: widget.teamNames.map((team) {
-                    return DropdownMenuItem<String>(
-                      value: team,
-                      child: Text(team),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedTeamB = value!;
-                      roundMatchesData[widget.roundIndex][widget.matchIndex]
-                          ["teamA"] = selectedTeamA;
-                      roundMatchesData[widget.roundIndex][widget.matchIndex]
-                          ["teamB"] = value;
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class WinnerInputData extends StatefulWidget {
-  WinnerInputData({super.key, required this.teamNames});
-
-  final List<String> teamNames;
-
-  @override
-  State<WinnerInputData> createState() => _WinnerInputDataState();
-}
-
-class _WinnerInputDataState extends State<WinnerInputData> {
-  String winner = "";
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    winner = widget.teamNames.last;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 50,
-      color: Colors.green,
-      child: DropdownButton<String>(
-        value: winner,
-        items: widget.teamNames.map((team) {
-          return DropdownMenuItem<String>(
-            value: team,
-            child: Text(team),
-          );
-        }).toList(),
-        onChanged: (value) {
-          setState(() {
-            winner = value!;
-          });
-        },
       ),
     );
   }

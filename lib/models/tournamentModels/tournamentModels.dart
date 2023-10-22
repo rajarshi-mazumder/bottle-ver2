@@ -2,8 +2,12 @@ import 'dart:math';
 
 class Team {
   String? name = "";
+  int? membersCount = 5;
+  String? regionFlag = "";
+  List? members = [];
+  String? teamLogo = "";
 
-  Team({this.name});
+  Team({this.name, this.membersCount, this.regionFlag, this.teamLogo});
 }
 
 class Tournament {

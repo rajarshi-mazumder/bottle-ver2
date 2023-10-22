@@ -26,7 +26,7 @@ class CareerSection extends StatelessWidget {
 List<ExperienceTile> experienceList = [
   ExperienceTile(
       orgName: "Paper Rex",
-      orgLogo: "orgPics/Paper_Rex_logo.svg.png",
+      orgLogo: "orgPics/Paper_Rex_logo.png",
       timeSpent: "Jan 2023- present",
       expDescription:
           "I joined paper rex in the middle of the season, and transformed them. I was also the tournament MVP of the VCT Pacific League"),
