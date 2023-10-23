@@ -1,6 +1,7 @@
 import 'package:bottle_ver2/authentication/login.dart';
 import 'package:bottle_ver2/providers/userProvider.dart';
 import 'package:bottle_ver2/screens/gameProfileScreenLayout.dart';
+import 'package:bottle_ver2/screens/teamDetailsScreenLayout.dart';
 import 'package:bottle_ver2/screens/temp.dart';
 import 'package:bottle_ver2/screens/tournamentDetailsScreenLayout.dart';
 import 'package:bottle_ver2/screens/tournamentsScreenLayout.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: customTheme,
-        home: TournamentDetailScreenLayout(),
+        home: GameProfileScreenLayout(),
       ),
     );
   }

@@ -11,12 +11,16 @@ class ValorantRole extends StatelessWidget {
       required this.iconUrl,
       required this.iconTitle,
       this.value = 0.5,
-      this.radius = 50});
+      this.radius = 50,
+      this.showLabel = true,
+      this.showProgressBar = true});
 
   String iconUrl;
   String iconTitle;
   double value;
   double radius;
+  bool showLabel;
+  bool showProgressBar;
 
   @override
   Widget build(BuildContext context) {
@@ -29,29 +33,31 @@ class ValorantRole extends StatelessWidget {
               width: radius,
               height: radius,
             ),
-            Container(
-              height: radius,
-              width: radius,
-              child: CircularProgressIndicator(
-                color: Colors.black,
-                strokeWidth: 10,
-                value: 100,
+            if (showProgressBar)
+              Container(
+                height: radius,
+                width: radius,
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                  strokeWidth: 10,
+                  value: 100,
+                ),
               ),
-            ),
-            Container(
-              height: radius,
-              width: radius,
-              child: CircularProgressIndicator(
-                backgroundColor: bgSecondaryColor,
-                color: primaryColor,
-                strokeWidth: 3,
-                value: value,
+            if (showProgressBar)
+              Container(
+                height: radius,
+                width: radius,
+                child: CircularProgressIndicator(
+                  backgroundColor: bgSecondaryColor,
+                  color: primaryColor,
+                  strokeWidth: 3,
+                  value: value,
+                ),
               ),
-            ),
           ],
         ),
         SizedBox(height: 10),
-        Text(iconTitle),
+        if (showLabel) Text(iconTitle),
       ],
     );
   }
@@ -111,6 +117,44 @@ class PlayerCardProfilePic extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ValorantAgents extends StatelessWidget {
+  ValorantAgents(
+      {super.key,
+      required this.agentImgUrl,
+      required this.iconTitle,
+      this.value = 0.5,
+      this.radius = 50,
+      this.showLabel = true});
+
+  String agentImgUrl;
+  String iconTitle;
+  double value;
+  double radius;
+  bool showLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              child: Image.network(
+                agentImgUrl,
+                width: radius,
+                height: radius,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
+        if (showLabel) Text(iconTitle),
+      ],
     );
   }
 }

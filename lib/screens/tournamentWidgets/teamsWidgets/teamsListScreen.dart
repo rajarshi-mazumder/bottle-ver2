@@ -1,3 +1,4 @@
+import 'package:bottle_ver2/screens/teamDetailsScreenLayout.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/tournamentModels/tournamentModels.dart';
@@ -102,7 +103,12 @@ class TeamTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => TeamDetailLayoutScreenLayout()));
+      },
       child: Container(
         decoration: BoxDecoration(
           color: bgSecondaryColor,
