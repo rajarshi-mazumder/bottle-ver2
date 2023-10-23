@@ -32,7 +32,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
       child: Stack(
         children: [
           Positioned(
-            left: MediaQuery.of(context).size.width * 0.17,
+            left: MediaQuery.of(context).size.width * 0.1,
             top: 20,
             child: GameProfileLeftSection(),
           ),
@@ -42,7 +42,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
             child: DefaultTabController(
               length: 3,
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.5,
+                width: MediaQuery.of(context).size.width * 0.6,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,

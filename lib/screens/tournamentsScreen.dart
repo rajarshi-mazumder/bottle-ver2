@@ -31,7 +31,7 @@ class _TournamentsScreenState extends State<TournamentsScreen> {
       child: Stack(
         children: [
           Positioned(
-            left: MediaQuery.of(context).size.width * 0.17,
+            left: MediaQuery.of(context).size.width * 0.1,
             top: 60,
             child: TournamentLeftSection(),
           ),

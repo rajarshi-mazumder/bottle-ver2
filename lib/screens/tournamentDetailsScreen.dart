@@ -28,10 +28,7 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery
-          .of(context)
-          .size
-          .height - 100,
+      height: MediaQuery.of(context).size.height - 100,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -42,10 +39,7 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
       child: Stack(
         children: [
           Positioned(
-            left: MediaQuery
-                .of(context)
-                .size
-                .width * 0.17,
+            left: MediaQuery.of(context).size.width * 0.1,
             top: 50,
             child: TournamentDetailsLeftSection(),
           ),
@@ -55,10 +49,7 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
             child: DefaultTabController(
               length: 4,
               child: Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width * 0.5,
+                width: MediaQuery.of(context).size.width * 0.6,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -83,7 +74,6 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                               tabs: [
                                 Text("Teams"),
                                 Text("Overview"),
-
                                 Text("Players"),
                                 Text("Matches")
                               ])),
@@ -93,7 +83,6 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                       child: TabBarView(children: [
                         TeamsListScreen(allBordersRounded: false),
                         TournamentOverviewSection(),
-
                         Align(
                             alignment: Alignment.topCenter,
                             child: Padding(
@@ -103,9 +92,9 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                         Stack(children: [
                           ClipRect(
                               child: SizedBox(
-                                height: 1200,
-                                child: TournamentProgressionDisplay(),
-                              )),
+                            height: 1200,
+                            child: TournamentProgressionDisplay(),
+                          )),
                           Positioned(
                             top: 0,
                             right: 0,
@@ -117,12 +106,11 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                                         return AlertDialog(
                                           title: Text("Tournament Progression"),
                                           content: Container(
-                                              width: MediaQuery
-                                                  .of(context)
+                                              width: MediaQuery.of(context)
                                                   .size
                                                   .width,
                                               child:
-                                              TournamentProgressionDisplay()),
+                                                  TournamentProgressionDisplay()),
                                           actions: <Widget>[
                                             TextButton(
                                               child: const Text('Close'),
