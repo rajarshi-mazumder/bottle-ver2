@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: customTheme,
-        home: GameProfileScreenLayout(),
+        home: TeamDetailLayoutScreenLayout(),
       ),
     );
   }

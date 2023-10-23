@@ -50,7 +50,7 @@ class _TournamentDetailScreenLayoutState
                     background: Stack(
                       children: [
                         Image.asset(
-                          "/valoBgImages/yoru-valorant.jpg",
+                          "/valoImages/yoru-valorant.jpg",
                           width: MediaQuery.of(context).size.width,
                           fit: BoxFit.cover,
                         ),
