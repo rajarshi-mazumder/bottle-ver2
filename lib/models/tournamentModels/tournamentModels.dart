@@ -49,3 +49,19 @@ class Match {
 
   Match({this.teamA, this.teamB, this.winner});
 }
+
+class Player {
+  String name;
+  String? nationality;
+
+  String? twitchLink;
+  String? twitterLink;
+  String? mainAgent;
+
+  Player(
+      {required this.name,
+      this.nationality,
+      this.twitchLink,
+      this.twitterLink,
+      this.mainAgent});
+}

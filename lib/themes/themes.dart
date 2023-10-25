@@ -10,9 +10,14 @@ const bgTertiaryColor = Color.fromARGB(255, 100, 100, 100);
 const double sidebarBorderRadius = 30;
 ThemeData customTheme = ThemeData(
     primaryColor: primaryColor,
-    textTheme: GoogleFonts.robotoCondensedTextTheme(
-        TextTheme(bodyLarge: TextStyle(color: Colors.white))),
-    // textTheme: TextTheme(bodyLarge: TextStyle(fontFamily: "MonumentExtended")),
+    // textTheme: GoogleFonts.robotoCondensedTextTheme(
+    //     TextTheme(bodyLarge: TextStyle(color: Colors.white))),
+    textTheme: TextTheme(
+      bodyLarge: TextStyle(fontFamily: "MonumentExtended"),
+      labelMedium: TextStyle(fontFamily: "MonumentExtended"),
+      displayLarge: TextStyle(fontFamily: "MonumentExtended"),
+      displayMedium: TextStyle(fontFamily: "MonumentExtended"),
+    ),
     colorScheme: ColorScheme.dark(),
     appBarTheme: const AppBarTheme(
       shadowColor: Colors.transparent,

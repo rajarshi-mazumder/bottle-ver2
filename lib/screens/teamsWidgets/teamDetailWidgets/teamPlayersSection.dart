@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../themes/themes.dart';
+import '../playerWidgets/playerDisplayWidget.dart';
 
 class TeamPlayersSection extends StatefulWidget {
   const TeamPlayersSection({
@@ -25,234 +26,41 @@ class _TeamPlayersSectionState extends State<TeamPlayersSection> {
     return ClipRRect(
       borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
-      child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [secondaryColor, bgPrimaryColor])),
-          width: MediaQuery.of(context).size.width * 0.6,
-          margin: EdgeInsets.only(bottom: 150),
-          padding: EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            children: [
-              SizedBox(height: 50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(4, (index) {
-                  return PlayerDisplayWidget(
-                    agentImgUrl: index % 2 == 0
-                        ? "valoImages/valoAgentBodyImgs/resized/chamber.png"
-                        : "valoImages/valoAgentBodyImgs/resized/jett.png",
-                    isMVP: index == 0 ? true : false,
-                  );
-                }),
-              ),
-            ],
-          )),
-    );
-  }
-}
-
-class PlayerDisplayWidget extends StatelessWidget {
-  PlayerDisplayWidget(
-      {super.key, required this.agentImgUrl, this.isMVP = false});
-
-  String agentImgUrl;
-  bool isMVP;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 400,
-      decoration: BoxDecoration(
-        color: bgSecondaryColor,
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-      ),
-      width: 250,
-      child: Stack(children: [
-        Positioned(
-          top: 0,
-          child: Container(
-            height: 150,
-            width: 250,
+      child: SingleChildScrollView(
+        child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20)),
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
-                      Color.fromRGBO(0, 0, 0, 1),
-                      Color.fromRGBO(0, 0, 0, 0)
-                    ])),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 4, left: 4, right: 4),
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-            child: Image.asset(
-              agentImgUrl,
-              width: 250,
-              height: 256,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ), // image
-        Positioned(
-          top: 0,
-          child: Container(
-            height: 150,
-            width: 242,
-            margin: EdgeInsets.only(left: 4, top: 4),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20)),
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color.fromRGBO(0, 0, 0, 1),
-                      Color.fromRGBO(0, 0, 0, 0)
-                    ])),
-          ),
-        ), // inner square
-        Positioned(
-          bottom: 140,
-          child: Container(
-            height: 150,
-            width: 250,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromRGBO(0, 0, 0, 0),
-                    Color.fromRGBO(0, 0, 0, 1)
-                  ]),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          child: Container(
-            height: 140,
-            width: 250,
-            padding: EdgeInsets.only(bottom: 4, left: 4, right: 4),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromRGBO(0, 0, 0, 1),
-                    Color.fromRGBO(0, 0, 0, 0.7)
-                  ]),
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          child: Container(
-            height: 140,
-            width: 242,
-            margin: EdgeInsets.only(bottom: 4, left: 4),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromRGBO(0, 0, 0, 1),
-                    Color.fromRGBO(0, 0, 0, 0.7)
-                  ]),
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
-            ),
-          ),
-        ),
-        if (isMVP)
-          Positioned(
-            top: 20,
-            left: 20,
-            child: Text(
-              "MVP",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.yellow,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
-            ),
-          ),
-        Positioned(
-            top: 250,
-            child: Container(
-              constraints: BoxConstraints(minHeight: 50),
-              width: 250,
-              padding: EdgeInsets.symmetric(horizontal: 20),
+                    colors: [secondaryColor, bgPrimaryColor])),
+            width: MediaQuery.of(context).size.width * 0.6,
+            margin: EdgeInsets.only(bottom: 150),
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text(
-                    "Yay",
-                    style: TextStyle(fontSize: 25),
+                  GridView.builder(
+                    itemCount: players.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        childAspectRatio: 0.7,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return PlayerDisplayWidget(
+                          agentImgUrl:
+                              "valoImages/valoAgentBodyImgs/resized/${players[index].mainAgent}.png",
+                          isMVP: index == 0 ? true : false,
+                          name: players[index].name);
+                    },
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      PlayerStatItemCircular(),
-                      PlayerStatItemCircular(),
-                    ],
-                  )
                 ],
               ),
-            )), // Player name
-      ]),
-    );
-  }
-}
-
-class PlayerStatItemCircular extends StatelessWidget {
-  PlayerStatItemCircular({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: bgPrimaryColor,
-          borderRadius: BorderRadius.all(Radius.circular(100))),
-      height: 64,
-      width: 64,
-      child: Container(
-        margin: EdgeInsets.all(4),
-        decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.all(Radius.circular(100))),
-        child: Column(
-          children: [
-            SizedBox(height: 12),
-            Text(
-              "KDA",
-              style: TextStyle(
-                  color: primaryColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              "19/5",
-              style: TextStyle(fontSize: 13),
-            ),
-          ],
-        ),
+            )),
       ),
     );
   }
