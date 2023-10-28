@@ -10,14 +10,17 @@ import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
 import 'package:bottle_ver2/sharedWidgets/sidebar.dart';
 import 'package:flutter/rendering.dart';
 
+import '../models/tournamentModels/tournamentModels.dart';
 import '../themes/customTabBarThemes.dart';
 import 'gameProfileWidgets/gameProfileLeftSection.dart';
 import 'gameProfileWidgets/gameProfileRightSection.dart';
 
 class TournamentDetailsScreen extends StatefulWidget {
-  TournamentDetailsScreen({super.key, this.isSidebarExpanded = false});
+  TournamentDetailsScreen(
+      {super.key, this.isSidebarExpanded = false, required this.tournament});
 
   bool isSidebarExpanded;
+  Tournament tournament;
 
   @override
   State<TournamentDetailsScreen> createState() =>
@@ -25,6 +28,11 @@ class TournamentDetailsScreen extends StatefulWidget {
 }
 
 class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -93,7 +101,9 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                           ClipRect(
                               child: SizedBox(
                             height: 1200,
-                            child: TournamentProgressionDisplay(),
+                            child: TournamentProgressionDisplay(
+                              tournament: widget.tournament,
+                            ),
                           )),
                           Positioned(
                             top: 0,
@@ -110,7 +120,9 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                                                   .size
                                                   .width,
                                               child:
-                                                  TournamentProgressionDisplay()),
+                                                  TournamentProgressionDisplay(
+                                                      tournament:
+                                                          widget.tournament!)),
                                           actions: <Widget>[
                                             TextButton(
                                               child: const Text('Close'),
@@ -149,10 +161,57 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
 }
 
 class TournamentDisplayFullScreen extends StatelessWidget {
-  TournamentDisplayFullScreen({super.key});
+  TournamentDisplayFullScreen({super.key, required this.tournament});
+
+  Tournament tournament;
 
   @override
   Widget build(BuildContext context) {
-    return TournamentProgressionDisplay();
+    return TournamentProgressionDisplay(
+      tournament: tournament,
+    );
   }
 }
+
+List<Team> teams = [
+  Team(
+      name: "Optic",
+      regionFlag: "flags/us.png",
+      membersCount: 6,
+      teamLogo: "orgPics/optic.jpeg"),
+  Team(
+      name: "NAVI",
+      regionFlag: "flags/ukraine.webp",
+      membersCount: 6,
+      teamLogo: "orgPics/navi.png"),
+  Team(
+      name: "Fnatic",
+      regionFlag: "flags/uk.png",
+      membersCount: 5,
+      teamLogo: "orgPics/fnatic.png"),
+  Team(
+      name: "PRX",
+      regionFlag: "flags/singapore.png",
+      membersCount: 6,
+      teamLogo: "orgPics/Paper_Rex_logo.png"),
+  Team(
+      name: "Sentinels",
+      regionFlag: "flags/us.png",
+      membersCount: 6,
+      teamLogo: "orgPics/sentinels.png"),
+  Team(
+      name: "Cloud 9",
+      regionFlag: "flags/us.png",
+      membersCount: 6,
+      teamLogo: "orgPics/Cloud9.png"),
+  Team(
+      name: "DRX",
+      regionFlag: "flags/sk.png",
+      membersCount: 6,
+      teamLogo: "orgPics/drx.png"),
+  Team(
+      name: "Zeta",
+      regionFlag: "flags/jp.png",
+      membersCount: 6,
+      teamLogo: "orgPics/zeta.png"),
+];

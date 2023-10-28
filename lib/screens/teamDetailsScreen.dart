@@ -29,7 +29,10 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height - 100,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height - 100,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -40,7 +43,10 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
       child: Stack(
         children: [
           Positioned(
-            left: MediaQuery.of(context).size.width * 0.1,
+            left: MediaQuery
+                .of(context)
+                .size
+                .width * 0.1,
             top: 50,
             child: TeamDetailsLeftSection(),
           ),
@@ -50,7 +56,10 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
             child: DefaultTabController(
               length: 4,
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.6,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -76,7 +85,7 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
                                 Text("Players"),
                                 Text("Teams"),
                                 Text("Coaches"),
-                                Text("Matches")
+
                               ])),
                     ),
                     Container(
@@ -90,42 +99,7 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
                               padding: const EdgeInsets.only(top: 40),
                               child: Text("No posts"),
                             )),
-                        Stack(children: [
-                          ClipRect(
-                              child: SizedBox(
-                            height: 1200,
-                            child: TournamentProgressionDisplay(),
-                          )),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: IconButton(
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text("Tournament Progression"),
-                                          content: Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              child:
-                                                  TournamentProgressionDisplay()),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              child: const Text('Close'),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      });
-                                },
-                                icon: Icon(Icons.fullscreen)),
-                          )
-                        ]),
+
                       ]),
                     ),
                   ],
@@ -149,11 +123,3 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
   }
 }
 
-class TournamentDisplayFullScreen extends StatelessWidget {
-  TournamentDisplayFullScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return TournamentProgressionDisplay();
-  }
-}

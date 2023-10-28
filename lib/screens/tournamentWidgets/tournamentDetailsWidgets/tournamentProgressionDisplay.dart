@@ -8,6 +8,10 @@ List roundMatchesData = [];
 String? winner;
 
 class TournamentProgressionDisplay extends StatefulWidget {
+  TournamentProgressionDisplay({required this.tournament});
+
+  Tournament tournament;
+
   @override
   _TournamentProgressionDisplayState createState() =>
       _TournamentProgressionDisplayState();
@@ -17,14 +21,14 @@ class _TournamentProgressionDisplayState
     extends State<TournamentProgressionDisplay> {
   int numberOfTeams = 16; // Change this to set the initial number of teams
   List<List<String>> rounds = [];
-  late Tournament tournament;
+
   List<Widget> roundWidgets = [];
 
   @override
   void initState() {
     super.initState();
     roundMatchesData = [];
-    tournament = Tournament(teams: [
+    widget.tournament = Tournament(teams: [
       Team(name: "Fnatic"),
       Team(name: "PRX"),
       Team(name: "DRX"),
@@ -34,19 +38,20 @@ class _TournamentProgressionDisplayState
       Team(name: "Zeta Division"),
       Team(name: "Sentinels"),
     ]);
-    roundMatchesData = List.generate(tournament.rounds.length, (index) {
-      return List.generate(tournament.rounds[index].noOfMatches, (index) {
+    roundMatchesData = List.generate(widget.tournament.rounds.length, (index) {
+      return List.generate(widget.tournament.rounds[index].noOfMatches,
+          (index) {
         return {"teamA": "", "teamB": ""};
       });
     });
-    tournament.generateRounds();
+    widget.tournament.generateRounds();
     generateRoundWidgets();
   }
 
   generateRoundWidgets() {
     int roundIndex = -1;
 
-    tournament.rounds.forEach((round) {
+    widget.tournament.rounds.forEach((round) {
       roundIndex++;
       int matchIndex = -1;
       roundMatchesData.add([]);
@@ -66,8 +71,8 @@ class _TournamentProgressionDisplayState
             return MatchInputWidget(
               matchIndex: matchIndex,
               roundIndex: roundIndex,
-              teamNames: List.generate(tournament.teams!.length,
-                  (index) => tournament.teams![index].name!),
+              teamNames: List.generate(widget.tournament.teams!.length,
+                  (index) => widget.tournament.teams![index].name!),
             );
           }),
         ),
@@ -78,8 +83,8 @@ class _TournamentProgressionDisplayState
       child: Column(
         children: [
           WinnerInputData(
-              teamNames: List.generate(tournament.teams!.length,
-                  (index) => tournament.teams![index].name!)),
+              teamNames: List.generate(widget.tournament.teams!.length,
+                  (index) => widget.tournament.teams![index].name!)),
         ],
       ),
     ));
@@ -107,16 +112,16 @@ class _TournamentProgressionDisplayState
                   onPressed: () {
                     // print(roundMatchesData);
                     for (int i = 0; i < roundMatchesData.length; i++) {
-                      tournament.rounds[i].matches = [];
+                      widget.tournament.rounds[i].matches = [];
                       for (int j = 0; j < roundMatchesData[i].length; j++) {
                         Match match = Match(
                             teamA: Team(name: roundMatchesData[i][j]["teamA"]),
                             teamB: Team(name: roundMatchesData[i][j]["teamB"]));
-                        tournament.rounds[i].matches!.add(match);
+                        widget.tournament.rounds[i].matches!.add(match);
                       }
                     }
-                    tournament.winner = Team(name: winner);
-                    tournament.rounds.forEach((element) {
+                    widget.tournament.winner = Team(name: winner);
+                    widget.tournament.rounds.forEach((element) {
                       element.matches?.forEach((element) {
                         print(
                             "${element.teamA!.name}  VS  ${element.teamB!.name}");
@@ -124,7 +129,7 @@ class _TournamentProgressionDisplayState
                       print("------------");
                     });
                     print("------------");
-                    print("WINNER: ${tournament.winner}");
+                    print("WINNER: ${widget.tournament.winner}");
                   },
                   child: Text(
                     "Submit ",

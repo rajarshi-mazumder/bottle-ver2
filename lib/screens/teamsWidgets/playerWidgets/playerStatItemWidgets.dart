@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../themes/themes.dart';
 
-class PlayerStatItemCircular extends StatelessWidget {
-  PlayerStatItemCircular({super.key});
+class PlayerStatTextItemCircular extends StatelessWidget {
+  PlayerStatTextItemCircular({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +32,30 @@ class PlayerStatItemCircular extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class PlayerStatImageItemCircular extends StatelessWidget {
+  PlayerStatImageItemCircular({super.key, required this.imageUrl});
+
+  String imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: bgPrimaryColor,
+          borderRadius: BorderRadius.all(Radius.circular(100))),
+      height: 64,
+      width: 64,
+      child: Container(
+        margin: EdgeInsets.all(4),
+        decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.all(Radius.circular(100))),
+        child: Image.asset(imageUrl),
       ),
     );
   }

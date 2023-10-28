@@ -81,7 +81,7 @@ class PlayerDisplayWidget extends StatelessWidget {
                 topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             child: Image.asset(
               agentImgUrl,
-              width: 250,
+              width: 242,
               height: 256,
               fit: BoxFit.cover,
             ),
@@ -197,8 +197,10 @@ class PlayerDisplayWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      PlayerStatItemCircular(),
-                      PlayerStatItemCircular(),
+                      PlayerStatTextItemCircular(),
+                      PlayerStatImageItemCircular(
+                        imageUrl: "valoRanks/immortal.png",
+                      ),
                     ],
                   )
                 ],

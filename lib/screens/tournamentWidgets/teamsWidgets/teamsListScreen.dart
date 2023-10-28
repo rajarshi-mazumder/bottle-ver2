@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../models/tournamentModels/tournamentModels.dart';
 import '../../../themes/themes.dart';
+import '../../tournamentDetailsScreen.dart';
 
 class TeamsListScreen extends StatelessWidget {
   TeamsListScreen({super.key, this.allBordersRounded = true});
@@ -44,49 +45,6 @@ class TeamsListScreen extends StatelessWidget {
     );
   }
 }
-
-List<Team> teams = [
-  Team(
-      name: "Optic",
-      regionFlag: "flags/us.png",
-      membersCount: 6,
-      teamLogo: "orgPics/optic.jpeg"),
-  Team(
-      name: "NAVI",
-      regionFlag: "flags/ukraine.webp",
-      membersCount: 6,
-      teamLogo: "orgPics/navi.png"),
-  Team(
-      name: "Fnatic",
-      regionFlag: "flags/uk.png",
-      membersCount: 5,
-      teamLogo: "orgPics/fnatic.png"),
-  Team(
-      name: "PRX",
-      regionFlag: "flags/singapore.png",
-      membersCount: 6,
-      teamLogo: "orgPics/Paper_Rex_logo.png"),
-  Team(
-      name: "Sentinels",
-      regionFlag: "flags/us.png",
-      membersCount: 6,
-      teamLogo: "orgPics/sentinels.png"),
-  Team(
-      name: "Cloud 9",
-      regionFlag: "flags/us.png",
-      membersCount: 6,
-      teamLogo: "orgPics/Cloud9.png"),
-  Team(
-      name: "DRX",
-      regionFlag: "flags/sk.png",
-      membersCount: 6,
-      teamLogo: "orgPics/drx.png"),
-  Team(
-      name: "Zeta",
-      regionFlag: "flags/jp.png",
-      membersCount: 6,
-      teamLogo: "orgPics/zeta.png"),
-];
 
 class TeamTile extends StatelessWidget {
   TeamTile({

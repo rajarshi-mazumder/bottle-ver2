@@ -226,7 +226,7 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                                 style: TextStyle(fontSize: 25),
                               ),
                               Image.asset(
-                                "/valoRanks/immortallLogo.png",
+                                "valoRanks/immortal.png",
                                 height: 40,
                                 width: 40,
                               )
