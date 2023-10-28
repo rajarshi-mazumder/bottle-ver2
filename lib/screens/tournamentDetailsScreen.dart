@@ -1,7 +1,7 @@
 import 'package:bottle_ver2/screens/tournamentWidgets/teamsWidgets/teamsListScreen.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsLeftSection.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsWidgets/tournamentOverviewSection.dart';
-import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsWidgets/tournamentProgressionDisplay.dart';
+import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentRightSection.dart';
 import 'package:bottle_ver2/temp.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +101,7 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                           ClipRect(
                               child: SizedBox(
                             height: 1200,
-                            child: TournamentProgressionDisplay(
+                            child: TournamentProgressionInput(
                               tournament: widget.tournament,
                             ),
                           )),
@@ -119,10 +119,9 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                                               width: MediaQuery.of(context)
                                                   .size
                                                   .width,
-                                              child:
-                                                  TournamentProgressionDisplay(
-                                                      tournament:
-                                                          widget.tournament!)),
+                                              child: TournamentProgressionInput(
+                                                  tournament:
+                                                      widget.tournament!)),
                                           actions: <Widget>[
                                             TextButton(
                                               child: const Text('Close'),
@@ -167,7 +166,7 @@ class TournamentDisplayFullScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TournamentProgressionDisplay(
+    return TournamentProgressionInput(
       tournament: tournament,
     );
   }

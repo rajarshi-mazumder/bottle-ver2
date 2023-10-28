@@ -1,24 +1,25 @@
+import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionDisplay.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/tournamentModels/tournamentModels.dart';
-import '../tournamentProgressionWidgets/matchInputWidget.dart';
-import '../tournamentProgressionWidgets/winnerInputWidget.dart';
+import 'matchInputWidget.dart';
+import 'winnerInputWidget.dart';
 
 List roundMatchesData = [];
 String? winner;
 
-class TournamentProgressionDisplay extends StatefulWidget {
-  TournamentProgressionDisplay({required this.tournament});
+class TournamentProgressionInput extends StatefulWidget {
+  TournamentProgressionInput({required this.tournament});
 
   Tournament tournament;
 
   @override
-  _TournamentProgressionDisplayState createState() =>
-      _TournamentProgressionDisplayState();
+  _TournamentProgressionInputState createState() =>
+      _TournamentProgressionInputState();
 }
 
-class _TournamentProgressionDisplayState
-    extends State<TournamentProgressionDisplay> {
+class _TournamentProgressionInputState
+    extends State<TournamentProgressionInput> {
   int numberOfTeams = 16; // Change this to set the initial number of teams
   List<List<String>> rounds = [];
 
@@ -130,6 +131,11 @@ class _TournamentProgressionDisplayState
                     });
                     print("------------");
                     print("WINNER: ${widget.tournament.winner}");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TournamentProgressionDisplay(
+                                tournament: widget.tournament)));
                   },
                   child: Text(
                     "Submit ",

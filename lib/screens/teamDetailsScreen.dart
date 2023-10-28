@@ -3,7 +3,7 @@ import 'package:bottle_ver2/screens/teamsWidgets/teamDetailsLeftSection.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/teamsWidgets/teamsListScreen.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsLeftSection.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsWidgets/tournamentOverviewSection.dart';
-import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsWidgets/tournamentProgressionDisplay.dart';
+import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentRightSection.dart';
 import 'package:bottle_ver2/temp.dart';
 import 'package:flutter/material.dart';
@@ -29,10 +29,7 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery
-          .of(context)
-          .size
-          .height - 100,
+      height: MediaQuery.of(context).size.height - 100,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -43,10 +40,7 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
       child: Stack(
         children: [
           Positioned(
-            left: MediaQuery
-                .of(context)
-                .size
-                .width * 0.1,
+            left: MediaQuery.of(context).size.width * 0.1,
             top: 50,
             child: TeamDetailsLeftSection(),
           ),
@@ -56,10 +50,7 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
             child: DefaultTabController(
               length: 4,
               child: Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.6,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -85,7 +76,6 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
                                 Text("Players"),
                                 Text("Teams"),
                                 Text("Coaches"),
-
                               ])),
                     ),
                     Container(
@@ -99,7 +89,6 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
                               padding: const EdgeInsets.only(top: 40),
                               child: Text("No posts"),
                             )),
-
                       ]),
                     ),
                   ],
@@ -122,4 +111,3 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
     );
   }
 }
-

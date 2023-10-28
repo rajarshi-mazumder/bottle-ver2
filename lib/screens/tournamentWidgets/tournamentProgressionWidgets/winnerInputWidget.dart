@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../tournamentDetailsWidgets/tournamentProgressionDisplay.dart';
+import 'tournamentProgressionInput.dart';
 
 class WinnerInputData extends StatefulWidget {
   WinnerInputData({super.key, required this.teamNames});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../tournamentDetailsWidgets/tournamentProgressionDisplay.dart';
+import 'tournamentProgressionInput.dart';
 
 class MatchInputWidget extends StatefulWidget {
   MatchInputWidget({
