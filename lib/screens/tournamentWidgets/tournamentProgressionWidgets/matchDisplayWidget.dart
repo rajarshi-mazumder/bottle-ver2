@@ -15,8 +15,8 @@ class MatchDisplayWidget extends StatefulWidget {
   final int roundIndex;
   final int matchIndex;
 
-  final Team teamA;
-  final Team teamB;
+  Team teamA;
+  Team teamB;
 
   @override
   State<MatchDisplayWidget> createState() => _MatchDisplayWidgetState();
@@ -27,6 +27,10 @@ class _MatchDisplayWidgetState extends State<MatchDisplayWidget> {
   @override
   void initState() {
     super.initState();
+    if (widget.teamA.name == null)
+      widget.teamA = Team(name: "default", teamLogo: "orgPics/riot_games.png");
+    if (widget.teamB.name == null)
+      widget.teamB = Team(name: "default", teamLogo: "orgPics/riot_games.png");
   }
 
   @override
@@ -44,25 +48,31 @@ class _MatchDisplayWidgetState extends State<MatchDisplayWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                color: Colors.blue,
-                child: Row(children: [
-                  Text(widget.teamA.name!),
-                  // Image.asset(
-                  //   widget.teamA.teamLogo!,
-                  // )
-                ]),
-              ),
+              if (widget.teamA != null)
+                Container(
+                  color: Colors.blue,
+                  height: 30,
+                  width: 100,
+                  child: Row(children: [
+                    Text(widget.teamA.name!),
+                    Image.asset(
+                      widget.teamA.teamLogo!,
+                    )
+                  ]),
+                ),
               Text("VS"),
-              Container(
-                color: Colors.red,
-                child: Row(children: [
-                  Text(widget.teamB.name!),
-                  // Image.asset(
-                  //   widget.teamB.teamLogo!,
-                  // )
-                ]),
-              ),
+              if (widget.teamB != null)
+                Container(
+                  color: Colors.red,
+                  height: 30,
+                  width: 100,
+                  child: Row(children: [
+                    Text(widget.teamB.name!),
+                    Image.asset(
+                      widget.teamB.teamLogo!,
+                    )
+                  ]),
+                ),
             ],
           ),
         ),

@@ -44,6 +44,7 @@ class _TournamentProgressionDisplayState
         child: Column(
           children: List.generate(round.noOfMatches, (index) {
             matchIndex++;
+            print(round.matches![index].teamA.toString());
             return MatchDisplayWidget(
               matchIndex: matchIndex,
               roundIndex: roundIndex,

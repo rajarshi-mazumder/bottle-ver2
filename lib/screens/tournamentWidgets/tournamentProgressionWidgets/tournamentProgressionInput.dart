@@ -29,20 +29,20 @@ class _TournamentProgressionInputState
   void initState() {
     super.initState();
     roundMatchesData = [];
-    widget.tournament = Tournament(teams: [
-      Team(name: "Fnatic"),
-      Team(name: "PRX"),
-      Team(name: "DRX"),
-      Team(name: "Loud"),
-      Team(name: "Team Liquid"),
-      Team(name: "Optic"),
-      Team(name: "Zeta Division"),
-      Team(name: "Sentinels"),
-    ]);
+    // widget.tournament = Tournament(teams: [
+    //   Team(name: "Fnatic"),
+    //   Team(name: "PRX"),
+    //   Team(name: "DRX"),
+    //   Team(name: "Loud"),
+    //   Team(name: "Team Liquid"),
+    //   Team(name: "Optic"),
+    //   Team(name: "Zeta Division"),
+    //   Team(name: "Sentinels"),
+    // ]);
     roundMatchesData = List.generate(widget.tournament.rounds.length, (index) {
       return List.generate(widget.tournament.rounds[index].noOfMatches,
           (index) {
-        return {"teamA": "", "teamB": ""};
+        return {"teamA": null, "teamB": null};
       });
     });
     widget.tournament.generateRounds();
@@ -115,9 +115,15 @@ class _TournamentProgressionInputState
                     for (int i = 0; i < roundMatchesData.length; i++) {
                       widget.tournament.rounds[i].matches = [];
                       for (int j = 0; j < roundMatchesData[i].length; j++) {
-                        Match match = Match(
-                            teamA: Team(name: roundMatchesData[i][j]["teamA"]),
-                            teamB: Team(name: roundMatchesData[i][j]["teamB"]));
+                        Team teamA = Team();
+                        Team teamB = Team();
+                        for (Team t in widget.tournament.teams!) {
+                          if (roundMatchesData[i][j]["teamA"] == t.name)
+                            teamA = t;
+                          else if (roundMatchesData[i][j]["teamB"] == t.name)
+                            teamB = t;
+                        }
+                        Match match = Match(teamA: teamA, teamB: teamB);
                         widget.tournament.rounds[i].matches!.add(match);
                       }
                     }
