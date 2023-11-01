@@ -26,10 +26,10 @@ class Player {
   static Player fromMap(Map<String, dynamic> map) {
     return Player(
       name: map['name'],
-      nationality: map['nationality'],
-      twitchLink: map['twitchLink'],
-      twitterLink: map['twitterLink'],
-      mainAgent: map['mainAgent'],
+      nationality: map['nationality'] ?? '',
+      twitchLink: map['twitchLink'] ?? '',
+      twitterLink: map['twitterLink'] ?? '',
+      mainAgent: map['mainAgent'] ?? '',
     );
   }
 }

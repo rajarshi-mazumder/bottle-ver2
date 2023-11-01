@@ -30,9 +30,9 @@ class Team {
   static Team fromMap(Map<String, dynamic> map) {
     return Team(
       name: map['name'],
-      membersCount: map['membersCount'],
-      regionFlag: map['regionFlag'],
-      teamLogo: map['teamLogo'],
+      membersCount: map['membersCount'] ?? 0,
+      regionFlag: map['regionFlag'] ?? '',
+      teamLogo: map['teamLogo'] ?? '',
     );
   }
 }

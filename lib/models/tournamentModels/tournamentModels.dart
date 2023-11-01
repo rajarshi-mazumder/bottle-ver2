@@ -111,25 +111,9 @@ class Match {
 
   static Match fromMap(Map<String, dynamic> map) {
     return Match(
-      teamA: Team.fromMap(map['teamA']),
-      teamB: Team.fromMap(map['teamB']),
-      winner: Team.fromMap(map['winner']),
+      teamA: Team.fromMap(map['teamA']) ?? Team(),
+      teamB: Team.fromMap(map['teamB']) ?? Team(),
+      winner: Team.fromMap(map['winner']) ?? Team(),
     );
   }
-}
-
-class Player {
-  String name;
-  String? nationality;
-
-  String? twitchLink;
-  String? twitterLink;
-  String? mainAgent;
-
-  Player(
-      {required this.name,
-      this.nationality,
-      this.twitchLink,
-      this.twitterLink,
-      this.mainAgent});
 }

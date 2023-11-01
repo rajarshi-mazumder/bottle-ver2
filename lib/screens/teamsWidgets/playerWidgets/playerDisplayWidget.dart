@@ -1,6 +1,7 @@
 import 'package:bottle_ver2/screens/teamsWidgets/playerWidgets/playerStatItemWidgets.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/tournamentModels/player.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
 
 List<Player> players = [

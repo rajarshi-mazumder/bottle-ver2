@@ -68,7 +68,6 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
                       onChanged: (value) {
                         setState(() {
                           winner = value!;
-                          print(winner);
                           roundMatchesData[widget.roundIndex][widget.matchIndex]
                               ['winner'] = value;
                         });

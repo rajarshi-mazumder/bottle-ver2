@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
+import '../../tournamentDetailsScreen.dart';
 import 'matchInputWidget.dart';
 import 'winnerInputWidget.dart';
 
@@ -120,14 +121,17 @@ class _TournamentProgressionInputState
                           Team teamA = Team();
                           Team teamB = Team();
                           Team winner = Team();
+
                           for (Team t in widget.tournament.teams!) {
                             if (roundMatchesData[i][j]["teamA"] == t.name)
                               teamA = t;
                             else if (roundMatchesData[i][j]["teamB"] == t.name)
                               teamB = t;
-                            else if (roundMatchesData[i][j]["winner"] == t.name)
+                            if (roundMatchesData[i][j]["winner"] == t.name) {
                               winner = t;
+                            }
                           }
+
                           Match match =
                               Match(teamA: teamA, teamB: teamB, winner: winner);
                           widget.tournament.rounds[i].matches!.add(match);
@@ -142,8 +146,10 @@ class _TournamentProgressionInputState
                         print("------------");
                       });
                       print("------------");
-                      print("WINNER: ${widget.tournament.winner}");
+                      print("WINNER: ${widget.tournament.winner?.name}");
                       print(widget.tournament.tournamentSpecificToMap());
+                      convertTournamentJSONToObject(
+                          widget.tournament.tournamentSpecificToMap());
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -159,4 +165,30 @@ class _TournamentProgressionInputState
       ),
     );
   }
+}
+
+convertTournamentJSONToObject(Map<String, dynamic> tournamentJSON) {
+  List parsedRoundMatchesData = [];
+  for (int i = 0; i < tournamentJSON["rounds"].length; i++) {
+    var roundData = tournamentJSON["rounds"][i];
+
+    parsedRoundMatchesData
+        .add({"roundIndex": roundData["roundIndex"], "matches": []});
+    for (int j = 0; j < roundData["matches"].length; j++) {
+      Team teamA = Team();
+      Team teamB = Team();
+      Team winner = Team();
+      for (Team t in teams) {
+        if (roundMatchesData[i][j]["teamA"] == t.name)
+          teamA = t;
+        else if (roundMatchesData[i][j]["teamB"] == t.name) teamB = t;
+        if (roundMatchesData[i][j]["winner"] == t.name) {
+          winner = t;
+        }
+      }
+      parsedRoundMatchesData[i]["matches"]
+          .add({"teamA": teamA, "teamB": teamB, "winner": winner});
+    }
+  }
+  print("parsedRoundMatchesData:  ${parsedRoundMatchesData}");
 }
