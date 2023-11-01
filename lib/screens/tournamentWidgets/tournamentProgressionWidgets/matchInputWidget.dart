@@ -1,39 +1,37 @@
+import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
 import 'package:flutter/material.dart';
-
-import 'tournamentProgressionInput.dart';
 
 class MatchInputWidget extends StatefulWidget {
   MatchInputWidget({
-    super.key,
+    Key? key,
     required this.matchIndex,
     required this.roundIndex,
-    required this.teamNames, // Add a parameter for team names
+    required this.teamNames,
   });
 
   final int roundIndex;
   final int matchIndex;
-  final List<String> teamNames; // List of team names
+  final List<String> teamNames;
 
   @override
   State<MatchInputWidget> createState() => _MatchInputWidgetState();
 }
 
 class _MatchInputWidgetState extends State<MatchInputWidget> {
-  String selectedTeamA = ''; // Track selected team A
-  String selectedTeamB = ''; // Track selected team B
+  String selectedTeamA = '';
+  String selectedTeamB = '';
+  String winner = '';
+
   @override
   void initState() {
     super.initState();
-    widget.teamNames.add("");
+    widget.teamNames.add('');
     selectedTeamA = widget.teamNames.last;
     selectedTeamB = widget.teamNames.last;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.roundIndex == 0) {
-      print("Match addedddddddd ${widget.matchIndex}");
-    }
     return Container(
       width: 200,
       child: Padding(
@@ -60,35 +58,58 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
                         setState(() {
                           selectedTeamA = value!;
                           roundMatchesData[widget.roundIndex][widget.matchIndex]
-                              ["teamA"] = value;
+                              ['teamA'] = value;
+                        });
+                      },
+                    ),
+                    Radio<String>(
+                      value: selectedTeamA,
+                      groupValue: winner,
+                      onChanged: (value) {
+                        setState(() {
+                          winner = value!;
+                          print(winner);
                           roundMatchesData[widget.roundIndex][widget.matchIndex]
-                              ["teamB"] = selectedTeamB;
+                              ['winner'] = value;
                         });
                       },
                     ),
                   ],
                 ),
               ),
-              Text("VS"),
+              Text('VS'),
               Container(
                 color: Colors.red,
-                child: DropdownButton<String>(
-                  value: selectedTeamB,
-                  items: widget.teamNames.map((team) {
-                    return DropdownMenuItem<String>(
-                      value: team,
-                      child: Text(team),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedTeamB = value!;
-                      roundMatchesData[widget.roundIndex][widget.matchIndex]
-                          ["teamA"] = selectedTeamA;
-                      roundMatchesData[widget.roundIndex][widget.matchIndex]
-                          ["teamB"] = value;
-                    });
-                  },
+                child: Row(
+                  children: [
+                    DropdownButton<String>(
+                      value: selectedTeamB,
+                      items: widget.teamNames.map((team) {
+                        return DropdownMenuItem<String>(
+                          value: team,
+                          child: Text(team),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedTeamB = value!;
+                          roundMatchesData[widget.roundIndex][widget.matchIndex]
+                              ['teamB'] = value;
+                        });
+                      },
+                    ),
+                    Radio<String>(
+                      value: selectedTeamB,
+                      groupValue: winner,
+                      onChanged: (value) {
+                        setState(() {
+                          winner = value!;
+                          roundMatchesData[widget.roundIndex][widget.matchIndex]
+                              ['winner'] = value;
+                        });
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],

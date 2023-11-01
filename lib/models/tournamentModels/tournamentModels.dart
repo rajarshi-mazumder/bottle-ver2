@@ -27,8 +27,16 @@ class Tournament {
 
   Map<String, dynamic> toMap() {
     return {
-      // 'teams': teams?.map((team) => team?.toMap()).toList(),
+      'teams': teams?.map((team) => team?.toMap()).toList(),
       'rounds': rounds.map((round) => round.toMap()).toList(),
+      'winner': winner?.toMap(),
+    };
+  }
+
+  Map<String, dynamic> tournamentSpecificToMap() {
+    return {
+      // 'teams': teams?.map((team) => team?.tournamnetSpecificToMap()).toList(),
+      'rounds': rounds.map((round) => round.tournamentSpecificToMap()).toList(),
       'winner': winner?.toMap(),
     };
   }
@@ -58,6 +66,15 @@ class Round {
     };
   }
 
+  Map<String, dynamic> tournamentSpecificToMap() {
+    return {
+      'roundIndex': roundIndex,
+      'matches':
+          matches?.map((match) => match?.tournamentSpecificToMap()).toList(),
+      'noOfMatches': noOfMatches,
+    };
+  }
+
   static Round fromMap(Map<String, dynamic> map) {
     return Round(
       roundIndex: map['roundIndex'],
@@ -81,6 +98,14 @@ class Match {
       'teamA': teamA?.toMap(),
       'teamB': teamB?.toMap(),
       'winner': winner?.toMap(),
+    };
+  }
+
+  Map<String, dynamic> tournamentSpecificToMap() {
+    return {
+      'teamA': teamA?.tournamnetSpecificToMap(),
+      'teamB': teamB?.tournamnetSpecificToMap(),
+      'winner': winner?.tournamnetSpecificToMap(),
     };
   }
 

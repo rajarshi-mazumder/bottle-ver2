@@ -119,13 +119,17 @@ class _TournamentProgressionInputState
                         for (int j = 0; j < roundMatchesData[i].length; j++) {
                           Team teamA = Team();
                           Team teamB = Team();
+                          Team winner = Team();
                           for (Team t in widget.tournament.teams!) {
                             if (roundMatchesData[i][j]["teamA"] == t.name)
                               teamA = t;
                             else if (roundMatchesData[i][j]["teamB"] == t.name)
                               teamB = t;
+                            else if (roundMatchesData[i][j]["winner"] == t.name)
+                              winner = t;
                           }
-                          Match match = Match(teamA: teamA, teamB: teamB);
+                          Match match =
+                              Match(teamA: teamA, teamB: teamB, winner: winner);
                           widget.tournament.rounds[i].matches!.add(match);
                         }
                       }
@@ -139,7 +143,7 @@ class _TournamentProgressionInputState
                       });
                       print("------------");
                       print("WINNER: ${widget.tournament.winner}");
-                      print(widget.tournament.toMap());
+                      print(widget.tournament.tournamentSpecificToMap());
                       Navigator.push(
                           context,
                           MaterialPageRoute(
