@@ -1,6 +1,7 @@
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
 import 'tournamentProgressionInput.dart';
 

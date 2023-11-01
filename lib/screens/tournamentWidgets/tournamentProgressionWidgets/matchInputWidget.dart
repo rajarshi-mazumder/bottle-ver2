@@ -46,23 +46,27 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
             children: [
               Container(
                 color: Colors.blue,
-                child: DropdownButton<String>(
-                  value: selectedTeamA,
-                  items: widget.teamNames.map((team) {
-                    return DropdownMenuItem<String>(
-                      value: team,
-                      child: Text(team),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedTeamA = value!;
-                      roundMatchesData[widget.roundIndex][widget.matchIndex]
-                          ["teamA"] = value;
-                      roundMatchesData[widget.roundIndex][widget.matchIndex]
-                          ["teamB"] = selectedTeamB;
-                    });
-                  },
+                child: Row(
+                  children: [
+                    DropdownButton<String>(
+                      value: selectedTeamA,
+                      items: widget.teamNames.map((team) {
+                        return DropdownMenuItem<String>(
+                          value: team,
+                          child: Text(team),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedTeamA = value!;
+                          roundMatchesData[widget.roundIndex][widget.matchIndex]
+                              ["teamA"] = value;
+                          roundMatchesData[widget.roundIndex][widget.matchIndex]
+                              ["teamB"] = selectedTeamB;
+                        });
+                      },
+                    ),
+                  ],
                 ),
               ),
               Text("VS"),

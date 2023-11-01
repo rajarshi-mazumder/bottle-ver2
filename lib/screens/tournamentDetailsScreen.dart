@@ -10,6 +10,7 @@ import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
 import 'package:bottle_ver2/sharedWidgets/sidebar.dart';
 import 'package:flutter/rendering.dart';
 
+import '../models/tournamentModels/team.dart';
 import '../models/tournamentModels/tournamentModels.dart';
 import '../themes/customTabBarThemes.dart';
 import 'gameProfileWidgets/gameProfileLeftSection.dart';

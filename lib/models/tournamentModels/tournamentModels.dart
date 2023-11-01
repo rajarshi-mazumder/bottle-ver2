@@ -1,21 +1,13 @@
 import 'dart:math';
 
-class Team {
-  String? name = "";
-  int? membersCount = 5;
-  String? regionFlag = "";
-  List? members = [];
-  String? teamLogo = "";
-
-  Team({this.name, this.membersCount, this.regionFlag, this.teamLogo});
-}
+import 'package:bottle_ver2/models/tournamentModels/team.dart';
 
 class Tournament {
   List<Team>? teams = [];
   List<Round> rounds = [];
   Team? winner;
 
-  Tournament({this.teams});
+  Tournament({this.teams, this.winner});
 
   void generateRounds() {
     double totalTeams =
@@ -32,6 +24,23 @@ class Tournament {
           "Matches in round: ${pow(2, element.roundIndex)},,${element.roundIndex}");
     });
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      // 'teams': teams?.map((team) => team?.toMap()).toList(),
+      'rounds': rounds.map((round) => round.toMap()).toList(),
+      'winner': winner?.toMap(),
+    };
+  }
+
+  static Tournament fromMap(Map<String, dynamic> map) {
+    return Tournament(
+      teams: (map['teams'] as List<dynamic>)
+          .map((teamMap) => Team.fromMap(teamMap))
+          .toList(),
+      winner: Team.fromMap(map['winner']),
+    );
+  }
 }
 
 class Round {
@@ -40,6 +49,24 @@ class Round {
   int noOfMatches;
 
   Round({required this.roundIndex, this.matches, required this.noOfMatches});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'roundIndex': roundIndex,
+      'matches': matches?.map((match) => match?.toMap()).toList(),
+      'noOfMatches': noOfMatches,
+    };
+  }
+
+  static Round fromMap(Map<String, dynamic> map) {
+    return Round(
+      roundIndex: map['roundIndex'],
+      matches: (map['matches'] as List<dynamic>)
+          .map((matchMap) => Match.fromMap(matchMap))
+          .toList(),
+      noOfMatches: map['noOfMatches'],
+    );
+  }
 }
 
 class Match {
@@ -48,6 +75,22 @@ class Match {
   Team? winner;
 
   Match({this.teamA, this.teamB, this.winner});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'teamA': teamA?.toMap(),
+      'teamB': teamB?.toMap(),
+      'winner': winner?.toMap(),
+    };
+  }
+
+  static Match fromMap(Map<String, dynamic> map) {
+    return Match(
+      teamA: Team.fromMap(map['teamA']),
+      teamB: Team.fromMap(map['teamB']),
+      winner: Team.fromMap(map['winner']),
+    );
+  }
 }
 
 class Player {

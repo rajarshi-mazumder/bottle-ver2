@@ -1,6 +1,7 @@
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionDisplay.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
 import 'matchInputWidget.dart';
 import 'winnerInputWidget.dart';
@@ -138,6 +139,7 @@ class _TournamentProgressionInputState
                       });
                       print("------------");
                       print("WINNER: ${widget.tournament.winner}");
+                      print(widget.tournament.toMap());
                       Navigator.push(
                           context,
                           MaterialPageRoute(
