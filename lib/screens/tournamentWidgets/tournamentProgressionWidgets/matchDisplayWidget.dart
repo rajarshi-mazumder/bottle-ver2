@@ -1,3 +1,4 @@
+import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/tournamentModels/tournamentModels.dart';
@@ -27,10 +28,6 @@ class _MatchDisplayWidgetState extends State<MatchDisplayWidget> {
   @override
   void initState() {
     super.initState();
-    if (widget.teamA.name == null)
-      widget.teamA = Team(name: "default", teamLogo: "orgPics/riot_games.png");
-    if (widget.teamB.name == null)
-      widget.teamB = Team(name: "default", teamLogo: "orgPics/riot_games.png");
   }
 
   @override
@@ -46,36 +43,136 @@ class _MatchDisplayWidgetState extends State<MatchDisplayWidget> {
           constraints: BoxConstraints(minHeight: 50),
           margin: EdgeInsets.symmetric(vertical: 20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (widget.teamA != null)
-                Container(
-                  color: Colors.blue,
-                  height: 30,
-                  width: 100,
-                  child: Row(children: [
-                    Text(widget.teamA.name!),
-                    Image.asset(
-                      widget.teamA.teamLogo!,
-                    )
-                  ]),
-                ),
-              Text("VS"),
-              if (widget.teamB != null)
-                Container(
-                  color: Colors.red,
-                  height: 30,
-                  width: 100,
-                  child: Row(children: [
-                    Text(widget.teamB.name!),
-                    Image.asset(
-                      widget.teamB.teamLogo!,
-                    )
-                  ]),
-                ),
+              TeamDisplayWidget(
+                  teamLogo: widget.teamA.teamLogo != null
+                      ? widget.teamA.teamLogo!
+                      : '',
+                  teamName:
+                      widget.teamA.name != null ? widget.teamA.name! : ''),
+              SizedBox(height: 10),
+              Center(
+                  child: Text("VS",
+                      style: Theme.of(context).textTheme.labelMedium)),
+              SizedBox(height: 10),
+              TeamDisplayWidget(
+                  teamLogo: widget.teamB.teamLogo != null
+                      ? widget.teamB.teamLogo!
+                      : '',
+                  teamName:
+                      widget.teamB.name != null ? widget.teamB.name! : ''),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class TeamDisplayWidget extends StatelessWidget {
+  TeamDisplayWidget(
+      {super.key, required this.teamLogo, required this.teamName});
+
+  String teamLogo;
+  String teamName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+          color: bgPrimaryColor,
+          borderRadius: BorderRadius.all(Radius.circular(5))),
+      child: Row(children: [
+        if (teamLogo != '')
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(100)),
+                child: Image.asset(
+                  teamLogo,
+                  height: 40,
+                  width: 40,
+                ),
+              ),
+              Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 1),
+                    borderRadius: BorderRadius.all(Radius.circular(100))),
+              ),
+            ],
+          ),
+        SizedBox(width: 20),
+        Expanded(
+            child: Text(
+          teamName != '' ? teamName : "",
+          style: Theme.of(context).textTheme.labelMedium,
+        ))
+      ]),
+    );
+  }
+}
+
+class WinnerDisplayWidget extends StatelessWidget {
+  WinnerDisplayWidget(
+      {super.key, required this.teamLogo, required this.teamName});
+
+  String teamLogo;
+  String teamName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      width: 200,
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+          color: bgPrimaryColor,
+          borderRadius: BorderRadius.all(Radius.circular(5))),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(height: 10),
+          Center(
+              child: Text("WINNER",
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium
+                      ?.copyWith(color: primaryColor, fontSize: 16))),
+          SizedBox(height: 20),
+          Row(children: [
+            if (teamLogo != '')
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                    child: Image.asset(
+                      teamLogo,
+                      height: 40,
+                      width: 40,
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey, width: 1),
+                        borderRadius: BorderRadius.all(Radius.circular(100))),
+                  ),
+                ],
+              ),
+            SizedBox(width: 20),
+            Expanded(
+                child: Text(
+              teamName != '' ? teamName : "",
+              style: Theme.of(context).textTheme.labelMedium,
+            ))
+          ]),
+        ],
       ),
     );
   }

@@ -55,15 +55,13 @@ class _TournamentProgressionDisplayState
         ),
       ));
     });
-    roundWidgets.add(Container(
-      width: 100,
-      child: Column(
-        children: [
-          WinnerInputData(
-              teamNames: List.generate(widget.tournament.teams!.length,
-                  (index) => widget.tournament.teams![index].name!)),
-        ],
-      ),
+    roundWidgets.add(WinnerDisplayWidget(
+      teamLogo: widget.tournament.winner!.teamLogo != null
+          ? widget.tournament.winner!.teamLogo!
+          : '',
+      teamName: widget.tournament.winner!.name != null
+          ? widget.tournament.winner!.name!
+          : '',
     ));
   }
 
@@ -78,7 +76,7 @@ class _TournamentProgressionDisplayState
             child: Center(
               child: Row(
                   children: List.generate(roundWidgets.length, (index) {
-                return Expanded(child: roundWidgets[index]);
+                return roundWidgets[index];
               })),
             ),
           ),

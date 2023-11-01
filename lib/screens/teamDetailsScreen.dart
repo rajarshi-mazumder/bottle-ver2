@@ -48,7 +48,7 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
             top: 52,
             right: 200,
             child: DefaultTabController(
-              length: 4,
+              length: 3,
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.6,
                 decoration: BoxDecoration(

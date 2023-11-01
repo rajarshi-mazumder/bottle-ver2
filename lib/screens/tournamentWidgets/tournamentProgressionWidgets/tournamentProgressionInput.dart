@@ -106,47 +106,49 @@ class _TournamentProgressionInputState
               })),
             ),
           ),
-          Positioned(
-              right: 50,
-              top: 50,
-              child: ElevatedButton(
-                  onPressed: () {
-                    // print(roundMatchesData);
-                    for (int i = 0; i < roundMatchesData.length; i++) {
-                      widget.tournament.rounds[i].matches = [];
-                      for (int j = 0; j < roundMatchesData[i].length; j++) {
-                        Team teamA = Team();
-                        Team teamB = Team();
-                        for (Team t in widget.tournament.teams!) {
-                          if (roundMatchesData[i][j]["teamA"] == t.name)
-                            teamA = t;
-                          else if (roundMatchesData[i][j]["teamB"] == t.name)
-                            teamB = t;
+          if (widget.tournament.rounds.length > 0)
+            Positioned(
+                right: 50,
+                top: 50,
+                child: ElevatedButton(
+                    onPressed: () {
+                      // print(roundMatchesData);
+                      for (int i = 0; i < roundMatchesData.length; i++) {
+                        widget.tournament.rounds[i].matches = [];
+                        for (int j = 0; j < roundMatchesData[i].length; j++) {
+                          Team teamA = Team();
+                          Team teamB = Team();
+                          for (Team t in widget.tournament.teams!) {
+                            if (roundMatchesData[i][j]["teamA"] == t.name)
+                              teamA = t;
+                            else if (roundMatchesData[i][j]["teamB"] == t.name)
+                              teamB = t;
+                          }
+                          Match match = Match(teamA: teamA, teamB: teamB);
+                          widget.tournament.rounds[i].matches!.add(match);
                         }
-                        Match match = Match(teamA: teamA, teamB: teamB);
-                        widget.tournament.rounds[i].matches!.add(match);
                       }
-                    }
-                    widget.tournament.winner = Team(name: winner);
-                    widget.tournament.rounds.forEach((element) {
-                      element.matches?.forEach((element) {
-                        print(
-                            "${element.teamA!.name}  VS  ${element.teamB!.name}");
+                      widget.tournament.winner = Team(name: winner);
+                      widget.tournament.rounds.forEach((element) {
+                        element.matches?.forEach((element) {
+                          print(
+                              "${element.teamA!.name}  VS  ${element.teamB!.name}");
+                        });
+                        print("------------");
                       });
                       print("------------");
-                    });
-                    print("------------");
-                    print("WINNER: ${widget.tournament.winner}");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TournamentProgressionDisplay(
-                                tournament: widget.tournament)));
-                  },
-                  child: Text(
-                    "Submit ",
-                    style: TextStyle(color: Colors.white),
-                  )))
+                      print("WINNER: ${widget.tournament.winner}");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  TournamentProgressionDisplay(
+                                      tournament: widget.tournament)));
+                    },
+                    child: Text(
+                      "Submit ",
+                      style: TextStyle(color: Colors.white),
+                    )))
         ],
       ),
     );
