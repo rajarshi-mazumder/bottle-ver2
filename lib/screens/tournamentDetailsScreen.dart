@@ -4,6 +4,7 @@ import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsWidgets/t
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentRightSection.dart';
 import 'package:bottle_ver2/temp.dart';
+import 'package:bottle_ver2/themes/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
@@ -36,8 +37,12 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    CustomSpacing customSpacing = CustomSpacing(context: context);
     return Container(
-      height: MediaQuery.of(context).size.height - 100,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height - 100,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -48,17 +53,17 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
       child: Stack(
         children: [
           Positioned(
-            left: MediaQuery.of(context).size.width * 0.1,
+            left: customSpacing.leftSidePosition,
             top: 50,
             child: TournamentDetailsLeftSection(),
           ),
           Positioned(
             top: 52,
-            right: 200,
+            right: customSpacing.rightSidePosition,
             child: DefaultTabController(
               length: 4,
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: customSpacing.rightSideWidth,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -101,11 +106,11 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                         Stack(children: [
                           ClipRect(
                               child: SizedBox(
-                            height: 1200,
-                            child: TournamentProgressionInput(
-                              tournament: widget.tournament,
-                            ),
-                          )),
+                                height: 1200,
+                                child: TournamentProgressionInput(
+                                  tournament: widget.tournament,
+                                ),
+                              )),
                           Positioned(
                             top: 0,
                             right: 0,
@@ -117,12 +122,13 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
                                         return AlertDialog(
                                           title: Text("Tournament Progression"),
                                           content: Container(
-                                              width: MediaQuery.of(context)
+                                              width: MediaQuery
+                                                  .of(context)
                                                   .size
                                                   .width,
                                               child: TournamentProgressionInput(
                                                   tournament:
-                                                      widget.tournament!)),
+                                                  widget.tournament!)),
                                           actions: <Widget>[
                                             TextButton(
                                               child: const Text('Close'),

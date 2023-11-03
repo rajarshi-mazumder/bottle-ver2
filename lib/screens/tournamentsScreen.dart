@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import '../sharedWidgets/rightSidebar.dart';
 import '../sharedWidgets/sidebar.dart';
+import '../themes/spacing.dart';
 import 'gameProfileWidgets/gameProfileLeftSection.dart';
 
 class TournamentsScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class TournamentsScreen extends StatefulWidget {
 class _TournamentsScreenState extends State<TournamentsScreen> {
   @override
   Widget build(BuildContext context) {
+    CustomSpacing customSpacing = CustomSpacing(context: context);
     return Container(
       height: MediaQuery.of(context).size.height - 100,
       decoration: BoxDecoration(
@@ -31,12 +33,13 @@ class _TournamentsScreenState extends State<TournamentsScreen> {
       child: Stack(
         children: [
           Positioned(
-            left: MediaQuery.of(context).size.width * 0.1,
+            left: customSpacing.leftSidePosition,
             top: 60,
             child: TournamentLeftSection(),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 200, top: 60),
+            padding: EdgeInsets.only(
+                right: customSpacing.rightSidePosition, top: 60),
             child: TournamentRightSection(),
           ),
           Positioned(

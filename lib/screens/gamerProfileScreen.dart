@@ -5,6 +5,7 @@ import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
 import 'package:bottle_ver2/sharedWidgets/sidebar.dart';
 
 import '../themes/customTabBarThemes.dart';
+import '../themes/spacing.dart';
 import 'gameProfileWidgets/gameProfileLeftSection.dart';
 import 'gameProfileWidgets/gameProfileRightSection.dart';
 
@@ -20,6 +21,7 @@ class GameProfileScreen extends StatefulWidget {
 class _GameProfileScreenState extends State<GameProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    CustomSpacing customSpacing = CustomSpacing(context: context);
     return Container(
       height: MediaQuery.of(context).size.height - 100,
       decoration: BoxDecoration(
@@ -32,17 +34,17 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
       child: Stack(
         children: [
           Positioned(
-            left: MediaQuery.of(context).size.width * 0.1,
+            left: customSpacing.leftSidePosition,
             top: 20,
             child: GameProfileLeftSection(),
           ),
           Positioned(
             top: 52,
-            right: 200,
+            right: customSpacing.rightSidePosition,
             child: DefaultTabController(
               length: 3,
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: customSpacing.rightSideWidth,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,

@@ -1,3 +1,4 @@
+import 'package:bottle_ver2/themes/spacing.dart';
 import 'package:flutter/material.dart';
 
 import '../../themes/themes.dart';
@@ -10,6 +11,7 @@ class TournamentRightSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CustomSpacing customSpacing = CustomSpacing(context: context);
     return Align(
       alignment: Alignment.centerRight,
       child: ClipRRect(
@@ -24,7 +26,7 @@ class TournamentRightSection extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [secondaryColor, bgPrimaryColor])),
-          width: MediaQuery.of(context).size.width * 0.6,
+          width: customSpacing.rightSideWidth,
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: ListView.builder(
