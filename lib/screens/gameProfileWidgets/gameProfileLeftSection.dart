@@ -1,3 +1,4 @@
+import 'package:bottle_ver2/themes/spacing.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:bottle_ver2/screens/gameProfileWidgets/playerCardWidgets/valorantPlayerCardWidgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,8 +7,7 @@ import 'dart:math';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class GameProfileLeftSection extends StatefulWidget {
-  GameProfileLeftSection(
-      {super.key, this.cardLengthType = "long", this.cardWidth = 300});
+  GameProfileLeftSection({super.key, this.cardLengthType = "long"});
 
   double cardWidth = 300;
   String cardLengthType;
@@ -19,6 +19,8 @@ class GameProfileLeftSection extends StatefulWidget {
 class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
   @override
   Widget build(BuildContext context) {
+    CustomSpacing customSpacing = CustomSpacing(context: context);
+    widget.cardWidth = customSpacing.leftSideWidth;
     return Container(
       margin: EdgeInsets.only(top: 30),
       decoration: BoxDecoration(
@@ -26,7 +28,7 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
           ),
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: 300,
+          maxWidth: customSpacing.leftSideWidth,
         ),
         child: SingleChildScrollView(
           child: Stack(
@@ -51,7 +53,7 @@ class _GameProfileLeftSectionState extends State<GameProfileLeftSection> {
                             colors: [secondaryColor, bgPrimaryColor]),
                       ),
                       height: widget.cardLengthType == "long" ? 430 : 70,
-                      width: 300,
+                      width: customSpacing.leftSideWidth,
                       child: Stack(
                         children: [
                           Positioned(

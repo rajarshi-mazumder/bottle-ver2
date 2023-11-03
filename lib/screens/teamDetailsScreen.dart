@@ -6,6 +6,7 @@ import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsWidgets/t
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentRightSection.dart';
 import 'package:bottle_ver2/temp.dart';
+import 'package:bottle_ver2/themes/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
@@ -28,6 +29,7 @@ class TeamDetailsScreen extends StatefulWidget {
 class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    CustomSpacing customSpacing = CustomSpacing(context: context);
     return Container(
       height: MediaQuery.of(context).size.height - 100,
       decoration: BoxDecoration(
@@ -40,17 +42,17 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
       child: Stack(
         children: [
           Positioned(
-            left: MediaQuery.of(context).size.width * 0.1,
+            left: customSpacing.leftSidePosition,
             top: 50,
             child: TeamDetailsLeftSection(),
           ),
           Positioned(
             top: 52,
-            right: 200,
+            right: customSpacing.rightSidePosition,
             child: DefaultTabController(
               length: 3,
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: customSpacing.rightSideWidth,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,

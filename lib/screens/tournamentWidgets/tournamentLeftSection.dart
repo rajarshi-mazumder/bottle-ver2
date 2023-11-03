@@ -1,4 +1,5 @@
 import 'package:bottle_ver2/screens/tournamentWidgets/TournamentTile.dart';
+import 'package:bottle_ver2/themes/spacing.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +15,11 @@ class TournamentLeftSection extends StatefulWidget {
 class _TournamentLeftSectionState extends State<TournamentLeftSection> {
   @override
   Widget build(BuildContext context) {
+    CustomSpacing customSpacing = CustomSpacing(context: context);
     return Container(
       child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: 300, maxHeight: 600),
+        constraints: BoxConstraints(
+            maxWidth: customSpacing.leftSideWidth, maxHeight: 600),
         child: SingleChildScrollView(
           child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -28,7 +31,7 @@ class _TournamentLeftSectionState extends State<TournamentLeftSection> {
                     colors: [secondaryColor, bgPrimaryColor]),
               ),
               height: widget.cardLength == "long" ? 500 : 100,
-              width: 300,
+              width: customSpacing.leftSideWidth,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
