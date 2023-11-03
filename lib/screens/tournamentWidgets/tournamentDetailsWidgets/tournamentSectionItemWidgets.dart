@@ -45,8 +45,8 @@ class TournamentDetailItemShort extends StatelessWidget {
   }
 }
 
-class TournamentDetailItemLong extends StatelessWidget {
-  TournamentDetailItemLong(
+class TournamentDetailItemShort_Type2 extends StatelessWidget {
+  TournamentDetailItemShort_Type2(
       {super.key,
       this.textFontSize = 12,
       required this.labelText,
@@ -60,32 +60,79 @@ class TournamentDetailItemLong extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 5),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          labelWidget,
-          Expanded(
-            flex: 3,
-            child: Row(
-              children: [
-                SizedBox(width: 20),
-                Text(
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        labelWidget,
+        Container(
+          width: 60,
+          child: Row(
+            children: [
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
                   labelText,
                   style: TextStyle(color: Colors.grey, fontSize: textFontSize),
                 ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(width: 5),
+        Text(
+          descriptionText,
+          style: TextStyle(fontSize: textFontSize),
+        ),
+      ],
+    );
+  }
+}
+
+class TournamentDetailEllipticalItem extends StatelessWidget {
+  TournamentDetailEllipticalItem(
+      {super.key,
+      this.textFontSize = 12,
+      required this.labelText,
+      required this.descriptionText,
+      required this.labelWidget});
+
+  double textFontSize;
+  String labelText;
+  String descriptionText;
+  Widget labelWidget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.grey,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(200))),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                labelWidget,
+                SizedBox(width: 10),
+                Text(
+                  labelText,
+                  style: TextStyle(color: Colors.grey),
+                ),
               ],
             ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              descriptionText,
-              style: TextStyle(fontSize: textFontSize),
-            ),
-          ),
-        ],
+            SizedBox(height: 10),
+            Text(descriptionText,
+                style: customTheme.textTheme.labelMedium?.copyWith(
+                  fontSize: 15,
+                )),
+          ],
+        ),
       ),
     );
   }
@@ -143,7 +190,7 @@ class TournamentSectionButton extends StatelessWidget {
       child: Container(
         height: 50,
         child: Align(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.center,
             child: Text(
               buttonText,
               style: TextStyle(color: Colors.white),

@@ -31,16 +31,7 @@ class _TournamentProgressionInputState
   void initState() {
     super.initState();
     roundMatchesData = [];
-    // widget.tournament = Tournament(teams: [
-    //   Team(name: "Fnatic"),
-    //   Team(name: "PRX"),
-    //   Team(name: "DRX"),
-    //   Team(name: "Loud"),
-    //   Team(name: "Team Liquid"),
-    //   Team(name: "Optic"),
-    //   Team(name: "Zeta Division"),
-    //   Team(name: "Sentinels"),
-    // ]);
+
     roundMatchesData = List.generate(widget.tournament.rounds.length, (index) {
       return List.generate(widget.tournament.rounds[index].noOfMatches,
           (index) {
@@ -191,4 +182,5 @@ convertTournamentJSONToObject(Map<String, dynamic> tournamentJSON) {
     }
   }
   print("parsedRoundMatchesData:  ${parsedRoundMatchesData}");
+  print("roundMatchesData:  ${roundMatchesData}");
 }

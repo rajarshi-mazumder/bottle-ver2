@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../themes/themes.dart';
 import 'tournamentProgressionInput.dart';
 
 class WinnerInputData extends StatefulWidget {
@@ -25,23 +26,36 @@ class _WinnerInputDataState extends State<WinnerInputData> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
       height: 100,
-      color: Colors.green,
-      child: DropdownButton<String>(
-        value: winnerTeam,
-        items: widget.teamNames.map((team) {
-          return DropdownMenuItem<String>(
-            value: team,
-            child: Text(team),
-          );
-        }).toList(),
-        onChanged: (value) {
-          setState(() {
-            winnerTeam = value!;
-            winner = winnerTeam;
-          });
-        },
+      width: 200,
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+          color: bgPrimaryColor,
+          borderRadius: BorderRadius.all(Radius.circular(5))),
+      child: Column(
+        children: [
+          SizedBox(height: 10),
+          Text("Winner",
+              style: customTheme.textTheme.labelMedium
+                  ?.copyWith(color: Colors.red)),
+          DropdownButton<String>(
+            isExpanded: true,
+            underline: Container(),
+            value: winnerTeam,
+            items: widget.teamNames.map((team) {
+              return DropdownMenuItem<String>(
+                value: team,
+                child: Text(team),
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                winnerTeam = value!;
+                winner = winnerTeam;
+              });
+            },
+          ),
+        ],
       ),
     );
   }

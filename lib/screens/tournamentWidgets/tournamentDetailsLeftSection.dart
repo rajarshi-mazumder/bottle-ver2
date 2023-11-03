@@ -21,7 +21,9 @@ class _TournamentDetailsLeftSectionState
   Widget build(BuildContext context) {
     return Container(
       child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: 300, maxHeight: 600),
+        constraints: BoxConstraints(
+          maxWidth: 300,
+        ),
         child: SingleChildScrollView(
           child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -32,7 +34,7 @@ class _TournamentDetailsLeftSectionState
                     end: Alignment.bottomCenter,
                     colors: [secondaryColor, bgPrimaryColor]),
               ),
-              height: 500,
+              height: 600,
               width: 300,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -75,31 +77,44 @@ class _TournamentDetailsLeftSectionState
                             ],
                           ),
                           SectionDivider(),
-                          TournamentDetailItemLong(
-                              labelText: "No of teams : ",
-                              descriptionText: "8",
-                              labelWidget: Icon(
-                                  CupertinoIcons.person_2_square_stack_fill)),
-                          SizedBox(height: 20),
-                          TournamentDetailItemLong(
-                              labelText: "No of players : ",
-                              descriptionText: "12/40",
-                              labelWidget: Icon(CupertinoIcons.person_2_fill)),
+                          Container(
+                            height: 100,
+                            child: GridView.count(
+                              crossAxisCount: 2,
+                              physics: NeverScrollableScrollPhysics(),
+                              childAspectRatio: 25 / 10,
+                              shrinkWrap: true,
+                              crossAxisSpacing: 5,
+                              children: [
+                                TournamentDetailItemShort_Type2(
+                                    labelText: "Teams ",
+                                    descriptionText: "8",
+                                    labelWidget: Icon(CupertinoIcons
+                                        .person_2_square_stack_fill)),
+                                TournamentDetailItemShort_Type2(
+                                    labelText: "Players ",
+                                    descriptionText: "12/40",
+                                    labelWidget:
+                                        Icon(CupertinoIcons.person_2_fill)),
+                                TournamentDetailItemShort_Type2(
+                                    labelText: "Spots Left ",
+                                    descriptionText: "28/40",
+                                    labelWidget:
+                                        Icon(CupertinoIcons.tickets_fill)),
+                              ],
+                            ),
+                          ),
                           SectionDivider(),
-                          TournamentDetailItemLong(
+                          TournamentDetailEllipticalItem(
                               labelText: "Prize Pool: ",
                               descriptionText: "\$100000",
                               labelWidget: Icon(
                                   CupertinoIcons.money_dollar_circle_fill)),
-                          SizedBox(height: 20),
-                          TournamentDetailItemLong(
-                              labelText: "Spots Left: ",
-                              descriptionText: "28/40",
-                              labelWidget: Icon(CupertinoIcons.tickets_fill)),
                         ],
                       ),
                     ),
                   ),
+                  SizedBox(height: 20),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),

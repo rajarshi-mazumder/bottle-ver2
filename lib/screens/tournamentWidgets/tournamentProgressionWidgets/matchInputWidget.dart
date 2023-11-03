@@ -1,6 +1,8 @@
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
 import 'package:flutter/material.dart';
 
+import '../../../themes/themes.dart';
+
 class MatchInputWidget extends StatefulWidget {
   MatchInputWidget({
     Key? key,
@@ -32,89 +34,105 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          constraints: BoxConstraints(minHeight: 50),
-          margin: EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                color: Colors.blue,
-                child: Row(
-                  children: [
-                    DropdownButton<String>(
-                      value: selectedTeamA,
-                      items: widget.teamNames.map((team) {
-                        return DropdownMenuItem<String>(
-                          value: team,
-                          child: Text(team),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedTeamA = value!;
-                          roundMatchesData[widget.roundIndex][widget.matchIndex]
-                              ['teamA'] = value;
-                        });
-                      },
-                    ),
-                    Radio<String>(
-                      value: selectedTeamA,
-                      groupValue: winner,
-                      onChanged: (value) {
-                        setState(() {
-                          winner = value!;
-                          roundMatchesData[widget.roundIndex][widget.matchIndex]
-                              ['winner'] = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Text('VS'),
-              Container(
-                color: Colors.red,
-                child: Row(
-                  children: [
-                    DropdownButton<String>(
-                      value: selectedTeamB,
-                      items: widget.teamNames.map((team) {
-                        return DropdownMenuItem<String>(
-                          value: team,
-                          child: Text(team),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedTeamB = value!;
-                          roundMatchesData[widget.roundIndex][widget.matchIndex]
-                              ['teamB'] = value;
-                        });
-                      },
-                    ),
-                    Radio<String>(
-                      value: selectedTeamB,
-                      groupValue: winner,
-                      onChanged: (value) {
-                        setState(() {
-                          winner = value!;
-                          roundMatchesData[widget.roundIndex][widget.matchIndex]
-                              ['winner'] = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        constraints: BoxConstraints(minHeight: 50),
+        margin: EdgeInsets.symmetric(vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TeamInputWidget(
+              selectedTeam: selectedTeamA,
+              teamNames: widget.teamNames,
+              roundIndex: widget.roundIndex,
+              matchIndex: widget.matchIndex,
+              teamA_B: "teamA",
+            ),
+            Container(
+                margin: EdgeInsets.only(left: 80, top: 5, bottom: 5),
+                child: Text(
+                  'VS',
+                  style: customTheme.textTheme.labelMedium,
+                )),
+            TeamInputWidget(
+              selectedTeam: selectedTeamB,
+              teamNames: widget.teamNames,
+              roundIndex: widget.roundIndex,
+              matchIndex: widget.matchIndex,
+              teamA_B: "teamB",
+            ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class TeamInputWidget extends StatefulWidget {
+  TeamInputWidget(
+      {super.key,
+      required this.selectedTeam,
+      required this.teamNames,
+      required this.roundIndex,
+      required this.matchIndex,
+      required this.teamA_B});
+
+  String selectedTeam;
+  List<String> teamNames;
+  int roundIndex;
+  int matchIndex;
+  String teamA_B;
+
+  @override
+  State<TeamInputWidget> createState() => _TeamInputWidgetState();
+}
+
+class _TeamInputWidgetState extends State<TeamInputWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          height: 50,
+          width: 180,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          decoration: const BoxDecoration(
+              color: bgPrimaryColor,
+              borderRadius: BorderRadius.all(Radius.circular(5))),
+          child: DropdownButton<String>(
+            isExpanded: true,
+            value: widget.selectedTeam,
+            items: widget.teamNames.map((team) {
+              return DropdownMenuItem<String>(
+                value: team,
+                child: Text(team),
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                widget.selectedTeam = value!;
+                roundMatchesData[widget.roundIndex][widget.matchIndex]
+                    [widget.teamA_B] = value;
+              });
+            },
+            underline: Container(),
+            // Remove the underline
+          ),
+        ),
+        if (widget.selectedTeam != '')
+          Radio<String>(
+            value: widget.selectedTeam,
+            groupValue: winner,
+            onChanged: (value) {
+              setState(() {
+                winner = value!;
+                roundMatchesData[widget.roundIndex][widget.matchIndex]
+                    ['winner'] = value;
+              });
+            },
+          ),
+      ],
     );
   }
 }
