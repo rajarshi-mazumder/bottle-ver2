@@ -9,8 +9,8 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  late Tournament tournament;
-  late BracketTournament bracketTournament;
+  late SingleEliminationTournament tournament1;
+  late DoubleBracketTournament tournament2;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -20,15 +20,26 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    widget.tournament = Tournament(teams: teams);
-    widget.tournament.generateRounds(teams: teams);
+    widget.tournament1 =
+    Tournament.createTournament(bracketCount: 0, type: 'SingleElimination')
+    as SingleEliminationTournament;
 
-    widget.bracketTournament = BracketTournament();
-    widget.bracketTournament.addNewBracket(teams, 1);
-    widget.bracketTournament.addNewBracket(teams2, 2);
-    print(widget.tournament.rounds);
-    print("------------------");
-    print(widget.tournament.rounds);
+    widget.tournament1.generateRounds(teams: teams);
+
+    widget.tournament2 =
+    Tournament.createTournament(type: "DoubleBracket", bracketCount: 2)
+    as DoubleBracketTournament;
+    widget.tournament2.generateNewBracket(teams: teams, bracketIndex: 1);
+    widget.tournament2.generateNewBracket(teams: teams2, bracketIndex: 2);
+
+    print("ROUNDS: ");
+    print(widget.tournament1.tournamentSpecificToMap());
+    widget.tournament1.rounds.forEach((round) {
+      print(round.noOfMatches);
+    });
+    print("-------------");
+
+    print(widget.tournament2.tournamentSpecificToMap());
   }
 
   @override
@@ -45,46 +56,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-List<Team> teams = [
-  Team(
-      name: "Optic",
-      regionFlag: "flags/us.png",
-      membersCount: 6,
-      teamLogo: "orgPics/optic.jpeg"),
-  Team(
-      name: "NAVI",
-      regionFlag: "flags/ukraine.webp",
-      membersCount: 6,
-      teamLogo: "orgPics/navi.png"),
-  Team(
-      name: "Fnatic",
-      regionFlag: "flags/uk.png",
-      membersCount: 5,
-      teamLogo: "orgPics/fnatic.png"),
-  Team(
-      name: "PRX",
-      regionFlag: "flags/singapore.png",
-      membersCount: 6,
-      teamLogo: "orgPics/Paper_Rex_logo.png"),
-  Team(
-      name: "Sentinels",
-      regionFlag: "flags/us.png",
-      membersCount: 6,
-      teamLogo: "orgPics/sentinels.png"),
-  Team(
-      name: "Cloud 9",
-      regionFlag: "flags/us.png",
-      membersCount: 6,
-      teamLogo: "orgPics/Cloud9.png"),
-  Team(
-      name: "DRX",
-      regionFlag: "flags/sk.png",
-      membersCount: 6,
-      teamLogo: "orgPics/drx.png"),
-  Team(
-      name: "Zeta",
-      regionFlag: "flags/jp.png",
-      membersCount: 6,
-      teamLogo: "orgPics/zeta.png"),
-];

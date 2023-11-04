@@ -11,22 +11,27 @@ class Tournament {
 
   Tournament({this.teams, this.winner});
 
-  List<Round> generateRounds({required List<Team> teams}) {
-    double totalTeams =
-        double.parse(teams!.length.toString()); // totalTeams= 16
-    int noOfRounds = log(totalTeams) ~/ log(2);
-    for (int i = noOfRounds; i > 0; i--) {
-      rounds.add(Round(
-        roundIndex: i - 1,
-        noOfMatches: (pow(2, i - 1)).toInt(),
-      ));
+  // Factory method to create tournaments
+  factory Tournament.createTournament(
+      {required String type, int bracketCount = 0}) {
+    if (type == 'SingleElimination') {
+      return SingleEliminationTournament();
+    } else if (type == 'DoubleBracket') {
+      return DoubleBracketTournament(bracketCount);
     }
-    rounds.forEach((element) {
-      print(
-          "Matches in round: ${pow(2, element.roundIndex)},,${element.roundIndex}");
-    });
-    return rounds;
+    // else if (type == 'RoundRobin') {
+    //   return RoundRobinTournament(teams);
+    // } else if (type == 'DoubleRoundRobin') {
+    //   return DoubleRoundRobinTournament(teams, bracketCount);
+    // } else if (type == 'BattleRoyale') {
+    //   return BattleRoyaleTournament(teams);
+    // }
+    else {
+      throw Exception('Invalid tournament type');
+    }
   }
+
+  generateRounds({required List<Team> teams}) {}
 
   Map<String, dynamic> toMap() {
     return {
@@ -54,19 +59,94 @@ class Tournament {
   }
 }
 
-class BracketTournament extends Tournament {
-  BracketTournament({this.noOfBrackets = 2}) : super();
+class SingleEliminationTournament extends Tournament {
+  SingleEliminationTournament() : super();
 
-  int noOfBrackets;
+  @override
+  List<Round> generateRounds({required List<Team> teams}) {
+    double totalTeams =
+    double.parse(teams!.length.toString()); // totalTeams= 16
+    int noOfRounds = log(totalTeams) ~/ log(2);
+    for (int i = noOfRounds; i > 0; i--) {
+      rounds.add(Round(
+        roundIndex: i - 1,
+        noOfMatches: (pow(2, i - 1)).toInt(),
+      ));
+    }
+    rounds.forEach((element) {
+      print(
+          "Matches in round: ${pow(2, element.roundIndex)},,${element
+              .roundIndex}");
+    });
+    return rounds;
+  }
+
+  @override
+  Map<String, dynamic> tournamentSpecificToMap() {
+    Map<String, dynamic> roundsMap = super.tournamentSpecificToMap();
+
+    return {"brackets": [{"bracketIndex": 1, "rounds": roundsMap}]};
+  }
+
+  @override
+  void simulateTournament() {
+    // Simulate single-elimination tournament
+    // ...
+  }
+}
+
+class DoubleBracketTournament extends Tournament {
+  int bracketCount;
   List<Map<String, dynamic>> brackets = [];
 
-  addNewBracket(List<Team> teams, int bracketIndex) {
-    List<Round> roundsList = generateRounds(teams: teams);
-    brackets.add({
-      "bracketIndex": bracketIndex,
-      "teams": teams,
-      "rounds": roundsList,
-      "winner": null
+  // Implement Double Bracket specific methods and properties
+  DoubleBracketTournament(this.bracketCount) : super();
+
+  @override
+  List<Round> generateRounds({required List<Team> teams}) {
+    double totalTeams =
+    double.parse(teams!.length.toString()); // totalTeams= 16
+    int noOfRounds = log(totalTeams) ~/ log(2);
+    for (int i = noOfRounds; i > 0; i--) {
+      rounds.add(Round(
+        roundIndex: i - 1,
+        noOfMatches: (pow(2, i - 1)).toInt(),
+      ));
+    }
+    rounds.forEach((element) {
+      print(
+          "Matches in round: ${pow(2, element.roundIndex)},,${element
+              .roundIndex}");
     });
+    return rounds;
+  }
+
+  List<Map<String, dynamic>> generateNewBracket(
+      {required List<Team> teams, required int bracketIndex}) {
+    List<Round> round = generateRounds(teams: teams);
+    brackets
+        .add({"bracketIndex": bracketIndex, "rounds": rounds, "winner": null});
+
+    return brackets;
+  }
+
+  @override
+  Map<String, dynamic> tournamentSpecificToMap() {
+    List<Map<String, dynamic>> bracketsMapList = [];
+    brackets.forEach((bracket) {
+      bracketsMapList.add({
+        "bracketIndex": bracket['bracketIndex'],
+        "rounds": bracket["rounds"]
+            .map((Round round) => round.tournamentSpecificToMap())
+      });
+    });
+
+    return {"brackets": bracketsMapList};
+  }
+
+  @override
+  void simulateTournament() {
+    // Simulate double bracket tournament
+    // ...
   }
 }
