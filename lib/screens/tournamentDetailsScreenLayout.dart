@@ -7,6 +7,7 @@ import 'package:bottle_ver2/sharedWidgets/navbar.dart';
 import 'package:bottle_ver2/sharedWidgets/searchBar.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 
+import '../models/tournamentModels/team.dart';
 import '../models/tournamentModels/tournamentModels.dart';
 import '../sharedWidgets/rightSidebar.dart';
 import '../sharedWidgets/sidebar.dart';

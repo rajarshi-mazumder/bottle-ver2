@@ -6,6 +6,7 @@ import '../../../models/tournamentModels/tournamentModels.dart';
 import '../../tournamentDetailsScreen.dart';
 import 'matchInputWidget.dart';
 import 'winnerInputWidget.dart';
+import 'package:bottle_ver2/models/tournamentModels/match.dart';
 
 List roundMatchesData = [];
 String? winner;
@@ -38,7 +39,7 @@ class _TournamentProgressionInputState
         return {"teamA": null, "teamB": null};
       });
     });
-    widget.tournament.generateRounds();
+    widget.tournament.generateRounds(teams: teams);
     generateRoundWidgets();
   }
 

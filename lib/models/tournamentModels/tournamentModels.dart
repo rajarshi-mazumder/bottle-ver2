@@ -1,6 +1,8 @@
 import 'dart:math';
 
-import 'package:bottle_ver2/models/tournamentModels/team.dart';
+import 'package:bottle_ver2/models/tournamentModels/round.dart';
+import 'team.dart';
+import 'match.dart';
 
 class Tournament {
   List<Team>? teams = [];
@@ -9,7 +11,7 @@ class Tournament {
 
   Tournament({this.teams, this.winner});
 
-  void generateRounds() {
+  List<Round> generateRounds({required List<Team> teams}) {
     double totalTeams =
         double.parse(teams!.length.toString()); // totalTeams= 16
     int noOfRounds = log(totalTeams) ~/ log(2);
@@ -23,6 +25,7 @@ class Tournament {
       print(
           "Matches in round: ${pow(2, element.roundIndex)},,${element.roundIndex}");
     });
+    return rounds;
   }
 
   Map<String, dynamic> toMap() {
@@ -51,69 +54,19 @@ class Tournament {
   }
 }
 
-class Round {
-  int roundIndex = 0;
-  List<Match>? matches;
-  int noOfMatches;
+class BracketTournament extends Tournament {
+  BracketTournament({this.noOfBrackets = 2}) : super();
 
-  Round({required this.roundIndex, this.matches, required this.noOfMatches});
+  int noOfBrackets;
+  List<Map<String, dynamic>> brackets = [];
 
-  Map<String, dynamic> toMap() {
-    return {
-      'roundIndex': roundIndex,
-      'matches': matches?.map((match) => match?.toMap()).toList(),
-      'noOfMatches': noOfMatches,
-    };
-  }
-
-  Map<String, dynamic> tournamentSpecificToMap() {
-    return {
-      'roundIndex': roundIndex,
-      'matches':
-          matches?.map((match) => match?.tournamentSpecificToMap()).toList(),
-      'noOfMatches': noOfMatches,
-    };
-  }
-
-  static Round fromMap(Map<String, dynamic> map) {
-    return Round(
-      roundIndex: map['roundIndex'],
-      matches: (map['matches'] as List<dynamic>)
-          .map((matchMap) => Match.fromMap(matchMap))
-          .toList(),
-      noOfMatches: map['noOfMatches'],
-    );
-  }
-}
-
-class Match {
-  Team? teamA;
-  Team? teamB;
-  Team? winner;
-
-  Match({this.teamA, this.teamB, this.winner});
-
-  Map<String, dynamic> toMap() {
-    return {
-      'teamA': teamA?.toMap(),
-      'teamB': teamB?.toMap(),
-      'winner': winner?.toMap(),
-    };
-  }
-
-  Map<String, dynamic> tournamentSpecificToMap() {
-    return {
-      'teamA': teamA?.tournamnetSpecificToMap(),
-      'teamB': teamB?.tournamnetSpecificToMap(),
-      'winner': winner?.tournamnetSpecificToMap(),
-    };
-  }
-
-  static Match fromMap(Map<String, dynamic> map) {
-    return Match(
-      teamA: Team.fromMap(map['teamA']) ?? Team(),
-      teamB: Team.fromMap(map['teamB']) ?? Team(),
-      winner: Team.fromMap(map['winner']) ?? Team(),
-    );
+  addNewBracket(List<Team> teams, int bracketIndex) {
+    List<Round> roundsList = generateRounds(teams: teams);
+    brackets.add({
+      "bracketIndex": bracketIndex,
+      "teams": teams,
+      "rounds": roundsList,
+      "winner": null
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:bottle_ver2/screens/teamDetailsScreenLayout.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
 import '../../../themes/themes.dart';
 import '../../tournamentDetailsScreen.dart';
