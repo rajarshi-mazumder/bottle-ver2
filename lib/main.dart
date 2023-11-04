@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: customTheme,
-        home: TournamentDetailScreenLayout(),
+        // home: TournamentDetailScreenLayout(),
+        home: LoginScreen(),
       ),
     );
   }

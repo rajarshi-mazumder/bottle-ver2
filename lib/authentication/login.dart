@@ -1,9 +1,8 @@
+import 'package:bottle_ver2/authentication/google_auth_service.dart';
 import 'package:bottle_ver2/authentication/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -18,7 +17,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _signIn() async {
     try {
-      final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      final UserCredential userCredential =
+          await _auth.signInWithEmailAndPassword(
         email: _email,
         password: _password,
       );
@@ -34,7 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -71,14 +70,23 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: _signIn,
               child: Text('Sign In'),
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             ElevatedButton(
-              onPressed: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>RegistrationScreen()));
+                onPressed: () async {
+                  await GoogleAuthService.signInWithGoogle();
+                },
+                child: Text('Sign In with Google')),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RegistrationScreen()));
               },
               child: Text("Don't have an account? Sign up!"),
             ),
-
             SizedBox(height: 16.0),
             Text(
               _error,
