@@ -40,12 +40,6 @@ class _MyAppState extends State<MyApp> {
     print("-------------");
 
     print(widget.tournament2.tournamentSpecificToMap());
-    widget.tournament2.tournamentSpecificToMap()["brackets"].forEach((bracket) {
-      print("BRACKET ${bracket["bracketIndex"]}");
-      bracket["rounds"].forEach((round) {
-        print("ROUND: $round");
-      });
-    });
   }
 
   @override

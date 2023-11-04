@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:bottle_ver2/models/tournamentModels/team.dart';
+
 import 'match.dart';
 
 class Round {
@@ -32,5 +36,24 @@ class Round {
           .toList(),
       noOfMatches: map['noOfMatches'],
     );
+  }
+
+  List<Match> pairTeamsForMatches(List<Team> teams) {
+    if (teams.length % 2 != 0) {
+      throw Exception("The number of teams must be even for pairing.");
+    }
+
+    // Shuffle the list of teams to randomize pairing
+    final random = Random();
+    final shuffledTeams = List<Team>.from(teams)..shuffle(random);
+
+    final matches = <Match>[];
+    for (int i = 0; i < shuffledTeams.length; i += 2) {
+      final teamA = shuffledTeams[i];
+      final teamB = shuffledTeams[i + 1];
+      matches.add(Match(teamA: teamA, teamB: teamB));
+    }
+
+    return matches;
   }
 }

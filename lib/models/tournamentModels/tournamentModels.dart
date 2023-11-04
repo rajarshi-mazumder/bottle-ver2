@@ -112,10 +112,14 @@ class DoubleBracketTournament extends Tournament {
     int noOfRounds = log(totalTeams) ~/ log(2);
     List<Round> rounds = [];
     for (int i = noOfRounds; i > 0; i--) {
-      rounds.add(Round(
+      Round newRound = Round(
         roundIndex: i - 1,
         noOfMatches: (pow(2, i - 1)).toInt(),
-      ));
+      );
+      if (pow(2, i) == teams.length) {
+        newRound.matches = newRound.pairTeamsForMatches(teams);
+      }
+      rounds.add(newRound);
     }
     rounds.forEach((element) {
       print(
@@ -132,6 +136,15 @@ class DoubleBracketTournament extends Tournament {
         .add({"bracketIndex": bracketIndex, "rounds": rounds, "winner": null});
 
     return brackets;
+  }
+
+  generatePostBracketRounds({required Map<String, dynamic> brackets}) {
+    List<Team> bracketWinners = [];
+    brackets["brackets"].forEach((bracket) {
+      if (bracket["winner"] != null) bracketWinners.add(bracket["winner"]);
+    });
+
+    List<Round> postBracketRounds = generateRounds(teams: bracketWinners);
   }
 
   @override
