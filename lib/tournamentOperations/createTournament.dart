@@ -21,14 +21,14 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     widget.tournament1 =
-    Tournament.createTournament(bracketCount: 0, type: 'SingleElimination')
-    as SingleEliminationTournament;
+        Tournament.createTournament(bracketCount: 0, type: 'SingleElimination')
+            as SingleEliminationTournament;
 
     widget.tournament1.generateRounds(teams: teams);
 
     widget.tournament2 =
-    Tournament.createTournament(type: "DoubleBracket", bracketCount: 2)
-    as DoubleBracketTournament;
+        Tournament.createTournament(type: "DoubleBracket", bracketCount: 2)
+            as DoubleBracketTournament;
     widget.tournament2.generateNewBracket(teams: teams, bracketIndex: 1);
     widget.tournament2.generateNewBracket(teams: teams2, bracketIndex: 2);
 
@@ -40,6 +40,12 @@ class _MyAppState extends State<MyApp> {
     print("-------------");
 
     print(widget.tournament2.tournamentSpecificToMap());
+    widget.tournament2.tournamentSpecificToMap()["brackets"].forEach((bracket) {
+      print("BRACKET ${bracket["bracketIndex"]}");
+      bracket["rounds"].forEach((round) {
+        print("ROUND: $round");
+      });
+    });
   }
 
   @override

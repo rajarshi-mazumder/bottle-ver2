@@ -65,7 +65,7 @@ class SingleEliminationTournament extends Tournament {
   @override
   List<Round> generateRounds({required List<Team> teams}) {
     double totalTeams =
-    double.parse(teams!.length.toString()); // totalTeams= 16
+        double.parse(teams!.length.toString()); // totalTeams= 16
     int noOfRounds = log(totalTeams) ~/ log(2);
     for (int i = noOfRounds; i > 0; i--) {
       rounds.add(Round(
@@ -75,8 +75,7 @@ class SingleEliminationTournament extends Tournament {
     }
     rounds.forEach((element) {
       print(
-          "Matches in round: ${pow(2, element.roundIndex)},,${element
-              .roundIndex}");
+          "Matches in round: ${pow(2, element.roundIndex)},,${element.roundIndex}");
     });
     return rounds;
   }
@@ -85,7 +84,11 @@ class SingleEliminationTournament extends Tournament {
   Map<String, dynamic> tournamentSpecificToMap() {
     Map<String, dynamic> roundsMap = super.tournamentSpecificToMap();
 
-    return {"brackets": [{"bracketIndex": 1, "rounds": roundsMap}]};
+    return {
+      "brackets": [
+        {"bracketIndex": 1, "rounds": roundsMap}
+      ]
+    };
   }
 
   @override
@@ -105,8 +108,9 @@ class DoubleBracketTournament extends Tournament {
   @override
   List<Round> generateRounds({required List<Team> teams}) {
     double totalTeams =
-    double.parse(teams!.length.toString()); // totalTeams= 16
+        double.parse(teams!.length.toString()); // totalTeams= 16
     int noOfRounds = log(totalTeams) ~/ log(2);
+    List<Round> rounds = [];
     for (int i = noOfRounds; i > 0; i--) {
       rounds.add(Round(
         roundIndex: i - 1,
@@ -115,15 +119,15 @@ class DoubleBracketTournament extends Tournament {
     }
     rounds.forEach((element) {
       print(
-          "Matches in round: ${pow(2, element.roundIndex)},,${element
-              .roundIndex}");
+          "Matches in round: ${pow(2, element.roundIndex)},,${element.roundIndex}");
     });
     return rounds;
   }
 
   List<Map<String, dynamic>> generateNewBracket(
       {required List<Team> teams, required int bracketIndex}) {
-    List<Round> round = generateRounds(teams: teams);
+    List<Round> rounds = generateRounds(teams: teams);
+
     brackets
         .add({"bracketIndex": bracketIndex, "rounds": rounds, "winner": null});
 
