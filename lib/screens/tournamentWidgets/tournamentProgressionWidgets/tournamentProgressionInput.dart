@@ -71,6 +71,7 @@ class _TournamentProgressionInputState
               teamNames: List.generate(widget.tournament.participants!.length,
                   (index) => widget.tournament.participants![index].name!),
               isMatchDecided: false,
+              bracketIndex: 0,
             );
           }),
         ),

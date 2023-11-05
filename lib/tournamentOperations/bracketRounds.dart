@@ -1,4 +1,6 @@
+import 'package:bottle_ver2/tournamentOperations/createTournament.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/tournamentModels/round.dart';
 import '../screens/tournamentWidgets/tournamentProgressionWidgets/matchInputWidget.dart';
@@ -57,6 +59,7 @@ class _BracketRoundsState extends State<BracketRounds> {
               roundMatchesData: widget.roundMatchesData,
               matchIndex: matchIndex,
               roundIndex: roundIndex,
+              bracketIndex: widget.bracket["bracketIndex"],
               teamNames: teamNames,
               isMatchDecided: isMatchDecided,
               particpantA: round.matches?[index].participantA,
@@ -65,6 +68,7 @@ class _BracketRoundsState extends State<BracketRounds> {
           }),
         ),
       ));
+      ;
     });
     roundWidgets.add(Container(
       width: 100,
@@ -84,11 +88,15 @@ class _BracketRoundsState extends State<BracketRounds> {
   @override
   void initState() {
     super.initState();
+
     generateBracketRoundWidgets();
   }
 
   @override
   Widget build(BuildContext context) {
+    TournamentDataProvider tournamentDataProvider =
+        context.watch<TournamentDataProvider>();
+    tournamentDataProvider.tournamentData.add(widget.roundMatchesData);
     if (roundWidgets.isNotEmpty) {
       return Row(
         children: roundWidgets,
