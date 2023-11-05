@@ -10,6 +10,7 @@ import '../screens/tournamentWidgets/tournamentProgressionWidgets/matchInputWidg
 import '../screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionDisplay.dart';
 import '../screens/tournamentWidgets/tournamentProgressionWidgets/winnerInputWidget.dart';
 import 'bracketRounds.dart';
+import 'package:bottle_ver2/models/tournamentModels/match.dart';
 
 class TournamentDataProvider with ChangeNotifier {
   Map<String, dynamic> tournamentData = {"brackets": []};
@@ -59,7 +60,7 @@ class _MyAppState extends State<MyApp> {
     });
     print("-------------");
 
-    // print(widget.tournament2.tournamentSpecificToMap());
+    print(widget.tournament2.tournamentSpecificToMap());
   }
 
   @override
@@ -134,8 +135,10 @@ class _TournamentEditState extends State<TournamentEdit> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  print(
-                      "PRINTTTTTTTTTTT ${tournamentDataProvider.tournamentData}");
+                  if (widget.tournament.runtimeType == DoubleBracketTournament)
+                    convertDoubleBracketTournamentToModel(
+                        tournamentData: tournamentDataProvider.tournamentData,
+                        participantType: "participant");
                 },
                 child: Text("SMTH"))
           ],
@@ -144,30 +147,40 @@ class _TournamentEditState extends State<TournamentEdit> {
     );
   }
 
-  convertTournamentJSONToObject(Map<String, dynamic> brackets) {
-    List parsedRoundMatchesData = [];
-    print(brackets);
-    // for (int i = 0; i < tournamentJSON["rounds"].length; i++) {
-    //   var roundData = tournamentJSON["rounds"][i];
-    //
-    //   parsedRoundMatchesData
-    //       .add({"roundIndex": roundData["roundIndex"], "matches": []});
-    //   for (int j = 0; j < roundData["matches"].length; j++) {
-    //     Team teamA = Team();
-    //     Team teamB = Team();
-    //     Team winner = Team();
-    //     for (Team t in teams) {
-    //       if (widget.roundMatchesData[i][j]["teamA"] == t.name)
-    //         teamA = t;
-    //       else if (widget.roundMatchesData[i][j]["teamB"] == t.name) teamB = t;
-    //       if (widget.roundMatchesData[i][j]["winner"] == t.name) {
-    //         winner = t;
-    //       }
-    //     }
-    //     parsedRoundMatchesData[i]["matches"]
-    //         .add({"teamA": teamA, "teamB": teamB, "winner": winner});
-    //   }
-    // }
-    print("parsedRoundMatchesData:  ${parsedRoundMatchesData}");
+  convertDoubleBracketTournamentToModel(
+      // ONLY FOR DOUBLE BRACKET
+      {required Map<String, dynamic> tournamentData,
+      required String participantType}) {
+    DoubleBracketTournament doubleBracketTournament =
+        DoubleBracketTournament(bracketCount: 0);
+    doubleBracketTournament.bracketCount = tournamentData["brackets"].length;
+    List<Map<String, dynamic>> brackets = [];
+    print(tournamentData);
+    for (int i = 0; i < tournamentData["brackets"].length; i++) {
+      int bracketIndex = tournamentData["brackets"][i]["bracketIndex"];
+      brackets.add({"bracketIndex": bracketIndex});
+      List<Round> rounds = [];
+      tournamentData["brackets"][i]["rounds"].forEach((List roundMatches) {
+        Round round = Round(
+            roundIndex: roundMatches[0]["round"],
+            noOfMatches: roundMatches.length);
+        List<Match> matchesList = [];
+        roundMatches.forEach((roundMatch) {
+          Match match = Match(
+            participantA: participantType == "participant"
+                ? Participant(name: roundMatch["teamA"])
+                : Team(name: roundMatch["teamA"]),
+          );
+          matchesList.add(match);
+        });
+        round.matches = matchesList;
+        rounds.add(round);
+      });
+      brackets[i] = {"bracketIndex": bracketIndex, "rounds": rounds};
+    }
+
+    doubleBracketTournament.brackets = brackets;
+    print(
+        "parsedRoundMatchesData:  ${doubleBracketTournament.tournamentSpecificToMap()}");
   }
 }

@@ -142,7 +142,9 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
                 print(value);
                 widget.selectedTeam = value!;
                 widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
-                    [widget.teamA_B] = value;
+                    [widget.teamA_B] = {
+                  "${widget.teamA_B}": {"name": value}
+                };
               });
             },
             underline: Container(),
