@@ -96,7 +96,10 @@ class _BracketRoundsState extends State<BracketRounds> {
   Widget build(BuildContext context) {
     TournamentDataProvider tournamentDataProvider =
         context.watch<TournamentDataProvider>();
-    tournamentDataProvider.tournamentData.add(widget.roundMatchesData);
+    tournamentDataProvider.tournamentData["brackets"].add({
+      "bracketIndex": widget.bracket["bracketIndex"],
+      "rounds": widget.roundMatchesData
+    });
     if (roundWidgets.isNotEmpty) {
       return Row(
         children: roundWidgets,

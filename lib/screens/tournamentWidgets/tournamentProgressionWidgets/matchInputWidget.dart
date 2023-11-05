@@ -159,7 +159,8 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
                 widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
                     ['winner'] = value;
                 print(widget.roundMatchesData);
-                tournamentDataProvider.tournamentData[widget.bracketIndex - 1] =
+                tournamentDataProvider.tournamentData["brackets"]
+                        [widget.bracketIndex - 1]["rounds"] =
                     widget.roundMatchesData;
               });
             },

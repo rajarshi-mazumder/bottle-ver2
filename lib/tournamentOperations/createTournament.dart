@@ -12,10 +12,10 @@ import '../screens/tournamentWidgets/tournamentProgressionWidgets/winnerInputWid
 import 'bracketRounds.dart';
 
 class TournamentDataProvider with ChangeNotifier {
-  List tournamentData = [];
+  Map<String, dynamic> tournamentData = {"brackets": []};
 
   updateTournamentData(Map<String, dynamic> data) {
-    tournamentData.add(data);
+    // tournamentData.add(data);
     notifyListeners();
   }
 }
