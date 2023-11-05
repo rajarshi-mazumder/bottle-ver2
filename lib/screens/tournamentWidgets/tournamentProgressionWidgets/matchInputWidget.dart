@@ -114,7 +114,7 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
           width: 180,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: const BoxDecoration(
-              color: bgPrimaryColor,
+              color: Colors.grey,
               borderRadius: BorderRadius.all(Radius.circular(5))),
           child: DropdownButton<String>(
             isExpanded: true,

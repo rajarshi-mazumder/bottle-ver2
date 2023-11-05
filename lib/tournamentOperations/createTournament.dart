@@ -36,10 +36,12 @@ class _MyAppState extends State<MyApp> {
 
     widget.tournament2 = Tournament.createTournament(
         type: "DoubleBracket",
-        bracketCount: 2,
+        bracketCount: 1,
         participantType: "teams") as DoubleBracketTournament;
-    widget.tournament2.generateNewBracket(teamsList: teams, bracketIndex: 1);
-    widget.tournament2.generateNewBracket(teamsList: teams2, bracketIndex: 2);
+    widget.tournament2
+        .generateNewBracket(participantsList: participants1, bracketIndex: 1);
+    // widget.tournament2
+    // .generateNewBracket(participantsList: teams2, bracketIndex: 2);
 
     print("ROUNDS: ");
     print(widget.tournament1.tournamentSpecificToMap());

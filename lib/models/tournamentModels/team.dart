@@ -65,6 +65,17 @@ class Team extends Participant {
   }
 }
 
+List<Participant> participants1 = [
+  Participant(name: "Yay", regionFlag: "flags/us.png"),
+  Participant(name: "FNS", regionFlag: "flags/us.png"),
+  Participant(name: "Marved", regionFlag: "flags/us.png"),
+  Participant(name: "Crashies", regionFlag: "flags/us.png"),
+  Participant(name: "Jingg", regionFlag: "flags/singapore.png"),
+  Participant(name: "Forsaken", regionFlag: "flags/singapore.png"),
+  Participant(name: "Mako", regionFlag: "flags/sk.png"),
+  Participant(name: "Buzz", regionFlag: "flags/sk.png"),
+];
+
 List<Team> teams = [
   Team(
       name: "Optic",
