@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import '../../../themes/themes.dart';
 
 class MatchInputWidget extends StatefulWidget {
-  MatchInputWidget({
-    Key? key,
-    required this.matchIndex,
-    required this.roundIndex,
-    required this.teamNames,
-  });
+  MatchInputWidget(
+      {Key? key,
+      required this.matchIndex,
+      required this.roundIndex,
+      required this.teamNames,
+      required this.roundMatchesData});
 
   final int roundIndex;
   final int matchIndex;
   final List<String> teamNames;
+  List<List<Map<String, dynamic>>> roundMatchesData;
 
   @override
   State<MatchInputWidget> createState() => _MatchInputWidgetState();
@@ -48,6 +49,7 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
               roundIndex: widget.roundIndex,
               matchIndex: widget.matchIndex,
               teamA_B: "teamA",
+              roundMatchesData: widget.roundMatchesData,
             ),
             Container(
                 margin: EdgeInsets.only(left: 80, top: 5, bottom: 5),
@@ -61,6 +63,7 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
               roundIndex: widget.roundIndex,
               matchIndex: widget.matchIndex,
               teamA_B: "teamB",
+              roundMatchesData: widget.roundMatchesData,
             ),
           ],
         ),
@@ -76,13 +79,15 @@ class TeamInputWidget extends StatefulWidget {
       required this.teamNames,
       required this.roundIndex,
       required this.matchIndex,
-      required this.teamA_B});
+      required this.teamA_B,
+      required this.roundMatchesData});
 
   String selectedTeam;
   List<String> teamNames;
   int roundIndex;
   int matchIndex;
   String teamA_B;
+  List<List<Map<String, dynamic>>> roundMatchesData;
 
   @override
   State<TeamInputWidget> createState() => _TeamInputWidgetState();
@@ -115,7 +120,7 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
               setState(() {
                 print(value);
                 widget.selectedTeam = value!;
-                roundMatchesData[widget.roundIndex][widget.matchIndex]
+                widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
                     [widget.teamA_B] = value;
               });
             },
@@ -130,7 +135,7 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
             onChanged: (value) {
               setState(() {
                 winner = value!;
-                roundMatchesData[widget.roundIndex][widget.matchIndex]
+                roundMatchesListData[widget.roundIndex][widget.matchIndex]
                     ['winner'] = value;
               });
             },

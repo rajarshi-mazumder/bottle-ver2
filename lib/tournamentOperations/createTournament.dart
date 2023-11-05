@@ -1,5 +1,6 @@
 import 'package:bottle_ver2/screens/tournamentWidgets/TournamentTile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/tournamentModels/round.dart';
 import '../models/tournamentModels/team.dart';
@@ -37,8 +38,8 @@ class _MyAppState extends State<MyApp> {
         type: "DoubleBracket",
         bracketCount: 2,
         participantType: "teams") as DoubleBracketTournament;
-    widget.tournament2.generateNewBracket(teams: teams, bracketIndex: 1);
-    widget.tournament2.generateNewBracket(teams: teams2, bracketIndex: 2);
+    widget.tournament2.generateNewBracket(teamsList: teams, bracketIndex: 1);
+    widget.tournament2.generateNewBracket(teamsList: teams2, bracketIndex: 2);
 
     print("ROUNDS: ");
     print(widget.tournament1.tournamentSpecificToMap());
@@ -167,12 +168,23 @@ class _TournamentEditState extends State<TournamentEdit> {
         shrinkWrap: true,
         itemCount: widget.tournament.bracketCount,
         itemBuilder: (BuildContext context, int index) {
+          List<List<Map<String, dynamic>>> roundMatchesData = [];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
                 color: index % 2 == 0 ? Colors.black26 : Colors.black45,
-                child:
-                    BracketRounds(bracket: widget.tournament.brackets[index])),
+                child: BracketRounds(
+                  bracket: widget.tournament.brackets[index],
+
+                  roundMatchesData: roundMatchesData,
+                )
+              // child: Container(
+              //   width: 300,
+              //   height: 4000,
+              //   color: Colors.red,
+              //   margin: EdgeInsets.all(20),
+              // ),
+            ),
             // child: Text(widget.tournament.brackets[index].toString()),
           );
         },

@@ -4,26 +4,29 @@ import '../models/tournamentModels/round.dart';
 import '../screens/tournamentWidgets/tournamentProgressionWidgets/matchInputWidget.dart';
 import '../screens/tournamentWidgets/tournamentProgressionWidgets/winnerInputWidget.dart';
 
-List<Widget> roundWidgets = [];
-
 class BracketRounds extends StatefulWidget {
-  BracketRounds({super.key, required this.bracket});
+  final Map<String, dynamic> bracket;
+  final List<List<Map<String, dynamic>>> roundMatchesData;
 
-  Map<String, dynamic> bracket;
-  List<List<Map<String, dynamic>>> roundMatchesData = [];
+  BracketRounds({
+    required this.bracket,
+    required this.roundMatchesData,
+  });
 
   @override
   State<BracketRounds> createState() => _BracketRoundsState();
 }
 
 class _BracketRoundsState extends State<BracketRounds> {
+  List<Widget> roundWidgets = [];
+
   generateBracketRoundWidgets() {
     int roundIndex = -1;
 
     widget.bracket["rounds"].forEach((Round round) {
       roundIndex++;
       int matchIndex = -1;
-      // widget.roundMatchesData.add([]);
+      widget.roundMatchesData.add([]);
       roundWidgets.add(Container(
         margin: EdgeInsets.only(top: 0),
         child: Column(
@@ -31,8 +34,6 @@ class _BracketRoundsState extends State<BracketRounds> {
             matchIndex++;
             TextEditingController teamAController = TextEditingController();
             TextEditingController teamBController = TextEditingController();
-            // print(
-            //     "HOUSSSSSSEE ${round.matches?[index].participantA},, ${round.matches?[index].participantB}");
 
             widget.roundMatchesData[roundIndex].add({
               "round": roundIndex,
@@ -43,12 +44,17 @@ class _BracketRoundsState extends State<BracketRounds> {
                   ? round.matches![index].participantB!.name
                   : teamBController.text,
             });
-            // return Container();
+
+            List<String> teamNames = List.generate(
+              widget.bracket["participants"].length,
+              (index) => widget.bracket["participants"]![index].name!,
+            );
+
             return MatchInputWidget(
+              roundMatchesData: widget.roundMatchesData,
               matchIndex: matchIndex,
               roundIndex: roundIndex,
-              teamNames: List.generate(widget.bracket["participants"].length,
-                  (index) => widget.bracket["participants"]![index].name!),
+              teamNames: teamNames,
             );
           }),
         ),
@@ -59,8 +65,11 @@ class _BracketRoundsState extends State<BracketRounds> {
       child: Column(
         children: [
           WinnerInputData(
-              teamNames: List.generate(widget.bracket["participants"]!.length,
-                  (index) => widget.bracket["participants"]![index].name!)),
+            teamNames: List.generate(
+              widget.bracket["participants"]!.length,
+              (index) => widget.bracket["participants"]![index].name!,
+            ),
+          ),
         ],
       ),
     ));
@@ -69,25 +78,21 @@ class _BracketRoundsState extends State<BracketRounds> {
   @override
   void initState() {
     super.initState();
-    roundWidgets = [];
-    widget.roundMatchesData =
-        List.generate(widget.bracket["rounds"].length, (index) {
-      return List.generate(widget.bracket["rounds"][index].noOfMatches,
-          (index) {
-        return {"teamA": null, "teamB": null};
-      });
-    });
-
     generateBracketRoundWidgets();
-    // print(widget.roundWidgets);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: List.generate(roundWidgets.length, (index) {
-        return roundWidgets[index];
-      }),
-    );
+    if (roundWidgets.isNotEmpty) {
+      return Row(
+        children: roundWidgets,
+      );
+    } else {
+      return Container(
+        height: 300,
+        width: 200,
+        color: Colors.blue,
+      );
+    }
   }
 }

@@ -110,26 +110,6 @@ List<Team> teams = [
 
 List<Team> teams2 = [
   Team(
-      name: "Optic2",
-      regionFlag: "flags/us.png",
-      membersCount: 6,
-      teamLogo: "orgPics/optic.jpeg"),
-  Team(
-      name: "NAVI2",
-      regionFlag: "flags/ukraine.webp",
-      membersCount: 6,
-      teamLogo: "orgPics/navi.png"),
-  Team(
-      name: "Fnatic2",
-      regionFlag: "flags/uk.png",
-      membersCount: 5,
-      teamLogo: "orgPics/fnatic.png"),
-  Team(
-      name: "PRX2",
-      regionFlag: "flags/singapore.png",
-      membersCount: 6,
-      teamLogo: "orgPics/Paper_Rex_logo.png"),
-  Team(
       name: "Sentinels2",
       regionFlag: "flags/us.png",
       membersCount: 6,
