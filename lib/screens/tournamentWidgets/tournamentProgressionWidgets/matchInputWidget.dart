@@ -106,11 +106,14 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
             items: widget.teamNames.map((team) {
               return DropdownMenuItem<String>(
                 value: team,
-                child: Text(team),
+                child: Text(
+                  team,
+                ),
               );
             }).toList(),
             onChanged: (value) {
               setState(() {
+                print(value);
                 widget.selectedTeam = value!;
                 roundMatchesData[widget.roundIndex][widget.matchIndex]
                     [widget.teamA_B] = value;

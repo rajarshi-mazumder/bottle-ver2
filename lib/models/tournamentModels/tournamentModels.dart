@@ -5,19 +5,24 @@ import 'team.dart';
 import 'match.dart';
 
 class Tournament {
-  List<Team>? teams = [];
+  List<Participant>? participants = [];
   List<Round> rounds = [];
-  Team? winner;
+  Participant? winner;
+  String participantType;
 
-  Tournament({this.teams, this.winner});
+  Tournament(
+      {this.participants, this.winner, this.participantType = "participant"});
 
   // Factory method to create tournaments
   factory Tournament.createTournament(
-      {required String type, int bracketCount = 0}) {
+      {required String type,
+      int bracketCount = 0,
+      required String participantType}) {
     if (type == 'SingleElimination') {
-      return SingleEliminationTournament();
+      return SingleEliminationTournament(participantType: participantType);
     } else if (type == 'DoubleBracket') {
-      return DoubleBracketTournament(bracketCount);
+      return DoubleBracketTournament(
+          bracketCount: bracketCount, participantType: participantType);
     }
     // else if (type == 'RoundRobin') {
     //   return RoundRobinTournament(teams);
@@ -31,13 +36,15 @@ class Tournament {
     }
   }
 
-  generateRounds({required List<Team> teams}) {}
+  generateRounds({required List<Participant> participants}) {}
 
   Map<String, dynamic> toMap() {
     return {
-      'teams': teams?.map((team) => team?.toMap()).toList(),
+      'participants':
+          participants?.map((participant) => participant?.toMap()).toList(),
       'rounds': rounds.map((round) => round.toMap()).toList(),
       'winner': winner?.toMap(),
+      'participantType': participantType
     };
   }
 
@@ -46,27 +53,29 @@ class Tournament {
       // 'teams': teams?.map((team) => team?.tournamnetSpecificToMap()).toList(),
       'rounds': rounds.map((round) => round.tournamentSpecificToMap()).toList(),
       'winner': winner?.toMap(),
+      'participantType': participantType
     };
   }
 
   static Tournament fromMap(Map<String, dynamic> map) {
     return Tournament(
-      teams: (map['teams'] as List<dynamic>)
-          .map((teamMap) => Team.fromMap(teamMap))
-          .toList(),
-      winner: Team.fromMap(map['winner']),
-    );
+        participants: (map['participants'] as List<dynamic>)
+            .map((participantMap) => Participant.fromMap(participantMap))
+            .toList(),
+        winner: Participant.fromMap(map['winner']),
+        participantType: map['participantType'] ?? "participant");
   }
 }
 
 class SingleEliminationTournament extends Tournament {
-  SingleEliminationTournament() : super();
+  SingleEliminationTournament(
+      {List<Participant>? participants, String participantType = "participant"})
+      : super(participants: participants, participantType: participantType);
 
   @override
-  List<Round> generateRounds({required List<Team> teams}) {
-    double totalTeams =
-        double.parse(teams!.length.toString()); // totalTeams= 16
-    int noOfRounds = log(totalTeams) ~/ log(2);
+  List<Round> generateRounds({required List<Participant> participants}) {
+    double totalParticiapnts = double.parse(participants!.length.toString());
+    int noOfRounds = log(totalParticiapnts) ~/ log(2);
     for (int i = noOfRounds; i > 0; i--) {
       rounds.add(Round(
         roundIndex: i - 1,
@@ -86,7 +95,7 @@ class SingleEliminationTournament extends Tournament {
 
     return {
       "brackets": [
-        {"bracketIndex": 1, "rounds": roundsMap}
+        {"bracketIndex": 1, "rounds": roundsMap, "participants": participants}
       ]
     };
   }
@@ -103,21 +112,22 @@ class DoubleBracketTournament extends Tournament {
   List<Map<String, dynamic>> brackets = [];
 
   // Implement Double Bracket specific methods and properties
-  DoubleBracketTournament(this.bracketCount) : super();
+  DoubleBracketTournament(
+      {required this.bracketCount, String participantType = "participant"})
+      : super(participantType: participantType);
 
   @override
-  List<Round> generateRounds({required List<Team> teams}) {
-    double totalTeams =
-        double.parse(teams!.length.toString()); // totalTeams= 16
-    int noOfRounds = log(totalTeams) ~/ log(2);
+  List<Round> generateRounds({required List<Participant> participants}) {
+    double totalParticipants = double.parse(participants!.length.toString());
+    int noOfRounds = log(totalParticipants) ~/ log(2);
     List<Round> rounds = [];
     for (int i = noOfRounds; i > 0; i--) {
       Round newRound = Round(
         roundIndex: i - 1,
         noOfMatches: (pow(2, i - 1)).toInt(),
       );
-      if (pow(2, i) == teams.length) {
-        newRound.matches = newRound.pairTeamsForMatches(teams);
+      if (pow(2, i) == participants.length) {
+        newRound.matches = newRound.pairParticipantsForMatches(participants);
       }
       rounds.add(newRound);
     }
@@ -130,10 +140,14 @@ class DoubleBracketTournament extends Tournament {
 
   List<Map<String, dynamic>> generateNewBracket(
       {required List<Team> teams, required int bracketIndex}) {
-    List<Round> rounds = generateRounds(teams: teams);
+    List<Round> rounds = generateRounds(participants: teams);
 
-    brackets
-        .add({"bracketIndex": bracketIndex, "rounds": rounds, "winner": null});
+    brackets.add({
+      "bracketIndex": bracketIndex,
+      "rounds": rounds,
+      "winner": null,
+      "participants": teams
+    });
 
     return brackets;
   }
@@ -144,7 +158,8 @@ class DoubleBracketTournament extends Tournament {
       if (bracket["winner"] != null) bracketWinners.add(bracket["winner"]);
     });
 
-    List<Round> postBracketRounds = generateRounds(teams: bracketWinners);
+    List<Round> postBracketRounds =
+        generateRounds(participants: bracketWinners);
   }
 
   @override

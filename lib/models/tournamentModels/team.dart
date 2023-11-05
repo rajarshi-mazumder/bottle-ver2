@@ -1,11 +1,39 @@
-class Team {
+class Participant {
   String? name;
-  int? membersCount;
   String? regionFlag;
+
+  Participant({this.name, this.regionFlag});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'regionFlag': regionFlag,
+    };
+  }
+
+  Map<String, dynamic> tournamnetSpecificToMap() {
+    return {
+      'name': name
+      // 'regionFlag': regionFlag,
+    };
+  }
+
+  static Participant fromMap(Map<String, dynamic> map) {
+    return Team(
+      name: map['name'],
+      regionFlag: map['regionFlag'] ?? '',
+    );
+  }
+}
+
+class Team extends Participant {
+  int? membersCount;
+
   List<dynamic>? members;
   String? teamLogo;
 
-  Team({this.name, this.membersCount, this.regionFlag, this.teamLogo});
+  Team({String? name, this.membersCount, String? regionFlag, this.teamLogo})
+      : super(name: name, regionFlag: regionFlag);
 
   Map<String, dynamic> toMap() {
     return {

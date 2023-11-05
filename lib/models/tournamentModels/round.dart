@@ -38,20 +38,22 @@ class Round {
     );
   }
 
-  List<Match> pairTeamsForMatches(List<Team> teams) {
-    if (teams.length % 2 != 0) {
-      throw Exception("The number of teams must be even for pairing.");
+  List<Match> pairParticipantsForMatches(List<Participant> participants) {
+    if (participants.length % 2 != 0) {
+      throw Exception("The number of participants must be even for pairing.");
     }
 
-    // Shuffle the list of teams to randomize pairing
+    // Shuffle the list of participants to randomize pairing
     final random = Random();
-    final shuffledTeams = List<Team>.from(teams)..shuffle(random);
+    final shuffledParticipants = List<Participant>.from(participants)
+      ..shuffle(random);
 
     final matches = <Match>[];
-    for (int i = 0; i < shuffledTeams.length; i += 2) {
-      final teamA = shuffledTeams[i];
-      final teamB = shuffledTeams[i + 1];
-      matches.add(Match(teamA: teamA, teamB: teamB));
+    for (int i = 0; i < shuffledParticipants.length; i += 2) {
+      final participantA = shuffledParticipants[i];
+      final participantB = shuffledParticipants[i + 1];
+      matches
+          .add(Match(participantA: participantA, participantB: participantB));
     }
 
     return matches;
