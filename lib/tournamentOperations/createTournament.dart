@@ -163,59 +163,56 @@ class _TournamentEditState extends State<TournamentEdit> {
   //   );
   // }
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: widget.tournament.bracketCount,
-        itemBuilder: (BuildContext context, int index) {
-          List<List<Map<String, dynamic>>> roundMatchesData = [];
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-                color: index % 2 == 0 ? Colors.black26 : Colors.black45,
-                child: BracketRounds(
-                  bracket: widget.tournament.brackets[index],
-
-                  roundMatchesData: roundMatchesData,
-                )
-              // child: Container(
-              //   width: 300,
-              //   height: 4000,
-              //   color: Colors.red,
-              //   margin: EdgeInsets.all(20),
-              // ),
-            ),
-            // child: Text(widget.tournament.brackets[index].toString()),
-          );
-        },
-      ),
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: widget.tournament.bracketCount,
+            itemBuilder: (BuildContext context, int index) {
+              List<List<Map<String, dynamic>>> roundMatchesData = [];
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    color: index % 2 == 0 ? Colors.black26 : Colors.black45,
+                    child: BracketRounds(
+                      bracket: widget.tournament.brackets[index],
+                      roundMatchesData: roundMatchesData,
+                    )),
+                // child: Text(widget.tournament.brackets[index].toString()),
+              );
+            },
+          ),
+        ),
+        ElevatedButton(onPressed: () {}, child: Text("SMTH"))
+      ],
     );
   }
 
-// convertTournamentJSONToObject(Map<String, dynamic> tournamentJSON) {
-//   List parsedRoundMatchesData = [];
-//   for (int i = 0; i < tournamentJSON["rounds"].length; i++) {
-//     var roundData = tournamentJSON["rounds"][i];
-//
-//     parsedRoundMatchesData
-//         .add({"roundIndex": roundData["roundIndex"], "matches": []});
-//     for (int j = 0; j < roundData["matches"].length; j++) {
-//       Team teamA = Team();
-//       Team teamB = Team();
-//       Team winner = Team();
-//       for (Team t in teams) {
-//         if (widget.roundMatchesData[i][j]["teamA"] == t.name)
-//           teamA = t;
-//         else if (widget.roundMatchesData[i][j]["teamB"] == t.name) teamB = t;
-//         if (widget.roundMatchesData[i][j]["winner"] == t.name) {
-//           winner = t;
-//         }
-//       }
-//       parsedRoundMatchesData[i]["matches"]
-//           .add({"teamA": teamA, "teamB": teamB, "winner": winner});
-//     }
-//   }
-//   print("parsedRoundMatchesData:  ${parsedRoundMatchesData}");
-//
-// }
+  convertTournamentJSONToObject(Map<String, dynamic> brackets) {
+    List parsedRoundMatchesData = [];
+    print(brackets);
+    // for (int i = 0; i < tournamentJSON["rounds"].length; i++) {
+    //   var roundData = tournamentJSON["rounds"][i];
+    //
+    //   parsedRoundMatchesData
+    //       .add({"roundIndex": roundData["roundIndex"], "matches": []});
+    //   for (int j = 0; j < roundData["matches"].length; j++) {
+    //     Team teamA = Team();
+    //     Team teamB = Team();
+    //     Team winner = Team();
+    //     for (Team t in teams) {
+    //       if (widget.roundMatchesData[i][j]["teamA"] == t.name)
+    //         teamA = t;
+    //       else if (widget.roundMatchesData[i][j]["teamB"] == t.name) teamB = t;
+    //       if (widget.roundMatchesData[i][j]["winner"] == t.name) {
+    //         winner = t;
+    //       }
+    //     }
+    //     parsedRoundMatchesData[i]["matches"]
+    //         .add({"teamA": teamA, "teamB": teamB, "winner": winner});
+    //   }
+    // }
+    print("parsedRoundMatchesData:  ${parsedRoundMatchesData}");
+  }
 }

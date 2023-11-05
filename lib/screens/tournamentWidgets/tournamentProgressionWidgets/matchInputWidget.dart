@@ -1,3 +1,4 @@
+import 'package:bottle_ver2/models/tournamentModels/team.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
 import 'package:flutter/material.dart';
 
@@ -9,12 +10,18 @@ class MatchInputWidget extends StatefulWidget {
       required this.matchIndex,
       required this.roundIndex,
       required this.teamNames,
-      required this.roundMatchesData});
+      required this.roundMatchesData,
+      required this.isMatchDecided,
+      this.particpantA = null,
+      this.particpantB = null});
 
   final int roundIndex;
   final int matchIndex;
   final List<String> teamNames;
   List<List<Map<String, dynamic>>> roundMatchesData;
+  bool isMatchDecided;
+  Participant? particpantA;
+  Participant? particpantB;
 
   @override
   State<MatchInputWidget> createState() => _MatchInputWidgetState();
@@ -29,8 +36,12 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
   void initState() {
     super.initState();
     widget.teamNames.add('');
-    selectedTeamA = widget.teamNames.last;
-    selectedTeamB = widget.teamNames.last;
+    selectedTeamA = widget.particpantA != null
+        ? widget.particpantA!.name!
+        : widget.teamNames.last;
+    selectedTeamB = widget.particpantB != null
+        ? widget.particpantB!.name!
+        : widget.teamNames.last;
   }
 
   @override
@@ -135,8 +146,9 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
             onChanged: (value) {
               setState(() {
                 winner = value!;
-                roundMatchesListData[widget.roundIndex][widget.matchIndex]
+                widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
                     ['winner'] = value;
+                print(widget.roundMatchesData);
               });
             },
           ),

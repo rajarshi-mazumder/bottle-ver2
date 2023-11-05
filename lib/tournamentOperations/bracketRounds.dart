@@ -49,12 +49,18 @@ class _BracketRoundsState extends State<BracketRounds> {
               widget.bracket["participants"].length,
               (index) => widget.bracket["participants"]![index].name!,
             );
-
+            bool isMatchDecided = false;
+            if (round.matches?[index].participantA != null &&
+                round.matches?[index].participantB != null)
+              isMatchDecided = true;
             return MatchInputWidget(
               roundMatchesData: widget.roundMatchesData,
               matchIndex: matchIndex,
               roundIndex: roundIndex,
               teamNames: teamNames,
+              isMatchDecided: isMatchDecided,
+              particpantA: round.matches?[index].participantA,
+              particpantB: round.matches?[index].participantB,
             );
           }),
         ),
