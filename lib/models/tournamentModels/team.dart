@@ -1,11 +1,39 @@
-class Team {
+class Participant {
   String? name;
-  int? membersCount;
   String? regionFlag;
+
+  Participant({this.name, this.regionFlag});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'regionFlag': regionFlag,
+    };
+  }
+
+  Map<String, dynamic> tournamnetSpecificToMap() {
+    return {
+      'name': name
+      // 'regionFlag': regionFlag,
+    };
+  }
+
+  static Participant fromMap(Map<String, dynamic> map) {
+    return Team(
+      name: map['name'],
+      regionFlag: map['regionFlag'] ?? '',
+    );
+  }
+}
+
+class Team extends Participant {
+  int? membersCount;
+
   List<dynamic>? members;
   String? teamLogo;
 
-  Team({this.name, this.membersCount, this.regionFlag, this.teamLogo});
+  Team({String? name, this.membersCount, String? regionFlag, this.teamLogo})
+      : super(name: name, regionFlag: regionFlag);
 
   Map<String, dynamic> toMap() {
     return {
@@ -36,6 +64,17 @@ class Team {
     );
   }
 }
+
+List<Participant> participants1 = [
+  Participant(name: "Yay", regionFlag: "flags/us.png"),
+  Participant(name: "FNS", regionFlag: "flags/us.png"),
+  Participant(name: "Marved", regionFlag: "flags/us.png"),
+  Participant(name: "Crashies", regionFlag: "flags/us.png"),
+  Participant(name: "Jingg", regionFlag: "flags/singapore.png"),
+  Participant(name: "Forsaken", regionFlag: "flags/singapore.png"),
+  Participant(name: "Mako", regionFlag: "flags/sk.png"),
+  Participant(name: "Buzz", regionFlag: "flags/sk.png"),
+];
 
 List<Team> teams = [
   Team(
@@ -81,26 +120,6 @@ List<Team> teams = [
 ];
 
 List<Team> teams2 = [
-  Team(
-      name: "Optic2",
-      regionFlag: "flags/us.png",
-      membersCount: 6,
-      teamLogo: "orgPics/optic.jpeg"),
-  Team(
-      name: "NAVI2",
-      regionFlag: "flags/ukraine.webp",
-      membersCount: 6,
-      teamLogo: "orgPics/navi.png"),
-  Team(
-      name: "Fnatic2",
-      regionFlag: "flags/uk.png",
-      membersCount: 5,
-      teamLogo: "orgPics/fnatic.png"),
-  Team(
-      name: "PRX2",
-      regionFlag: "flags/singapore.png",
-      membersCount: 6,
-      teamLogo: "orgPics/Paper_Rex_logo.png"),
   Team(
       name: "Sentinels2",
       regionFlag: "flags/us.png",

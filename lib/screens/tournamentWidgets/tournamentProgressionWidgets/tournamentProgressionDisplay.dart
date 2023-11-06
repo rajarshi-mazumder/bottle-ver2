@@ -1,6 +1,7 @@
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/matchDisplayWidget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
 import 'matchInputWidget.dart';
 import 'winnerInputWidget.dart';
@@ -11,6 +12,7 @@ class TournamentProgressionDisplay extends StatefulWidget {
   TournamentProgressionDisplay({required this.tournament});
 
   Tournament tournament;
+  String participantType = "participant";
 
   @override
   _TournamentProgressionDisplayState createState() =>
@@ -27,7 +29,7 @@ class _TournamentProgressionDisplayState
   @override
   void initState() {
     super.initState();
-    numberOfTeams = widget.tournament.teams!.length;
+    numberOfTeams = widget.tournament.participants!.length;
 
     generateRoundWidgets();
   }
@@ -44,24 +46,21 @@ class _TournamentProgressionDisplayState
         child: Column(
           children: List.generate(round.noOfMatches, (index) {
             matchIndex++;
-            print(round.matches![index].teamA.toString());
+            print(round.matches![index].participantA.toString());
             return MatchDisplayWidget(
               matchIndex: matchIndex,
               roundIndex: roundIndex,
-              teamA: round.matches![index].teamA!,
-              teamB: round.matches![index].teamB!,
+              participantA: round.matches![index].participantA!,
+              participantB: round.matches![index].participantB!,
             );
           }),
         ),
       ));
     });
     roundWidgets.add(WinnerDisplayWidget(
-      teamLogo: widget.tournament.winner!.teamLogo != null
-          ? widget.tournament.winner!.teamLogo!
-          : '',
-      teamName: widget.tournament.winner!.name != null
-          ? widget.tournament.winner!.name!
-          : '',
+      winner: widget.tournament.winner != null
+          ? widget.tournament.winner! as Team
+          : Team(),
     ));
   }
 
@@ -76,8 +75,8 @@ class _TournamentProgressionDisplayState
             child: Center(
               child: Row(
                   children: List.generate(roundWidgets.length, (index) {
-                return roundWidgets[index];
-              })),
+                    return roundWidgets[index];
+                  })),
             ),
           ),
         ],

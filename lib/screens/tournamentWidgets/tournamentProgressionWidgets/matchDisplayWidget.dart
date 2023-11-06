@@ -10,15 +10,16 @@ class MatchDisplayWidget extends StatefulWidget {
       {super.key,
       required this.matchIndex,
       required this.roundIndex,
-      required this.teamA,
-      required this.teamB // Add a parameter for team names
+      required this.participantA,
+      required this.participantB // Add a parameter for team names
       });
 
   final int roundIndex;
   final int matchIndex;
 
-  Team teamA;
-  Team teamB;
+  Participant participantA;
+  Participant participantB;
+  String participantType = "participant";
 
   @override
   State<MatchDisplayWidget> createState() => _MatchDisplayWidgetState();
@@ -36,6 +37,19 @@ class _MatchDisplayWidgetState extends State<MatchDisplayWidget> {
     if (widget.roundIndex == 0) {
       print("Match addedddddddd ${widget.matchIndex}");
     }
+    switch (widget.participantA.runtimeType) {
+      case Team:
+        widget.participantType = "team";
+
+        break;
+      case Participant:
+        widget.participantType = "participant";
+        break;
+      default:
+        widget.participantType = "participant";
+        break;
+    }
+
     return Container(
       width: 200,
       child: Padding(
@@ -46,23 +60,19 @@ class _MatchDisplayWidgetState extends State<MatchDisplayWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TeamDisplayWidget(
-                  teamLogo: widget.teamA.teamLogo != null
-                      ? widget.teamA.teamLogo!
-                      : '',
-                  teamName:
-                      widget.teamA.name != null ? widget.teamA.name! : ''),
+              if (widget.participantType == "team")
+                TeamDisplayWidget(team: widget.participantA as Team)
+              else
+                ParticipantDisplayWidget(participant: widget.participantA),
               SizedBox(height: 10),
               Center(
                   child: Text("VS",
                       style: Theme.of(context).textTheme.labelMedium)),
               SizedBox(height: 10),
-              TeamDisplayWidget(
-                  teamLogo: widget.teamB.teamLogo != null
-                      ? widget.teamB.teamLogo!
-                      : '',
-                  teamName:
-                      widget.teamB.name != null ? widget.teamB.name! : ''),
+              if (widget.participantType == "team")
+                TeamDisplayWidget(team: widget.participantB as Team)
+              else
+                ParticipantDisplayWidget(participant: widget.participantB),
             ],
           ),
         ),
@@ -71,12 +81,10 @@ class _MatchDisplayWidgetState extends State<MatchDisplayWidget> {
   }
 }
 
-class TeamDisplayWidget extends StatelessWidget {
-  TeamDisplayWidget(
-      {super.key, required this.teamLogo, required this.teamName});
+class ParticipantDisplayWidget extends StatelessWidget {
+  ParticipantDisplayWidget({super.key, required this.participant});
 
-  String teamLogo;
-  String teamName;
+  Participant participant;
 
   @override
   Widget build(BuildContext context) {
@@ -87,13 +95,38 @@ class TeamDisplayWidget extends StatelessWidget {
           color: bgPrimaryColor,
           borderRadius: BorderRadius.all(Radius.circular(5))),
       child: Row(children: [
-        if (teamLogo != '')
+        SizedBox(width: 20),
+        Expanded(
+            child: Text(
+          participant.name != '' ? participant.name! : "",
+          style: Theme.of(context).textTheme.labelMedium,
+        ))
+      ]),
+    );
+  }
+}
+
+class TeamDisplayWidget extends StatelessWidget {
+  TeamDisplayWidget({super.key, required this.team});
+
+  Team team;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+          color: bgPrimaryColor,
+          borderRadius: BorderRadius.all(Radius.circular(5))),
+      child: Row(children: [
+        if (team.teamLogo != '')
           Stack(
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(100)),
                 child: Image.asset(
-                  teamLogo,
+                  team.teamLogo!,
                   height: 40,
                   width: 40,
                 ),
@@ -110,7 +143,7 @@ class TeamDisplayWidget extends StatelessWidget {
         SizedBox(width: 20),
         Expanded(
             child: Text(
-          teamName != '' ? teamName : "",
+          team.name != '' ? team.name! : "",
           style: Theme.of(context).textTheme.labelMedium,
         ))
       ]),
@@ -119,11 +152,9 @@ class TeamDisplayWidget extends StatelessWidget {
 }
 
 class WinnerDisplayWidget extends StatelessWidget {
-  WinnerDisplayWidget(
-      {super.key, required this.teamLogo, required this.teamName});
+  WinnerDisplayWidget({super.key, required this.winner});
 
-  String teamLogo;
-  String teamName;
+  Team winner;
 
   @override
   Widget build(BuildContext context) {
@@ -146,13 +177,13 @@ class WinnerDisplayWidget extends StatelessWidget {
                       ?.copyWith(color: primaryColor, fontSize: 16))),
           SizedBox(height: 20),
           Row(children: [
-            if (teamLogo != '')
+            if (winner.teamLogo != '')
               Stack(
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(100)),
                     child: Image.asset(
-                      teamLogo,
+                      winner.teamLogo!,
                       height: 40,
                       width: 40,
                     ),
@@ -169,7 +200,7 @@ class WinnerDisplayWidget extends StatelessWidget {
             SizedBox(width: 20),
             Expanded(
                 child: Text(
-              teamName != '' ? teamName : "",
+              winner.name != '' ? winner.name! : "",
               style: Theme.of(context).textTheme.labelMedium,
             ))
           ]),

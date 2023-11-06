@@ -8,7 +8,7 @@ import 'matchInputWidget.dart';
 import 'winnerInputWidget.dart';
 import 'package:bottle_ver2/models/tournamentModels/match.dart';
 
-List roundMatchesData = [];
+List<List<Map<String, dynamic>>> roundMatchesListData = [];
 String? winner;
 
 class TournamentProgressionInput extends StatefulWidget {
@@ -31,15 +31,16 @@ class _TournamentProgressionInputState
   @override
   void initState() {
     super.initState();
-    roundMatchesData = [];
+    roundMatchesListData = [];
 
-    roundMatchesData = List.generate(widget.tournament.rounds.length, (index) {
+    roundMatchesListData =
+        List.generate(widget.tournament.rounds.length, (index) {
       return List.generate(widget.tournament.rounds[index].noOfMatches,
           (index) {
         return {"teamA": null, "teamB": null};
       });
     });
-    widget.tournament.generateRounds(teams: teams);
+    widget.tournament.generateRounds(participants: teams);
     generateRoundWidgets();
   }
 
@@ -49,7 +50,7 @@ class _TournamentProgressionInputState
     widget.tournament.rounds.forEach((round) {
       roundIndex++;
       int matchIndex = -1;
-      roundMatchesData.add([]);
+      roundMatchesListData.add([]);
       roundWidgets.add(Container(
         margin: EdgeInsets.only(top: 0),
         child: Column(
@@ -57,17 +58,20 @@ class _TournamentProgressionInputState
             matchIndex++;
             TextEditingController teamAController = TextEditingController();
             TextEditingController teamBController = TextEditingController();
-            roundMatchesData[roundIndex].add({
+            roundMatchesListData[roundIndex].add({
               "round": roundIndex,
               "teamA": teamAController.text,
               "teamB": teamBController.text,
             });
 
             return MatchInputWidget(
+              roundMatchesData: roundMatchesListData,
               matchIndex: matchIndex,
               roundIndex: roundIndex,
-              teamNames: List.generate(widget.tournament.teams!.length,
-                  (index) => widget.tournament.teams![index].name!),
+              teamNames: List.generate(widget.tournament.participants!.length,
+                  (index) => widget.tournament.participants![index].name!),
+              isMatchDecided: false,
+              bracketIndex: 0,
             );
           }),
         ),
@@ -78,8 +82,8 @@ class _TournamentProgressionInputState
       child: Column(
         children: [
           WinnerInputData(
-              teamNames: List.generate(widget.tournament.teams!.length,
-                  (index) => widget.tournament.teams![index].name!)),
+              teamNames: List.generate(widget.tournament.participants!.length,
+                  (index) => widget.tournament.participants![index].name!)),
         ],
       ),
     ));
@@ -107,25 +111,31 @@ class _TournamentProgressionInputState
                 child: ElevatedButton(
                     onPressed: () {
                       // print(roundMatchesData);
-                      for (int i = 0; i < roundMatchesData.length; i++) {
+                      for (int i = 0; i < roundMatchesListData.length; i++) {
                         widget.tournament.rounds[i].matches = [];
-                        for (int j = 0; j < roundMatchesData[i].length; j++) {
-                          Team teamA = Team();
-                          Team teamB = Team();
-                          Team winner = Team();
+                        for (int j = 0;
+                            j < roundMatchesListData[i].length;
+                            j++) {
+                          Participant participantA = Team();
+                          Participant participantB = Team();
+                          Participant winner = Team();
 
-                          for (Team t in widget.tournament.teams!) {
-                            if (roundMatchesData[i][j]["teamA"] == t.name)
-                              teamA = t;
-                            else if (roundMatchesData[i][j]["teamB"] == t.name)
-                              teamB = t;
-                            if (roundMatchesData[i][j]["winner"] == t.name) {
-                              winner = t;
+                          for (Participant p
+                              in widget.tournament.participants!) {
+                            if (roundMatchesListData[i][j]["teamA"] == p.name)
+                              participantA = p;
+                            else if (roundMatchesListData[i][j]["teamB"] ==
+                                p.name) participantB = p;
+                            if (roundMatchesListData[i][j]["winner"] ==
+                                p.name) {
+                              winner = p;
                             }
                           }
 
-                          Match match =
-                              Match(teamA: teamA, teamB: teamB, winner: winner);
+                          Match match = Match(
+                              participantA: participantA,
+                              participantB: participantB,
+                              winner: winner);
                           widget.tournament.rounds[i].matches!.add(match);
                         }
                       }
@@ -133,7 +143,7 @@ class _TournamentProgressionInputState
                       widget.tournament.rounds.forEach((element) {
                         element.matches?.forEach((element) {
                           print(
-                              "${element.teamA!.name}  VS  ${element.teamB!.name}");
+                              "${element.participantA!.name}  VS  ${element.participantB!.name}");
                         });
                         print("------------");
                       });
@@ -171,10 +181,10 @@ convertTournamentJSONToObject(Map<String, dynamic> tournamentJSON) {
       Team teamB = Team();
       Team winner = Team();
       for (Team t in teams) {
-        if (roundMatchesData[i][j]["teamA"] == t.name)
+        if (roundMatchesListData[i][j]["teamA"] == t.name)
           teamA = t;
-        else if (roundMatchesData[i][j]["teamB"] == t.name) teamB = t;
-        if (roundMatchesData[i][j]["winner"] == t.name) {
+        else if (roundMatchesListData[i][j]["teamB"] == t.name) teamB = t;
+        if (roundMatchesListData[i][j]["winner"] == t.name) {
           winner = t;
         }
       }
@@ -183,5 +193,5 @@ convertTournamentJSONToObject(Map<String, dynamic> tournamentJSON) {
     }
   }
   print("parsedRoundMatchesData:  ${parsedRoundMatchesData}");
-  print("roundMatchesData:  ${roundMatchesData}");
+  print("roundMatchesData:  ${roundMatchesListData}");
 }

@@ -1,19 +1,31 @@
+import 'package:bottle_ver2/models/tournamentModels/team.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
+import 'package:bottle_ver2/tournamentOperations/createTournament.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../themes/themes.dart';
 
 class MatchInputWidget extends StatefulWidget {
-  MatchInputWidget({
-    Key? key,
-    required this.matchIndex,
-    required this.roundIndex,
-    required this.teamNames,
-  });
+  MatchInputWidget(
+      {Key? key,
+      required this.bracketIndex,
+      required this.matchIndex,
+      required this.roundIndex,
+      required this.teamNames,
+      required this.roundMatchesData,
+      required this.isMatchDecided,
+      this.particpantA = null,
+      this.particpantB = null});
 
   final int roundIndex;
+  final int bracketIndex;
   final int matchIndex;
   final List<String> teamNames;
+  List<List<Map<String, dynamic>>> roundMatchesData;
+  bool isMatchDecided;
+  Participant? particpantA;
+  Participant? particpantB;
 
   @override
   State<MatchInputWidget> createState() => _MatchInputWidgetState();
@@ -28,8 +40,12 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
   void initState() {
     super.initState();
     widget.teamNames.add('');
-    selectedTeamA = widget.teamNames.last;
-    selectedTeamB = widget.teamNames.last;
+    selectedTeamA = widget.particpantA != null
+        ? widget.particpantA!.name!
+        : widget.teamNames.last;
+    selectedTeamB = widget.particpantB != null
+        ? widget.particpantB!.name!
+        : widget.teamNames.last;
   }
 
   @override
@@ -45,9 +61,11 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
             TeamInputWidget(
               selectedTeam: selectedTeamA,
               teamNames: widget.teamNames,
+              bracketIndex: widget.bracketIndex,
               roundIndex: widget.roundIndex,
               matchIndex: widget.matchIndex,
               teamA_B: "teamA",
+              roundMatchesData: widget.roundMatchesData,
             ),
             Container(
                 margin: EdgeInsets.only(left: 80, top: 5, bottom: 5),
@@ -58,9 +76,11 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
             TeamInputWidget(
               selectedTeam: selectedTeamB,
               teamNames: widget.teamNames,
+              bracketIndex: widget.bracketIndex,
               roundIndex: widget.roundIndex,
               matchIndex: widget.matchIndex,
               teamA_B: "teamB",
+              roundMatchesData: widget.roundMatchesData,
             ),
           ],
         ),
@@ -72,17 +92,21 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
 class TeamInputWidget extends StatefulWidget {
   TeamInputWidget(
       {super.key,
+      required this.bracketIndex,
       required this.selectedTeam,
       required this.teamNames,
       required this.roundIndex,
       required this.matchIndex,
-      required this.teamA_B});
+      required this.teamA_B,
+      required this.roundMatchesData});
 
   String selectedTeam;
   List<String> teamNames;
+  int bracketIndex;
   int roundIndex;
   int matchIndex;
   String teamA_B;
+  List<List<Map<String, dynamic>>> roundMatchesData;
 
   @override
   State<TeamInputWidget> createState() => _TeamInputWidgetState();
@@ -91,6 +115,8 @@ class TeamInputWidget extends StatefulWidget {
 class _TeamInputWidgetState extends State<TeamInputWidget> {
   @override
   Widget build(BuildContext context) {
+    TournamentDataProvider tournamentDataProvider =
+        context.watch<TournamentDataProvider>();
     return Row(
       children: [
         Container(
@@ -98,7 +124,7 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
           width: 180,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: const BoxDecoration(
-              color: bgPrimaryColor,
+              color: Colors.grey,
               borderRadius: BorderRadius.all(Radius.circular(5))),
           child: DropdownButton<String>(
             isExpanded: true,
@@ -106,14 +132,19 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
             items: widget.teamNames.map((team) {
               return DropdownMenuItem<String>(
                 value: team,
-                child: Text(team),
+                child: Text(
+                  team,
+                ),
               );
             }).toList(),
             onChanged: (value) {
               setState(() {
+                print(value);
                 widget.selectedTeam = value!;
-                roundMatchesData[widget.roundIndex][widget.matchIndex]
-                    [widget.teamA_B] = value;
+                widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
+                    [widget.teamA_B] = {
+                  "${widget.teamA_B}": {"name": value}
+                };
               });
             },
             underline: Container(),
@@ -127,8 +158,12 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
             onChanged: (value) {
               setState(() {
                 winner = value!;
-                roundMatchesData[widget.roundIndex][widget.matchIndex]
+                widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
                     ['winner'] = value;
+                print(widget.roundMatchesData);
+                tournamentDataProvider.tournamentData["brackets"]
+                        [widget.bracketIndex - 1]["rounds"] =
+                    widget.roundMatchesData;
               });
             },
           ),
