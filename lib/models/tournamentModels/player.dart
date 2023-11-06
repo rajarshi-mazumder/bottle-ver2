@@ -1,12 +1,12 @@
 class Player {
-  String name;
+  String? name;
   String? nationality;
   String? twitchLink;
   String? twitterLink;
   String? mainAgent;
 
   Player({
-    required this.name,
+    this.name,
     this.nationality,
     this.twitchLink,
     this.twitterLink,
