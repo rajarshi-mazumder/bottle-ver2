@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
     widget.tournament1 = Tournament.createTournament(
         bracketCount: 0,
         type: 'SingleElimination',
-        participantType: "teams") as SingleEliminationTournament;
+        participantType: "participant") as SingleEliminationTournament;
 
     widget.tournament1.generateRounds(participants: teams);
 
