@@ -55,7 +55,7 @@ class _TeamPlayersSectionState extends State<TeamPlayersSection> {
                           agentImgUrl:
                               "valoImages/valoAgentBodyImgs/resized/${players[index].mainAgent}.png",
                           isMVP: index == 0 ? true : false,
-                          name: players[index].name);
+                          name: players[index].name!);
                     },
                   ),
                 ],

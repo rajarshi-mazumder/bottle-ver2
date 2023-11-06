@@ -37,6 +37,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+
     widget.tournament1 = Tournament.createTournament(
         bracketCount: 0,
         type: 'SingleElimination',
@@ -81,6 +82,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
 
 class TournamentEdit extends StatefulWidget {
   TournamentEdit({required this.tournament});
@@ -184,3 +186,4 @@ class _TournamentEditState extends State<TournamentEdit> {
         "parsedRoundMatchesData:  ${doubleBracketTournament.tournamentSpecificToMap()}");
   }
 }
+
