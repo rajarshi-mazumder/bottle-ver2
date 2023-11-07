@@ -68,7 +68,7 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
                   bracketIndex: widget.bracketIndex,
                   roundIndex: widget.roundIndex,
                   matchIndex: widget.matchIndex,
-                  teamA_B: "teamA",
+                  participantA_B: "participantA",
                   roundMatchesData: widget.roundMatchesData,
                 ),
                 if (selectedTeamA != '')
@@ -103,7 +103,7 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
                   bracketIndex: widget.bracketIndex,
                   roundIndex: widget.roundIndex,
                   matchIndex: widget.matchIndex,
-                  teamA_B: "teamB",
+                  participantA_B: "participantB",
                   roundMatchesData: widget.roundMatchesData,
                 ),
                 if (selectedTeamB != '')
@@ -139,7 +139,7 @@ class TeamInputWidget extends StatefulWidget {
       required this.teamNames,
       required this.roundIndex,
       required this.matchIndex,
-      required this.teamA_B,
+      required this.participantA_B,
       required this.roundMatchesData});
 
   String selectedTeam;
@@ -147,7 +147,7 @@ class TeamInputWidget extends StatefulWidget {
   int bracketIndex;
   int roundIndex;
   int matchIndex;
-  String teamA_B;
+  String participantA_B;
   List<List<Map<String, dynamic>>> roundMatchesData;
 
   @override
@@ -159,6 +159,10 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
   Widget build(BuildContext context) {
     TournamentDataProvider tournamentDataProvider =
         context.watch<TournamentDataProvider>();
+    widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
+        [widget.participantA_B] = {
+      "${widget.participantA_B}": {"name": widget.selectedTeam}
+    };
     return Row(
       children: [
         Container(
@@ -168,30 +172,31 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
           decoration: const BoxDecoration(
               color: Colors.grey,
               borderRadius: BorderRadius.all(Radius.circular(5))),
-          child: DropdownButton<String>(
-            isExpanded: true,
-            value: widget.selectedTeam,
-            items: widget.teamNames.map((team) {
-              return DropdownMenuItem<String>(
-                value: team,
-                child: Text(
-                  team,
-                ),
-              );
-            }).toList(),
-            onChanged: (value) {
-              setState(() {
-                print(value);
-                widget.selectedTeam = value!;
-                widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
-                    [widget.teamA_B] = {
-                  "${widget.teamA_B}": {"name": value}
-                };
-              });
-            },
-            underline: Container(),
-            // Remove the underline
-          ),
+          // child: DropdownButton<String>(
+          //   isExpanded: true,
+          //   value: widget.selectedTeam,
+          //   items: widget.teamNames.map((team) {
+          //     return DropdownMenuItem<String>(
+          //       value: team,
+          //       child: Text(
+          //         team,
+          //       ),
+          //     );
+          //   }).toList(),
+          //   onChanged: (value) {
+          //     setState(() {
+          //       print(value);
+          //       widget.selectedTeam = value!;
+          //       widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
+          //           [widget.teamA_B] = {
+          //         "${widget.teamA_B}": {"name": value}
+          //       };
+          //     });
+          //   },
+          //   underline: Container(),
+          //   // Remove the underline
+          // ),
+          child: Text(widget.selectedTeam),
         ),
       ],
     );

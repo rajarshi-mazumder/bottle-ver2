@@ -169,8 +169,11 @@ class _TournamentEditState extends State<TournamentEdit> {
         roundMatches.forEach((roundMatch) {
           Match match = Match(
             participantA: participantType == "participant"
-                ? Participant(name: roundMatch["teamA"])
-                : Team(name: roundMatch["teamA"]),
+                ? Participant(name: roundMatch["participantA"]["name"])
+                : Team(name: roundMatch["participantA"]["name"]),
+            participantB: participantType == "participant"
+                ? Participant(name: roundMatch["participantA"]["name"])
+                : Team(name: roundMatch["participantA"]["name"]),
           );
           matchesList.add(match);
         });

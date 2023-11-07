@@ -34,17 +34,19 @@ class _BracketRoundsState extends State<BracketRounds> {
         child: Column(
           children: List.generate(round.noOfMatches, (index) {
             matchIndex++;
-            TextEditingController teamAController = TextEditingController();
-            TextEditingController teamBController = TextEditingController();
+            TextEditingController participantAController =
+                TextEditingController();
+            TextEditingController participantBController =
+                TextEditingController();
 
             widget.roundMatchesData[roundIndex].add({
               "round": roundIndex,
-              "teamA": round.matches?[index].participantA != null
+              "participantA": round.matches?[index].participantA != null
                   ? round.matches![index].participantA!.name
-                  : teamAController.text,
-              "teamB": round.matches?[index].participantB != null
+                  : participantAController.text,
+              "participantB": round.matches?[index].participantB != null
                   ? round.matches![index].participantB!.name
-                  : teamBController.text,
+                  : participantBController.text,
             });
 
             List<String> teamNames = List.generate(
