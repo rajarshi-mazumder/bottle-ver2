@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<TournamentDataProvider>(
-            create: (context) => TournamentDataProvider())
+            create: (context) => TournamentDataProvider()),
       ],
       child: MaterialApp(
         home: Scaffold(
@@ -82,7 +82,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
 
 class TournamentEdit extends StatefulWidget {
   TournamentEdit({required this.tournament});
@@ -186,4 +185,3 @@ class _TournamentEditState extends State<TournamentEdit> {
         "parsedRoundMatchesData:  ${doubleBracketTournament.tournamentSpecificToMap()}");
   }
 }
-

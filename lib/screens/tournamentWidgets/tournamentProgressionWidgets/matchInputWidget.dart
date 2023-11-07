@@ -50,6 +50,8 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
 
   @override
   Widget build(BuildContext context) {
+    TournamentDataProvider tournamentDataProvider =
+        context.watch<TournamentDataProvider>();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -58,14 +60,34 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TeamInputWidget(
-              selectedTeam: selectedTeamA,
-              teamNames: widget.teamNames,
-              bracketIndex: widget.bracketIndex,
-              roundIndex: widget.roundIndex,
-              matchIndex: widget.matchIndex,
-              teamA_B: "teamA",
-              roundMatchesData: widget.roundMatchesData,
+            Row(
+              children: [
+                TeamInputWidget(
+                  selectedTeam: selectedTeamA,
+                  teamNames: widget.teamNames,
+                  bracketIndex: widget.bracketIndex,
+                  roundIndex: widget.roundIndex,
+                  matchIndex: widget.matchIndex,
+                  teamA_B: "teamA",
+                  roundMatchesData: widget.roundMatchesData,
+                ),
+                if (selectedTeamA != '')
+                  Radio<String>(
+                    value: selectedTeamA,
+                    groupValue: winner,
+                    onChanged: (value) {
+                      setState(() {
+                        winner = value!;
+                        widget.roundMatchesData[widget.roundIndex]
+                            [widget.matchIndex]['winner'] = value;
+                        print(winner);
+                        tournamentDataProvider.tournamentData["brackets"]
+                                [widget.bracketIndex - 1]["rounds"] =
+                            widget.roundMatchesData;
+                      });
+                    },
+                  ),
+              ],
             ),
             Container(
                 margin: EdgeInsets.only(left: 80, top: 5, bottom: 5),
@@ -73,14 +95,34 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
                   'VS',
                   style: customTheme.textTheme.labelMedium,
                 )),
-            TeamInputWidget(
-              selectedTeam: selectedTeamB,
-              teamNames: widget.teamNames,
-              bracketIndex: widget.bracketIndex,
-              roundIndex: widget.roundIndex,
-              matchIndex: widget.matchIndex,
-              teamA_B: "teamB",
-              roundMatchesData: widget.roundMatchesData,
+            Row(
+              children: [
+                TeamInputWidget(
+                  selectedTeam: selectedTeamB,
+                  teamNames: widget.teamNames,
+                  bracketIndex: widget.bracketIndex,
+                  roundIndex: widget.roundIndex,
+                  matchIndex: widget.matchIndex,
+                  teamA_B: "teamB",
+                  roundMatchesData: widget.roundMatchesData,
+                ),
+                if (selectedTeamB != '')
+                  Radio<String>(
+                    value: selectedTeamB,
+                    groupValue: winner,
+                    onChanged: (value) {
+                      setState(() {
+                        winner = value!;
+                        widget.roundMatchesData[widget.roundIndex]
+                            [widget.matchIndex]['winner'] = value;
+                        print(winner);
+                        tournamentDataProvider.tournamentData["brackets"]
+                                [widget.bracketIndex - 1]["rounds"] =
+                            widget.roundMatchesData;
+                      });
+                    },
+                  ),
+              ],
             ),
           ],
         ),
@@ -151,22 +193,6 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
             // Remove the underline
           ),
         ),
-        if (widget.selectedTeam != '')
-          Radio<String>(
-            value: widget.selectedTeam,
-            groupValue: winner,
-            onChanged: (value) {
-              setState(() {
-                winner = value!;
-                widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
-                    ['winner'] = value;
-                print(widget.roundMatchesData);
-                tournamentDataProvider.tournamentData["brackets"]
-                        [widget.bracketIndex - 1]["rounds"] =
-                    widget.roundMatchesData;
-              });
-            },
-          ),
       ],
     );
   }
