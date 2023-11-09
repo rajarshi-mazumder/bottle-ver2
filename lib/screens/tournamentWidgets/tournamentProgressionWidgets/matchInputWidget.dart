@@ -7,15 +7,16 @@ import 'package:provider/provider.dart';
 import '../../../themes/themes.dart';
 
 class MatchInputWidget extends StatefulWidget {
-  MatchInputWidget({Key? key,
-    required this.bracketIndex,
-    required this.matchIndex,
-    required this.roundIndex,
-    required this.teamNames,
-    required this.roundMatchesData,
-    required this.isMatchDecided,
-    this.participantA = null,
-    this.participantB = null});
+  MatchInputWidget(
+      {Key? key,
+      required this.bracketIndex,
+      required this.matchIndex,
+      required this.roundIndex,
+      required this.teamNames,
+      required this.roundMatchesData,
+      required this.isMatchDecided,
+      this.participantA = null,
+      this.participantB = null});
 
   final int roundIndex;
   final int bracketIndex;
@@ -50,7 +51,7 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
   @override
   Widget build(BuildContext context) {
     TournamentDataProvider tournamentDataProvider =
-    context.watch<TournamentDataProvider>();
+        context.watch<TournamentDataProvider>();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -63,7 +64,6 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
               children: [
                 TeamInputWidget(
                   selectedTeam: selectedTeamA,
-                 
                   bracketIndex: widget.bracketIndex,
                   roundIndex: widget.roundIndex,
                   matchIndex: widget.matchIndex,
@@ -78,10 +78,10 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
                       setState(() {
                         winner = value!;
                         widget.roundMatchesData[widget.roundIndex]
-                        [widget.matchIndex]['winner'] = value;
+                            [widget.matchIndex]['winner'] = {"name": value};
                         print(winner);
                         tournamentDataProvider.tournamentData["brackets"]
-                        [widget.bracketIndex - 1]["rounds"] =
+                                [widget.bracketIndex - 1]["rounds"] =
                             widget.roundMatchesData;
                       });
                     },
@@ -98,7 +98,6 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
               children: [
                 TeamInputWidget(
                   selectedTeam: selectedTeamB,
-
                   bracketIndex: widget.bracketIndex,
                   roundIndex: widget.roundIndex,
                   matchIndex: widget.matchIndex,
@@ -113,11 +112,12 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
                       setState(() {
                         winner = value!;
                         widget.roundMatchesData[widget.roundIndex]
-                        [widget.matchIndex]['winner'] = value;
-                        print(winner);
+                            [widget.matchIndex]['winner'] = {"name": value};
+
                         tournamentDataProvider.tournamentData["brackets"]
-                        [widget.bracketIndex - 1]["rounds"] =
+                                [widget.bracketIndex - 1]["rounds"] =
                             widget.roundMatchesData;
+                        print(widget.roundMatchesData);
                       });
                     },
                   ),
@@ -131,14 +131,14 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
 }
 
 class TeamInputWidget extends StatefulWidget {
-  TeamInputWidget({super.key,
-    required this.bracketIndex,
-    required this.selectedTeam,
-
-    required this.roundIndex,
-    required this.matchIndex,
-    required this.participantA_B,
-    required this.roundMatchesData});
+  TeamInputWidget(
+      {super.key,
+      required this.bracketIndex,
+      required this.selectedTeam,
+      required this.roundIndex,
+      required this.matchIndex,
+      required this.participantA_B,
+      required this.roundMatchesData});
 
   String selectedTeam;
 
@@ -156,11 +156,9 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
   @override
   Widget build(BuildContext context) {
     TournamentDataProvider tournamentDataProvider =
-    context.watch<TournamentDataProvider>();
+        context.watch<TournamentDataProvider>();
     widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
-    [widget.participantA_B] = {
-      "${widget.participantA_B}": {"name": widget.selectedTeam}
-    };
+        [widget.participantA_B] = {"name": widget.selectedTeam};
     return Row(
       children: [
         Container(
