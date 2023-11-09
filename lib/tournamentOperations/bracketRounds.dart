@@ -64,8 +64,8 @@ class _BracketRoundsState extends State<BracketRounds> {
               bracketIndex: widget.bracket["bracketIndex"],
               teamNames: teamNames,
               isMatchDecided: isMatchDecided,
-              particpantA: round.matches?[index].participantA,
-              particpantB: round.matches?[index].participantB,
+              participantA: round.matches?[index].participantA,
+              participantB: round.matches?[index].participantB,
             );
           }),
         ),

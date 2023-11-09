@@ -1,6 +1,7 @@
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/tournamentModels/player.dart';
 import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
 import 'tournamentProgressionInput.dart';
@@ -17,9 +18,9 @@ class MatchDisplayWidget extends StatefulWidget {
   final int roundIndex;
   final int matchIndex;
 
-  Participant participantA;
-  Participant participantB;
-  String participantType = "participant";
+  Mappable participantA;
+  Mappable participantB;
+  String participantType = "player";
 
   @override
   State<MatchDisplayWidget> createState() => _MatchDisplayWidgetState();
@@ -42,11 +43,11 @@ class _MatchDisplayWidgetState extends State<MatchDisplayWidget> {
         widget.participantType = "team";
 
         break;
-      case Participant:
-        widget.participantType = "participant";
+      case Player:
+        widget.participantType = "player";
         break;
       default:
-        widget.participantType = "participant";
+        widget.participantType = "player";
         break;
     }
 
@@ -63,7 +64,7 @@ class _MatchDisplayWidgetState extends State<MatchDisplayWidget> {
               if (widget.participantType == "team")
                 TeamDisplayWidget(team: widget.participantA as Team)
               else
-                ParticipantDisplayWidget(participant: widget.participantA),
+                PlayerDisplayWidget(player: widget.participantA as Player),
               SizedBox(height: 10),
               Center(
                   child: Text("VS",
@@ -72,7 +73,7 @@ class _MatchDisplayWidgetState extends State<MatchDisplayWidget> {
               if (widget.participantType == "team")
                 TeamDisplayWidget(team: widget.participantB as Team)
               else
-                ParticipantDisplayWidget(participant: widget.participantB),
+                PlayerDisplayWidget(player: widget.participantB as Player),
             ],
           ),
         ),
@@ -81,10 +82,10 @@ class _MatchDisplayWidgetState extends State<MatchDisplayWidget> {
   }
 }
 
-class ParticipantDisplayWidget extends StatelessWidget {
-  ParticipantDisplayWidget({super.key, required this.participant});
+class PlayerDisplayWidget extends StatelessWidget {
+  PlayerDisplayWidget({super.key, required this.player});
 
-  Participant participant;
+  Player player;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +99,7 @@ class ParticipantDisplayWidget extends StatelessWidget {
         SizedBox(width: 20),
         Expanded(
             child: Text(
-          participant.name != '' ? participant.name! : "",
+          player.name != '' ? player.name! : "",
           style: Theme.of(context).textTheme.labelMedium,
         ))
       ]),

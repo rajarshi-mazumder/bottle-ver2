@@ -2,6 +2,7 @@ import 'package:bottle_ver2/screens/tournamentWidgets/TournamentTile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/tournamentModels/player.dart';
 import '../models/tournamentModels/round.dart';
 import '../models/tournamentModels/team.dart';
 import '../models/tournamentModels/tournamentModels.dart';
@@ -41,7 +42,7 @@ class _MyAppState extends State<MyApp> {
     widget.tournament1 = Tournament.createTournament(
         bracketCount: 0,
         type: 'SingleElimination',
-        participantType: "participant") as SingleEliminationTournament;
+        participantType: "player") as SingleEliminationTournament;
 
     widget.tournament1.generateRounds(participants: teams);
 
@@ -139,7 +140,7 @@ class _TournamentEditState extends State<TournamentEdit> {
                   if (widget.tournament.runtimeType == DoubleBracketTournament)
                     convertDoubleBracketTournamentToModel(
                         tournamentData: tournamentDataProvider.tournamentData,
-                        participantType: "participant");
+                        participantType: "player");
                 },
                 child: Text("SMTH"))
           ],
@@ -156,7 +157,7 @@ class _TournamentEditState extends State<TournamentEdit> {
         DoubleBracketTournament(bracketCount: 0);
     doubleBracketTournament.bracketCount = tournamentData["brackets"].length;
     List<Map<String, dynamic>> brackets = [];
-    print(tournamentData);
+
     for (int i = 0; i < tournamentData["brackets"].length; i++) {
       int bracketIndex = tournamentData["brackets"][i]["bracketIndex"];
       brackets.add({"bracketIndex": bracketIndex});
@@ -165,19 +166,10 @@ class _TournamentEditState extends State<TournamentEdit> {
         Round round = Round(
             roundIndex: roundMatches[0]["round"],
             noOfMatches: roundMatches.length);
-        List<Match> matchesList = [];
-        roundMatches.forEach((roundMatch) {
-          Match match = Match(
-            participantA: participantType == "participant"
-                ? Participant(name: roundMatch["participantA"]["name"])
-                : Team(name: roundMatch["participantA"]["name"]),
-            participantB: participantType == "participant"
-                ? Participant(name: roundMatch["participantA"]["name"])
-                : Team(name: roundMatch["participantA"]["name"]),
-          );
-          matchesList.add(match);
-        });
-        round.matches = matchesList;
+
+        round.matches = createRoundMatches(
+            roundMatches: roundMatches, participantType: participantType);
+        print("HEEEEROO ${rounds}");
         rounds.add(round);
       });
       brackets[i] = {"bracketIndex": bracketIndex, "rounds": rounds};
@@ -187,4 +179,25 @@ class _TournamentEditState extends State<TournamentEdit> {
     print(
         "parsedRoundMatchesData:  ${doubleBracketTournament.tournamentSpecificToMap()}");
   }
+}
+
+List<TournamentMatch> createRoundMatches(
+    {required List roundMatches, required String participantType}) {
+  List<TournamentMatch> matchesList = [];
+  TournamentMatch match = TournamentMatch();
+  roundMatches.forEach((roundMatch) {
+    if (participantType == "player") {
+      match = TournamentMatch(
+          participantA: Player(name: roundMatch["participantA"]["name"]),
+          participantB: Player(name: roundMatch["participantB"]["name"]));
+    } else if (participantType == "team") {
+      match = TournamentMatch(
+          participantA: Team(name: roundMatch["participantA"]["name"]),
+          participantB: Team(name: roundMatch["participantB"]["name"]));
+    }
+
+    matchesList.add(match);
+  });
+
+  return matchesList;
 }

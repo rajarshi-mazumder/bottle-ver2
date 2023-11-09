@@ -1,40 +1,54 @@
-class Participant {
+// class Participant {
+//   String? name;
+//   String? regionFlag;
+//
+//   Participant({this.name, this.regionFlag});
+//
+//   Map<String, dynamic> toMap() {
+//     return {
+//       'name': name,
+//       'regionFlag': regionFlag,
+//     };
+//   }
+//
+//   Map<String, dynamic> tournamnetSpecificToMap() {
+//     return {
+//       'name': name
+//       // 'regionFlag': regionFlag,
+//     };
+//   }
+//
+//   static Participant fromMap(Map<String, dynamic> map) {
+//     return Participant(
+//       name: map['name'],
+//       regionFlag: map['regionFlag'] ?? '',
+//     );
+//   }
+// }
+
+abstract class Mappable {
+  Map<String, dynamic> tournamnetSpecificToMap();
+
+  Map<String, dynamic> toMap();
+
   String? name;
-  String? regionFlag;
-
-  Participant({this.name, this.regionFlag});
-
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'regionFlag': regionFlag,
-    };
-  }
-
-  Map<String, dynamic> tournamnetSpecificToMap() {
-    return {
-      'name': name
-      // 'regionFlag': regionFlag,
-    };
-  }
-
-  static Participant fromMap(Map<String, dynamic> map) {
-    return Team(
-      name: map['name'],
-      regionFlag: map['regionFlag'] ?? '',
-    );
-  }
 }
 
-class Team extends Participant {
+class Team implements Mappable {
   int? membersCount;
-
+  @override
+  String? name;
   List<dynamic>? members;
   String? teamLogo;
+  String? regionFlag;
 
-  Team({String? name, this.membersCount, String? regionFlag, this.teamLogo})
-      : super(name: name, regionFlag: regionFlag);
+  Team({this.name,
+    this.membersCount,
+    this.regionFlag,
+    this.teamLogo,
+    this.members});
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -45,6 +59,7 @@ class Team extends Participant {
     };
   }
 
+  @override
   Map<String, dynamic> tournamnetSpecificToMap() {
     return {
       'name': name,
@@ -64,17 +79,6 @@ class Team extends Participant {
     );
   }
 }
-
-List<Participant> participants1 = [
-  Participant(name: "Yay", regionFlag: "flags/us.png"),
-  Participant(name: "FNS", regionFlag: "flags/us.png"),
-  Participant(name: "Marved", regionFlag: "flags/us.png"),
-  Participant(name: "Crashies", regionFlag: "flags/us.png"),
-  Participant(name: "Jingg", regionFlag: "flags/singapore.png"),
-  Participant(name: "Forsaken", regionFlag: "flags/singapore.png"),
-  Participant(name: "Mako", regionFlag: "flags/sk.png"),
-  Participant(name: "Buzz", regionFlag: "flags/sk.png"),
-];
 
 List<Team> teams = [
   Team(
