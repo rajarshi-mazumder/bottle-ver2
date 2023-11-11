@@ -6,7 +6,7 @@ import 'match.dart';
 
 class Round {
   int roundIndex = 0;
-  List<TournamentMatch>? matches;
+  List? matches;
   int noOfMatches;
 
   Round({required this.roundIndex, this.matches, required this.noOfMatches});
@@ -31,15 +31,15 @@ class Round {
   static Round fromMap(Map<String, dynamic> map) {
     return Round(
       roundIndex: map['roundIndex'],
-      matches: (map['matches'] as List<dynamic>)
-          .map((matchMap) => TournamentMatch.fromMap(matchMap))
-          .toList(),
+      // matches: (map['matches'] as List<dynamic>)
+      //     .map((matchMap) => TournamentMatch.fromMap(matchMap))
+      //     .toList(),
+
       noOfMatches: map['noOfMatches'],
     );
   }
 
-  List<TournamentMatch> pairParticipantsForMatches(
-      List<Mappable> participants) {
+  static List pairParticipantsForMatches(List<Mappable> participants) {
     if (participants.length % 2 != 0) {
       throw Exception("The number of participants must be even for pairing.");
     }
@@ -49,12 +49,11 @@ class Round {
     final shuffledParticipants = List<Mappable>.from(participants)
       ..shuffle(random);
 
-    final matches = <TournamentMatch>[];
+    final matches = [];
     for (int i = 0; i < shuffledParticipants.length; i += 2) {
       final participantA = shuffledParticipants[i];
       final participantB = shuffledParticipants[i + 1];
-      matches.add(TournamentMatch(
-          participantA: participantA, participantB: participantB));
+      matches.add({"participantA": participantA, "participantB": participantB});
     }
 
     return matches;

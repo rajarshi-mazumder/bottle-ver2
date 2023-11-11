@@ -83,8 +83,6 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
     } else {
       tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex - 1]
           ["winner"] = {"name": participantName};
-      print(tournamentDataProvider.tournamentData["brackets"]
-          [widget.bracketIndex - 1]["winner"]);
     }
   }
 

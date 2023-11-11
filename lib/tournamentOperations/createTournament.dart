@@ -21,9 +21,8 @@ void main() {
   runApp(MyApp());
 }
 
-
-String tempTournamentString = "{brackets: [{bracketIndex: 1, rounds: [[{round: 0, participantA: {name: Sentinels}, participantB: {name: PRX}, winner: {name: Sentinels}}, {round: 0, participantA: {name: Zeta}, participantB: {name: Cloud 9}, winner: {name: Zeta}}, {round: 0, participantA: {name: NAVI}, participantB: {name: Fnatic}, winner: {name: NAVI}}, {round: 0, participantA: {name: DRX}, participantB: {name: Optic}, winner: {name: Optic}}], [{round: 1, participantA: {name: Sentinels}, participantB: {name: Zeta}, winner: {name: Sentinels}}, {round: 1, participantA: {name: NAVI}, participantB: {name: Optic}, winner: {name: Optic}}], [{round: 2, participantA: {name: Sentinels}, participantB: {name: Optic}, winner: {name: Optic}}]], winner: {name: Optic}}, {bracketIndex: 2, rounds: [[{round: 0, participantA: {name: DRX2}, participantB: {name: Zeta2}, winner: {name: DRX2}}, {round: 0, participantA: {name: Sentinels2}, participantB: {name: Cloud 9_2}, winner: {name: Sentinels2}}], [{round: 1, participantA: {name: DRX2}, participantB: {name: Sentinels2}, winner: {name: DRX2}}]], winner: {name: DRX2}}]}";
-
+String tempTournamentString =
+    "{brackets: [{bracketIndex: 1, rounds: [[{round: 0, participantA: {name: Sentinels}, participantB: {name: PRX}, winner: {name: Sentinels}}, {round: 0, participantA: {name: Zeta}, participantB: {name: Cloud 9}, winner: {name: Zeta}}, {round: 0, participantA: {name: NAVI}, participantB: {name: Fnatic}, winner: {name: NAVI}}, {round: 0, participantA: {name: DRX}, participantB: {name: Optic}, winner: {name: Optic}}], [{round: 1, participantA: {name: Sentinels}, participantB: {name: Zeta}, winner: {name: Sentinels}}, {round: 1, participantA: {name: NAVI}, participantB: {name: Optic}, winner: {name: Optic}}], [{round: 2, participantA: {name: Sentinels}, participantB: {name: Optic}, winner: {name: Optic}}]], winner: {name: Optic}}, {bracketIndex: 2, rounds: [[{round: 0, participantA: {name: DRX2}, participantB: {name: Zeta2}, winner: {name: DRX2}}, {round: 0, participantA: {name: Sentinels2}, participantB: {name: Cloud 9_2}, winner: {name: Sentinels2}}], [{round: 1, participantA: {name: DRX2}, participantB: {name: Sentinels2}, winner: {name: DRX2}}]], winner: {name: DRX2}}]}";
 
 class MyApp extends StatefulWidget {
   late SingleEliminationTournament tournament1;
@@ -55,6 +54,7 @@ class _MyAppState extends State<MyApp> {
         .generateNewBracket(participantsList: teams2, bracketIndex: 2);
 
     print(widget.tournament2.brackets);
+    print("-----------------------");
   }
 
   @override
@@ -89,12 +89,12 @@ class _TournamentEditHolderState extends State<TournamentEditHolder> {
         ChangeNotifierProvider<TournamentDataProvider>(
           create: (context) {
             TournamentDataProvider tournamentDataProvider =
-            TournamentDataProvider();
+                TournamentDataProvider();
             if (widget.tournament.runtimeType == SingleEliminationTournament)
               tournamentDataProvider.bracketCount = 1;
             else if (widget.tournament.runtimeType == DoubleBracketTournament) {
               DoubleBracketTournament temp =
-              widget.tournament as DoubleBracketTournament;
+                  widget.tournament as DoubleBracketTournament;
               tournamentDataProvider.bracketCount = temp.bracketCount;
             }
             return tournamentDataProvider;

@@ -25,43 +25,38 @@ class _BracketRoundsState extends State<BracketRounds> {
   generateBracketRoundWidgets() {
     int roundIndex = -1;
 
-    widget.bracket["rounds"].forEach((Round round) {
+    widget.bracket["rounds"].forEach((round) {
       roundIndex++;
       int matchIndex = -1;
       widget.roundMatchesData.add([]);
       roundWidgets.add(Container(
         margin: EdgeInsets.only(top: 0),
         child: Column(
-          children: List.generate(round.noOfMatches, (index) {
+          children: List.generate(round["noOfMatches"], (index) {
             matchIndex++;
-            TextEditingController participantAController =
-            TextEditingController();
-            TextEditingController participantBController =
-            TextEditingController();
-
             widget.roundMatchesData[roundIndex].add({
               "round": roundIndex,
-              "participantA": round.matches?[index].participantA != null
-                  ? round.matches![index].participantA!.name
-                  : participantAController.text,
-              "participantB": round.matches?[index].participantB != null
-                  ? round.matches![index].participantB!.name
-                  : participantBController.text,
+              "participantA": round["matches"]?[index]["participantA"] != null
+                  ? round["matches"]![index]["participantA"]!.name
+                  : '',
+              "participantB": round["matches"]?[index]["participantB"] != null
+                  ? round["matches"]![index]["participantB"]!.name
+                  : '',
             });
 
-
             bool isMatchDecided = false;
-            if (round.matches?[index].participantA != null &&
-                round.matches?[index].participantB != null)
+            if (round["matches"]?[index]["participantA"] != null &&
+                round["matches"]?[index]["participantB"] != null)
               isMatchDecided = true;
+
             return MatchInputWidget(
               roundMatchesData: widget.roundMatchesData,
               matchIndex: matchIndex,
               roundIndex: roundIndex,
               bracketIndex: widget.bracket["bracketIndex"],
               isMatchDecided: isMatchDecided,
-              participantA: round.matches?[index].participantA,
-              participantB: round.matches?[index].participantB,
+              participantA: round["matches"]?[index]["participantA"],
+              participantB: round["matches"]?[index]["participantB"],
             );
           }),
         ),
@@ -102,7 +97,7 @@ class _BracketRoundsState extends State<BracketRounds> {
   @override
   Widget build(BuildContext context) {
     TournamentDataProvider tournamentDataProvider =
-    context.watch<TournamentDataProvider>();
+        context.watch<TournamentDataProvider>();
     createEmptyBracketInProvider(
         tournamentDataProvider: tournamentDataProvider);
 

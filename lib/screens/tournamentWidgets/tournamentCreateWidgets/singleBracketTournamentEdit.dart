@@ -109,24 +109,25 @@ class _SingleBracketTournamentEditState
   }
 }
 
-List<TournamentMatch> createRoundMatches(
+List createRoundMatches(
     {required List roundMatches, required String participantType}) {
-  List<TournamentMatch> matchesList = [];
-  TournamentMatch match = TournamentMatch();
+  List matchesList = [];
+  Map<String, dynamic> match = {};
   roundMatches.forEach((roundMatch) {
     print("OUTTHOUGHT ${roundMatch["winner"]}");
+
     if (participantType == "player") {
-      match = TournamentMatch(
-        participantA: Player(name: roundMatch["participantA"]["name"]),
-        participantB: Player(name: roundMatch["participantB"]["name"]),
-        winner: Player(name: roundMatch["winner"]?["name"] ?? ""),
-      );
+      match = {
+        "participantA": Player(name: roundMatch["participantA"]["name"]),
+        "participantB": Player(name: roundMatch["participantB"]["name"]),
+        "winner": Player(name: roundMatch["winner"]?["name"] ?? ""),
+      };
     } else if (participantType == "team") {
-      match = TournamentMatch(
-        participantA: Team(name: roundMatch["participantA"]["name"]),
-        participantB: Team(name: roundMatch["participantB"]["name"]),
-        winner: Team(name: roundMatch["winner"]?["name"] ?? ""),
-      );
+      match = {
+        "participantA": Team(name: roundMatch["participantA"]["name"]),
+        "participantB": Team(name: roundMatch["participantB"]["name"]),
+        "winner": Team(name: roundMatch["winner"]?["name"] ?? ""),
+      };
     }
 
     matchesList.add(match);

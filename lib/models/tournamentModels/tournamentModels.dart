@@ -5,7 +5,7 @@ import 'team.dart';
 
 class Tournament {
   List<Mappable>? participants = [];
-  List<Round> rounds = [];
+  List rounds = [];
   Mappable? winner;
   String participantType;
 
@@ -71,18 +71,15 @@ class SingleEliminationTournament extends Tournament {
       : super(participants: participants, participantType: participantType);
 
   @override
-  List<Round> generateRounds({required List<Mappable> participants}) {
+  List generateRounds({required List<Mappable> participants}) {
     double totalParticiapnts = double.parse(participants!.length.toString());
     int noOfRounds = log(totalParticiapnts) ~/ log(2);
     for (int i = noOfRounds; i > 0; i--) {
-      rounds.add(Round(
-        roundIndex: i - 1,
-        noOfMatches: (pow(2, i - 1)).toInt(),
-      ));
+      rounds.add({"roundIndex": i - 1, "noOfMatches": (pow(2, i - 1)).toInt()});
     }
     rounds.forEach((element) {
       print(
-          "Matches in round: ${pow(2, element.roundIndex)},,${element.roundIndex}");
+          "Matches in round: ${pow(2, element["roundIndex"])},,${element["roundIndex"]}");
     });
     return rounds;
   }
@@ -97,12 +94,6 @@ class SingleEliminationTournament extends Tournament {
       ]
     };
   }
-
-  @override
-  void simulateTournament() {
-    // Simulate single-elimination tournament
-    // ...
-  }
 }
 
 class DoubleBracketTournament extends Tournament {
@@ -115,30 +106,27 @@ class DoubleBracketTournament extends Tournament {
       : super(participantType: participantType);
 
   @override
-  List<Round> generateRounds({required List<Mappable> participants}) {
+  List generateRounds({required List<Mappable> participants}) {
     double totalParticipants = double.parse(participants!.length.toString());
     int noOfRounds = log(totalParticipants) ~/ log(2);
-    List<Round> rounds = [];
+    List rounds = [];
     for (int i = noOfRounds; i > 0; i--) {
-      Round newRound = Round(
-        roundIndex: i - 1,
-        noOfMatches: (pow(2, i - 1)).toInt(),
-      );
+      Map<String, dynamic> newRound = {
+        "roundIndex": i - 1,
+        "noOfMatches": (pow(2, i - 1)).toInt(),
+      };
       if (pow(2, i) == participants.length) {
-        newRound.matches = newRound.pairParticipantsForMatches(participants);
+        newRound["matches"] = Round.pairParticipantsForMatches(participants);
       }
       rounds.add(newRound);
     }
-    rounds.forEach((element) {
-      print(
-          "Matches in round: ${pow(2, element.roundIndex)},,${element.roundIndex}");
-    });
+
     return rounds;
   }
 
   List<Map<String, dynamic>> generateNewBracket(
       {required List<Mappable> participantsList, required int bracketIndex}) {
-    List<Round> rounds = generateRounds(participants: participantsList);
+    List rounds = generateRounds(participants: participantsList);
 
     brackets.add({
       "bracketIndex": bracketIndex,
@@ -156,8 +144,7 @@ class DoubleBracketTournament extends Tournament {
       if (bracket["winner"] != null) bracketWinners.add(bracket["winner"]);
     });
 
-    List<Round> postBracketRounds =
-        generateRounds(participants: bracketWinners);
+    List postBracketRounds = generateRounds(participants: bracketWinners);
   }
 
   @override

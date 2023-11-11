@@ -77,57 +77,28 @@ class _DoubleBracketTournamentEditState
     );
   }
 
-  convertDoubleBracketTournamentToModel(
-      // ONLY FOR DOUBLE BRACKET
-      {required Map<String, dynamic> tournamentData,
-      required String participantType}) {
-    DoubleBracketTournament doubleBracketTournament = DoubleBracketTournament(
-        bracketCount: tournamentData["brackets"].length);
 
-    List<Map<String, dynamic>> brackets = [];
-
-    for (int i = 0; i < tournamentData["brackets"].length; i++) {
-      int bracketIndex = tournamentData["brackets"][i]["bracketIndex"];
-      brackets.add({"bracketIndex": bracketIndex});
-      List<Round> rounds = [];
-      tournamentData["brackets"][i]["rounds"].forEach((List roundMatches) {
-        Round round = Round(
-            roundIndex: roundMatches[0]["round"],
-            noOfMatches: roundMatches.length);
-
-        round.matches = createRoundMatches(
-            roundMatches: roundMatches, participantType: participantType);
-
-        rounds.add(round);
-      });
-
-      brackets[i] = {"bracketIndex": bracketIndex, "rounds": rounds};
-    }
-
-    doubleBracketTournament.brackets = brackets;
-    print(
-        "parsedRoundMatchesData:  ${doubleBracketTournament.tournamentSpecificToMap()}");
-  }
 }
 
-List<TournamentMatch> createRoundMatches(
+List createRoundMatches(
     {required List roundMatches, required String participantType}) {
-  List<TournamentMatch> matchesList = [];
-  TournamentMatch match = TournamentMatch();
+  List matchesList = [];
+  Map<String, dynamic> match = {};
   roundMatches.forEach((roundMatch) {
     print("OUTTHOUGHT ${roundMatch["winner"]}");
+
     if (participantType == "player") {
-      match = TournamentMatch(
-        participantA: Player(name: roundMatch["participantA"]["name"]),
-        participantB: Player(name: roundMatch["participantB"]["name"]),
-        winner: Player(name: roundMatch["winner"]?["name"] ?? ""),
-      );
+      match = {
+        "participantA": Player(name: roundMatch["participantA"]["name"]),
+        "participantB": Player(name: roundMatch["participantB"]["name"]),
+        "winner": Player(name: roundMatch["winner"]?["name"] ?? ""),
+      };
     } else if (participantType == "team") {
-      match = TournamentMatch(
-        participantA: Team(name: roundMatch["participantA"]["name"]),
-        participantB: Team(name: roundMatch["participantB"]["name"]),
-        winner: Team(name: roundMatch["winner"]?["name"] ?? ""),
-      );
+      match = {
+        "participantA": Team(name: roundMatch["participantA"]["name"]),
+        "participantB": Team(name: roundMatch["participantB"]["name"]),
+        "winner": Team(name: roundMatch["winner"]?["name"] ?? ""),
+      };
     }
 
     matchesList.add(match);
@@ -135,3 +106,37 @@ List<TournamentMatch> createRoundMatches(
 
   return matchesList;
 }
+
+
+//
+// convertDoubleBracketTournamentToModel(
+//     // ONLY FOR DOUBLE BRACKET
+//         {required Map<String, dynamic> tournamentData,
+//       required String participantType}) {
+//   DoubleBracketTournament doubleBracketTournament = DoubleBracketTournament(
+//       bracketCount: tournamentData["brackets"].length);
+//
+//   List<Map<String, dynamic>> brackets = [];
+//
+//   for (int i = 0; i < tournamentData["brackets"].length; i++) {
+//     int bracketIndex = tournamentData["brackets"][i]["bracketIndex"];
+//     brackets.add({"bracketIndex": bracketIndex});
+//     List<Round> rounds = [];
+//     tournamentData["brackets"][i]["rounds"].forEach((List roundMatches) {
+//       Round round = Round(
+//           roundIndex: roundMatches[0]["round"],
+//           noOfMatches: roundMatches.length);
+//
+//       round.matches = createRoundMatches(
+//           roundMatches: roundMatches, participantType: participantType);
+//
+//       rounds.add(round);
+//     });
+//
+//     brackets[i] = {"bracketIndex": bracketIndex, "rounds": rounds};
+//   }
+//
+//   doubleBracketTournament.brackets = brackets;
+//   print(
+//       "parsedRoundMatchesData:  ${doubleBracketTournament.tournamentSpecificToMap()}");
+// }

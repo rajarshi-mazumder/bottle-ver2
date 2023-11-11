@@ -132,10 +132,11 @@ class _TournamentProgressionInputState
                             }
                           }
 
-                          TournamentMatch match = TournamentMatch(
-                              participantA: participantA,
-                              participantB: participantB,
-                              winner: winner);
+                          Map<String, dynamic> match = {
+                            "participantA": participantA,
+                            "participantB": participantB,
+                            "winner": winner
+                          };
                           widget.tournament.rounds[i].matches!.add(match);
                         }
                       }
