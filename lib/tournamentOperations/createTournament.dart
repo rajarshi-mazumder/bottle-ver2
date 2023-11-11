@@ -8,6 +8,7 @@ import '../models/tournamentModels/round.dart';
 import '../models/tournamentModels/team.dart';
 import '../models/tournamentModels/tournamentModels.dart';
 import '../models/tournamentModels/match.dart';
+import '../screens/tournamentWidgets/tournamentCreateWidgets/tournamentEdit.dart';
 import '../screens/tournamentWidgets/tournamentProgressionWidgets/matchInputWidget.dart';
 import '../screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionDisplay.dart';
 import '../screens/tournamentWidgets/tournamentProgressionWidgets/winnerInputWidget.dart';
@@ -16,14 +17,12 @@ import 'package:bottle_ver2/models/tournamentModels/match.dart';
 
 class TournamentDataProvider with ChangeNotifier {
   Map<String, dynamic> tournamentData = {"brackets": []};
+  int bracketCount = 1;
 
-  updateTournamentData(Map<String, dynamic> data) {
-    // tournamentData.add(data);
-    notifyListeners();
-  }
-
-  notifyTournamentDataProviderListeners() {
-    notifyListeners();
+  @override
+  notifyListeners() {
+    super.notifyListeners();
+    print(tournamentData["brackets"].length);
   }
 }
 
@@ -72,143 +71,48 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<TournamentDataProvider>(
-            create: (context) => TournamentDataProvider()),
-      ],
-      child: MaterialApp(
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Create tournament'),
-          ),
-          body: TournamentEdit(tournament: widget.tournament2),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Create tournament'),
+        ),
+        body: TournamentEditHolder(
+          tournament: widget.tournament2,
         ),
       ),
     );
   }
 }
 
-class TournamentEdit extends StatefulWidget {
-  TournamentEdit({required this.tournament});
+class TournamentEditHolder extends StatefulWidget {
+  TournamentEditHolder({super.key, required this.tournament});
 
-  DoubleBracketTournament tournament;
+  Tournament tournament;
 
   @override
-  _TournamentEditState createState() => _TournamentEditState();
+  State<TournamentEditHolder> createState() => _TournamentEditHolderState();
 }
 
-class _TournamentEditState extends State<TournamentEdit> {
-  int numberOfTeams = 16; // Change this to set the initial number of teams
-  List<List<String>> rounds = [];
-
-  @override
-  void initState() {
-    super.initState();
-    widget.tournament = widget.tournament as DoubleBracketTournament;
-  }
-
-  void submitMatches() {}
-
+class _TournamentEditHolderState extends State<TournamentEditHolder> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<TournamentDataProvider>(
-      builder: (context, TournamentDataProvider tournamentDataProvider, child) {
-        return Stack(
-          children: [
-            SingleChildScrollView(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: widget.tournament.bracketCount,
-                itemBuilder: (BuildContext context, int index) {
-                  List<Map<String, dynamic>> bracketMapData = [];
-                  List<List<Map<String, dynamic>>> roundMatchesData = [];
-                  bracketMapData.add({
-                    "bracketIndex": widget.tournament.brackets[index],
-                    "rounds": roundMatchesData
-                  });
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        color: index % 2 == 0 ? Colors.black26 : Colors.black45,
-                        child: BracketRounds(
-                          bracket: widget.tournament.brackets[index],
-                          roundMatchesData: roundMatchesData,
-                        )),
-                    // child: Text(widget.tournament.brackets[index].toString()),
-                  );
-                },
-              ),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  if (widget.tournament.runtimeType == DoubleBracketTournament)
-                    convertDoubleBracketTournamentToModel(
-                        tournamentData: tournamentDataProvider.tournamentData,
-                        participantType: "player");
-                },
-                child: Text("SMTH"))
-          ],
-        );
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<TournamentDataProvider>(
+          create: (context) {
+            TournamentDataProvider tournamentDataProvider =
+                TournamentDataProvider();
+            tournamentDataProvider.bracketCount = 1;
+            return tournamentDataProvider;
+          },
+        ),
+      ],
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text("TOURNEYY"),
+          ),
+          body: TournamentEdit(
+              tournament: widget.tournament as DoubleBracketTournament)),
     );
   }
-
-  convertDoubleBracketTournamentToModel(
-      // ONLY FOR DOUBLE BRACKET
-      {required Map<String, dynamic> tournamentData,
-      required String participantType}) {
-    DoubleBracketTournament doubleBracketTournament = DoubleBracketTournament(
-        bracketCount: tournamentData["brackets"].length);
-
-    List<Map<String, dynamic>> brackets = [];
-
-    for (int i = 0; i < tournamentData["brackets"].length; i++) {
-      int bracketIndex = tournamentData["brackets"][i]["bracketIndex"];
-      brackets.add({"bracketIndex": bracketIndex});
-      List<Round> rounds = [];
-      tournamentData["brackets"][i]["rounds"].forEach((List roundMatches) {
-        Round round = Round(
-            roundIndex: roundMatches[0]["round"],
-            noOfMatches: roundMatches.length);
-
-        round.matches = createRoundMatches(
-            roundMatches: roundMatches, participantType: participantType);
-
-        rounds.add(round);
-      });
-
-      brackets[i] = {"bracketIndex": bracketIndex, "rounds": rounds};
-    }
-
-    doubleBracketTournament.brackets = brackets;
-    print(
-        "parsedRoundMatchesData:  ${doubleBracketTournament.tournamentSpecificToMap()}");
-  }
-}
-
-List<TournamentMatch> createRoundMatches(
-    {required List roundMatches, required String participantType}) {
-  List<TournamentMatch> matchesList = [];
-  TournamentMatch match = TournamentMatch();
-  roundMatches.forEach((roundMatch) {
-    print("OUTTHOUGHT ${roundMatch["winner"]}");
-    if (participantType == "player") {
-      match = TournamentMatch(
-        participantA: Player(name: roundMatch["participantA"]["name"]),
-        participantB: Player(name: roundMatch["participantB"]["name"]),
-        winner: Player(name: roundMatch["winner"]?["name"] ?? ""),
-      );
-    } else if (participantType == "team") {
-      match = TournamentMatch(
-        participantA: Team(name: roundMatch["participantA"]["name"]),
-        participantB: Team(name: roundMatch["participantB"]["name"]),
-        winner: Team(name: roundMatch["winner"]?["name"] ?? ""),
-      );
-    }
-
-    matchesList.add(match);
-  });
-
-  return matchesList;
 }

@@ -1,4 +1,5 @@
 import 'package:bottle_ver2/models/tournamentModels/team.dart';
+import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/teamInputWidget.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
 import 'package:bottle_ver2/tournamentOperations/createTournament.dart';
 import 'package:flutter/material.dart';
@@ -54,18 +55,37 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
     return nextRoundMatchIndex;
   }
 
+  setMatchWinner(
+      {required TournamentDataProvider tournamentDataProvider,
+      required String winnerName}) {
+    tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex - 1]
+            ["rounds"][widget.roundIndex][widget.matchIndex]
+        ["winner"] = {"name": winnerName};
+  }
+
   setNextRoundParticipant(
-      {required int nextRoundMatchIndex, required String participantName}) {
-    if (widget.matchIndex % 2 == 0) {
-      widget.roundMatchesData[widget.roundIndex + 1][nextRoundMatchIndex]
-          ["participantA"] = {"name": participantName};
+      {required int nextRoundMatchIndex,
+      required String participantName,
+      required TournamentDataProvider tournamentDataProvider}) {
+    if ((widget.roundIndex + 1) <
+        tournamentDataProvider
+            .tournamentData["brackets"][widget.bracketIndex - 1]["rounds"]
+            .length) {
+      if (widget.matchIndex % 2 == 0) {
+        tournamentDataProvider.tournamentData["brackets"]
+                [widget.bracketIndex - 1]["rounds"][widget.roundIndex + 1]
+            [nextRoundMatchIndex]["participantA"] = {"name": participantName};
+      } else {
+        tournamentDataProvider.tournamentData["brackets"]
+                [widget.bracketIndex - 1]["rounds"][widget.roundIndex + 1]
+            [nextRoundMatchIndex]["participantB"] = {"name": participantName};
+      }
     } else {
-      widget.roundMatchesData[widget.roundIndex + 1][nextRoundMatchIndex]
-          ["participantB"] = {"name": participantName};
+      tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex - 1]
+          ["winner"] = {"name": participantName};
+      print(tournamentDataProvider.tournamentData["brackets"]
+          [widget.bracketIndex - 1]["winner"]);
     }
-    setState(() {
-      widget.roundMatchesData;
-    });
   }
 
   @override
@@ -113,28 +133,18 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
                         widget.roundMatchesData[widget.roundIndex]
                             [widget.matchIndex]['winner'] = {"name": value};
 
-                        tournamentDataProvider.tournamentData["brackets"]
-                                    [widget.bracketIndex - 1]["rounds"]
-                                [widget.roundIndex][widget.matchIndex]
-                            ["winner"] = {"name": value};
+                        setMatchWinner(
+                            tournamentDataProvider: tournamentDataProvider,
+                            winnerName: value);
 
                         int nextRoundMatchIndex =
                             calculateNextRoundMatchIndex();
 
-                        if (widget.matchIndex % 2 == 0) {
-                          tournamentDataProvider.tournamentData["brackets"]
-                                      [widget.bracketIndex - 1]["rounds"]
-                                  [widget.roundIndex + 1][nextRoundMatchIndex]
-                              ["participantA"] = {"name": value};
-                        } else {
-                          tournamentDataProvider.tournamentData["brackets"]
-                                      [widget.bracketIndex - 1]["rounds"]
-                                  [widget.roundIndex + 1][nextRoundMatchIndex]
-                              ["participantB"] = {"name": value};
-                        }
+                        setNextRoundParticipant(
+                            tournamentDataProvider: tournamentDataProvider,
+                            participantName: value,
+                            nextRoundMatchIndex: nextRoundMatchIndex);
                         tournamentDataProvider.notifyListeners();
-                        // print(
-                        //     "SPOOONNN  ${tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex - 1]["rounds"][widget.roundIndex][widget.matchIndex]}");
                       });
                     },
                   ),
@@ -166,28 +176,18 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
                         widget.roundMatchesData[widget.roundIndex]
                             [widget.matchIndex]['winner'] = {"name": value};
 
-                        tournamentDataProvider.tournamentData["brackets"]
-                                    [widget.bracketIndex - 1]["rounds"]
-                                [widget.roundIndex][widget.matchIndex]
-                            ["winner"] = {"name": value};
+                        setMatchWinner(
+                            tournamentDataProvider: tournamentDataProvider,
+                            winnerName: value);
 
                         int nextRoundMatchIndex =
                             calculateNextRoundMatchIndex();
 
-                        if (widget.matchIndex % 2 == 0) {
-                          tournamentDataProvider.tournamentData["brackets"]
-                                      [widget.bracketIndex - 1]["rounds"]
-                                  [widget.roundIndex + 1][nextRoundMatchIndex]
-                              ["participantA"] = {"name": value};
-                        } else {
-                          tournamentDataProvider.tournamentData["brackets"]
-                                      [widget.bracketIndex - 1]["rounds"]
-                                  [widget.roundIndex + 1][nextRoundMatchIndex]
-                              ["participantB"] = {"name": value};
-                        }
+                        setNextRoundParticipant(
+                            tournamentDataProvider: tournamentDataProvider,
+                            participantName: value,
+                            nextRoundMatchIndex: nextRoundMatchIndex);
                         tournamentDataProvider.notifyListeners();
-                        // print(
-                        //     "SPOOONNN  ${tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex - 1]["rounds"][widget.roundIndex][widget.matchIndex]}");
                       });
                     },
                   ),
@@ -196,75 +196,6 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class TeamInputWidget extends StatefulWidget {
-  TeamInputWidget(
-      {super.key,
-      required this.bracketIndex,
-      required this.selectedTeam,
-      required this.roundIndex,
-      required this.matchIndex,
-      required this.participantA_B,
-      required this.roundMatchesData});
-
-  String selectedTeam;
-
-  int bracketIndex;
-  int roundIndex;
-  int matchIndex;
-  String participantA_B;
-  List<List<Map<String, dynamic>>> roundMatchesData;
-
-  @override
-  State<TeamInputWidget> createState() => _TeamInputWidgetState();
-}
-
-class _TeamInputWidgetState extends State<TeamInputWidget> {
-  @override
-  Widget build(BuildContext context) {
-    TournamentDataProvider tournamentDataProvider =
-        context.watch<TournamentDataProvider>();
-    widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
-        [widget.participantA_B] = {"name": widget.selectedTeam};
-    return Row(
-      children: [
-        Container(
-          height: 50,
-          width: 180,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          decoration: const BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.all(Radius.circular(5))),
-          // child: DropdownButton<String>(
-          //   isExpanded: true,
-          //   value: widget.selectedTeam,
-          //   items: widget.teamNames.map((team) {
-          //     return DropdownMenuItem<String>(
-          //       value: team,
-          //       child: Text(
-          //         team,
-          //       ),
-          //     );
-          //   }).toList(),
-          //   onChanged: (value) {
-          //     setState(() {
-          //       print(value);
-          //       widget.selectedTeam = value!;
-          //       widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
-          //           [widget.teamA_B] = {
-          //         "${widget.teamA_B}": {"name": value}
-          //       };
-          //     });
-          //   },
-          //   underline: Container(),
-          //   // Remove the underline
-          // ),
-          child: Text(widget.selectedTeam),
-        ),
-      ],
     );
   }
 }

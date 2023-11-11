@@ -76,14 +76,23 @@ class _BracketRoundsState extends State<BracketRounds> {
       child: Column(
         children: [
           WinnerInputData(
-            teamNames: List.generate(
-              widget.bracket["participants"]!.length,
-              (index) => widget.bracket["participants"]![index].name!,
-            ),
+            bracketIndex: 1,
           ),
         ],
       ),
     ));
+  }
+
+  createEmptyBracketInProvider(
+      {required TournamentDataProvider tournamentDataProvider}) {
+    if (tournamentDataProvider.tournamentData["brackets"].length <
+        tournamentDataProvider.bracketCount) {
+      tournamentDataProvider.tournamentData["brackets"].add({
+        "bracketIndex": widget.bracket["bracketIndex"],
+        "rounds": widget.roundMatchesData,
+        "winner": null
+      });
+    }
   }
 
   @override
@@ -97,10 +106,9 @@ class _BracketRoundsState extends State<BracketRounds> {
   Widget build(BuildContext context) {
     TournamentDataProvider tournamentDataProvider =
         context.watch<TournamentDataProvider>();
-    tournamentDataProvider.tournamentData["brackets"].add({
-      "bracketIndex": widget.bracket["bracketIndex"],
-      "rounds": widget.roundMatchesData
-    });
+    createEmptyBracketInProvider(
+        tournamentDataProvider: tournamentDataProvider);
+
     if (roundWidgets.isNotEmpty) {
       return Row(
         children: roundWidgets,

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../themes/themes.dart';
+import '../../../tournamentOperations/createTournament.dart';
 import 'tournamentProgressionInput.dart';
 
 class WinnerInputData extends StatefulWidget {
-  WinnerInputData({super.key, required this.teamNames});
+  WinnerInputData({super.key, required this.bracketIndex});
 
-  final List<String> teamNames;
+  int bracketIndex;
 
   @override
   State<WinnerInputData> createState() => _WinnerInputDataState();
@@ -19,12 +21,18 @@ class _WinnerInputDataState extends State<WinnerInputData> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    widget.teamNames.add("");
-    winnerTeam = widget.teamNames.last;
   }
 
   @override
   Widget build(BuildContext context) {
+    TournamentDataProvider tournamentDataProvider =
+        context.watch<TournamentDataProvider>();
+    setState(() {
+      winnerTeam = tournamentDataProvider.tournamentData["brackets"]
+              [widget.bracketIndex - 1]["winner"]
+          .toString();
+    });
+
     return Container(
       height: 100,
       width: 200,
@@ -38,23 +46,10 @@ class _WinnerInputDataState extends State<WinnerInputData> {
           Text("Winner",
               style: customTheme.textTheme.labelMedium
                   ?.copyWith(color: Colors.red)),
-          DropdownButton<String>(
-            isExpanded: true,
-            underline: Container(),
-            value: winnerTeam,
-            items: widget.teamNames.map((team) {
-              return DropdownMenuItem<String>(
-                value: team,
-                child: Text(team),
-              );
-            }).toList(),
-            onChanged: (value) {
-              setState(() {
-                winnerTeam = value!;
-                winner = winnerTeam;
-              });
-            },
-          ),
+          Text(
+            winnerTeam,
+            style: TextStyle(color: Colors.white),
+          )
         ],
       ),
     );

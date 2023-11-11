@@ -81,8 +81,10 @@ class _TournamentProgressionInputState
       child: Column(
         children: [
           WinnerInputData(
-              teamNames: List.generate(widget.tournament.participants!.length,
-                  (index) => widget.tournament.participants![index].name!)),
+            bracketIndex: 1,
+            // teamNames: List.generate(widget.tournament.participants!.length,
+            //     (index) => widget.tournament.participants![index].name!)
+          ),
         ],
       ),
     ));
