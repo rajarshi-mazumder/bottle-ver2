@@ -19,7 +19,7 @@ class TeamInputWidget extends StatefulWidget {
   int roundIndex;
   int matchIndex;
   String participantA_B;
-  List<List<Map<String, dynamic>>> roundMatchesData;
+  List roundMatchesData;
 
   @override
   State<TeamInputWidget> createState() => _TeamInputWidgetState();
@@ -27,9 +27,14 @@ class TeamInputWidget extends StatefulWidget {
 
 class _TeamInputWidgetState extends State<TeamInputWidget> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("HEREEEEEEEEEEE  ${widget.selectedTeam}");
+  }
+
+  @override
   Widget build(BuildContext context) {
-    TournamentDataProvider tournamentDataProvider =
-        context.watch<TournamentDataProvider>();
     widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
         [widget.participantA_B] = {"name": widget.selectedTeam};
     return Row(
@@ -41,7 +46,7 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
           decoration: const BoxDecoration(
               color: Colors.grey,
               borderRadius: BorderRadius.all(Radius.circular(5))),
-          child: Text(widget.selectedTeam),
+          child: Text(widget.selectedTeam.toString()),
         ),
       ],
     );

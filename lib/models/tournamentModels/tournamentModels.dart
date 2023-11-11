@@ -98,7 +98,7 @@ class SingleEliminationTournament extends Tournament {
 
 class DoubleBracketTournament extends Tournament {
   int bracketCount;
-  List<Map<String, dynamic>> brackets = [];
+  Map<String, dynamic> brackets = {};
 
   // Implement Double Bracket specific methods and properties
   DoubleBracketTournament(
@@ -114,6 +114,8 @@ class DoubleBracketTournament extends Tournament {
       Map<String, dynamic> newRound = {
         "roundIndex": i - 1,
         "noOfMatches": (pow(2, i - 1)).toInt(),
+        "matches": List.generate((pow(2, i - 1)).toInt(),
+            (index) => {"participantA": "", "participantB": "", "winner": ""}),
       };
       if (pow(2, i) == participants.length) {
         newRound["matches"] = Round.pairParticipantsForMatches(participants);
@@ -124,11 +126,11 @@ class DoubleBracketTournament extends Tournament {
     return rounds;
   }
 
-  List<Map<String, dynamic>> generateNewBracket(
+  Map<String, dynamic> generateNewBracket(
       {required List<Mappable> participantsList, required int bracketIndex}) {
     List rounds = generateRounds(participants: participantsList);
-
-    brackets.add({
+    if (brackets["brackets"] == null) brackets["brackets"] = [];
+    brackets["brackets"].add({
       "bracketIndex": bracketIndex,
       "rounds": rounds,
       "winner": null,
@@ -139,7 +141,7 @@ class DoubleBracketTournament extends Tournament {
   }
 
   generatePostBracketRounds({required Map<String, dynamic> brackets}) {
-    List<Team> bracketWinners = [];
+    List<Mappable> bracketWinners = [];
     brackets["brackets"].forEach((bracket) {
       if (bracket["winner"] != null) bracketWinners.add(bracket["winner"]);
     });
@@ -150,7 +152,7 @@ class DoubleBracketTournament extends Tournament {
   @override
   Map<String, dynamic> tournamentSpecificToMap() {
     List<Map<String, dynamic>> bracketsMapList = [];
-    brackets.forEach((bracket) {
+    brackets["brackets"].forEach((bracket) {
       bracketsMapList.add({
         "bracketIndex": bracket['bracketIndex'],
         "rounds": bracket["rounds"]

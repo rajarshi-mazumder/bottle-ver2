@@ -53,7 +53,10 @@ class Round {
     for (int i = 0; i < shuffledParticipants.length; i += 2) {
       final participantA = shuffledParticipants[i];
       final participantB = shuffledParticipants[i + 1];
-      matches.add({"participantA": participantA, "participantB": participantB});
+      matches.add({
+        "participantA": participantA.name,
+        "participantB": participantB.name
+      });
     }
 
     return matches;

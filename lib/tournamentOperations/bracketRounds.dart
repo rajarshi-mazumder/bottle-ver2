@@ -8,7 +8,7 @@ import '../screens/tournamentWidgets/tournamentProgressionWidgets/winnerInputWid
 
 class BracketRounds extends StatefulWidget {
   final Map<String, dynamic> bracket;
-  final List<List<Map<String, dynamic>>> roundMatchesData;
+  final List roundMatchesData;
 
   BracketRounds({
     required this.bracket,
@@ -28,21 +28,21 @@ class _BracketRoundsState extends State<BracketRounds> {
     widget.bracket["rounds"].forEach((round) {
       roundIndex++;
       int matchIndex = -1;
-      widget.roundMatchesData.add([]);
+
       roundWidgets.add(Container(
         margin: EdgeInsets.only(top: 0),
         child: Column(
           children: List.generate(round["noOfMatches"], (index) {
             matchIndex++;
-            widget.roundMatchesData[roundIndex].add({
+            widget.roundMatchesData[roundIndex] = {
               "round": roundIndex,
               "participantA": round["matches"]?[index]["participantA"] != null
-                  ? round["matches"]![index]["participantA"]!.name
+                  ? round["matches"]![index]["participantA"]
                   : '',
               "participantB": round["matches"]?[index]["participantB"] != null
-                  ? round["matches"]![index]["participantB"]!.name
+                  ? round["matches"]![index]["participantB"]
                   : '',
-            });
+            };
 
             bool isMatchDecided = false;
             if (round["matches"]?[index]["participantA"] != null &&
@@ -55,13 +55,13 @@ class _BracketRoundsState extends State<BracketRounds> {
               roundIndex: roundIndex,
               bracketIndex: widget.bracket["bracketIndex"],
               isMatchDecided: isMatchDecided,
+              // tournamentDataProvider: tournamentDataProvider,
               participantA: round["matches"]?[index]["participantA"],
               participantB: round["matches"]?[index]["participantB"],
             );
           }),
         ),
       ));
-      ;
     });
     roundWidgets.add(Container(
       width: 100,
@@ -96,10 +96,11 @@ class _BracketRoundsState extends State<BracketRounds> {
 
   @override
   Widget build(BuildContext context) {
-    TournamentDataProvider tournamentDataProvider =
-        context.watch<TournamentDataProvider>();
-    createEmptyBracketInProvider(
-        tournamentDataProvider: tournamentDataProvider);
+    // TournamentDataProvider tournamentDataProvider =
+    //     context.watch<TournamentDataProvider>();
+
+    // createEmptyBracketInProvider(
+    //     tournamentDataProvider: tournamentDataProvider);
 
     if (roundWidgets.isNotEmpty) {
       return Row(

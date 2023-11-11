@@ -8,41 +8,41 @@ import 'package:provider/provider.dart';
 import '../../../themes/themes.dart';
 
 class MatchInputWidget extends StatefulWidget {
-  MatchInputWidget(
-      {Key? key,
-      required this.bracketIndex,
-      required this.matchIndex,
-      required this.roundIndex,
-      required this.roundMatchesData,
-      required this.isMatchDecided,
-      this.participantA = null,
-      this.participantB = null});
+  MatchInputWidget({
+    Key? key,
+    required this.bracketIndex,
+    required this.matchIndex,
+    required this.roundIndex,
+    required this.roundMatchesData,
+    required this.isMatchDecided,
+    this.participantA = null,
+    this.participantB = null,
+    // required this.tournamentDataProvider
+  });
 
   final int roundIndex;
   final int bracketIndex;
   final int matchIndex;
-  List<List<Map<String, dynamic>>> roundMatchesData;
+  List roundMatchesData;
   bool isMatchDecided;
-  Mappable? participantA;
-  Mappable? participantB;
+
+  String? participantA;
+  String? participantB;
+
+  // TournamentDataProvider tournamentDataProvider;
 
   @override
   State<MatchInputWidget> createState() => _MatchInputWidgetState();
 }
 
 class _MatchInputWidgetState extends State<MatchInputWidget> {
-  String selectedTeamA = '';
-  String selectedTeamB = '';
+  String? selectedTeamA;
+  String? selectedTeamB;
   String winner = '';
 
   @override
   void initState() {
     super.initState();
-
-    selectedTeamA =
-        widget.participantA != null ? widget.participantA!.name! : '';
-    selectedTeamB =
-        widget.participantB != null ? widget.participantB!.name! : '';
   }
 
   int calculateNextRoundMatchIndex() {
@@ -58,9 +58,11 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
   setMatchWinner(
       {required TournamentDataProvider tournamentDataProvider,
       required String winnerName}) {
-    tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex - 1]
-            ["rounds"][widget.roundIndex][widget.matchIndex]
-        ["winner"] = {"name": winnerName};
+    try {
+      tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex - 1]
+              ["rounds"][widget.roundIndex][widget.matchIndex]
+          ["winner"] = {"name": winnerName};
+    } catch (e) {}
   }
 
   setNextRoundParticipant(
@@ -74,16 +76,27 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
       if (widget.matchIndex % 2 == 0) {
         tournamentDataProvider.tournamentData["brackets"]
                 [widget.bracketIndex - 1]["rounds"][widget.roundIndex + 1]
-            [nextRoundMatchIndex]["participantA"] = {"name": participantName};
+            ["matches"][nextRoundMatchIndex]["participantA"] = participantName;
       } else {
         tournamentDataProvider.tournamentData["brackets"]
                 [widget.bracketIndex - 1]["rounds"][widget.roundIndex + 1]
-            [nextRoundMatchIndex]["participantB"] = {"name": participantName};
+            ["matches"][nextRoundMatchIndex]["participantB"] = participantName;
       }
-    } else {
-      tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex - 1]
-          ["winner"] = {"name": participantName};
+    } else // set winner
+    {
+      tournamentDataProvider.tournamentData["brackets"]
+          [widget.bracketIndex - 1] = {
+        ...tournamentDataProvider.tournamentData["brackets"]
+            [widget.bracketIndex - 1],
+        {
+          "winner": {"name": participantName}
+        }
+      };
     }
+
+    var tempData = tournamentDataProvider.tournamentData;
+    tournamentDataProvider.tournamentData = {};
+    tournamentDataProvider.tournamentData = tempData;
   }
 
   @override
@@ -93,6 +106,7 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
 
     try {
       setState(() {
+        tournamentDataProvider.tournamentData;
         selectedTeamA = tournamentDataProvider.tournamentData["brackets"]
                 [widget.bracketIndex - 1]["rounds"][widget.roundIndex]
             [widget.matchIndex]["participantA"]["name"];
@@ -100,6 +114,7 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
         selectedTeamB = tournamentDataProvider.tournamentData["brackets"]
                 [widget.bracketIndex - 1]["rounds"][widget.roundIndex]
             [widget.matchIndex]["participantB"]["name"];
+        print(selectedTeamA);
       });
     } catch (e) {}
 
@@ -114,16 +129,16 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
             Row(
               children: [
                 TeamInputWidget(
-                  selectedTeam: selectedTeamA,
+                  selectedTeam: selectedTeamA ?? '',
                   bracketIndex: widget.bracketIndex,
                   roundIndex: widget.roundIndex,
                   matchIndex: widget.matchIndex,
                   participantA_B: "participantA",
                   roundMatchesData: widget.roundMatchesData,
                 ),
-                if (selectedTeamA != '')
+                if (selectedTeamA != '' && selectedTeamA != null)
                   Radio<String>(
-                    value: selectedTeamA,
+                    value: selectedTeamA!,
                     groupValue: winner,
                     onChanged: (value) {
                       setState(() {
@@ -157,16 +172,16 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
             Row(
               children: [
                 TeamInputWidget(
-                  selectedTeam: selectedTeamB,
+                  selectedTeam: selectedTeamB ?? '',
                   bracketIndex: widget.bracketIndex,
                   roundIndex: widget.roundIndex,
                   matchIndex: widget.matchIndex,
                   participantA_B: "participantB",
                   roundMatchesData: widget.roundMatchesData,
                 ),
-                if (selectedTeamB != '')
+                if (selectedTeamB != '' && selectedTeamB != null)
                   Radio<String>(
-                    value: selectedTeamB,
+                    value: selectedTeamB!,
                     groupValue: winner,
                     onChanged: (value) {
                       setState(() {

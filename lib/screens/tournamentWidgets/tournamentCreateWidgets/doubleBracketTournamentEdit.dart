@@ -43,19 +43,18 @@ class _DoubleBracketTournamentEditState
                 shrinkWrap: true,
                 itemCount: widget.tournament.bracketCount,
                 itemBuilder: (BuildContext context, int index) {
-                  List<Map<String, dynamic>> bracketMapData = [];
-                  List<List<Map<String, dynamic>>> roundMatchesData = [];
-                  bracketMapData.add({
-                    "bracketIndex": widget.tournament.brackets[index],
-                    "rounds": roundMatchesData
-                  });
+                  List bracketMapData = [];
+                  List roundMatchesData = [];
+
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                         color: index % 2 == 0 ? Colors.black26 : Colors.black45,
                         child: BracketRounds(
-                          bracket: widget.tournament.brackets[index],
-                          roundMatchesData: roundMatchesData,
+                          bracket: tournamentDataProvider
+                              .tournamentData["brackets"][index],
+                          roundMatchesData: tournamentDataProvider
+                              .tournamentData["brackets"][index]["rounds"],
                         )),
                     // child: Text(widget.tournament.brackets[index].toString()),
                   );
@@ -76,8 +75,6 @@ class _DoubleBracketTournamentEditState
       },
     );
   }
-
-
 }
 
 List createRoundMatches(
@@ -95,9 +92,9 @@ List createRoundMatches(
       };
     } else if (participantType == "team") {
       match = {
-        "participantA": Team(name: roundMatch["participantA"]["name"]),
-        "participantB": Team(name: roundMatch["participantB"]["name"]),
-        "winner": Team(name: roundMatch["winner"]?["name"] ?? ""),
+        "participantA": {"name": roundMatch["participantA"]["name"]},
+        "participantB": {"name": roundMatch["participantB"]["name"]},
+        "winner": {"name": roundMatch["winner"]?["name"] ?? ""},
       };
     }
 
@@ -106,7 +103,6 @@ List createRoundMatches(
 
   return matchesList;
 }
-
 
 //
 // convertDoubleBracketTournamentToModel(

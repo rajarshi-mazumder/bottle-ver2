@@ -46,7 +46,8 @@ class _SingleBracketTournamentEditState
                   List<Map<String, dynamic>> bracketMapData = [];
                   List<List<Map<String, dynamic>>> roundMatchesData = [];
                   bracketMapData.add({
-                    "bracketIndex": widget.tournament.brackets[index],
+                    "bracketIndex": widget.tournament.brackets["brackets"]
+                        [index],
                     "rounds": roundMatchesData
                   });
                   return Padding(
@@ -54,7 +55,8 @@ class _SingleBracketTournamentEditState
                     child: Container(
                         color: index % 2 == 0 ? Colors.black26 : Colors.black45,
                         child: BracketRounds(
-                          bracket: widget.tournament.brackets[index],
+                          bracket: widget.tournament.brackets["brackets"]
+                              [index],
                           roundMatchesData: roundMatchesData,
                         )),
                     // child: Text(widget.tournament.brackets[index].toString()),
@@ -103,7 +105,7 @@ class _SingleBracketTournamentEditState
       brackets[i] = {"bracketIndex": bracketIndex, "rounds": rounds};
     }
 
-    doubleBracketTournament.brackets = brackets;
+    doubleBracketTournament.brackets["brackets"] = brackets;
     print(
         "parsedRoundMatchesData:  ${doubleBracketTournament.tournamentSpecificToMap()}");
   }
