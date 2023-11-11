@@ -21,6 +21,10 @@ class TournamentDataProvider with ChangeNotifier {
     // tournamentData.add(data);
     notifyListeners();
   }
+
+  notifyTournamentDataProviderListeners() {
+    notifyListeners();
+  }
 }
 
 void main() {

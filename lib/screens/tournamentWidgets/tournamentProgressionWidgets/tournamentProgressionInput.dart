@@ -35,11 +35,11 @@ class _TournamentProgressionInputState
 
     roundMatchesListData =
         List.generate(widget.tournament.rounds.length, (index) {
-          return List.generate(widget.tournament.rounds[index].noOfMatches,
-                  (index) {
-                return {"teamA": null, "teamB": null};
-              });
-        });
+      return List.generate(widget.tournament.rounds[index].noOfMatches,
+          (index) {
+        return {"teamA": null, "teamB": null};
+      });
+    });
     widget.tournament.generateRounds(participants: teams);
     generateRoundWidgets();
   }
@@ -67,8 +67,8 @@ class _TournamentProgressionInputState
               roundMatchesData: roundMatchesListData,
               matchIndex: matchIndex,
               roundIndex: roundIndex,
-              teamNames: List.generate(widget.tournament.participants!.length,
-                      (index) => widget.tournament.participants![index].name!),
+              // teamNames: List.generate(widget.tournament.participants!.length,
+              //         (index) => widget.tournament.participants![index].name!),
               isMatchDecided: false,
               bracketIndex: 0,
             );
@@ -82,7 +82,7 @@ class _TournamentProgressionInputState
         children: [
           WinnerInputData(
               teamNames: List.generate(widget.tournament.participants!.length,
-                      (index) => widget.tournament.participants![index].name!)),
+                  (index) => widget.tournament.participants![index].name!)),
         ],
       ),
     ));
@@ -99,8 +99,8 @@ class _TournamentProgressionInputState
             child: Center(
               child: Row(
                   children: List.generate(roundWidgets.length, (index) {
-                    return Expanded(child: roundWidgets[index]);
-                  })),
+                return Expanded(child: roundWidgets[index]);
+              })),
             ),
           ),
           if (widget.tournament.rounds.length > 0)
@@ -113,14 +113,13 @@ class _TournamentProgressionInputState
                       for (int i = 0; i < roundMatchesListData.length; i++) {
                         widget.tournament.rounds[i].matches = [];
                         for (int j = 0;
-                        j < roundMatchesListData[i].length;
-                        j++) {
+                            j < roundMatchesListData[i].length;
+                            j++) {
                           Team participantA = Team();
                           Team participantB = Team();
                           Team winner = Team();
 
-                          for (Mappable p
-                          in widget.tournament.participants!) {
+                          for (Mappable p in widget.tournament.participants!) {
                             if (roundMatchesListData[i][j]["teamA"] == p.name)
                               participantA = p as Team;
                             else if (roundMatchesListData[i][j]["teamB"] ==
@@ -142,8 +141,7 @@ class _TournamentProgressionInputState
                       widget.tournament.rounds.forEach((element) {
                         element.matches?.forEach((element) {
                           print(
-                              "${element.participantA!.name}  VS  ${element
-                                  .participantB!.name}");
+                              "${element.participantA!.name}  VS  ${element.participantB!.name}");
                         });
                         print("------------");
                       });

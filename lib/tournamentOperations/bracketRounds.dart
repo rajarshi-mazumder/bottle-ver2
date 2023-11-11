@@ -49,10 +49,10 @@ class _BracketRoundsState extends State<BracketRounds> {
                   : participantBController.text,
             });
 
-            List<String> teamNames = List.generate(
-              widget.bracket["participants"].length,
-              (index) => widget.bracket["participants"]![index].name!,
-            );
+            // List<String> teamNames = List.generate(
+            //   widget.bracket["participants"].length,
+            //   (index) => widget.bracket["participants"]![index].name!,
+            // );
             bool isMatchDecided = false;
             if (round.matches?[index].participantA != null &&
                 round.matches?[index].participantB != null)
@@ -62,7 +62,6 @@ class _BracketRoundsState extends State<BracketRounds> {
               matchIndex: matchIndex,
               roundIndex: roundIndex,
               bracketIndex: widget.bracket["bracketIndex"],
-              teamNames: teamNames,
               isMatchDecided: isMatchDecided,
               participantA: round.matches?[index].participantA,
               participantB: round.matches?[index].participantB,
