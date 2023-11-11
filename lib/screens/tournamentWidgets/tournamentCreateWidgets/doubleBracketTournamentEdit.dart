@@ -104,10 +104,9 @@ List createRoundMatches(
   return matchesList;
 }
 
-convertDoubleBracketTournamentToMap(
-    // ONLY FOR DOUBLE BRACKET
-    {required Map<String, dynamic> tournamentData,
-    required String participantType}) {
+convertDoubleBracketTournamentToMap(// ONLY FOR DOUBLE BRACKET
+        {required Map<String, dynamic> tournamentData,
+      required String participantType}) {
   print(tournamentData);
   Map<String, dynamic> brackets;
   List bracketsList = [];

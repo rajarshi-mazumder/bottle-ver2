@@ -50,7 +50,7 @@ class Tournament {
     return {
       // 'teams': teams?.map((team) => team?.tournamnetSpecificToMap()).toList(),
       'rounds': rounds.map((round) => round.tournamentSpecificToMap()).toList(),
-      'winner': winner?.toMap(),
+      'winner': winner?.tournamnetSpecificToMap(),
       'participantType': participantType
     };
   }

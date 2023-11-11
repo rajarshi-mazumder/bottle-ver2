@@ -23,8 +23,8 @@ class MatchInputWidget extends StatefulWidget {
   final int matchIndex;
   List<List<Map<String, dynamic>>> roundMatchesData;
   bool isMatchDecided;
-  Mappable? participantA;
-  Mappable? participantB;
+  String? participantA;
+  String? participantB;
 
   @override
   State<MatchInputWidget> createState() => _MatchInputWidgetState();
@@ -39,10 +39,8 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
   void initState() {
     super.initState();
 
-    selectedTeamA =
-        widget.participantA != null ? widget.participantA!.name! : '';
-    selectedTeamB =
-        widget.participantB != null ? widget.participantB!.name! : '';
+    selectedTeamA = widget.participantA != null ? widget.participantA! : '';
+    selectedTeamB = widget.participantB != null ? widget.participantB! : '';
   }
 
   int calculateNextRoundMatchIndex() {

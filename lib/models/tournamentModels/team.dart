@@ -42,11 +42,12 @@ class Team implements Mappable {
   String? teamLogo;
   String? regionFlag;
 
-  Team({this.name,
-    this.membersCount,
-    this.regionFlag,
-    this.teamLogo,
-    this.members});
+  Team(
+      {this.name,
+      this.membersCount,
+      this.regionFlag,
+      this.teamLogo,
+      this.members});
 
   @override
   Map<String, dynamic> toMap() {

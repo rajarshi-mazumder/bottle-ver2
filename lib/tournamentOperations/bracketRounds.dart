@@ -37,10 +37,10 @@ class _BracketRoundsState extends State<BracketRounds> {
             widget.roundMatchesData[roundIndex].add({
               "round": roundIndex,
               "participantA": round["matches"]?[index]["participantA"] != null
-                  ? round["matches"]![index]["participantA"]!.name
+                  ? round["matches"]![index]["participantA"]["name"]
                   : '',
               "participantB": round["matches"]?[index]["participantB"] != null
-                  ? round["matches"]![index]["participantB"]!.name
+                  ? round["matches"]![index]["participantB"]['name']
                   : '',
             });
 
@@ -55,8 +55,8 @@ class _BracketRoundsState extends State<BracketRounds> {
               roundIndex: roundIndex,
               bracketIndex: widget.bracket["bracketIndex"],
               isMatchDecided: isMatchDecided,
-              participantA: round["matches"]?[index]["participantA"],
-              participantB: round["matches"]?[index]["participantB"],
+              participantA: round["matches"]?[index]["participantA"]["name"],
+              participantB: round["matches"]?[index]["participantB"]["name"],
             );
           }),
         ),

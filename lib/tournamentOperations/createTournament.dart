@@ -146,10 +146,10 @@ class _MyAppState extends State<MyApp> {
     widget.tournament2
         .generateNewBracket(participantsList: teams2, bracketIndex: 2);
 
-    print(widget.tournament2.brackets);
+    // print(widget.tournament2.brackets);
     print("-----------------------");
 
-    print(json.decode(tempTournamentString));
+    // print(json.decode(tempTournamentString));
     // widget.tournament2.brackets = json.decode(tempTournamentString);
   }
 
