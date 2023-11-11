@@ -35,9 +35,9 @@ class _BracketRoundsState extends State<BracketRounds> {
           children: List.generate(round.noOfMatches, (index) {
             matchIndex++;
             TextEditingController participantAController =
-                TextEditingController();
+            TextEditingController();
             TextEditingController participantBController =
-                TextEditingController();
+            TextEditingController();
 
             widget.roundMatchesData[roundIndex].add({
               "round": roundIndex,
@@ -49,10 +49,7 @@ class _BracketRoundsState extends State<BracketRounds> {
                   : participantBController.text,
             });
 
-            // List<String> teamNames = List.generate(
-            //   widget.bracket["participants"].length,
-            //   (index) => widget.bracket["participants"]![index].name!,
-            // );
+
             bool isMatchDecided = false;
             if (round.matches?[index].participantA != null &&
                 round.matches?[index].participantB != null)
@@ -105,7 +102,7 @@ class _BracketRoundsState extends State<BracketRounds> {
   @override
   Widget build(BuildContext context) {
     TournamentDataProvider tournamentDataProvider =
-        context.watch<TournamentDataProvider>();
+    context.watch<TournamentDataProvider>();
     createEmptyBracketInProvider(
         tournamentDataProvider: tournamentDataProvider);
 

@@ -1,19 +1,10 @@
-import 'package:bottle_ver2/screens/teamsWidgets/playerWidgets/playerDisplayWidget.dart';
-import 'package:bottle_ver2/screens/tournamentWidgets/TournamentTile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../models/tournamentModels/player.dart';
-import '../models/tournamentModels/round.dart';
 import '../models/tournamentModels/team.dart';
 import '../models/tournamentModels/tournamentModels.dart';
-import '../models/tournamentModels/match.dart';
-import '../screens/tournamentWidgets/tournamentCreateWidgets/tournamentEdit.dart';
-import '../screens/tournamentWidgets/tournamentProgressionWidgets/matchInputWidget.dart';
-import '../screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionDisplay.dart';
-import '../screens/tournamentWidgets/tournamentProgressionWidgets/winnerInputWidget.dart';
-import 'bracketRounds.dart';
-import 'package:bottle_ver2/models/tournamentModels/match.dart';
+import '../screens/tournamentWidgets/tournamentCreateWidgets/doubleBracketTournamentEdit.dart';
+import 'dart:convert';
 
 class TournamentDataProvider with ChangeNotifier {
   Map<String, dynamic> tournamentData = {"brackets": []};
@@ -29,6 +20,10 @@ class TournamentDataProvider with ChangeNotifier {
 void main() {
   runApp(MyApp());
 }
+
+
+String tempTournamentString = "{brackets: [{bracketIndex: 1, rounds: [[{round: 0, participantA: {name: Sentinels}, participantB: {name: PRX}, winner: {name: Sentinels}}, {round: 0, participantA: {name: Zeta}, participantB: {name: Cloud 9}, winner: {name: Zeta}}, {round: 0, participantA: {name: NAVI}, participantB: {name: Fnatic}, winner: {name: NAVI}}, {round: 0, participantA: {name: DRX}, participantB: {name: Optic}, winner: {name: Optic}}], [{round: 1, participantA: {name: Sentinels}, participantB: {name: Zeta}, winner: {name: Sentinels}}, {round: 1, participantA: {name: NAVI}, participantB: {name: Optic}, winner: {name: Optic}}], [{round: 2, participantA: {name: Sentinels}, participantB: {name: Optic}, winner: {name: Optic}}]], winner: {name: Optic}}, {bracketIndex: 2, rounds: [[{round: 0, participantA: {name: DRX2}, participantB: {name: Zeta2}, winner: {name: DRX2}}, {round: 0, participantA: {name: Sentinels2}, participantB: {name: Cloud 9_2}, winner: {name: Sentinels2}}], [{round: 1, participantA: {name: DRX2}, participantB: {name: Sentinels2}, winner: {name: DRX2}}]], winner: {name: DRX2}}]}";
+
 
 class MyApp extends StatefulWidget {
   late SingleEliminationTournament tournament1;
@@ -52,21 +47,14 @@ class _MyAppState extends State<MyApp> {
 
     widget.tournament2 = Tournament.createTournament(
         type: "DoubleBracket",
-        bracketCount: 1,
-        participantType: "player") as DoubleBracketTournament;
+        bracketCount: 2,
+        participantType: "team") as DoubleBracketTournament;
     widget.tournament2
-        .generateNewBracket(participantsList: participants1, bracketIndex: 1);
-    // widget.tournament2
-    //     .generateNewBracket(participantsList: participants1, bracketIndex: 2);
+        .generateNewBracket(participantsList: teams, bracketIndex: 1);
+    widget.tournament2
+        .generateNewBracket(participantsList: teams2, bracketIndex: 2);
 
-    print("ROUNDS: ");
-    print(widget.tournament1.tournamentSpecificToMap());
-    widget.tournament1.rounds.forEach((round) {
-      print(round.noOfMatches);
-    });
-    print("-------------");
-
-    print(widget.tournament2.tournamentSpecificToMap());
+    print(widget.tournament2.brackets);
   }
 
   @override
@@ -101,8 +89,14 @@ class _TournamentEditHolderState extends State<TournamentEditHolder> {
         ChangeNotifierProvider<TournamentDataProvider>(
           create: (context) {
             TournamentDataProvider tournamentDataProvider =
-                TournamentDataProvider();
-            tournamentDataProvider.bracketCount = 1;
+            TournamentDataProvider();
+            if (widget.tournament.runtimeType == SingleEliminationTournament)
+              tournamentDataProvider.bracketCount = 1;
+            else if (widget.tournament.runtimeType == DoubleBracketTournament) {
+              DoubleBracketTournament temp =
+              widget.tournament as DoubleBracketTournament;
+              tournamentDataProvider.bracketCount = temp.bracketCount;
+            }
             return tournamentDataProvider;
           },
         ),
@@ -111,7 +105,7 @@ class _TournamentEditHolderState extends State<TournamentEditHolder> {
           appBar: AppBar(
             title: Text("TOURNEYY"),
           ),
-          body: TournamentEdit(
+          body: DoubleBracketTournamentEdit(
               tournament: widget.tournament as DoubleBracketTournament)),
     );
   }

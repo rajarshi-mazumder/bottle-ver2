@@ -9,16 +9,18 @@ import '../../../models/tournamentModels/tournamentModels.dart';
 import '../../../tournamentOperations/bracketRounds.dart';
 import '../../../tournamentOperations/createTournament.dart';
 
-class TournamentEdit extends StatefulWidget {
-  TournamentEdit({required this.tournament});
+class SingleBracketTournamentEdit extends StatefulWidget {
+  SingleBracketTournamentEdit({required this.tournament});
 
   DoubleBracketTournament tournament;
 
   @override
-  _TournamentEditState createState() => _TournamentEditState();
+  _SingleBracketTournamentEditState createState() =>
+      _SingleBracketTournamentEditState();
 }
 
-class _TournamentEditState extends State<TournamentEdit> {
+class _SingleBracketTournamentEditState
+    extends State<SingleBracketTournamentEdit> {
   int numberOfTeams = 16; // Change this to set the initial number of teams
   List<List<String>> rounds = [];
 
