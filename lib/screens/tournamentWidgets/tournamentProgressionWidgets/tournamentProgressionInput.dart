@@ -33,13 +33,13 @@ class _TournamentProgressionInputState
     super.initState();
     roundMatchesListData = [];
 
-    roundMatchesListData =
-        List.generate(widget.tournament.rounds.length, (index) {
-      return List.generate(widget.tournament.rounds[index].noOfMatches,
-          (index) {
-        return {"teamA": null, "teamB": null};
-      });
-    });
+    // roundMatchesListData =
+    //     List.generate(widget.tournament.rounds.length, (index) {
+    //   return List.generate(widget.tournament.rounds[index].noOfMatches,
+    //       (index) {
+    //     return {"teamA": null, "teamB": null};
+    //   });
+    // });
     widget.tournament.generateRounds(participants: teams);
     generateRoundWidgets();
   }
@@ -50,18 +50,18 @@ class _TournamentProgressionInputState
     widget.tournament.rounds.forEach((round) {
       roundIndex++;
       int matchIndex = -1;
-      roundMatchesListData.add([]);
+      // roundMatchesListData.add([]);
       roundWidgets.add(Container(
         margin: EdgeInsets.only(top: 0),
         child: Column(
           children: List.generate(round.noOfMatches, (index) {
             matchIndex++;
 
-            roundMatchesListData[roundIndex].add({
-              "round": roundIndex,
-              "participantA": "",
-              "participantA": "",
-            });
+            // roundMatchesListData[roundIndex].add({
+            //   "round": roundIndex,
+            //   "participantA": "",
+            //   "participantA": "",
+            // });
 
             return MatchInputWidget(
               roundMatchesData: roundMatchesListData,
@@ -151,8 +151,8 @@ class _TournamentProgressionInputState
                       print("------------");
                       print("WINNER: ${widget.tournament.winner?.name}");
                       print(widget.tournament.tournamentSpecificToMap());
-                      convertTournamentJSONToObject(
-                          widget.tournament.tournamentSpecificToMap());
+                      // convertTournamentJSONToObject(
+                      //     widget.tournament.tournamentSpecificToMap());
                       Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -21,8 +21,101 @@ void main() {
   runApp(MyApp());
 }
 
-String tempTournamentString =
-    "{brackets: [{bracketIndex: 1, rounds: [[{round: 0, participantA: {name: Sentinels}, participantB: {name: PRX}, winner: {name: Sentinels}}, {round: 0, participantA: {name: Zeta}, participantB: {name: Cloud 9}, winner: {name: Zeta}}, {round: 0, participantA: {name: NAVI}, participantB: {name: Fnatic}, winner: {name: NAVI}}, {round: 0, participantA: {name: DRX}, participantB: {name: Optic}, winner: {name: Optic}}], [{round: 1, participantA: {name: Sentinels}, participantB: {name: Zeta}, winner: {name: Sentinels}}, {round: 1, participantA: {name: NAVI}, participantB: {name: Optic}, winner: {name: Optic}}], [{round: 2, participantA: {name: Sentinels}, participantB: {name: Optic}, winner: {name: Optic}}]], winner: {name: Optic}}, {bracketIndex: 2, rounds: [[{round: 0, participantA: {name: DRX2}, participantB: {name: Zeta2}, winner: {name: DRX2}}, {round: 0, participantA: {name: Sentinels2}, participantB: {name: Cloud 9_2}, winner: {name: Sentinels2}}], [{round: 1, participantA: {name: DRX2}, participantB: {name: Sentinels2}, winner: {name: DRX2}}]], winner: {name: DRX2}}]}";
+String tempTournamentString = """ [
+  {
+    "bracketIndex": 0,
+    "rounds": [
+      {
+        "roundIndex": 0,
+        "noOfMatches": 4,
+        "matches": [
+          {
+            "participantA": { "name": "Cloud 9" },
+            "participantB": { "name": "DRX" },
+            "winner": { "name": "Cloud 9" }
+          },
+          {
+            "participantA": { "name": "Sentinels" },
+            "participantB": { "name": "Zeta" },
+            "winner": { "name": "Sentinels" }
+          },
+          {
+            "participantA": { "name": "NAVI" },
+            "participantB": { "name": "Fnatic" },
+            "winner": { "name": "NAVI" }
+          },
+          {
+            "participantA": { "name": "PRX" },
+            "participantB": { "name": "Optic" },
+            "winner": { "name": "PRX" }
+          }
+        ]
+      },
+      {
+        "roundIndex": 1,
+        "noOfMatches": 2,
+        "matches": [
+          {
+            "participantA": { "name": "Cloud 9" },
+            "participantB": { "name": "Sentinels" },
+            "winner": { "name": "Cloud 9" }
+          },
+          {
+            "participantA": { "name": "NAVI" },
+            "participantB": { "name": "PRX" },
+            "winner": { "name": "NAVI" }
+          }
+        ]
+      },
+      {
+        "roundIndex": 2,
+        "noOfMatches": 1,
+        "matches": [
+          {
+            "participantA": { "name": "Cloud 9" },
+            "participantB": { "name": "NAVI" },
+            "winner": { "name": "Cloud 9" }
+          }
+        ]
+      }
+    ],
+    "winner": { "name": "Cloud 9" }
+  },
+  {
+    "bracketIndex": 1,
+    "rounds": [
+      {
+        "roundIndex": 0,
+        "noOfMatches": 2,
+        "matches": [
+          {
+            "participantA": { "name": "Cloud 9_2" },
+            "participantB": { "name": "DRX2" },
+            "winner": null
+          },
+          {
+            "participantA": { "name": "Zeta2" },
+            "participantB": { "name": "Sentinels2" },
+            "winner": null
+          }
+        ]
+      },
+      {
+        "roundIndex": 1,
+        "noOfMatches": 1,
+        "matches": [
+          {
+            "participantA": { "name": "" },
+            "participantB": { "name": "" },
+            "winner": null
+          }
+        ]
+      }
+    ],
+    "winner": null
+  }
+]
+""";
 
 class MyApp extends StatefulWidget {
   late SingleEliminationTournament tournament1;
@@ -55,6 +148,9 @@ class _MyAppState extends State<MyApp> {
 
     print(widget.tournament2.brackets);
     print("-----------------------");
+
+    print(json.decode(tempTournamentString));
+    // widget.tournament2.brackets = json.decode(tempTournamentString);
   }
 
   @override

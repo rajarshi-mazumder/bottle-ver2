@@ -64,11 +64,10 @@ class _DoubleBracketTournamentEditState
             ),
             ElevatedButton(
                 onPressed: () {
-                  print(tournamentDataProvider.tournamentData);
-                  // if (widget.tournament.runtimeType == DoubleBracketTournament)
-                  // convertDoubleBracketTournamentToModel(
-                  //     tournamentData: tournamentDataProvider.tournamentData,
-                  //     participantType: "player");
+                  if (widget.tournament.runtimeType == DoubleBracketTournament)
+                    convertDoubleBracketTournamentToMap(
+                        tournamentData: tournamentDataProvider.tournamentData,
+                        participantType: "team");
                 },
                 child: Text("SMTH"))
           ],
@@ -76,8 +75,6 @@ class _DoubleBracketTournamentEditState
       },
     );
   }
-
-
 }
 
 List createRoundMatches(
@@ -107,6 +104,46 @@ List createRoundMatches(
   return matchesList;
 }
 
+convertDoubleBracketTournamentToMap(
+    // ONLY FOR DOUBLE BRACKET
+    {required Map<String, dynamic> tournamentData,
+    required String participantType}) {
+  print(tournamentData);
+  Map<String, dynamic> brackets;
+  List bracketsList = [];
+  for (int i = 0; i < tournamentData["brackets"].length; i++) {
+    List roundsList = tournamentData["brackets"][i]["rounds"];
+    int roundIndex = 0;
+    List roundMapList = [];
+    roundsList.forEach((round) {
+      List<Map<String, dynamic>> matchesMapList = [];
+      round.forEach((match) {
+        Map<String, dynamic> matchMap = {
+          "participantA": {"name": match["participantA"]["name"]},
+          "participantB": {"name": match["participantB"]["name"]},
+          "winner": match["winner"]
+        };
+        matchesMapList.add(matchMap);
+      });
+
+      // print("LUCILLE ${matchesMapList}");
+      roundMapList.add({
+        "roundIndex": roundIndex,
+        "noOfMatches": matchesMapList.length,
+        "matches": matchesMapList
+      });
+      // print("GRIMESS ${roundMap}");
+      roundIndex++;
+    });
+    bracketsList.add({
+      "bracketIndex": i,
+      "rounds": roundMapList,
+      "winner": tournamentData["brackets"][i]["winner"],
+      // "participants": tournamentData["brackets"][i]["pa"]
+    });
+  }
+  print("NEGANN ${bracketsList}");
+}
 
 //
 // convertDoubleBracketTournamentToModel(

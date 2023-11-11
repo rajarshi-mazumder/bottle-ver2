@@ -98,7 +98,7 @@ class SingleEliminationTournament extends Tournament {
 
 class DoubleBracketTournament extends Tournament {
   int bracketCount;
-  List<Map<String, dynamic>> brackets = [];
+  List brackets = [];
 
   // Implement Double Bracket specific methods and properties
   DoubleBracketTournament(
@@ -124,7 +124,7 @@ class DoubleBracketTournament extends Tournament {
     return rounds;
   }
 
-  List<Map<String, dynamic>> generateNewBracket(
+  List generateNewBracket(
       {required List<Mappable> participantsList, required int bracketIndex}) {
     List rounds = generateRounds(participants: participantsList);
 
