@@ -118,7 +118,7 @@ String tempTournamentString = """ [
 """;
 
 class MyApp extends StatefulWidget {
-  late SingleEliminationTournament tournament1;
+  late DoubleBracketTournament tournament1;
   late DoubleBracketTournament tournament2;
 
   @override
@@ -131,12 +131,13 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     widget.tournament1 = Tournament.createTournament(
-        bracketCount: 0,
-        type: 'SingleElimination',
-        participantType: "player") as SingleEliminationTournament;
+        bracketCount: 1,
+        type: 'DoubleBracket',
+        participantType: "player") as DoubleBracketTournament;
 
     List<String> playersList1 = participants1.map((e) => e.name ?? '').toList();
-    widget.tournament1.generateRounds(participants: playersList1);
+    widget.tournament1
+        .generateNewBracket(participantsList: playersList1, bracketIndex: 0);
 
     widget.tournament2 = Tournament.createTournament(
         type: "DoubleBracket",
@@ -165,7 +166,7 @@ class _MyAppState extends State<MyApp> {
           title: Text('Create tournament'),
         ),
         body: TournamentEditHolder(
-          tournament: widget.tournament2,
+          tournament: widget.tournament1,
         ),
       ),
     );
