@@ -142,15 +142,15 @@ class _MyAppState extends State<MyApp> {
         bracketCount: 2,
         participantType: "team") as DoubleBracketTournament;
     widget.tournament2
-        .generateNewBracket(participantsList: teams, bracketIndex: 1);
+        .generateNewBracket(participantsList: teams, bracketIndex: 0);
     widget.tournament2
-        .generateNewBracket(participantsList: teams2, bracketIndex: 2);
+        .generateNewBracket(participantsList: teams2, bracketIndex: 1);
 
-    // print(widget.tournament2.brackets);
+    print(widget.tournament2.brackets);
     print("-----------------------");
 
     // print(json.decode(tempTournamentString));
-    // widget.tournament2.brackets = json.decode(tempTournamentString);
+    widget.tournament2.brackets = json.decode(tempTournamentString);
   }
 
   @override

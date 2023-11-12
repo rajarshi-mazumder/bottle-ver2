@@ -58,9 +58,7 @@ class _TournamentProgressionDisplayState
       ));
     });
     roundWidgets.add(WinnerDisplayWidget(
-      winner: widget.tournament.winner != null
-          ? widget.tournament.winner! as Team
-          : Team(),
+      winner: widget.tournament.winner.toString() ?? '',
     ));
   }
 
@@ -75,8 +73,8 @@ class _TournamentProgressionDisplayState
             child: Center(
               child: Row(
                   children: List.generate(roundWidgets.length, (index) {
-                    return roundWidgets[index];
-                  })),
+                return roundWidgets[index];
+              })),
             ),
           ),
         ],

@@ -127,19 +127,20 @@ class DoubleBracketTournament extends Tournament {
   List generateNewBracket(
       {required List<Mappable> participantsList, required int bracketIndex}) {
     List rounds = generateRounds(participants: participantsList);
-
+    List<String> participants =
+        participantsList.map((e) => e.name ?? '').toList();
     brackets.add({
       "bracketIndex": bracketIndex,
       "rounds": rounds,
       "winner": null,
-      "participants": participantsList
+      "participants": participants
     });
 
     return brackets;
   }
 
   generatePostBracketRounds({required Map<String, dynamic> brackets}) {
-    List<Team> bracketWinners = [];
+    List<Mappable> bracketWinners = [];
     brackets["brackets"].forEach((bracket) {
       if (bracket["winner"] != null) bracketWinners.add(bracket["winner"]);
     });

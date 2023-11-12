@@ -56,7 +56,9 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
   setMatchWinner(
       {required TournamentDataProvider tournamentDataProvider,
       required String winnerName}) {
-    tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex - 1]
+    print(
+        "YOASOBI ${tournamentDataProvider.tournamentData["brackets"]},,, ${widget.bracketIndex}");
+    tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
             ["rounds"][widget.roundIndex][widget.matchIndex]
         ["winner"] = {"name": winnerName};
   }
@@ -67,19 +69,18 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
       required TournamentDataProvider tournamentDataProvider}) {
     if ((widget.roundIndex + 1) <
         tournamentDataProvider
-            .tournamentData["brackets"][widget.bracketIndex - 1]["rounds"]
-            .length) {
+            .tournamentData["brackets"][widget.bracketIndex]["rounds"].length) {
       if (widget.matchIndex % 2 == 0) {
-        tournamentDataProvider.tournamentData["brackets"]
-                [widget.bracketIndex - 1]["rounds"][widget.roundIndex + 1]
-            [nextRoundMatchIndex]["participantA"] = {"name": participantName};
+        tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
+                ["rounds"][widget.roundIndex + 1][nextRoundMatchIndex]
+            ["participantA"] = {"name": participantName};
       } else {
-        tournamentDataProvider.tournamentData["brackets"]
-                [widget.bracketIndex - 1]["rounds"][widget.roundIndex + 1]
-            [nextRoundMatchIndex]["participantB"] = {"name": participantName};
+        tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
+                ["rounds"][widget.roundIndex + 1][nextRoundMatchIndex]
+            ["participantB"] = {"name": participantName};
       }
     } else {
-      tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex - 1]
+      tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
           ["winner"] = {"name": participantName};
     }
   }
@@ -92,11 +93,11 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
     try {
       setState(() {
         selectedTeamA = tournamentDataProvider.tournamentData["brackets"]
-                [widget.bracketIndex - 1]["rounds"][widget.roundIndex]
+                [widget.bracketIndex]["rounds"][widget.roundIndex]
             [widget.matchIndex]["participantA"]["name"];
 
         selectedTeamB = tournamentDataProvider.tournamentData["brackets"]
-                [widget.bracketIndex - 1]["rounds"][widget.roundIndex]
+                [widget.bracketIndex]["rounds"][widget.roundIndex]
             [widget.matchIndex]["participantB"]["name"];
       });
     } catch (e) {}

@@ -111,54 +111,50 @@ class _TournamentProgressionInputState
                 top: 50,
                 child: ElevatedButton(
                     onPressed: () {
-                      // print(roundMatchesData);
-                      for (int i = 0; i < roundMatchesListData.length; i++) {
-                        widget.tournament.rounds[i].matches = [];
-                        for (int j = 0;
-                            j < roundMatchesListData[i].length;
-                            j++) {
-                          Team participantA = Team();
-                          Team participantB = Team();
-                          Team winner = Team();
-
-                          for (Mappable p in widget.tournament.participants!) {
-                            if (roundMatchesListData[i][j]["teamA"] == p.name)
-                              participantA = p as Team;
-                            else if (roundMatchesListData[i][j]["teamB"] ==
-                                p.name) participantB = p as Team;
-                            if (roundMatchesListData[i][j]["winner"] ==
-                                p.name) {
-                              winner = p as Team;
-                            }
-                          }
-
-                          Map<String, dynamic> match = {
-                            "participantA": participantA,
-                            "participantB": participantB,
-                            "winner": winner
-                          };
-                          widget.tournament.rounds[i].matches!.add(match);
-                        }
-                      }
-                      widget.tournament.winner = Team(name: winner);
-                      widget.tournament.rounds.forEach((element) {
-                        element.matches?.forEach((element) {
-                          print(
-                              "${element.participantA!.name}  VS  ${element.participantB!.name}");
-                        });
-                        print("------------");
-                      });
-                      print("------------");
-                      print("WINNER: ${widget.tournament.winner?.name}");
-                      print(widget.tournament.tournamentSpecificToMap());
-                      // convertTournamentJSONToObject(
-                      //     widget.tournament.tournamentSpecificToMap());
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  TournamentProgressionDisplay(
-                                      tournament: widget.tournament)));
+                      // // print(roundMatchesData);
+                      // for (int i = 0; i < roundMatchesListData.length; i++) {
+                      //   widget.tournament.rounds[i].matches = [];
+                      //   for (int j = 0;
+                      //       j < roundMatchesListData[i].length;
+                      //       j++) {
+                      //     // Team participantA = Team();
+                      //     // Team participantB = Team();
+                      //     // Team winner = Team();
+                      //
+                      //     // for (Mappable p in widget.tournament.participants!) {
+                      //     //   if (roundMatchesListData[i][j]["teamA"] == p.name)
+                      //     //     participantA = p as Team;
+                      //     //   else if (roundMatchesListData[i][j]["teamB"] ==
+                      //     //       p.name) participantB = p as Team;
+                      //     //   if (roundMatchesListData[i][j]["winner"] ==
+                      //     //       p.name) {
+                      //     //     winner = p as Team;
+                      //     //   }
+                      //     // }
+                      //
+                      //
+                      //     // widget.tournament.rounds[i].matches!.add(match);
+                      //   }
+                      // }
+                      // widget.tournament.winner = Team(name: winner);
+                      // widget.tournament.rounds.forEach((element) {
+                      //   element.matches?.forEach((element) {
+                      //     print(
+                      //         "${element.participantA!.name}  VS  ${element.participantB!.name}");
+                      //   });
+                      //   print("------------");
+                      // });
+                      // print("------------");
+                      // print("WINNER: ${widget.tournament.winner?.name}");
+                      // print(widget.tournament.tournamentSpecificToMap());
+                      // // convertTournamentJSONToObject(
+                      // //     widget.tournament.tournamentSpecificToMap());
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             TournamentProgressionDisplay(
+                      //                 tournament: widget.tournament)));
                     },
                     child: Text(
                       "Submit ",
@@ -170,29 +166,29 @@ class _TournamentProgressionInputState
   }
 }
 
-convertTournamentJSONToObject(Map<String, dynamic> tournamentJSON) {
-  List parsedRoundMatchesData = [];
-  for (int i = 0; i < tournamentJSON["rounds"].length; i++) {
-    var roundData = tournamentJSON["rounds"][i];
-
-    parsedRoundMatchesData
-        .add({"roundIndex": roundData["roundIndex"], "matches": []});
-    for (int j = 0; j < roundData["matches"].length; j++) {
-      Team teamA = Team();
-      Team teamB = Team();
-      Team winner = Team();
-      for (Team t in teams) {
-        if (roundMatchesListData[i][j]["teamA"] == t.name)
-          teamA = t;
-        else if (roundMatchesListData[i][j]["teamB"] == t.name) teamB = t;
-        if (roundMatchesListData[i][j]["winner"] == t.name) {
-          winner = t;
-        }
-      }
-      parsedRoundMatchesData[i]["matches"]
-          .add({"teamA": teamA, "teamB": teamB, "winner": winner});
-    }
-  }
-  print("parsedRoundMatchesData:  ${parsedRoundMatchesData}");
-  print("roundMatchesData:  ${roundMatchesListData}");
-}
+// convertTournamentJSONToObject(Map<String, dynamic> tournamentJSON) {
+//   List parsedRoundMatchesData = [];
+//   for (int i = 0; i < tournamentJSON["rounds"].length; i++) {
+//     var roundData = tournamentJSON["rounds"][i];
+//
+//     parsedRoundMatchesData
+//         .add({"roundIndex": roundData["roundIndex"], "matches": []});
+//     for (int j = 0; j < roundData["matches"].length; j++) {
+//       Team teamA = Team();
+//       Team teamB = Team();
+//       Team winner = Team();
+//       for (Team t in teams) {
+//         if (roundMatchesListData[i][j]["teamA"] == t.name)
+//           teamA = t;
+//         else if (roundMatchesListData[i][j]["teamB"] == t.name) teamB = t;
+//         if (roundMatchesListData[i][j]["winner"] == t.name) {
+//           winner = t;
+//         }
+//       }
+//       parsedRoundMatchesData[i]["matches"]
+//           .add({"teamA": teamA, "teamB": teamB, "winner": winner});
+//     }
+//   }
+//   print("parsedRoundMatchesData:  ${parsedRoundMatchesData}");
+//   print("roundMatchesData:  ${roundMatchesListData}");
+// }

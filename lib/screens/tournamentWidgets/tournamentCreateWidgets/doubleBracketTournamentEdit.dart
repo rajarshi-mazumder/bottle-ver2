@@ -82,8 +82,6 @@ List createRoundMatches(
   List matchesList = [];
   Map<String, dynamic> match = {};
   roundMatches.forEach((roundMatch) {
-    print("OUTTHOUGHT ${roundMatch["winner"]}");
-
     if (participantType == "player") {
       match = {
         "participantA": Player(name: roundMatch["participantA"]["name"]),
@@ -92,9 +90,9 @@ List createRoundMatches(
       };
     } else if (participantType == "team") {
       match = {
-        "participantA": Team(name: roundMatch["participantA"]["name"]),
-        "participantB": Team(name: roundMatch["participantB"]["name"]),
-        "winner": Team(name: roundMatch["winner"]?["name"] ?? ""),
+        "participantA": {"name": roundMatch["participantA"]["name"]},
+        "participantB": {"name": roundMatch["participantB"]["name"]},
+        "winner": {"name": roundMatch["winner"]?["name"]},
       };
     }
 
