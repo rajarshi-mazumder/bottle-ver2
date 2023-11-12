@@ -17,7 +17,7 @@ class Tournament {
       int bracketCount = 0,
       required String participantType}) {
     if (type == 'n_elimination') {
-      return N_EliminationTournament(
+      return N_BracketTournament(
           bracketCount: bracketCount, participantType: participantType);
     }
     // else if (type == 'RoundRobin') {
@@ -53,13 +53,13 @@ class Tournament {
   }
 }
 
-class N_EliminationTournament extends Tournament {
+class N_BracketTournament extends Tournament {
   int bracketCount;
   List brackets = [];
   Map postBracketRounds = {};
 
   // Implement Double Bracket specific methods and properties
-  N_EliminationTournament(
+  N_BracketTournament(
       {required this.bracketCount, String participantType = "player"})
       : super(participantType: participantType);
 

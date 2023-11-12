@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/tournamentModels/player.dart';
 import '../models/tournamentModels/team.dart';
 import '../models/tournamentModels/tournamentModels.dart';
-import '../screens/tournamentWidgets/tournamentCreateWidgets/doubleBracketTournamentEdit.dart';
+import '../screens/tournamentWidgets/tournamentCreateWidgets/nBracketTournamentEdit.dart';
 import 'dart:convert';
 
 class TournamentDataProvider with ChangeNotifier {
@@ -140,7 +140,7 @@ String postBracketRoundsString = """{
 """;
 
 class MyApp extends StatefulWidget {
-  late N_EliminationTournament tournament;
+  late N_BracketTournament tournament;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -159,7 +159,7 @@ class _MyAppState extends State<MyApp> {
     widget.tournament = Tournament.createTournament(
         type: "n_elimination",
         bracketCount: 2,
-        participantType: "team") as N_EliminationTournament;
+        participantType: "team") as N_BracketTournament;
 
     widget.tournament
         .generateNewBracket(participantsList: teamsList1, bracketIndex: 0);
@@ -206,9 +206,9 @@ class _TournamentEditHolderState extends State<TournamentEditHolder> {
           create: (context) {
             TournamentDataProvider tournamentDataProvider =
                 TournamentDataProvider();
-            if (widget.tournament.runtimeType == N_EliminationTournament) {
-              N_EliminationTournament temp =
-                  widget.tournament as N_EliminationTournament;
+            if (widget.tournament.runtimeType == N_BracketTournament) {
+              N_BracketTournament temp =
+                  widget.tournament as N_BracketTournament;
               tournamentDataProvider.bracketCount = temp.bracketCount;
               tournamentDataProvider.tournamentData["brackets"] = temp.brackets;
               tournamentDataProvider.tournamentData["postBracketRounds"] =
@@ -222,8 +222,8 @@ class _TournamentEditHolderState extends State<TournamentEditHolder> {
           appBar: AppBar(
             title: Text("TOURNEYY"),
           ),
-          body: DoubleBracketTournamentEdit(
-              tournament: widget.tournament as N_EliminationTournament)),
+          body: N_BracketTournamentEdit(
+              tournament: widget.tournament as N_BracketTournament)),
     );
   }
 }
