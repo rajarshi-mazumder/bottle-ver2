@@ -89,6 +89,7 @@ class SingleEliminationTournament extends Tournament {
 class DoubleBracketTournament extends Tournament {
   int bracketCount;
   List brackets = [];
+  Map postBracketRounds = {};
 
   // Implement Double Bracket specific methods and properties
   DoubleBracketTournament(
@@ -136,10 +137,21 @@ class DoubleBracketTournament extends Tournament {
   generatePostBracketRounds({required Map<String, dynamic> brackets}) {
     List<String> bracketWinners = [];
     brackets["brackets"].forEach((bracket) {
-      if (bracket["winner"] != null) bracketWinners.add(bracket["winner"]);
-    });
+      print(bracket["winner"]);
 
-    List postBracketRounds = generateRounds(participants: bracketWinners);
+      if (bracket["winner"]["name"] == null &&
+          bracket["winner"]["name"] == '') {
+        print("NOT ALL BRACKETS HAVE WINNERS YET!");
+        return;
+      } else {
+        bracketWinners.add(bracket["winner"]["name"]);
+      }
+    });
+    if (bracketWinners.isNotEmpty) {
+      List postBracketRounds = generateRounds(participants: bracketWinners);
+      this.postBracketRounds = {"rounds": postBracketRounds};
+      print(this.postBracketRounds);
+    }
   }
 
   @override

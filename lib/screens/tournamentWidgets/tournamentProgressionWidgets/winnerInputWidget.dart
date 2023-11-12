@@ -6,9 +6,13 @@ import '../../../tournamentOperations/createTournament.dart';
 import 'tournamentProgressionInput.dart';
 
 class WinnerInputData extends StatefulWidget {
-  WinnerInputData({super.key, required this.bracketIndex});
+  WinnerInputData(
+      {super.key,
+      required this.bracketIndex,
+      this.winnerType = "bracketWinner"});
 
   int bracketIndex;
+  String winnerType;
 
   @override
   State<WinnerInputData> createState() => _WinnerInputDataState();
@@ -19,7 +23,6 @@ class _WinnerInputDataState extends State<WinnerInputData> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -28,9 +31,23 @@ class _WinnerInputDataState extends State<WinnerInputData> {
     TournamentDataProvider tournamentDataProvider =
         context.watch<TournamentDataProvider>();
     setState(() {
-      winnerTeam = tournamentDataProvider.tournamentData["brackets"]
-              [widget.bracketIndex]["winner"]
-          .toString();
+      if (widget.winnerType == "bracketWinner") {
+        try {
+          winnerTeam = tournamentDataProvider.tournamentData["brackets"]
+                  [widget.bracketIndex]["winner"]["name"]
+              .toString();
+        } catch (e) {
+          winnerTeam = "";
+        }
+      } else if (widget.winnerType == "postBracketWinner") {
+        try {
+          winnerTeam = tournamentDataProvider
+              .tournamentData["postBracketRounds"]["winner"]["name"]
+              .toString();
+        } catch (e) {
+          winnerTeam = "";
+        }
+      }
     });
 
     return Container(

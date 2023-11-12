@@ -1,3 +1,4 @@
+import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/postBracketRounds.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,7 +7,7 @@ import '../../../models/tournamentModels/player.dart';
 import '../../../models/tournamentModels/round.dart';
 import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
-import '../../../tournamentOperations/bracketRounds.dart';
+import '../tournamentProgressionWidgets/bracketRounds.dart';
 import '../../../tournamentOperations/createTournament.dart';
 
 class DoubleBracketTournamentEdit extends StatefulWidget {
@@ -58,22 +59,48 @@ class _DoubleBracketTournamentEditState
                 },
               ),
             ),
+            if (tournamentDataProvider.tournamentData["postBracketRounds"]
+                    ["rounds"] !=
+                null)
+              Positioned(
+                top: 100,
+                right: 100,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      color: Colors.blueGrey,
+                      child: PostBracketRounds(
+                        rounds: tournamentDataProvider
+                            .tournamentData["postBracketRounds"],
+                      )),
+                ),
+              ),
+            Positioned(
+              right: 250,
+              top: 20,
+              child: ElevatedButton(
+                  onPressed: () {
+                    widget.tournament.generatePostBracketRounds(
+                        brackets: tournamentDataProvider.tournamentData);
+                    tournamentDataProvider.tournamentData["postBracketRounds"] =
+                        widget.tournament.postBracketRounds;
+
+                    print(
+                        "PROVIDER DATA ${tournamentDataProvider.tournamentData['postBracketRounds']}");
+                    tournamentDataProvider.notifyListeners();
+                  },
+                  child: Text("Generate round for bracket winners")),
+            ),
             Positioned(
               right: 20,
               top: 20,
               child: ElevatedButton(
                   onPressed: () {
                     print(
-                        "PRINTING TOURNAMNENT DATAAA : ${tournamentDataProvider
-                            .tournamentData}");
-                    // if (widget.tournament.runtimeType ==
-                    //     DoubleBracketTournament)
-                    //   convertDoubleBracketTournamentToMap(
-                    //       tournamentData: tournamentDataProvider.tournamentData,
-                    //       participantType: "team");
+                        "PRINTING TOURNAMNENT DATAAA : ${tournamentDataProvider.tournamentData}");
                   },
                   child: Text("Update tournament")),
-            )
+            ),
           ],
         );
       },
@@ -106,9 +133,10 @@ List createRoundMatches(
   return matchesList;
 }
 
-convertDoubleBracketTournamentToMap(// ONLY FOR DOUBLE BRACKET
-        {required Map<String, dynamic> tournamentData,
-      required String participantType}) {
+convertDoubleBracketTournamentToMap(
+    // ONLY FOR DOUBLE BRACKET
+    {required Map<String, dynamic> tournamentData,
+    required String participantType}) {
   print(tournamentData);
   Map<String, dynamic> brackets;
   List bracketsList = [];

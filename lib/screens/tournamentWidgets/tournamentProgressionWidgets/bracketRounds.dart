@@ -2,9 +2,9 @@ import 'package:bottle_ver2/tournamentOperations/createTournament.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/tournamentModels/round.dart';
-import '../screens/tournamentWidgets/tournamentProgressionWidgets/matchInputWidget.dart';
-import '../screens/tournamentWidgets/tournamentProgressionWidgets/winnerInputWidget.dart';
+import '../../../models/tournamentModels/round.dart';
+import 'matchInputWidget.dart';
+import 'winnerInputWidget.dart';
 
 class BracketRounds extends StatefulWidget {
   final Map<String, dynamic> bracket;

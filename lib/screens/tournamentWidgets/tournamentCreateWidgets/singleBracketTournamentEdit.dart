@@ -6,7 +6,7 @@ import '../../../models/tournamentModels/player.dart';
 import '../../../models/tournamentModels/round.dart';
 import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
-import '../../../tournamentOperations/bracketRounds.dart';
+import '../tournamentProgressionWidgets/bracketRounds.dart';
 import '../../../tournamentOperations/createTournament.dart';
 
 class SingleBracketTournamentEdit extends StatefulWidget {

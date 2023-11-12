@@ -7,7 +7,10 @@ import '../screens/tournamentWidgets/tournamentCreateWidgets/doubleBracketTourna
 import 'dart:convert';
 
 class TournamentDataProvider with ChangeNotifier {
-  Map<String, dynamic> tournamentData = {"brackets": []};
+  Map<String, dynamic> tournamentData = {
+    "brackets": [],
+    "postBracketRounds": {}
+  };
   int bracketCount = 1;
 
   @override
@@ -21,100 +24,119 @@ void main() {
   runApp(MyApp());
 }
 
-String tempTournamentString = """ [
-  {
-    "bracketIndex": 0,
-    "rounds": [
-      {
-        "roundIndex": 0,
-        "noOfMatches": 4,
-        "matches": [
-          {
-            "participantA": { "name": "Cloud 9" },
-            "participantB": { "name": "DRX" },
-            "winner": { "name": "Cloud 9" }
-          },
-          {
-            "participantA": { "name": "Sentinels" },
-            "participantB": { "name": "Zeta" },
-            "winner": { "name": "Sentinels" }
-          },
-          {
-            "participantA": { "name": "NAVI" },
-            "participantB": { "name": "Fnatic" },
-            "winner": { "name": "NAVI" }
-          },
-          {
-            "participantA": { "name": "PRX" },
-            "participantB": { "name": "Optic" },
-            "winner": { "name": "PRX" }
-          }
-        ]
-      },
-      {
-        "roundIndex": 1,
-        "noOfMatches": 2,
-        "matches": [
-          {
-            "participantA": { "name": "Cloud 9" },
-            "participantB": { "name": "Sentinels" },
-            "winner": { "name": "Cloud 9" }
-          },
-          {
-            "participantA": { "name": "NAVI" },
-            "participantB": { "name": "PRX" },
-            "winner": { "name": "NAVI" }
-          }
-        ]
-      },
-      {
-        "roundIndex": 2,
-        "noOfMatches": 1,
-        "matches": [
-          {
-            "participantA": { "name": "Cloud 9" },
-            "participantB": { "name": "NAVI" },
-            "winner": { "name": "Cloud 9" }
-          }
-        ]
-      }
-    ],
-    "winner": { "name": "Cloud 9" }
-  },
-  {
-    "bracketIndex": 1,
-    "rounds": [
-      {
-        "roundIndex": 0,
-        "noOfMatches": 2,
-        "matches": [
-          {
-            "participantA": { "name": "Cloud 9_2" },
-            "participantB": { "name": "DRX2" },
-            "winner": null
-          },
-          {
-            "participantA": { "name": "Zeta2" },
-            "participantB": { "name": "Sentinels2" },
-            "winner": null
-          }
-        ]
-      },
-      {
-        "roundIndex": 1,
-        "noOfMatches": 1,
-        "matches": [
-          {
-            "participantA": { "name": "" },
-            "participantB": { "name": "" },
-            "winner": null
-          }
-        ]
-      }
-    ],
-    "winner": null
-  }
-]
+String tempTournamentString = """{
+  "brackets": [
+    {
+      "bracketIndex": 0,
+      "rounds": [
+        {
+          "roundIndex": 0,
+          "noOfMatches": 4,
+          "matches": [
+            {
+              "participantA": { "name": "Cloud 9" },
+              "participantB": { "name": "DRX" },
+              "winner": { "name": "Cloud 9" }
+            },
+            {
+              "participantA": { "name": "Sentinels" },
+              "participantB": { "name": "Zeta" },
+              "winner": { "name": "Sentinels" }
+            },
+            {
+              "participantA": { "name": "NAVI" },
+              "participantB": { "name": "Fnatic" },
+              "winner": { "name": "NAVI" }
+            },
+            {
+              "participantA": { "name": "PRX" },
+              "participantB": { "name": "Optic" },
+              "winner": { "name": "PRX" }
+            }
+          ]
+        },
+        {
+          "roundIndex": 1,
+          "noOfMatches": 2,
+          "matches": [
+            {
+              "participantA": { "name": "Cloud 9" },
+              "participantB": { "name": "Sentinels" },
+              "winner": { "name": "Cloud 9" }
+            },
+            {
+              "participantA": { "name": "NAVI" },
+              "participantB": { "name": "PRX" },
+              "winner": { "name": "NAVI" }
+            }
+          ]
+        },
+        {
+          "roundIndex": 2,
+          "noOfMatches": 1,
+          "matches": [
+            {
+              "participantA": { "name": "Cloud 9" },
+              "participantB": { "name": "NAVI" },
+              "winner": { "name": "Cloud 9" }
+            }
+          ]
+        }
+      ],
+      "winner": { "name": "Cloud 9" }
+    },
+    {
+      "bracketIndex": 1,
+      "rounds": [
+        {
+          "roundIndex": 0,
+          "noOfMatches": 2,
+          "matches": [
+            {
+              "participantA": { "name": "Cloud 9_2" },
+              "participantB": { "name": "DRX2" },
+              "winner": { "name": "DRX2" }
+            },
+            {
+              "participantA": { "name": "Zeta2" },
+              "participantB": { "name": "Sentinels2" },
+              "winner": { "name": "Zeta2" }
+            }
+          ]
+        },
+        {
+          "roundIndex": 1,
+          "noOfMatches": 1,
+          "matches": [
+            {
+              "participantA": { "name": "DRX2" },
+              "participantB": { "name": "Zeta2" },
+              "winner": { "name": "Zeta2" }
+            }
+          ]
+        }
+      ],
+      "winner": { "name": "Zeta2" }
+    }
+  ]
+}
+""";
+String postBracketRoundsString = """{
+  "rounds": [
+    {
+      "roundIndex": 0,
+      "noOfMatches": 1,
+      "matches": [
+        {
+          "participantA": { "name": "Zeta2" },
+          "participantB": { "name": "Cloud 9" },
+          "winner" :{"name": "Cloud 9" }
+        }
+      ]
+    }
+  ],
+  "winner" :{"name": "Cloud 9" }
+}
 """;
 
 class MyApp extends StatefulWidget {
@@ -155,7 +177,8 @@ class _MyAppState extends State<MyApp> {
     print("-----------------------");
 
     // print(json.decode(tempTournamentString));
-    widget.tournament2.brackets = json.decode(tempTournamentString);
+    widget.tournament2.brackets = json.decode(tempTournamentString)["brackets"];
+    widget.tournament2.postBracketRounds = json.decode(postBracketRoundsString);
   }
 
   @override
@@ -198,6 +221,8 @@ class _TournamentEditHolderState extends State<TournamentEditHolder> {
                   widget.tournament as DoubleBracketTournament;
               tournamentDataProvider.bracketCount = temp.bracketCount;
               tournamentDataProvider.tournamentData["brackets"] = temp.brackets;
+              tournamentDataProvider.tournamentData["postBracketRounds"] =
+                  temp.postBracketRounds;
             }
             return tournamentDataProvider;
           },
