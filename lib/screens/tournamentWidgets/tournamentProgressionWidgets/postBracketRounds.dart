@@ -31,6 +31,7 @@ class _PostBracketRoundsState extends State<PostBracketRounds> {
       roundWidgets.add(Container(
         margin: EdgeInsets.only(top: 0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(round["noOfMatches"], (index) {
             matchIndex++;
 
@@ -57,13 +58,9 @@ class _PostBracketRoundsState extends State<PostBracketRounds> {
     });
     roundWidgets.add(Container(
       width: 100,
-      child: Column(
-        children: [
-          WinnerInputData(
-            bracketIndex: 0,
-            winnerType: "postBracketWinner",
-          ),
-        ],
+      child: WinnerInputData(
+        bracketIndex: 0,
+        winnerType: "postBracketWinner",
       ),
     ));
   }
