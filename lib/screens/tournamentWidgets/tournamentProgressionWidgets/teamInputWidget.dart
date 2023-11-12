@@ -4,14 +4,14 @@ import 'package:provider/provider.dart';
 import '../../../tournamentOperations/createTournament.dart';
 
 class TeamInputWidget extends StatefulWidget {
-  TeamInputWidget(
-      {super.key,
-      required this.bracketIndex,
-      required this.selectedTeam,
-      required this.roundIndex,
-      required this.matchIndex,
-      required this.participantA_B,
-      required this.roundMatchesData});
+  TeamInputWidget({
+    super.key,
+    required this.bracketIndex,
+    required this.selectedTeam,
+    required this.roundIndex,
+    required this.matchIndex,
+    required this.participantA_B,
+  });
 
   String selectedTeam;
 
@@ -19,7 +19,8 @@ class TeamInputWidget extends StatefulWidget {
   int roundIndex;
   int matchIndex;
   String participantA_B;
-  List<List<Map<String, dynamic>>> roundMatchesData;
+
+  // List<List<Map<String, dynamic>>> roundMatchesData;
 
   @override
   State<TeamInputWidget> createState() => _TeamInputWidgetState();
@@ -30,8 +31,8 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
   Widget build(BuildContext context) {
     TournamentDataProvider tournamentDataProvider =
         context.watch<TournamentDataProvider>();
-    widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
-        [widget.participantA_B] = {"name": widget.selectedTeam};
+    // widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
+    //     [widget.participantA_B] = {"name": widget.selectedTeam};
     return Row(
       children: [
         Container(

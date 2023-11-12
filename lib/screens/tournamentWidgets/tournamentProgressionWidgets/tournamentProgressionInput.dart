@@ -65,7 +65,7 @@ class _TournamentProgressionInputState
             // });
 
             return MatchInputWidget(
-              roundMatchesData: roundMatchesListData,
+              // roundMatchesData: roundMatchesListData,
               matchIndex: matchIndex,
               roundIndex: roundIndex,
               // teamNames: List.generate(widget.tournament.participants!.length,

@@ -196,6 +196,7 @@ class _TournamentEditHolderState extends State<TournamentEditHolder> {
               DoubleBracketTournament temp =
                   widget.tournament as DoubleBracketTournament;
               tournamentDataProvider.bracketCount = temp.bracketCount;
+              tournamentDataProvider.tournamentData["brackets"] = temp.brackets;
             }
             return tournamentDataProvider;
           },

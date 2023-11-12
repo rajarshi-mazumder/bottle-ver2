@@ -63,11 +63,14 @@ class _DoubleBracketTournamentEditState
               top: 20,
               child: ElevatedButton(
                   onPressed: () {
-                    if (widget.tournament.runtimeType ==
-                        DoubleBracketTournament)
-                      convertDoubleBracketTournamentToMap(
-                          tournamentData: tournamentDataProvider.tournamentData,
-                          participantType: "team");
+                    print(
+                        "PRINTING TOURNAMNENT DATAAA : ${tournamentDataProvider
+                            .tournamentData}");
+                    // if (widget.tournament.runtimeType ==
+                    //     DoubleBracketTournament)
+                    //   convertDoubleBracketTournamentToMap(
+                    //       tournamentData: tournamentDataProvider.tournamentData,
+                    //       participantType: "team");
                   },
                   child: Text("Update tournament")),
             )
@@ -114,8 +117,9 @@ convertDoubleBracketTournamentToMap(// ONLY FOR DOUBLE BRACKET
     int roundIndex = 0;
     List roundMapList = [];
     roundsList.forEach((round) {
+      print("MICHIII ${round}");
       List<Map<String, dynamic>> matchesMapList = [];
-      round.forEach((match) {
+      round["matches"].forEach((match) {
         Map<String, dynamic> matchMap = {
           "participantA": {"name": match["participantA"]["name"]},
           "participantB": {"name": match["participantB"]["name"]},
