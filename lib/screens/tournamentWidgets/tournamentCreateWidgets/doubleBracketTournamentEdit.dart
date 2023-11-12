@@ -43,12 +43,8 @@ class _DoubleBracketTournamentEditState
                 shrinkWrap: true,
                 itemCount: widget.tournament.bracketCount,
                 itemBuilder: (BuildContext context, int index) {
-                  List<Map<String, dynamic>> bracketMapData = [];
                   List<List<Map<String, dynamic>>> roundMatchesData = [];
-                  bracketMapData.add({
-                    "bracketIndex": widget.tournament.brackets[index],
-                    "rounds": roundMatchesData
-                  });
+
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -62,14 +58,19 @@ class _DoubleBracketTournamentEditState
                 },
               ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  if (widget.tournament.runtimeType == DoubleBracketTournament)
-                    convertDoubleBracketTournamentToMap(
-                        tournamentData: tournamentDataProvider.tournamentData,
-                        participantType: "team");
-                },
-                child: Text("SMTH"))
+            Positioned(
+              right: 20,
+              top: 20,
+              child: ElevatedButton(
+                  onPressed: () {
+                    if (widget.tournament.runtimeType ==
+                        DoubleBracketTournament)
+                      convertDoubleBracketTournamentToMap(
+                          tournamentData: tournamentDataProvider.tournamentData,
+                          participantType: "team");
+                  },
+                  child: Text("Update tournament")),
+            )
           ],
         );
       },
@@ -141,36 +142,3 @@ convertDoubleBracketTournamentToMap(// ONLY FOR DOUBLE BRACKET
   }
   print("NEGANN ${bracketsList}");
 }
-
-//
-// convertDoubleBracketTournamentToModel(
-//     // ONLY FOR DOUBLE BRACKET
-//         {required Map<String, dynamic> tournamentData,
-//       required String participantType}) {
-//   DoubleBracketTournament doubleBracketTournament = DoubleBracketTournament(
-//       bracketCount: tournamentData["brackets"].length);
-//
-//   List<Map<String, dynamic>> brackets = [];
-//
-//   for (int i = 0; i < tournamentData["brackets"].length; i++) {
-//     int bracketIndex = tournamentData["brackets"][i]["bracketIndex"];
-//     brackets.add({"bracketIndex": bracketIndex});
-//     List<Round> rounds = [];
-//     tournamentData["brackets"][i]["rounds"].forEach((List roundMatches) {
-//       Round round = Round(
-//           roundIndex: roundMatches[0]["round"],
-//           noOfMatches: roundMatches.length);
-//
-//       round.matches = createRoundMatches(
-//           roundMatches: roundMatches, participantType: participantType);
-//
-//       rounds.add(round);
-//     });
-//
-//     brackets[i] = {"bracketIndex": bracketIndex, "rounds": rounds};
-//   }
-//
-//   doubleBracketTournament.brackets = brackets;
-//   print(
-//       "parsedRoundMatchesData:  ${doubleBracketTournament.tournamentSpecificToMap()}");
-// }

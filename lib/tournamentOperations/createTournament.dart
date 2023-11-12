@@ -135,16 +135,20 @@ class _MyAppState extends State<MyApp> {
         type: 'SingleElimination',
         participantType: "player") as SingleEliminationTournament;
 
-    widget.tournament1.generateRounds(participants: participants1);
+    List<String> playersList1 = participants1.map((e) => e.name ?? '').toList();
+    widget.tournament1.generateRounds(participants: playersList1);
 
     widget.tournament2 = Tournament.createTournament(
         type: "DoubleBracket",
         bracketCount: 2,
         participantType: "team") as DoubleBracketTournament;
+
+    List<String> teamsList1 = teams.map((e) => e.name ?? '').toList();
+    List<String> teamsList2 = teams2.map((e) => e.name ?? '').toList();
     widget.tournament2
-        .generateNewBracket(participantsList: teams, bracketIndex: 0);
+        .generateNewBracket(participantsList: teamsList1, bracketIndex: 0);
     widget.tournament2
-        .generateNewBracket(participantsList: teams2, bracketIndex: 1);
+        .generateNewBracket(participantsList: teamsList2, bracketIndex: 1);
 
     print(widget.tournament2.brackets);
     print("-----------------------");

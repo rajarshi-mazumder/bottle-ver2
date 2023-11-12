@@ -40,7 +40,8 @@ class _TournamentProgressionInputState
     //     return {"teamA": null, "teamB": null};
     //   });
     // });
-    widget.tournament.generateRounds(participants: teams);
+    List<String> teamsList = teams.map((e) => e.name ?? '').toList();
+    widget.tournament.generateRounds(participants: teamsList);
     generateRoundWidgets();
   }
 

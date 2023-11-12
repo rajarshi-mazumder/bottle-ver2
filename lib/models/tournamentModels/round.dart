@@ -38,23 +38,22 @@ class Round {
     );
   }
 
-  static List pairParticipantsForMatches(List<Mappable> participants) {
+  static List pairParticipantsForMatches(List<String> participants) {
     if (participants.length % 2 != 0) {
       throw Exception("The number of participants must be even for pairing.");
     }
 
     // Shuffle the list of participants to randomize pairing
     final random = Random();
-    final shuffledParticipants = List<Mappable>.from(participants)
-      ..shuffle(random);
+    final shuffledParticipants = List.from(participants)..shuffle(random);
 
     final matches = [];
     for (int i = 0; i < shuffledParticipants.length; i += 2) {
       final participantA = shuffledParticipants[i];
       final participantB = shuffledParticipants[i + 1];
       matches.add({
-        "participantA": {"name": participantA.name},
-        "participantB": {"name": participantB.name}
+        "participantA": {"name": participantA},
+        "participantB": {"name": participantB}
       });
     }
 

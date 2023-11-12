@@ -4,7 +4,7 @@ import 'package:bottle_ver2/models/tournamentModels/round.dart';
 import 'team.dart';
 
 class Tournament {
-  List<Mappable>? participants = [];
+  List<String>? participants = [];
   List rounds = [];
   Mappable? winner;
   String participantType;
@@ -34,12 +34,11 @@ class Tournament {
     }
   }
 
-  generateRounds({required List<Mappable> participants}) {}
+  generateRounds({required List<String> participants}) {}
 
   Map<String, dynamic> toMap() {
     return {
-      'participants':
-          participants?.map((participant) => participant?.toMap()).toList(),
+      'participants': participants,
       'rounds': rounds.map((round) => round.toMap()).toList(),
       'winner': winner?.toMap(),
       'participantType': participantType
@@ -54,24 +53,15 @@ class Tournament {
       'participantType': participantType
     };
   }
-
-// static Tournament fromMap(Map<String, dynamic> map) {
-//   return Tournament(
-//       participants: (map['participants'] as List<dynamic>)
-//           .map((participantMap) => Mappable.fromMap(participantMap))
-//           .toList(),
-//       winner: Participant.fromMap(map['winner']),
-//       participantType: map['participantType'] ?? "participant");
-// }
 }
 
 class SingleEliminationTournament extends Tournament {
   SingleEliminationTournament(
-      {List<Mappable>? participants, String participantType = "player"})
+      {List<String>? participants, String participantType = "player"})
       : super(participants: participants, participantType: participantType);
 
   @override
-  List generateRounds({required List<Mappable> participants}) {
+  List generateRounds({required List<String> participants}) {
     double totalParticiapnts = double.parse(participants!.length.toString());
     int noOfRounds = log(totalParticiapnts) ~/ log(2);
     for (int i = noOfRounds; i > 0; i--) {
@@ -106,7 +96,7 @@ class DoubleBracketTournament extends Tournament {
       : super(participantType: participantType);
 
   @override
-  List generateRounds({required List<Mappable> participants}) {
+  List generateRounds({required List<String> participants}) {
     double totalParticipants = double.parse(participants!.length.toString());
     int noOfRounds = log(totalParticipants) ~/ log(2);
     List rounds = [];
@@ -125,22 +115,21 @@ class DoubleBracketTournament extends Tournament {
   }
 
   List generateNewBracket(
-      {required List<Mappable> participantsList, required int bracketIndex}) {
+      {required List<String> participantsList, required int bracketIndex}) {
     List rounds = generateRounds(participants: participantsList);
-    List<String> participants =
-        participantsList.map((e) => e.name ?? '').toList();
+
     brackets.add({
       "bracketIndex": bracketIndex,
       "rounds": rounds,
       "winner": null,
-      "participants": participants
+      "participants": participantsList
     });
 
     return brackets;
   }
 
   generatePostBracketRounds({required Map<String, dynamic> brackets}) {
-    List<Mappable> bracketWinners = [];
+    List<String> bracketWinners = [];
     brackets["brackets"].forEach((bracket) {
       if (bracket["winner"] != null) bracketWinners.add(bracket["winner"]);
     });
