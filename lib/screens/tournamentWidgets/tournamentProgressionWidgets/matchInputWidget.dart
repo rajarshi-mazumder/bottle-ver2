@@ -8,14 +8,15 @@ import 'package:provider/provider.dart';
 import '../../../themes/themes.dart';
 
 class MatchInputWidget extends StatefulWidget {
-  MatchInputWidget({Key? key,
-    required this.bracketIndex,
-    required this.matchIndex,
-    required this.roundIndex,
-    // required this.roundMatchesData,
-    required this.isMatchDecided,
-    this.participantA = null,
-    this.participantB = null});
+  MatchInputWidget(
+      {Key? key,
+      required this.bracketIndex,
+      required this.matchIndex,
+      required this.roundIndex,
+      // required this.roundMatchesData,
+      required this.isMatchDecided,
+      this.participantA = null,
+      this.participantB = null});
 
   final int roundIndex;
   final int bracketIndex;
@@ -50,49 +51,57 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
     return nextRoundMatchIndex;
   }
 
-  setMatchWinner({required TournamentDataProvider tournamentDataProvider,
-    required String winnerName}) {
+  setMatchWinner(
+      {required TournamentDataProvider tournamentDataProvider,
+      required String winnerName}) {
     tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
-    ["rounds"][widget.roundIndex]["matches"][widget.matchIndex]
+            ["rounds"][widget.roundIndex]["matches"][widget.matchIndex]
         .update("winner", (value) => {"name": winnerName},
-        ifAbsent: () => {"name": winnerName});
+            ifAbsent: () => {"name": winnerName});
   }
 
-  setNextRoundParticipant({required int nextRoundMatchIndex,
-    required String participantName,
-    required TournamentDataProvider tournamentDataProvider}) {
+  setNextRoundParticipant(
+      {required int nextRoundMatchIndex,
+      required String participantName,
+      required TournamentDataProvider tournamentDataProvider}) {
     if ((widget.roundIndex + 1) <
         tournamentDataProvider
             .tournamentData["brackets"][widget.bracketIndex]["rounds"].length) {
+      print(
+          "I AM PRINTINGGG ${tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]["rounds"][widget.roundIndex + 1]["matches"]}");
       if (widget.matchIndex % 2 == 0) {
         tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
-        ["rounds"][widget.roundIndex + 1]["matches"]
-        [nextRoundMatchIndex]["participantA"] = {"name": participantName};
+                ["rounds"][widget.roundIndex + 1]["matches"]
+                [nextRoundMatchIndex]
+            .update("participantA", (value) => {"name": participantName},
+                ifAbsent: () => {"name": participantName});
       } else {
         tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
-        ["rounds"][widget.roundIndex + 1]["matches"]
-        [nextRoundMatchIndex]["participantB"] = {"name": participantName};
+                ["rounds"][widget.roundIndex + 1]["matches"]
+                [nextRoundMatchIndex]
+            .update("participantB", (value) => {"name": participantName},
+                ifAbsent: () => {"name": participantName});
       }
     } else {
       tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
-      ["winner"] = {"name": participantName};
+          ["winner"] = {"name": participantName};
     }
   }
 
   @override
   Widget build(BuildContext context) {
     TournamentDataProvider tournamentDataProvider =
-    context.watch<TournamentDataProvider>();
-    print("I AM PRINTINGGG ${tournamentDataProvider.tournamentData}");
+        context.watch<TournamentDataProvider>();
+
     try {
       setState(() {
         selectedTeamA = tournamentDataProvider.tournamentData["brackets"]
-        [widget.bracketIndex]["rounds"][widget.roundIndex]["matches"]
-        [widget.matchIndex]["participantA"]["name"];
+                [widget.bracketIndex]["rounds"][widget.roundIndex]["matches"]
+            [widget.matchIndex]["participantA"]["name"];
 
         selectedTeamB = tournamentDataProvider.tournamentData["brackets"]
-        [widget.bracketIndex]["rounds"][widget.roundIndex]["matches"]
-        [widget.matchIndex]["participantB"]["name"];
+                [widget.bracketIndex]["rounds"][widget.roundIndex]["matches"]
+            [widget.matchIndex]["participantB"]["name"];
       });
     } catch (e) {}
 
@@ -129,7 +138,7 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
                             winnerName: value);
 
                         int nextRoundMatchIndex =
-                        calculateNextRoundMatchIndex();
+                            calculateNextRoundMatchIndex();
 
                         setNextRoundParticipant(
                             tournamentDataProvider: tournamentDataProvider,
@@ -172,7 +181,7 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
                             winnerName: value);
 
                         int nextRoundMatchIndex =
-                        calculateNextRoundMatchIndex();
+                            calculateNextRoundMatchIndex();
 
                         setNextRoundParticipant(
                             tournamentDataProvider: tournamentDataProvider,

@@ -35,20 +35,22 @@ class _BracketRoundsState extends State<BracketRounds> {
           children: List.generate(round["noOfMatches"], (index) {
             matchIndex++;
 
-
             bool isMatchDecided = false;
             if (round["matches"]?[index]["participantA"] != null &&
                 round["matches"]?[index]["participantB"] != null)
               isMatchDecided = true;
 
             return MatchInputWidget(
-              
               matchIndex: matchIndex,
               roundIndex: roundIndex,
               bracketIndex: widget.bracket["bracketIndex"],
               isMatchDecided: isMatchDecided,
-              participantA: round["matches"]?[index]["participantA"]["name"],
-              participantB: round["matches"]?[index]["participantB"]["name"],
+              participantA: round["matches"][index]["participantA"] != null
+                  ? round["matches"][index]["participantA"].toString()
+                  : "",
+              participantB: round["matches"][index]["participantB"] != null
+                  ? round["matches"][index]["participantB"].toString()
+                  : "",
             );
           }),
         ),
@@ -89,7 +91,7 @@ class _BracketRoundsState extends State<BracketRounds> {
   @override
   Widget build(BuildContext context) {
     TournamentDataProvider tournamentDataProvider =
-    context.watch<TournamentDataProvider>();
+        context.watch<TournamentDataProvider>();
     createEmptyBracketInProvider(
         tournamentDataProvider: tournamentDataProvider);
 

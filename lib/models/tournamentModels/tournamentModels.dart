@@ -101,9 +101,14 @@ class DoubleBracketTournament extends Tournament {
     int noOfRounds = log(totalParticipants) ~/ log(2);
     List rounds = [];
     for (int i = noOfRounds; i > 0; i--) {
+      int noOfMatches = (pow(2, i - 1)).toInt();
       Map<String, dynamic> newRound = {
         "roundIndex": i - 1,
-        "noOfMatches": (pow(2, i - 1)).toInt(),
+        "noOfMatches": noOfMatches,
+        "matches": List.generate(
+            noOfMatches,
+            (index) =>
+                {"participantA": {}, "participantB": {}, "winner": {}}).toList()
       };
       if (pow(2, i) == participants.length) {
         newRound["matches"] = Round.pairParticipantsForMatches(participants);
