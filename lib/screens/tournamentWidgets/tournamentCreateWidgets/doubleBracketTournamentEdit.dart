@@ -13,7 +13,7 @@ import '../../../tournamentOperations/createTournament.dart';
 class DoubleBracketTournamentEdit extends StatefulWidget {
   DoubleBracketTournamentEdit({required this.tournament});
 
-  DoubleBracketTournament tournament;
+  N_EliminationTournament tournament;
 
   @override
   _DoubleBracketTournamentEditState createState() =>
@@ -28,7 +28,7 @@ class _DoubleBracketTournamentEditState
   @override
   void initState() {
     super.initState();
-    widget.tournament = widget.tournament as DoubleBracketTournament;
+    widget.tournament = widget.tournament as N_EliminationTournament;
   }
 
   void submitMatches() {}

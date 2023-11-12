@@ -16,10 +16,8 @@ class Tournament {
       {required String type,
       int bracketCount = 0,
       required String participantType}) {
-    if (type == 'SingleElimination') {
-      return SingleEliminationTournament(participantType: participantType);
-    } else if (type == 'DoubleBracket') {
-      return DoubleBracketTournament(
+    if (type == 'n_elimination') {
+      return N_EliminationTournament(
           bracketCount: bracketCount, participantType: participantType);
     }
     // else if (type == 'RoundRobin') {
@@ -55,44 +53,13 @@ class Tournament {
   }
 }
 
-class SingleEliminationTournament extends Tournament {
-  SingleEliminationTournament(
-      {List<String>? participants, String participantType = "player"})
-      : super(participants: participants, participantType: participantType);
-
-  @override
-  List generateRounds({required List<String> participants}) {
-    double totalParticiapnts = double.parse(participants!.length.toString());
-    int noOfRounds = log(totalParticiapnts) ~/ log(2);
-    for (int i = noOfRounds; i > 0; i--) {
-      rounds.add({"roundIndex": i - 1, "noOfMatches": (pow(2, i - 1)).toInt()});
-    }
-    rounds.forEach((element) {
-      print(
-          "Matches in round: ${pow(2, element["roundIndex"])},,${element["roundIndex"]}");
-    });
-    return rounds;
-  }
-
-  @override
-  Map<String, dynamic> tournamentSpecificToMap() {
-    Map<String, dynamic> roundsMap = super.tournamentSpecificToMap();
-
-    return {
-      "brackets": [
-        {"bracketIndex": 1, "rounds": roundsMap, "participants": participants}
-      ]
-    };
-  }
-}
-
-class DoubleBracketTournament extends Tournament {
+class N_EliminationTournament extends Tournament {
   int bracketCount;
   List brackets = [];
   Map postBracketRounds = {};
 
   // Implement Double Bracket specific methods and properties
-  DoubleBracketTournament(
+  N_EliminationTournament(
       {required this.bracketCount, String participantType = "player"})
       : super(participantType: participantType);
 
@@ -139,8 +106,7 @@ class DoubleBracketTournament extends Tournament {
     brackets["brackets"].forEach((bracket) {
       print(bracket["winner"]);
 
-      if (bracket["winner"]["name"] == null &&
-          bracket["winner"]["name"] == '') {
+      if (bracket["winner"] == null || bracket["winner"]["name"] == '') {
         print("NOT ALL BRACKETS HAVE WINNERS YET!");
         return;
       } else {

@@ -140,8 +140,7 @@ String postBracketRoundsString = """{
 """;
 
 class MyApp extends StatefulWidget {
-  late DoubleBracketTournament tournament1;
-  late DoubleBracketTournament tournament2;
+  late N_EliminationTournament tournament;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -152,33 +151,26 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    widget.tournament1 = Tournament.createTournament(
-        bracketCount: 1,
-        type: 'DoubleBracket',
-        participantType: "player") as DoubleBracketTournament;
-
     List<String> playersList1 = participants1.map((e) => e.name ?? '').toList();
-    widget.tournament1
-        .generateNewBracket(participantsList: playersList1, bracketIndex: 0);
-
-    widget.tournament2 = Tournament.createTournament(
-        type: "DoubleBracket",
-        bracketCount: 2,
-        participantType: "team") as DoubleBracketTournament;
 
     List<String> teamsList1 = teams.map((e) => e.name ?? '').toList();
     List<String> teamsList2 = teams2.map((e) => e.name ?? '').toList();
-    // widget.tournament2
-    //     .generateNewBracket(participantsList: teamsList1, bracketIndex: 0);
-    // widget.tournament2
-    //     .generateNewBracket(participantsList: teamsList2, bracketIndex: 1);
 
-    print(widget.tournament2.brackets);
+    widget.tournament = Tournament.createTournament(
+        type: "n_elimination",
+        bracketCount: 2,
+        participantType: "team") as N_EliminationTournament;
+
+    widget.tournament
+        .generateNewBracket(participantsList: teamsList1, bracketIndex: 0);
+    widget.tournament
+        .generateNewBracket(participantsList: teamsList2, bracketIndex: 1);
+    print(widget.tournament.brackets);
     print("-----------------------");
 
     // print(json.decode(tempTournamentString));
-    widget.tournament2.brackets = json.decode(tempTournamentString)["brackets"];
-    widget.tournament2.postBracketRounds = json.decode(postBracketRoundsString);
+    widget.tournament.brackets = json.decode(tempTournamentString)["brackets"];
+    widget.tournament.postBracketRounds = json.decode(postBracketRoundsString);
   }
 
   @override
@@ -189,7 +181,7 @@ class _MyAppState extends State<MyApp> {
           title: Text('Create tournament'),
         ),
         body: TournamentEditHolder(
-          tournament: widget.tournament2,
+          tournament: widget.tournament,
         ),
       ),
     );
@@ -214,11 +206,9 @@ class _TournamentEditHolderState extends State<TournamentEditHolder> {
           create: (context) {
             TournamentDataProvider tournamentDataProvider =
                 TournamentDataProvider();
-            if (widget.tournament.runtimeType == SingleEliminationTournament)
-              tournamentDataProvider.bracketCount = 1;
-            else if (widget.tournament.runtimeType == DoubleBracketTournament) {
-              DoubleBracketTournament temp =
-                  widget.tournament as DoubleBracketTournament;
+            if (widget.tournament.runtimeType == N_EliminationTournament) {
+              N_EliminationTournament temp =
+                  widget.tournament as N_EliminationTournament;
               tournamentDataProvider.bracketCount = temp.bracketCount;
               tournamentDataProvider.tournamentData["brackets"] = temp.brackets;
               tournamentDataProvider.tournamentData["postBracketRounds"] =
@@ -233,7 +223,7 @@ class _TournamentEditHolderState extends State<TournamentEditHolder> {
             title: Text("TOURNEYY"),
           ),
           body: DoubleBracketTournamentEdit(
-              tournament: widget.tournament as DoubleBracketTournament)),
+              tournament: widget.tournament as N_EliminationTournament)),
     );
   }
 }

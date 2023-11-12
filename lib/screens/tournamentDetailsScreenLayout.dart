@@ -103,7 +103,7 @@ class _TournamentDetailScreenLayoutState
                 ),
                 SliverToBoxAdapter(
                   child: TournamentDetailsScreen(
-                    tournament: SingleEliminationTournament(),
+                    tournament: N_EliminationTournament(bracketCount: 1),
                   ),
                 ),
               ],
