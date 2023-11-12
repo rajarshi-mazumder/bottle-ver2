@@ -62,7 +62,7 @@ class _BracketRoundsState extends State<BracketRounds> {
       child: Column(
         children: [
           WinnerInputData(
-            bracketIndex: 1,
+            bracketIndex: widget.bracket["bracketIndex"],
           ),
         ],
       ),

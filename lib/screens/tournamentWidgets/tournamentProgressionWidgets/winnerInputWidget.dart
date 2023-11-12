@@ -29,7 +29,7 @@ class _WinnerInputDataState extends State<WinnerInputData> {
         context.watch<TournamentDataProvider>();
     setState(() {
       winnerTeam = tournamentDataProvider.tournamentData["brackets"]
-              [widget.bracketIndex - 1]["winner"]
+              [widget.bracketIndex]["winner"]
           .toString();
     });
 

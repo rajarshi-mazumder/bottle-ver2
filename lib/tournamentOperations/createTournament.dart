@@ -146,10 +146,10 @@ class _MyAppState extends State<MyApp> {
 
     List<String> teamsList1 = teams.map((e) => e.name ?? '').toList();
     List<String> teamsList2 = teams2.map((e) => e.name ?? '').toList();
-    widget.tournament2
-        .generateNewBracket(participantsList: teamsList1, bracketIndex: 0);
-    widget.tournament2
-        .generateNewBracket(participantsList: teamsList2, bracketIndex: 1);
+    // widget.tournament2
+    //     .generateNewBracket(participantsList: teamsList1, bracketIndex: 0);
+    // widget.tournament2
+    //     .generateNewBracket(participantsList: teamsList2, bracketIndex: 1);
 
     print(widget.tournament2.brackets);
     print("-----------------------");
@@ -166,7 +166,7 @@ class _MyAppState extends State<MyApp> {
           title: Text('Create tournament'),
         ),
         body: TournamentEditHolder(
-          tournament: widget.tournament1,
+          tournament: widget.tournament2,
         ),
       ),
     );
