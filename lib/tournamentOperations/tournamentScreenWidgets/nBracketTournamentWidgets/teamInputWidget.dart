@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../tournamentOperations/createTournament.dart';
+import '../../createTournament.dart';
+import '../../providers/nBracketTournamentDataProvider.dart';
 
 class TeamInputWidget extends StatefulWidget {
   TeamInputWidget({
@@ -29,8 +30,8 @@ class TeamInputWidget extends StatefulWidget {
 class _TeamInputWidgetState extends State<TeamInputWidget> {
   @override
   Widget build(BuildContext context) {
-    TournamentDataProvider tournamentDataProvider =
-        context.watch<TournamentDataProvider>();
+    nBracketTournamentDataProvider tournamentDataProvider =
+        context.watch<nBracketTournamentDataProvider>();
     // widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
     //     [widget.participantA_B] = {"name": widget.selectedTeam};
     return Row(

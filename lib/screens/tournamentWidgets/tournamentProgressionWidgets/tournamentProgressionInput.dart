@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
 import '../../tournamentDetailsScreen.dart';
-import 'matchInputWidget.dart';
-import 'winnerInputWidget.dart';
+import '../../../tournamentOperations/tournamentScreenWidgets/nBracketTournamentWidgets/matchInputWidget.dart';
+import '../../../tournamentOperations/tournamentScreenWidgets/nBracketTournamentWidgets/winnerInputWidget.dart';
 import 'package:bottle_ver2/models/tournamentModels/match.dart';
 
 List<List<Map<String, dynamic>>> roundMatchesListData = [];

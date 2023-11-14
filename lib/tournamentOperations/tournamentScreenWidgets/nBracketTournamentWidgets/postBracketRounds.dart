@@ -1,9 +1,10 @@
-import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/postBracketMatchInput.dart';
+import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/nBracketTournamentWidgets/postBracketMatchInput.dart';
 import 'package:bottle_ver2/tournamentOperations/createTournament.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/tournamentModels/round.dart';
+import '../../providers/nBracketTournamentDataProvider.dart';
 import 'matchInputWidget.dart';
 import 'winnerInputWidget.dart';
 
@@ -66,7 +67,7 @@ class _PostBracketRoundsState extends State<PostBracketRounds> {
   }
 
   createEmptyBracketInProvider(
-      {required TournamentDataProvider tournamentDataProvider}) {
+      {required nBracketTournamentDataProvider tournamentDataProvider}) {
     if (tournamentDataProvider.tournamentData["brackets"].length <
         tournamentDataProvider.bracketCount) {
       tournamentDataProvider.tournamentData["brackets"].add({
@@ -86,8 +87,8 @@ class _PostBracketRoundsState extends State<PostBracketRounds> {
 
   @override
   Widget build(BuildContext context) {
-    TournamentDataProvider tournamentDataProvider =
-        context.watch<TournamentDataProvider>();
+    nBracketTournamentDataProvider tournamentDataProvider =
+        context.watch<nBracketTournamentDataProvider>();
 
     if (roundWidgets.isNotEmpty) {
       return Row(

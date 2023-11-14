@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../themes/themes.dart';
-import '../../../tournamentOperations/createTournament.dart';
-import 'tournamentProgressionInput.dart';
+import '../../providers/nBracketTournamentDataProvider.dart';
 
 class WinnerInputData extends StatefulWidget {
   WinnerInputData(
@@ -28,8 +26,8 @@ class _WinnerInputDataState extends State<WinnerInputData> {
 
   @override
   Widget build(BuildContext context) {
-    TournamentDataProvider tournamentDataProvider =
-        context.watch<TournamentDataProvider>();
+    nBracketTournamentDataProvider tournamentDataProvider =
+        context.watch<nBracketTournamentDataProvider>();
     setState(() {
       if (widget.winnerType == "bracketWinner") {
         try {

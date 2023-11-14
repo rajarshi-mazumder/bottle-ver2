@@ -1,11 +1,12 @@
 import 'package:bottle_ver2/models/tournamentModels/team.dart';
-import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/teamInputWidget.dart';
+import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/nBracketTournamentWidgets/teamInputWidget.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
 import 'package:bottle_ver2/tournamentOperations/createTournament.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../themes/themes.dart';
+import '../../providers/nBracketTournamentDataProvider.dart';
 
 class PostBracketMatchInput extends StatefulWidget {
   PostBracketMatchInput(
@@ -47,7 +48,7 @@ class _PostBracketMatchInputState extends State<PostBracketMatchInput> {
   }
 
   setMatchWinner(
-      {required TournamentDataProvider tournamentDataProvider,
+      {required nBracketTournamentDataProvider tournamentDataProvider,
       required String winnerName}) {
     tournamentDataProvider.tournamentData["postBracketRounds"]["rounds"]
             [widget.roundIndex]["matches"][widget.matchIndex]
@@ -58,7 +59,7 @@ class _PostBracketMatchInputState extends State<PostBracketMatchInput> {
   setNextRoundParticipant(
       {required int nextRoundMatchIndex,
       required String participantName,
-      required TournamentDataProvider tournamentDataProvider}) {
+      required nBracketTournamentDataProvider tournamentDataProvider}) {
     if ((widget.roundIndex + 1) <
         tournamentDataProvider
             .tournamentData["postBracketRounds"]["rounds"].length) {
@@ -81,8 +82,8 @@ class _PostBracketMatchInputState extends State<PostBracketMatchInput> {
 
   @override
   Widget build(BuildContext context) {
-    TournamentDataProvider tournamentDataProvider =
-        context.watch<TournamentDataProvider>();
+    nBracketTournamentDataProvider tournamentDataProvider =
+        context.watch<nBracketTournamentDataProvider>();
 
     try {
       setState(() {

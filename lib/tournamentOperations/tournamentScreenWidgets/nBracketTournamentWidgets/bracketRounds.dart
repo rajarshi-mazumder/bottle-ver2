@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/tournamentModels/round.dart';
+import '../../providers/nBracketTournamentDataProvider.dart';
 import 'matchInputWidget.dart';
 import 'winnerInputWidget.dart';
 
@@ -70,7 +71,7 @@ class _BracketRoundsState extends State<BracketRounds> {
   }
 
   createEmptyBracketInProvider(
-      {required TournamentDataProvider tournamentDataProvider}) {
+      {required nBracketTournamentDataProvider tournamentDataProvider}) {
     if (tournamentDataProvider.tournamentData["brackets"].length <
         tournamentDataProvider.bracketCount) {
       tournamentDataProvider.tournamentData["brackets"].add({
@@ -90,8 +91,8 @@ class _BracketRoundsState extends State<BracketRounds> {
 
   @override
   Widget build(BuildContext context) {
-    TournamentDataProvider tournamentDataProvider =
-        context.watch<TournamentDataProvider>();
+    nBracketTournamentDataProvider tournamentDataProvider =
+        context.watch<nBracketTournamentDataProvider>();
     createEmptyBracketInProvider(
         tournamentDataProvider: tournamentDataProvider);
 

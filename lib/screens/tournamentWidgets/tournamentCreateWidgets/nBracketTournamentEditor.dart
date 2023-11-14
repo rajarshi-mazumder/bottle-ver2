@@ -1,4 +1,4 @@
-import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/postBracketRounds.dart';
+import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/nBracketTournamentWidgets/postBracketRounds.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,20 +7,21 @@ import '../../../models/tournamentModels/player.dart';
 import '../../../models/tournamentModels/round.dart';
 import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
-import '../tournamentProgressionWidgets/bracketRounds.dart';
+import '../../../tournamentOperations/providers/nBracketTournamentDataProvider.dart';
+import '../../../tournamentOperations/tournamentScreenWidgets/nBracketTournamentWidgets/bracketRounds.dart';
 import '../../../tournamentOperations/createTournament.dart';
 
-class N_BracketTournamentEdit extends StatefulWidget {
-  N_BracketTournamentEdit({required this.tournament});
+class N_BracketTournamentEditor extends StatefulWidget {
+  N_BracketTournamentEditor({required this.tournament});
 
   N_BracketTournament tournament;
 
   @override
-  _N_BracketTournamentEditState createState() =>
-      _N_BracketTournamentEditState();
+  _N_BracketTournamentEditorState createState() =>
+      _N_BracketTournamentEditorState();
 }
 
-class _N_BracketTournamentEditState extends State<N_BracketTournamentEdit> {
+class _N_BracketTournamentEditorState extends State<N_BracketTournamentEditor> {
   int numberOfTeams = 16; // Change this to set the initial number of teams
   List<List<String>> rounds = [];
 
@@ -34,8 +35,9 @@ class _N_BracketTournamentEditState extends State<N_BracketTournamentEdit> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TournamentDataProvider>(
-      builder: (context, TournamentDataProvider tournamentDataProvider, child) {
+    return Consumer<nBracketTournamentDataProvider>(
+      builder: (context, nBracketTournamentDataProvider tournamentDataProvider,
+          child) {
         return Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -119,71 +121,4 @@ class _N_BracketTournamentEditState extends State<N_BracketTournamentEdit> {
       },
     );
   }
-}
-
-List createRoundMatches(
-    {required List roundMatches, required String participantType}) {
-  List matchesList = [];
-  Map<String, dynamic> match = {};
-  roundMatches.forEach((roundMatch) {
-    if (participantType == "player") {
-      match = {
-        "participantA": Player(name: roundMatch["participantA"]["name"]),
-        "participantB": Player(name: roundMatch["participantB"]["name"]),
-        "winner": Player(name: roundMatch["winner"]?["name"] ?? ""),
-      };
-    } else if (participantType == "team") {
-      match = {
-        "participantA": {"name": roundMatch["participantA"]["name"]},
-        "participantB": {"name": roundMatch["participantB"]["name"]},
-        "winner": {"name": roundMatch["winner"]?["name"]},
-      };
-    }
-
-    matchesList.add(match);
-  });
-
-  return matchesList;
-}
-
-convertDoubleBracketTournamentToMap(
-    // ONLY FOR DOUBLE BRACKET
-    {required Map<String, dynamic> tournamentData,
-    required String participantType}) {
-  print(tournamentData);
-  Map<String, dynamic> brackets;
-  List bracketsList = [];
-  for (int i = 0; i < tournamentData["brackets"].length; i++) {
-    List roundsList = tournamentData["brackets"][i]["rounds"];
-    int roundIndex = 0;
-    List roundMapList = [];
-    roundsList.forEach((round) {
-      print("MICHIII ${round}");
-      List<Map<String, dynamic>> matchesMapList = [];
-      round["matches"].forEach((match) {
-        Map<String, dynamic> matchMap = {
-          "participantA": {"name": match["participantA"]["name"]},
-          "participantB": {"name": match["participantB"]["name"]},
-          "winner": match["winner"]
-        };
-        matchesMapList.add(matchMap);
-      });
-
-      // print("LUCILLE ${matchesMapList}");
-      roundMapList.add({
-        "roundIndex": roundIndex,
-        "noOfMatches": matchesMapList.length,
-        "matches": matchesMapList
-      });
-      // print("GRIMESS ${roundMap}");
-      roundIndex++;
-    });
-    bracketsList.add({
-      "bracketIndex": i,
-      "rounds": roundMapList,
-      "winner": tournamentData["brackets"][i]["winner"],
-      // "participants": tournamentData["brackets"][i]["pa"]
-    });
-  }
-  print("NEGANN ${bracketsList}");
 }

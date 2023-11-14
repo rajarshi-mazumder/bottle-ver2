@@ -1,24 +1,12 @@
+import 'package:bottle_ver2/tournamentOperations/providers/nBracketTournamentDataProvider.dart';
+import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/tournamentContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/tournamentModels/player.dart';
 import '../models/tournamentModels/team.dart';
 import '../models/tournamentModels/tournamentModels.dart';
-import '../screens/tournamentWidgets/tournamentCreateWidgets/nBracketTournamentEdit.dart';
+import '../screens/tournamentWidgets/tournamentCreateWidgets/nBracketTournamentEditor.dart';
 import 'dart:convert';
-
-class TournamentDataProvider with ChangeNotifier {
-  Map<String, dynamic> tournamentData = {
-    "brackets": [],
-    "postBracketRounds": {}
-  };
-  int bracketCount = 1;
-
-  @override
-  notifyListeners() {
-    super.notifyListeners();
-    print(tournamentData["brackets"].length);
-  }
-}
 
 void main() {
   runApp(MyApp());
@@ -180,50 +168,10 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('Create tournament'),
         ),
-        body: TournamentEditHolder(
+        body: TournamentContainer(
           tournament: widget.tournament,
         ),
       ),
-    );
-  }
-}
-
-class TournamentEditHolder extends StatefulWidget {
-  TournamentEditHolder({super.key, required this.tournament});
-
-  Tournament tournament;
-
-  @override
-  State<TournamentEditHolder> createState() => _TournamentEditHolderState();
-}
-
-class _TournamentEditHolderState extends State<TournamentEditHolder> {
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<TournamentDataProvider>(
-          create: (context) {
-            TournamentDataProvider tournamentDataProvider =
-                TournamentDataProvider();
-            if (widget.tournament.runtimeType == N_BracketTournament) {
-              N_BracketTournament temp =
-                  widget.tournament as N_BracketTournament;
-              tournamentDataProvider.bracketCount = temp.bracketCount;
-              tournamentDataProvider.tournamentData["brackets"] = temp.brackets;
-              tournamentDataProvider.tournamentData["postBracketRounds"] =
-                  temp.postBracketRounds;
-            }
-            return tournamentDataProvider;
-          },
-        ),
-      ],
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text("TOURNEYY"),
-          ),
-          body: N_BracketTournamentEdit(
-              tournament: widget.tournament as N_BracketTournament)),
     );
   }
 }
