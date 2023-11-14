@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:bottle_ver2/models/tournamentModels/player.dart';
+import 'package:bottle_ver2/utilities/constants/gameConstants/gameConstants.dart';
 
 class ValorantPlayer extends Player {
   ValorantPlayer(
@@ -8,7 +9,8 @@ class ValorantPlayer extends Player {
       this.region,
       this.preferredRole,
       this.rank,
-      this.mainAgent});
+      this.mainAgent,
+      this.game});
 
   //Properties that a VALORANT player should have
   String username;
@@ -16,4 +18,5 @@ class ValorantPlayer extends Player {
   String? preferredRole;
   String? rank;
   String? mainAgent;
+  String? game = GameTitles.valorant.name;
 }

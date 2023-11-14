@@ -1,31 +1,3 @@
-// class Participant {
-//   String? name;
-//   String? regionFlag;
-//
-//   Participant({this.name, this.regionFlag});
-//
-//   Map<String, dynamic> toMap() {
-//     return {
-//       'name': name,
-//       'regionFlag': regionFlag,
-//     };
-//   }
-//
-//   Map<String, dynamic> tournamnetSpecificToMap() {
-//     return {
-//       'name': name
-//       // 'regionFlag': regionFlag,
-//     };
-//   }
-//
-//   static Participant fromMap(Map<String, dynamic> map) {
-//     return Participant(
-//       name: map['name'],
-//       regionFlag: map['regionFlag'] ?? '',
-//     );
-//   }
-// }
-
 abstract class Mappable {
   Map<String, dynamic> tournamnetSpecificToMap();
 

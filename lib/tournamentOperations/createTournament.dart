@@ -169,8 +169,8 @@ class _MyAppState extends State<MyApp> {
     print("-----------------------");
 
     // print(json.decode(tempTournamentString));
-    widget.tournament.brackets = json.decode(tempTournamentString)["brackets"];
-    widget.tournament.postBracketRounds = json.decode(postBracketRoundsString);
+    // widget.tournament.brackets = json.decode(tempTournamentString)["brackets"];
+    // widget.tournament.postBracketRounds = json.decode(postBracketRoundsString);
   }
 
   @override

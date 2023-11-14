@@ -1,5 +1,7 @@
+import 'package:bottle_ver2/utilities/json/writeJSONToFile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/tournamentModels/playerProvider.dart';
 
@@ -133,15 +135,24 @@ class _ValorantProfileFormState extends State<ValorantProfileForm> {
         ),
         SizedBox(height: 20),
         ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             // Here you would normally handle the form submission
 
             Provider.of<PlayerProvider>(context, listen: false)
-                .createValorantPlayer(_usernameController.text,
-                    rank: _selectedRank, mainAgent: _selectedAgent);
+                .createValorantPlayer(
+              _usernameController.text,
+              rank: _selectedRank,
+              mainAgent: _selectedAgent,
+            );
           },
           child: Text('Create VALORANT Profile'),
         ),
+        ElevatedButton(
+            onPressed: () async {
+              loadData('key1');
+              // print(prefs.getString("key1"));
+            },
+            child: Text("Get local data"))
       ],
     );
   }
