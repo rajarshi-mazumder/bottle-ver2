@@ -79,9 +79,9 @@ Map<String, dynamic> losersBracketMap = {
       "noOfMatches": 4,
       "matches": [
         {
-          "participantA": {"name": "Cloud 9"},
-          "participantB": {"name": "DRX"},
-          "winner": {"name": "Cloud 9"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         },
         {
           "participantA": {"name": "Sentinels"},

@@ -185,9 +185,10 @@ class _MatchWidgetState extends State<MatchWidget> {
                 int tempRoundIndex = winnerLoserRoundHashMap_8_teams["w_l"]
                     ["w_r_${widget.roundNumber}"]["loser_bracket_round_index"];
                 doubleElimTournamentDataProvider
-                            .tournamentData["losersBracketMap"]["rounds"]
-                        [tempRoundIndex]["matches"][widget.matchNumber]
-                    ["participantA"]["name"] = participantA;
+                                .tournamentData["losersBracketMap"]["rounds"]
+                            [tempRoundIndex]["matches"][widget.matchNumber]
+                        ["participantA"]["name"] =
+                    participantB; // loser goes to the losers bracket round, thats why b not A
                 doubleElimTournamentDataProvider.notifyListeners();
               }
             },
@@ -199,12 +200,29 @@ class _MatchWidgetState extends State<MatchWidget> {
               participantA_B: participantA,
             ),
           ),
-          TeamWidget(
-              teamIndex: 2,
-              matchIndex: widget.matchNumber,
-              roundIndex: widget.roundNumber,
-              bracketType: widget.bracketType,
-              participantA_B: participantB),
+          ElevatedButton(
+            onPressed: () {
+              if (widget.bracketType == "winnersBracketMap") {
+                print(widget.roundNumber);
+                print(winnerLoserRoundHashMap_8_teams["w_l"]
+                    ["w_r_${widget.roundNumber}"]);
+                int tempRoundIndex = winnerLoserRoundHashMap_8_teams["w_l"]
+                    ["w_r_${widget.roundNumber}"]["loser_bracket_round_index"];
+                doubleElimTournamentDataProvider
+                                .tournamentData["losersBracketMap"]["rounds"]
+                            [tempRoundIndex]["matches"][widget.matchNumber]
+                        ["participantA"]["name"] =
+                    participantA; // loser goes to the losers bracket round, thats why b not A
+                doubleElimTournamentDataProvider.notifyListeners();
+              }
+            },
+            child: TeamWidget(
+                teamIndex: 2,
+                matchIndex: widget.matchNumber,
+                roundIndex: widget.roundNumber,
+                bracketType: widget.bracketType,
+                participantA_B: participantB),
+          ),
         ],
       ),
     );
