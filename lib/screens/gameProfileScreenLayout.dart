@@ -2,6 +2,7 @@ import 'package:bottle_ver2/screens/temp.dart';
 import 'package:bottle_ver2/sharedWidgets/navbar.dart';
 import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
 import 'package:bottle_ver2/sharedWidgets/sidebar.dart';
+import 'package:bottle_ver2/themes/platformSpecificOperations/platformCheck.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,9 @@ import 'package:hovering/hovering.dart';
 
 import '../sharedWidgets/searchBar.dart';
 import '../themes/customIconButtons.dart';
+import 'gameProfileMobileScreen.dart';
 import 'gameProfileWidgets/gameProfileLeftSection.dart';
-import 'gamerProfileScreen.dart';
+import 'gamerProfileWebScreen.dart';
 
 class GameProfileScreenLayout extends StatefulWidget {
   GameProfileScreenLayout({super.key});
@@ -27,11 +29,8 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
   Widget build(BuildContext context) {
     int selectedIndex = 0;
     return Scaffold(
-      appBar: NavBar(
-        menuItemPlay: true,
-        menuItemShop: false,
-        menuItemWatch: false,
-      ),
+      appBar: PlatformCheck.instatntiateNavBar(
+          context: context, menuItemPlay: true),
       body: Stack(
         children: [
           Container(
@@ -39,7 +38,8 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
               slivers: <Widget>[
                 SliverAppBar(
                   automaticallyImplyLeading: false,
-                  pinned: true,
+                  backgroundColor: bgPrimaryColor,
+                  pinned: false,
                   expandedHeight: 400,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Stack(
@@ -106,13 +106,22 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: GameProfileScreen(),
+                  child:
+                      MediaQuery.of(context).size.width > SCREEN_COLLAPSE_WIDTH
+                          ? GameProfileWebScreen()
+                          : GameProfileMobileScreen(),
                 ),
               ],
             ),
           ),
         ],
       ),
+      bottomNavigationBar:
+          PlatformCheck.instantiateBottomNavBar(context: context),
+      // drawer: PlatformCheck.isInstantiateSidebar(context: context)
+      //     ? Sidebar(isExpanded: true)
+      //     : null,
+      drawer: Sidebar(isExpanded: true),
     );
   }
 }

@@ -30,7 +30,7 @@ class _TournamentsScreenLayoutState extends State<TournamentsScreenLayout> {
   Widget build(BuildContext context) {
     int selectedIndex = 0;
     return Scaffold(
-      appBar: NavBar(
+      appBar: NavBarWeb(
         menuItemWatch: true,
         menuItemPlay: false,
         menuItemShop: false,

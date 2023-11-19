@@ -22,16 +22,19 @@ class _GameProfileRightSectionState extends State<GameProfileRightSection> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
+      borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [secondaryColor, bgPrimaryColor])),
-        width: MediaQuery.of(context).size.width * 0.5,
-        constraints: BoxConstraints(minHeight: 900),
+        width: MediaQuery
+            .of(context)
+            .size
+            .width * 0.5,
+
         margin: EdgeInsets.only(bottom: 150),
         child: ListView(
           scrollDirection: Axis.vertical,

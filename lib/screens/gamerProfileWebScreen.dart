@@ -1,4 +1,5 @@
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentRightSection.dart';
+import 'package:bottle_ver2/themes/platformSpecificOperations/platformCheck.dart';
 import 'package:flutter/material.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:bottle_ver2/sharedWidgets/rightSidebar.dart';
@@ -9,16 +10,16 @@ import '../themes/spacing.dart';
 import 'gameProfileWidgets/gameProfileLeftSection.dart';
 import 'gameProfileWidgets/gameProfileRightSection.dart';
 
-class GameProfileScreen extends StatefulWidget {
-  GameProfileScreen({super.key, this.isSidebarExpanded = false});
+class GameProfileWebScreen extends StatefulWidget {
+  GameProfileWebScreen({super.key, this.isSidebarExpanded = false});
 
   bool isSidebarExpanded;
 
   @override
-  State<GameProfileScreen> createState() => _GameProfileScreenState();
+  State<GameProfileWebScreen> createState() => _GameProfileWebScreenState();
 }
 
-class _GameProfileScreenState extends State<GameProfileScreen> {
+class _GameProfileWebScreenState extends State<GameProfileWebScreen> {
   @override
   Widget build(BuildContext context) {
     CustomSpacing customSpacing = CustomSpacing(context: context);
@@ -35,7 +36,7 @@ class _GameProfileScreenState extends State<GameProfileScreen> {
         children: [
           Positioned(
             left: customSpacing.leftSidePosition,
-            top: 20,
+            top: 0,
             child: GameProfileLeftSection(),
           ),
           Positioned(

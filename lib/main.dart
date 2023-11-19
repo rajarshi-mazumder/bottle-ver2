@@ -1,6 +1,8 @@
 import 'package:bottle_ver2/authentication/login.dart';
 import 'package:bottle_ver2/models/tournamentModels/playerProvider.dart';
 import 'package:bottle_ver2/providers/userProvider.dart';
+import 'package:bottle_ver2/screens/gameProfileMobileScreen.dart';
+import 'package:bottle_ver2/screens/gameProfileMobileScreenLayout.dart';
 import 'package:bottle_ver2/screens/gameProfileScreenLayout.dart';
 import 'package:bottle_ver2/screens/playerProfile/createPlayerProfileScreen.dart';
 import 'package:bottle_ver2/screens/teamDetailsScreenLayout.dart';
@@ -10,6 +12,7 @@ import 'package:bottle_ver2/screens/tournamentDetailsScreen.dart';
 import 'package:bottle_ver2/screens/tournamentDetailsScreenLayout.dart';
 import 'package:bottle_ver2/screens/tournamentsScreen.dart';
 import 'package:bottle_ver2/screens/tournamentsScreenLayout.dart';
+import 'package:bottle_ver2/themes/platformSpecificOperations/platformCheck.dart';
 import 'package:bottle_ver2/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -41,7 +44,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: customTheme,
-        home: PlayerProfileForm(),
+        // home: PlayerProfileForm(),
+        home: MediaQuery.of(context).size.width > SCREEN_COLLAPSE_WIDTH
+            ? GameProfileScreenLayout()
+            : GameProfileMobileScreenLayout(),
       ),
     );
   }
