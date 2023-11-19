@@ -20,6 +20,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'dbOperations/dbManager.dart';
 import 'firebase_options.dart';
+import 'package:flutter/gestures.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<PlayerProvider>(create: (_) => PlayerProvider())
       ],
       child: MaterialApp(
+        scrollBehavior: MyCustomScrollBehavior(),
         debugShowCheckedModeBanner: false,
         theme: customTheme,
         // home: PlayerProfileForm(),
@@ -51,4 +53,13 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }

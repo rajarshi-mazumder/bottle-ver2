@@ -109,6 +109,7 @@ class TournamentTile extends StatelessWidget {
       required this.title,
       required this.organizer,
       required this.tournamentType,
+      required this.onTap,
       this.status = "Ongoing",
       this.statusColor = Colors.green});
 
@@ -118,15 +119,13 @@ class TournamentTile extends StatelessWidget {
   String status;
   Color statusColor;
   String tournamentType;
+  Function onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => TournamentDetailScreenLayout()));
+        onTap();
       },
       child: Container(
         decoration: BoxDecoration(
