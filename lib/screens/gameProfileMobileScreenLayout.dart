@@ -97,11 +97,11 @@ class _GameProfileMobileScreenLayoutState
                       controller: tabController,
                       // indicatorSize: TabBarIndicatorSize.label,
                       tabs: [
-                        Text("Game Profiles"),
+                        Text("Game Profile"),
                         Text("Tournaments"),
                         Text("Posts")
                       ])),
-              GameProfileMobileScreen(),
+              GameProfileMobileScreen(tabController: tabController),
             ]),
           ),
         ],

@@ -46,7 +46,10 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
                       children: [
                         Image.asset(
                           "/omen3.png",
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           fit: BoxFit.cover,
                         ),
                         Container(
@@ -80,7 +83,7 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
                                     SizedBox(height: 20),
                                     ClipRRect(
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
+                                      BorderRadius.all(Radius.circular(20)),
                                       child: Container(
                                         decoration: BoxDecoration(
                                           gradient: LinearGradient(
@@ -106,10 +109,8 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child:
-                      MediaQuery.of(context).size.width > SCREEN_COLLAPSE_WIDTH
-                          ? GameProfileWebScreen()
-                          : GameProfileMobileScreen(),
+                    child: GameProfileWebScreen()
+
                 ),
               ],
             ),
@@ -117,7 +118,7 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
         ],
       ),
       bottomNavigationBar:
-          PlatformCheck.instantiateBottomNavBar(context: context),
+      PlatformCheck.instantiateBottomNavBar(context: context),
       // drawer: PlatformCheck.isInstantiateSidebar(context: context)
       //     ? Sidebar(isExpanded: true)
       //     : null,

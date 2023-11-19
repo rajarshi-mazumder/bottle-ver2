@@ -26,7 +26,8 @@ class TournamentRightSection extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [secondaryColor, bgPrimaryColor])),
-          width: customSpacing.rightSideWidth,
+          width: customSpacing.getRightSectionWidth(context: context),
+          height: 900,
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: ListView.builder(

@@ -3,17 +3,9 @@ import 'package:flutter/cupertino.dart';
 
 class CustomSpacing {
   CustomSpacing({required BuildContext context}) {
-    leftSidePosition = MediaQuery
-        .of(context)
-        .size
-        .width * 0.09;
-    rightSidePosition = MediaQuery
-        .sizeOf(context)
-        .width * 0.14;
-    rightSideWidth = MediaQuery
-        .of(context)
-        .size
-        .width * 0.56;
+    leftSidePosition = MediaQuery.of(context).size.width * 0.09;
+    rightSidePosition = MediaQuery.sizeOf(context).width * 0.14;
+    rightSideWidth = MediaQuery.of(context).size.width * 0.56;
     leftSideWidth = 360;
     leftSidebarCollapsedWidth = 120;
     rightSidebarCollapsedWidth = 120;
@@ -27,26 +19,14 @@ class CustomSpacing {
   double rightSidebarCollapsedWidth = 0;
 
   double getLeftSectionWidth({required BuildContext context}) {
-    return MediaQuery
-        .of(context)
-        .size
-        .width > SCREEN_COLLAPSE_WIDTH
+    return MediaQuery.of(context).size.width >= SCREEN_COLLAPSE_WIDTH
         ? leftSideWidth
-        : MediaQuery
-        .of(context)
-        .size
-        .width - 40;
+        : MediaQuery.of(context).size.width - 40;
   }
 
   double getRightSectionWidth({required BuildContext context}) {
-    return MediaQuery
-        .of(context)
-        .size
-        .width > SCREEN_COLLAPSE_WIDTH
+    return MediaQuery.of(context).size.width >= SCREEN_COLLAPSE_WIDTH
         ? rightSideWidth
-        : MediaQuery
-        .of(context)
-        .size
-        .width - 40;
+        : MediaQuery.of(context).size.width;
   }
 }

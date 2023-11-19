@@ -11,8 +11,10 @@ import 'gameProfileWidgets/gameProfileLeftSection.dart';
 import 'gameProfileWidgets/gameProfileRightSection.dart';
 
 class GameProfileMobileScreen extends StatefulWidget {
-  GameProfileMobileScreen({super.key, this.isSidebarExpanded = false});
+  GameProfileMobileScreen(
+      {super.key, this.isSidebarExpanded = false, required this.tabController});
 
+  TabController tabController;
   bool isSidebarExpanded;
 
   @override
@@ -22,16 +24,9 @@ class GameProfileMobileScreen extends StatefulWidget {
 
 class _GameProfileMobileScreenState extends State<GameProfileMobileScreen>
     with TickerProviderStateMixin {
-  late TabController tabController;
-
   @override
   void initState() {
     super.initState();
-    tabController = TabController(
-      initialIndex: 0,
-      length: 3,
-      vsync: this,
-    );
   }
 
   @override
@@ -39,7 +34,7 @@ class _GameProfileMobileScreenState extends State<GameProfileMobileScreen>
     CustomSpacing customSpacing = CustomSpacing(context: context);
     return Container(
       height: 900,
-      child: TabBarView(controller: tabController, children: [
+      child: TabBarView(controller: widget.tabController, children: [
         GameProfileRightSection(),
         TournamentRightSection(allBordersRounded: false),
         Align(

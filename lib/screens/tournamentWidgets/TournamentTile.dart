@@ -134,7 +134,7 @@ class TournamentTile extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         margin: EdgeInsets.only(bottom: 20),
-        height: 90,
+        height: 140,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -154,16 +154,6 @@ class TournamentTile extends StatelessWidget {
                       children: [
                         Expanded(child: Text(title)),
                         SizedBox(width: 100),
-                        Expanded(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Status :   "),
-                              Text(status,
-                                  style: TextStyle(color: statusColor)),
-                            ],
-                          ),
-                        ),
                       ],
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     ),
@@ -177,6 +167,15 @@ class TournamentTile extends StatelessWidget {
                 ),
               ],
             ),
+            ListTile(
+              title: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("Status :   "),
+                  Text(status, style: TextStyle(color: statusColor)),
+                ],
+              ),
+            )
           ],
         ),
       ),
