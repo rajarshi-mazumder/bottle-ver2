@@ -3,7 +3,7 @@ import 'package:bottle_ver2/models/tournamentModels/playerProvider.dart';
 import 'package:bottle_ver2/providers/userProvider.dart';
 import 'package:bottle_ver2/screens/gameProfileMobileScreen.dart';
 import 'package:bottle_ver2/screens/gameProfileMobileScreenLayout.dart';
-import 'package:bottle_ver2/screens/gameProfileScreenLayout.dart';
+import 'package:bottle_ver2/screens/gameProfileWebScreenLayout.dart';
 import 'package:bottle_ver2/screens/playerProfile/createPlayerProfileScreen.dart';
 import 'package:bottle_ver2/screens/teamDetailsScreenLayout.dart';
 import 'package:bottle_ver2/screens/temp.dart';
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         theme: customTheme,
         // home: PlayerProfileForm(),
         home: MediaQuery.of(context).size.width > SCREEN_COLLAPSE_WIDTH
-            ? GameProfileScreenLayout()
+            ? GameProfileWebScreenLayout()
             : GameProfileMobileScreenLayout(),
       ),
     );

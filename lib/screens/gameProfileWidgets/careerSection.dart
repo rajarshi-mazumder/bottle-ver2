@@ -85,15 +85,17 @@ class ExperienceTile extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                textBaseline: TextBaseline.ideographic,
-                children: [
-                  Icon(Icons.calendar_month),
-                  Text("   -"),
-                  SizedBox(width: 10),
-                  Text(timeSpent),
-                ],
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  textBaseline: TextBaseline.ideographic,
+                  children: [
+                    Icon(Icons.calendar_month),
+                    Text("   -"),
+                    SizedBox(width: 10),
+                    Expanded(child: Text(timeSpent)),
+                  ],
+                ),
               )
             ],
           ),

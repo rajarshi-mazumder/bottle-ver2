@@ -73,7 +73,7 @@ class _GameProfileMobileScreenLayoutState
                         children: [
                           Text("VALORANT",
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 50)),
+                                  TextStyle(color: Colors.white, fontSize: 30)),
                           CustomSearchBar(backgroundColor: bgTertiaryColor),
                         ],
                       ),

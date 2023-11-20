@@ -159,10 +159,9 @@ class TournamentTile extends StatelessWidget {
                     subtitle: Text(organizer),
                   ),
                 ),
-                Expanded(
-                  child: ListTile(
-                    trailing: Text(tournamentType),
-                  ),
+                Container(
+                  width: 100,
+                  child: Text(tournamentType),
                 ),
               ],
             ),
