@@ -1,9 +1,11 @@
 import 'package:bottle_ver2/authentication/login.dart';
 import 'package:bottle_ver2/models/tournamentModels/playerProvider.dart';
+import 'package:bottle_ver2/models/tournamentModels/teamsProvider.dart';
 import 'package:bottle_ver2/providers/userProvider.dart';
 import 'package:bottle_ver2/screens/gameProfileScreenLayout.dart';
 import 'package:bottle_ver2/screens/playerProfile/createPlayerProfileScreen.dart';
 import 'package:bottle_ver2/screens/teamDetailsScreenLayout.dart';
+import 'package:bottle_ver2/screens/teams/createTeamScreen.dart';
 import 'package:bottle_ver2/screens/temp.dart';
 import 'package:bottle_ver2/screens/tournament/createTournamentScreen.dart';
 import 'package:bottle_ver2/screens/tournamentDetailsScreen.dart';
@@ -36,12 +38,13 @@ class MyApp extends StatelessWidget {
           // if (authUser != null) userProvider.setLoggedInUser(authUser!.email!);
           return userProvider;
         }),
-        ChangeNotifierProvider<PlayerProvider>(create: (_) => PlayerProvider())
+        ChangeNotifierProvider<PlayerProvider>(create: (_) => PlayerProvider()),
+        ChangeNotifierProvider<TeamsProvider>(create: (_) => TeamsProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: customTheme,
-        home: PlayerProfileForm(),
+        home: CreateTeamForm(),
       ),
     );
   }

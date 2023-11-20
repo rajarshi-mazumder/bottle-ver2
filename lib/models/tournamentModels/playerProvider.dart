@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:html';
-
+import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:bottle_ver2/models/tournamentModels/CS2Player.dart';
 import 'package:bottle_ver2/utilities/constants/gameConstants/gameConstants.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../../utilities/json/writeJSONToFile.dart';
 import 'ValorantPlayer.dart';
