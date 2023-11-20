@@ -43,7 +43,7 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
           decoration: const BoxDecoration(
               color: Colors.grey,
               borderRadius: BorderRadius.all(Radius.circular(5))),
-          child: Text(widget.selectedTeam),
+          child: Center(child: Text(widget.selectedTeam)),
         ),
       ],
     );

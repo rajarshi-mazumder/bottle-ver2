@@ -43,48 +43,36 @@ class _N_BracketTournamentEditorState extends State<N_BracketTournamentEditor> {
           height: MediaQuery.of(context).size.height,
           child: Stack(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: SingleChildScrollView(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: widget.tournament.bracketCount,
-                        itemBuilder: (BuildContext context, int index) {
-                          List<List<Map<String, dynamic>>> roundMatchesData =
-                              [];
+              CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        List<List<Map<String, dynamic>>> roundMatchesData = [];
 
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                color: index % 2 == 0
-                                    ? Colors.black26
-                                    : Colors.black45,
-                                child: BracketRounds(
-                                  bracket: widget.tournament.brackets[index],
-                                  roundMatchesData: roundMatchesData,
-                                )),
-                            // child: Text(widget.tournament.brackets[index].toString()),
-                          );
-                        },
-                      ),
+                        return Container(
+                            color: index % 2 == 0
+                                ? Colors.black26
+                                : Colors.black45,
+                            height: index % 2 == 0 ? 800 : 400,
+                            child: BracketRounds(
+                              bracket: widget.tournament.brackets[index],
+                              roundMatchesData: roundMatchesData,
+                            ));
+                      },
+                      childCount: widget.tournament.bracketCount,
                     ),
                   ),
                   if (tournamentDataProvider.tournamentData["postBracketRounds"]
                           ["rounds"] !=
                       null)
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            color: Colors.blueGrey,
-                            child: PostBracketRounds(
-                              rounds: tournamentDataProvider
-                                  .tournamentData["postBracketRounds"],
-                            )),
-                      ),
+                    SliverToBoxAdapter(
+                      child: Container(
+                          color: Colors.blueGrey,
+                          child: PostBracketRounds(
+                            rounds: tournamentDataProvider
+                                .tournamentData["postBracketRounds"],
+                          )),
                     ),
                 ],
               ),

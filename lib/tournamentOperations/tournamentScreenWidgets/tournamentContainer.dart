@@ -37,7 +37,7 @@ class _TournamentContainerState extends State<TournamentContainer> {
       ],
       child: Scaffold(
           appBar: AppBar(
-            title: Text("TOURNEYY"),
+            title: Text("TOURAMENT PROGRESSION"),
           ),
           body: N_BracketTournamentEditor(
               tournament: widget.tournament as N_BracketTournament)),

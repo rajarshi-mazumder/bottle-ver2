@@ -33,6 +33,8 @@ class _BracketRoundsState extends State<BracketRounds> {
       roundWidgets.add(Container(
         margin: EdgeInsets.only(top: 0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(round["noOfMatches"], (index) {
             matchIndex++;
 
@@ -61,6 +63,8 @@ class _BracketRoundsState extends State<BracketRounds> {
     roundWidgets.add(Container(
       width: 100,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           WinnerInputData(
             bracketIndex: widget.bracket["bracketIndex"],
@@ -97,8 +101,16 @@ class _BracketRoundsState extends State<BracketRounds> {
         tournamentDataProvider: tournamentDataProvider);
 
     if (roundWidgets.isNotEmpty) {
-      return Row(
-        children: roundWidgets,
+      return CustomScrollView(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        slivers: [
+          SliverList(
+            delegate: SliverChildListDelegate(
+              roundWidgets,
+            ),
+          )
+        ],
       );
     } else {
       return Container(

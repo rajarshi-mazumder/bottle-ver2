@@ -58,12 +58,13 @@ class _GameProfileMobileScreenLayoutState
               background: Stack(
                 children: [
                   Image.asset(
-                    "/omen3.png",
+                    "/omen4.png",
                     width: MediaQuery.of(context).size.width,
+                    height: 500,
                     fit: BoxFit.cover,
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 100, right: 100),
+                    margin: EdgeInsets.only(left: 100, right: 100, top: 100),
                     child: Container(
                       height: 200,
                       width: 300,
