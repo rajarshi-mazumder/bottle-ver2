@@ -13,9 +13,10 @@ class Tournament {
   Tournament({this.participants, this.winner, this.participantType = "player"});
 
   // Factory method to create tournaments
-  factory Tournament.createTournament({required String type,
-    int bracketCount = 0,
-    required String participantType}) {
+  factory Tournament.createTournament(
+      {required String type,
+      int bracketCount = 0,
+      required String participantType}) {
     if (type == 'n_elimination') {
       return N_BracketTournament(
           bracketCount: bracketCount, participantType: participantType);
@@ -72,8 +73,8 @@ class N_BracketTournament extends Tournament {
         "noOfMatches": noOfMatches,
         "matches": List.generate(
             noOfMatches,
-                (index) =>
-            {"participantA": {}, "participantB": {}, "winner": {}}).toList()
+            (index) =>
+                {"participantA": {}, "participantB": {}, "winner": {}}).toList()
       };
       if (pow(2, i) == participants.length) {
         newRound["matches"] = Round.pairParticipantsForMatches(participants);
@@ -142,11 +143,12 @@ class DoubleElimTournament extends Tournament {
   int winnerRounds = 0;
   int loserRounds = 0;
 
-  DoubleElimTournament({required int participants}) {
-    winnerRounds = (participants / 2)
-        .floor()
-        .bitLength;
+  Map<String, dynamic> winnerLoserHashMap;
+
+  DoubleElimTournament(
+      {required int participants, required this.winnerLoserHashMap}) {
+    winnerRounds = (participants / 2).floor().bitLength;
     // int loserRounds = winnerRounds * 2 - 1;
-    loserRounds = winnerLoserRoundHashMap_8_teams["loserBracketRoundsCount"];
+    loserRounds = winnerLoserHashMap["loserBracketRoundsCount"];
   }
 }
