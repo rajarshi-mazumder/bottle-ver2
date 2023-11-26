@@ -5,6 +5,8 @@ import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/doubleE
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'models/tournamentModels/tournamentModels.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -24,22 +26,21 @@ class MyApp extends StatelessWidget {
 
 class TournamentScreen extends StatelessWidget {
   final int participants;
+  late DoubleElimTournament doubleElimTournament;
+  Map<String, dynamic> tournamentHashMap = winnerLoserRoundHashMap_8_teams;
 
   TournamentScreen({required this.participants});
 
   @override
   Widget build(BuildContext context) {
-    int winnerRounds = (participants / 2).floor().bitLength;
-    // int loserRounds = winnerRounds * 2 - 1;
-    int loserRounds =
-        winnerLoserRoundHashMap_8_teams["loserBracketRoundsCount"];
+    doubleElimTournament = DoubleElimTournament(participants: participants);
 
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<DoubleElimTournamentDataProvider>(
           create: (context) {
             DoubleElimTournamentDataProvider doubleElimTournamentDataProvider =
-                DoubleElimTournamentDataProvider();
+            DoubleElimTournamentDataProvider();
 
             return doubleElimTournamentDataProvider;
           },
@@ -57,17 +58,21 @@ class TournamentScreen extends StatelessWidget {
                 children: [
                   Text('Winners Bracket',
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                      TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   Row(
                     children: [
-                      for (int i = 0; i < winnerRounds; i++)
+                      for (int i = 0;
+                      i < doubleElimTournament.winnerRounds;
+                      i++)
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           child: RoundWidget(
+                              tournamentHashMap: tournamentHashMap,
+                              doubleElimTournament: doubleElimTournament,
                               bracketType: 'winnersBracketMap',
                               roundNumber: i,
                               matchCount: (pow(2,
-                                      (log(participants) ~/ log(2)) - (i + 1)))
+                                  (log(participants) ~/ log(2)) - (i + 1)))
                                   .toInt()),
                         ),
                       SizedBox(height: 20),
@@ -75,16 +80,18 @@ class TournamentScreen extends StatelessWidget {
                   ),
                   Text('Losers Bracket',
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                      TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   Row(
                     children: [
-                      for (int i = 0; i < loserRounds; i++)
+                      for (int i = 0; i < doubleElimTournament.loserRounds; i++)
                         RoundWidget(
+                            tournamentHashMap: tournamentHashMap,
+                            doubleElimTournament: doubleElimTournament,
                             bracketType: 'losersBracketMap',
                             roundNumber: i,
                             // matchCount: calculateLoserBracketRoundsMatcheCount(i, winnerRounds)),
-                            matchCount: winnerLoserRoundHashMap_8_teams[
-                                "l_bracket_rounds_match_count"][i]),
+                            matchCount: tournamentHashMap[
+                            "l_bracket_rounds_match_count"][i]),
                     ],
                   )
                 ],
@@ -95,27 +102,20 @@ class TournamentScreen extends StatelessWidget {
       ),
     );
   }
-
-  int calculateLoserBracketRoundsMatcheCount(int round, int winnerRounds) {
-    if (round == 1) return participants ~/ 4;
-    if (round % 2 == 0) return (participants / (1 << (round ~/ 2 + 1))).ceil();
-    print("ROUNDDDDD ${round}");
-    return winnerLoserRoundHashMap_8_teams["l_bracket_rounds_match_count"]
-        [round];
-
-    return (participants / (1 << ((round + 1) ~/ 2))).ceil();
-  }
 }
 
 class RoundWidget extends StatelessWidget {
   final String bracketType;
   final int roundNumber;
   final int matchCount;
+  Map<String, dynamic> tournamentHashMap;
+  DoubleElimTournament doubleElimTournament;
 
-  RoundWidget(
-      {required this.bracketType,
-      required this.roundNumber,
-      required this.matchCount});
+  RoundWidget({required this.bracketType,
+    required this.roundNumber,
+    required this.matchCount,
+    required this.tournamentHashMap,
+    required this.doubleElimTournament});
 
   @override
   Widget build(BuildContext context) {
@@ -128,10 +128,14 @@ class RoundWidget extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ...List.generate(
               matchCount,
-              (index) => MatchWidget(
-                  bracketType: bracketType,
-                  roundNumber: roundNumber,
-                  matchNumber: index)),
+                  (index) =>
+                  MatchWidget(
+                    bracketType: bracketType,
+                    roundNumber: roundNumber,
+                    matchNumber: index,
+                    tournamentHashMap: tournamentHashMap,
+                    doubleElimTournament: doubleElimTournament,
+                  )),
         ],
       ),
     );
@@ -139,18 +143,22 @@ class RoundWidget extends StatelessWidget {
 }
 
 class MatchWidget extends StatefulWidget {
+  Map<String, dynamic> tournamentHashMap;
   final String bracketType;
   final int roundNumber;
   final int matchNumber;
   String? participantA;
   String? participantB;
+  DoubleElimTournament doubleElimTournament;
 
   MatchWidget({
+    required this.tournamentHashMap,
     required this.bracketType,
     required this.roundNumber,
     required this.matchNumber,
     this.participantA,
     this.participantB,
+    required this.doubleElimTournament,
   });
 
   @override
@@ -158,56 +166,93 @@ class MatchWidget extends StatefulWidget {
 }
 
 class _MatchWidgetState extends State<MatchWidget> {
-  setLoserBracketLoserParticipant(
-      {required DoubleElimTournamentDataProvider
-          doubleElimTournamentDataProvider,
-      required String participantA_B,
-      required int thisParticipantIndex}) {
-    int loserBracketRoundIndex = winnerLoserRoundHashMap_8_teams["w_l"]
-        ["w_r_${widget.roundNumber}"]["loser_bracket_round_index"];
 
-    var nextRoundParticipantIndex = winnerLoserRoundHashMap_8_teams["w_l"]
-            ["w_r_${widget.roundNumber}"]["match_maps"]
-        ["m_${widget.matchNumber}_p_${thisParticipantIndex}"]["m"];
+  setWinnerBracketWinnerParticipant(
+      {required DoubleElimTournamentDataProvider doubleElimTournamentDataProvider,
+        required String participant
+      }) {
+    if (widget.roundNumber <
+        widget.doubleElimTournament.winnerRounds - 1) {
+      int nextRoundMatchIndex = calculateNextRoundMatchIndex();
+      if (widget.matchNumber % 2 == 0) {
+        doubleElimTournamentDataProvider
+            .tournamentData["winnersBracketMap"]
+        ["rounds"]
+        [widget.roundNumber + 1]["matches"]
+        [nextRoundMatchIndex]["participantA"]["name"] =
+            participant;
+      } else {
+        doubleElimTournamentDataProvider
+            .tournamentData["winnersBracketMap"]
+        ["rounds"]
+        [widget.roundNumber + 1]["matches"]
+        [nextRoundMatchIndex]["participantB"]["name"] =
+            participant;
+      }
 
-    var nextRoundParticipant = winnerLoserRoundHashMap_8_teams["w_l"]
-            ["w_r_${widget.roundNumber}"]["match_maps"]
-        ["m_${widget.matchNumber}_p_${thisParticipantIndex}"]["p"];
+      doubleElimTournamentDataProvider.notifyListeners();
+    }
+  }
+
+
+  setLoserBracketLoserParticipant({required DoubleElimTournamentDataProvider
+  doubleElimTournamentDataProvider,
+    required String participantA_B,
+    required int thisParticipantIndex}) {
+    int loserBracketRoundIndex = widget.tournamentHashMap["w_l"]
+    ["w_r_${widget.roundNumber}"]["loser_bracket_round_index"];
+
+    var nextRoundParticipantIndex = widget.tournamentHashMap["w_l"]
+    ["w_r_${widget.roundNumber}"]["match_maps"]
+    ["m_${widget.matchNumber}_p_${thisParticipantIndex}"]["m"];
+
+    var nextRoundParticipant = widget.tournamentHashMap["w_l"]
+    ["w_r_${widget.roundNumber}"]["match_maps"]
+    ["m_${widget.matchNumber}_p_${thisParticipantIndex}"]["p"];
 
     doubleElimTournamentDataProvider.tournamentData["losersBracketMap"]
-                ["rounds"][loserBracketRoundIndex]["matches"]
-            [nextRoundParticipantIndex][nextRoundParticipant]["name"] =
+    ["rounds"][loserBracketRoundIndex]["matches"]
+    [nextRoundParticipantIndex][nextRoundParticipant]["name"] =
         participantA_B; // loser goes to the losers bracket round, thats why b not A
     doubleElimTournamentDataProvider.notifyListeners();
   }
 
-  setLoserBracketWinnerParticipant(
-      {required DoubleElimTournamentDataProvider
-          doubleElimTournamentDataProvider,
-      required String participant}) {
-    if (!winnerLoserRoundHashMap_8_teams["l_b"]["l_r_${widget.roundNumber}"]
-        ["isLastRound"]) {
-      var nextRoundMatchIndex = winnerLoserRoundHashMap_8_teams["l_b"]
-              ["l_r_${widget.roundNumber}"]["match_maps"]
-          ["m_${widget.matchNumber}_w"]["m"];
+  setLoserBracketWinnerParticipant({required DoubleElimTournamentDataProvider
+  doubleElimTournamentDataProvider,
+    required String participant}) {
+    if (!widget.tournamentHashMap["l_b"]["l_r_${widget.roundNumber}"]
+    ["isLastRound"]) {
+      var nextRoundMatchIndex = widget.tournamentHashMap["l_b"]
+      ["l_r_${widget.roundNumber}"]["match_maps"]
+      ["m_${widget.matchNumber}_w"]["m"];
 
-      var nextRoundMatchParticipant = winnerLoserRoundHashMap_8_teams["l_b"]
-              ["l_r_${widget.roundNumber}"]["match_maps"]
-          ["m_${widget.matchNumber}_w"]["p"];
+      var nextRoundMatchParticipant = widget.tournamentHashMap["l_b"]
+      ["l_r_${widget.roundNumber}"]["match_maps"]
+      ["m_${widget.matchNumber}_w"]["p"];
 
       doubleElimTournamentDataProvider.tournamentData["losersBracketMap"]
-              ["rounds"][widget.roundNumber + 1]["matches"][nextRoundMatchIndex]
-          [nextRoundMatchParticipant]["name"] = participant;
+      ["rounds"][widget.roundNumber + 1]["matches"][nextRoundMatchIndex]
+      [nextRoundMatchParticipant]["name"] = participant;
 
       doubleElimTournamentDataProvider.notifyListeners();
       // print(nextRoundMatchIndex);
     }
   }
 
+  int calculateNextRoundMatchIndex() {
+    int nextRoundMatchIndex = 0;
+    if (widget.matchNumber % 2 == 0) {
+      nextRoundMatchIndex = (widget.matchNumber / 2).ceil();
+    } else {
+      nextRoundMatchIndex = (widget.matchNumber / 2).floor();
+    }
+    return nextRoundMatchIndex;
+  }
+
   @override
   Widget build(BuildContext context) {
     DoubleElimTournamentDataProvider doubleElimTournamentDataProvider =
-        context.watch<DoubleElimTournamentDataProvider>();
+    context.watch<DoubleElimTournamentDataProvider>();
 
     String participantA = "";
     String participantB = "";
@@ -215,13 +260,13 @@ class _MatchWidgetState extends State<MatchWidget> {
     try {
       participantA = doubleElimTournamentDataProvider
           .tournamentData[widget.bracketType]["rounds"][widget.roundNumber]
-              ["matches"][widget.matchNumber]["participantA"]["name"]
+      ["matches"][widget.matchNumber]["participantA"]["name"]
           .toString();
     } catch (e) {}
     try {
       participantB = doubleElimTournamentDataProvider
           .tournamentData[widget.bracketType]["rounds"][widget.roundNumber]
-              ["matches"][widget.matchNumber]["participantB"]["name"]
+      ["matches"][widget.matchNumber]["participantB"]["name"]
           .toString();
     } catch (e) {}
 
@@ -235,14 +280,19 @@ class _MatchWidgetState extends State<MatchWidget> {
               if (widget.bracketType == "winnersBracketMap") {
                 setLoserBracketLoserParticipant(
                   doubleElimTournamentDataProvider:
-                      doubleElimTournamentDataProvider,
+                  doubleElimTournamentDataProvider,
                   participantA_B: participantB,
                   thisParticipantIndex: 0,
+                );
+
+                setWinnerBracketWinnerParticipant(
+                    doubleElimTournamentDataProvider: doubleElimTournamentDataProvider,
+                    participant: participantA
                 );
               } else if (widget.bracketType == "losersBracketMap") {
                 setLoserBracketWinnerParticipant(
                     doubleElimTournamentDataProvider:
-                        doubleElimTournamentDataProvider,
+                    doubleElimTournamentDataProvider,
                     participant: participantA);
               }
             },
@@ -259,14 +309,19 @@ class _MatchWidgetState extends State<MatchWidget> {
               if (widget.bracketType == "winnersBracketMap") {
                 setLoserBracketLoserParticipant(
                   doubleElimTournamentDataProvider:
-                      doubleElimTournamentDataProvider,
+                  doubleElimTournamentDataProvider,
                   participantA_B: participantA,
                   thisParticipantIndex: 1,
+                );
+
+                setWinnerBracketWinnerParticipant(
+                    doubleElimTournamentDataProvider: doubleElimTournamentDataProvider,
+                    participant: participantB
                 );
               } else if (widget.bracketType == "losersBracketMap") {
                 setLoserBracketWinnerParticipant(
                     doubleElimTournamentDataProvider:
-                        doubleElimTournamentDataProvider,
+                    doubleElimTournamentDataProvider,
                     participant: participantB);
               }
             },

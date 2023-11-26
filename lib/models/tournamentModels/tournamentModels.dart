@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:bottle_ver2/models/tournamentModels/round.dart';
+import '../../tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
 import 'team.dart';
 
 class Tournament {
@@ -12,10 +13,9 @@ class Tournament {
   Tournament({this.participants, this.winner, this.participantType = "player"});
 
   // Factory method to create tournaments
-  factory Tournament.createTournament(
-      {required String type,
-      int bracketCount = 0,
-      required String participantType}) {
+  factory Tournament.createTournament({required String type,
+    int bracketCount = 0,
+    required String participantType}) {
     if (type == 'n_elimination') {
       return N_BracketTournament(
           bracketCount: bracketCount, participantType: participantType);
@@ -31,8 +31,6 @@ class Tournament {
       throw Exception('Invalid tournament type');
     }
   }
-
-  generateRounds({required List<String> participants}) {}
 
   Map<String, dynamic> toMap() {
     return {
@@ -63,7 +61,6 @@ class N_BracketTournament extends Tournament {
       {required this.bracketCount, String participantType = "player"})
       : super(participantType: participantType);
 
-  @override
   List generateRounds({required List<String> participants}) {
     double totalParticipants = double.parse(participants!.length.toString());
     int noOfRounds = log(totalParticipants) ~/ log(2);
@@ -75,8 +72,8 @@ class N_BracketTournament extends Tournament {
         "noOfMatches": noOfMatches,
         "matches": List.generate(
             noOfMatches,
-            (index) =>
-                {"participantA": {}, "participantB": {}, "winner": {}}).toList()
+                (index) =>
+            {"participantA": {}, "participantB": {}, "winner": {}}).toList()
       };
       if (pow(2, i) == participants.length) {
         newRound["matches"] = Round.pairParticipantsForMatches(participants);
@@ -138,5 +135,18 @@ class N_BracketTournament extends Tournament {
   void simulateTournament() {
     // Simulate double bracket tournament
     // ...
+  }
+}
+
+class DoubleElimTournament extends Tournament {
+  int winnerRounds = 0;
+  int loserRounds = 0;
+
+  DoubleElimTournament({required int participants}) {
+    winnerRounds = (participants / 2)
+        .floor()
+        .bitLength;
+    // int loserRounds = winnerRounds * 2 - 1;
+    loserRounds = winnerLoserRoundHashMap_8_teams["loserBracketRoundsCount"];
   }
 }

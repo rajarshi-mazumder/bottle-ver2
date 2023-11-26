@@ -5,7 +5,6 @@ class DoubleElimTournamentDataProvider with ChangeNotifier {
     "winnersBracketMap": winnersBracketMap,
     "losersBracketMap": losersBracketMap,
   };
-  int bracketCount = 1;
 
   @override
   notifyListeners() {
@@ -46,14 +45,14 @@ Map<String, dynamic> winnersBracketMap = {
       "noOfMatches": 2,
       "matches": [
         {
-          "participantA": {"name": "Cloud 9"},
-          "participantB": {"name": "Sentinels"},
-          "winner": {"name": "Cloud 9"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         },
         {
-          "participantA": {"name": "NAVI"},
-          "participantB": {"name": "PRX"},
-          "winner": {"name": "NAVI"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         }
       ]
     },
@@ -62,14 +61,14 @@ Map<String, dynamic> winnersBracketMap = {
       "noOfMatches": 1,
       "matches": [
         {
-          "participantA": {"name": "Cloud 9"},
-          "participantB": {"name": "NAVI"},
-          "winner": {"name": "Cloud 9"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": "Cloud "}
         }
       ]
     }
   ],
-  "winner": {"name": "Cloud 9"}
+  "winner": {"name": ""}
 };
 
 Map<String, dynamic> losersBracketMap = {
@@ -84,19 +83,19 @@ Map<String, dynamic> losersBracketMap = {
           "winner": {"name": ""}
         },
         {
-          "participantA": {"name": "Sentinels"},
-          "participantB": {"name": "Zeta"},
-          "winner": {"name": "Sentinels"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         },
         {
-          "participantA": {"name": "NAVI"},
-          "participantB": {"name": "Fnatic"},
-          "winner": {"name": "NAVI"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         },
         {
-          "participantA": {"name": "PRX"},
-          "participantB": {"name": "Optic"},
-          "winner": {"name": "PRX"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         }
       ]
     },
@@ -105,24 +104,24 @@ Map<String, dynamic> losersBracketMap = {
       "noOfMatches": 4,
       "matches": [
         {
-          "participantA": {"name": "Cloud 9"},
-          "participantB": {"name": "Sentinels"},
-          "winner": {"name": "Cloud 9"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         },
         {
-          "participantA": {"name": "NAVI"},
-          "participantB": {"name": "PRX"},
-          "winner": {"name": "NAVI"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         },
         {
-          "participantA": {"name": "Cloud 9"},
-          "participantB": {"name": "Sentinels"},
-          "winner": {"name": "Cloud 9"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         },
         {
-          "participantA": {"name": "NAVI"},
-          "participantB": {"name": "PRX"},
-          "winner": {"name": "NAVI"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         }
       ]
     },
@@ -131,14 +130,14 @@ Map<String, dynamic> losersBracketMap = {
       "noOfMatches": 2,
       "matches": [
         {
-          "participantA": {"name": "Cloud 9"},
-          "participantB": {"name": "NAVI"},
-          "winner": {"name": "Cloud 9"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         },
         {
-          "participantA": {"name": "Cloud 9"},
-          "participantB": {"name": "NAVI"},
-          "winner": {"name": "Cloud 9"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         }
       ]
     },
@@ -147,17 +146,17 @@ Map<String, dynamic> losersBracketMap = {
       "noOfMatches": 2,
       "matches": [
         {
-          "participantA": {"name": "Cloud 9"},
-          "participantB": {"name": "NAVI"},
-          "winner": {"name": "Cloud 9"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         },
         {
-          "participantA": {"name": "Cloud 9"},
-          "participantB": {"name": "NAVI"},
-          "winner": {"name": "Cloud 9"}
+          "participantA": {"name": ""},
+          "participantB": {"name": ""},
+          "winner": {"name": ""}
         }
       ]
     },
   ],
-  "winner": {"name": "Cloud 9"}
+  "winner": {"name": ""}
 };
