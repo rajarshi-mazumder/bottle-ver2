@@ -14,15 +14,16 @@ import 'gameProfileMobileScreen.dart';
 import 'gameProfileWidgets/gameProfileLeftSection.dart';
 import 'gamerProfileWebScreen.dart';
 
-class GameProfileScreenLayout extends StatefulWidget {
-  GameProfileScreenLayout({super.key});
+class GameProfileWebScreenLayout extends StatefulWidget {
+  GameProfileWebScreenLayout({super.key});
 
   @override
-  State<GameProfileScreenLayout> createState() =>
-      _GameProfileScreenLayoutState();
+  State<GameProfileWebScreenLayout> createState() =>
+      _GameProfileWebScreenLayoutState();
 }
 
-class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
+class _GameProfileWebScreenLayoutState
+    extends State<GameProfileWebScreenLayout> {
   bool isSidebarExpanded = false;
 
   @override
@@ -46,10 +47,7 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
                       children: [
                         Image.asset(
                           "/omen3.png",
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
+                          width: MediaQuery.of(context).size.width,
                           fit: BoxFit.cover,
                         ),
                         Container(
@@ -83,7 +81,7 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
                                     SizedBox(height: 20),
                                     ClipRRect(
                                       borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
+                                          BorderRadius.all(Radius.circular(20)),
                                       child: Container(
                                         decoration: BoxDecoration(
                                           gradient: LinearGradient(
@@ -108,17 +106,14 @@ class _GameProfileScreenLayoutState extends State<GameProfileScreenLayout> {
                     ),
                   ),
                 ),
-                SliverToBoxAdapter(
-                    child: GameProfileWebScreen()
-
-                ),
+                SliverToBoxAdapter(child: GameProfileWebScreen()),
               ],
             ),
           ),
         ],
       ),
       bottomNavigationBar:
-      PlatformCheck.instantiateBottomNavBar(context: context),
+          PlatformCheck.instantiateBottomNavBar(context: context),
       // drawer: PlatformCheck.isInstantiateSidebar(context: context)
       //     ? Sidebar(isExpanded: true)
       //     : null,

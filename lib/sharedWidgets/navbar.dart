@@ -1,5 +1,5 @@
 import 'package:bottle_ver2/screens/gamerProfileWebScreen.dart';
-import 'package:bottle_ver2/screens/gameProfileScreenLayout.dart';
+import 'package:bottle_ver2/screens/gameProfileWebScreenLayout.dart';
 import 'package:bottle_ver2/screens/tournamentsScreenLayout.dart';
 import 'package:bottle_ver2/sharedWidgets/searchBar.dart';
 import 'package:bottle_ver2/themes/customIconButtons.dart';
@@ -89,8 +89,10 @@ mixin NavbarMixin {
       text: "Play",
       isActive: isActiveBool,
       onPressed: () {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => GameProfileScreenLayout()));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => GameProfileWebScreenLayout()));
       },
     );
   }

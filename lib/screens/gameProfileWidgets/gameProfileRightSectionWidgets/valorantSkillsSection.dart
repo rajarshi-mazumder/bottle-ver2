@@ -23,28 +23,28 @@ class ValorantSkillsSection extends StatelessWidget {
                       "https://static.wikia.nocookie.net/valorant/images/f/fd/DuelistClassSymbol.png",
                   iconTitle: "Duelist",
                   value: 0.5,
-                  radius: 80,
+                  radius: 50,
                 ),
                 ValorantRole(
                   iconUrl:
                       "https://static.wikia.nocookie.net/valorant/images/7/77/InitiatorClassSymbol.png",
                   iconTitle: "Initiator",
                   value: 0.9,
-                  radius: 80,
+                  radius: 50,
                 ),
                 ValorantRole(
                   iconUrl:
                       "https://static.wikia.nocookie.net/valorant/images/0/04/ControllerClassSymbol.png",
                   iconTitle: "Controller",
                   value: 0.4,
-                  radius: 80,
+                  radius: 50,
                 ),
                 ValorantRole(
                   iconUrl:
                       "https://static.wikia.nocookie.net/valorant/images/4/43/SentinelClassSymbol.png",
                   iconTitle: "Sentinel",
                   value: 0.3,
-                  radius: 80,
+                  radius: 50,
                 ),
               ],
             ),

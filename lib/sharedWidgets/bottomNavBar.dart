@@ -1,6 +1,7 @@
+import 'package:bottle_ver2/screens/gameProfileMobileScreenLayout.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/gameProfileScreenLayout.dart';
+import '../screens/gameProfileWebScreenLayout.dart';
 import '../screens/tournamentsScreenLayout.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -10,9 +11,10 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     decideNavigation({required int index}) {
       if (index == 0) {
-        print("PIERSS");
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => GameProfileScreenLayout()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => GameProfileMobileScreenLayout()));
       }
       if (index == 1) {
         Navigator.push(context,
