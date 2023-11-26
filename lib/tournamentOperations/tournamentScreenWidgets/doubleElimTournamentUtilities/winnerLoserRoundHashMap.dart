@@ -32,5 +32,30 @@ Map<String, dynamic> winnerLoserRoundHashMap_8_teams = {
       },
     },
   },
-  "l_bracket_rounds_match_count": [2, 2, 1, 1]
+  "l_bracket_rounds_match_count": [2, 2, 1, 1],
+  "l_b": {
+    "l_r_0": {
+      "isLastRound": false,
+      "match_maps": {
+        "m_0_w": {"m": 0, "p": "participantB"},
+        "m_1_w": {"m": 1, "p": "participantB"},
+      },
+    },
+    "l_r_1": {
+      "isLastRound": false,
+      "match_maps": {
+        "m_0_w": {"m": 0, "p": "participantA"},
+        "m_1_w": {"m": 0, "p": "participantB"},
+      },
+    },
+    "l_r_2": {
+      "isLastRound": false,
+      "match_maps": {
+        "m_0_w": {"m": 0, "p": "participantB"},
+      },
+    },
+    "l_r_3": {
+      "isLastRound": true,
+    },
+  }
 };
