@@ -47,9 +47,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: customTheme,
         // home: PlayerProfileForm(),
-        home: MediaQuery.of(context).size.width > SCREEN_COLLAPSE_WIDTH
-            ? GameProfileWebScreenLayout()
-            : GameProfileMobileScreenLayout(),
+        home: TournamentForm(),
+        // home: MediaQuery.of(context).size.width > SCREEN_COLLAPSE_WIDTH
+        //     ? GameProfileWebScreenLayout()
+        //     : GameProfileMobileScreenLayout(),
       ),
     );
   }

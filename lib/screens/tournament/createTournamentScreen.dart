@@ -1,3 +1,4 @@
+import 'package:bottle_ver2/screens/customDropdown.dart';
 import 'package:flutter/material.dart';
 
 class TournamentForm extends StatefulWidget {
@@ -7,6 +8,7 @@ class TournamentForm extends StatefulWidget {
 
 class _TournamentFormState extends State<TournamentForm> {
   String _tournamentType = 'SingleElimination';
+
   String _bracketCount = '';
   List<String> _teamNames = [];
   String _currentTeam = '';
@@ -24,7 +26,7 @@ class _TournamentFormState extends State<TournamentForm> {
     // Use the input to create tournament instance
     // This is where you would normally do something with the created tournament
     print(
-        'Tournament Created: $_tournamentType with ${_teamNames.length} teams and bracket count: $_bracketCount');
+        'Tournament Created: $_tournamentType with ${_teamNames} teams and bracket count: $_bracketCount');
   }
 
   @override
@@ -38,6 +40,7 @@ class _TournamentFormState extends State<TournamentForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Expanded(child: ParticipantInputForm()),
             DropdownButton<String>(
               value: _tournamentType,
               onChanged: (String? newValue) {
@@ -47,9 +50,9 @@ class _TournamentFormState extends State<TournamentForm> {
               },
               items: <String>[
                 'SingleElimination',
-                'DoubleBracket',
+                'DoubleElimination',
                 'RoundRobin',
-                'DoubleRoundRobin',
+                'MultiBracket',
                 'BattleRoyale',
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
@@ -88,7 +91,10 @@ class _TournamentFormState extends State<TournamentForm> {
             ),
             ElevatedButton(
               onPressed: _createTournament,
-              child: Text('Create Tournament'),
+              child: Text(
+                'Create Tournament',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),

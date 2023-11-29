@@ -41,7 +41,7 @@ class _TournamentProgressionInputState
     //   });
     // });
     List<String> teamsList = teams.map((e) => e.name ?? '').toList();
-    widget.tournament.generateRounds(participants: teamsList);
+    // widget.tournament.generateRounds(participants: teamsList);
     generateRoundWidgets();
   }
 
