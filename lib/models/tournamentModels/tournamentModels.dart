@@ -16,10 +16,16 @@ class Tournament {
   factory Tournament.createTournament(
       {required String type,
       int bracketCount = 0,
-      required String participantType}) {
-    if (type == 'n_elimination') {
+      required String participantType,
+      int participantsLength = 0,
+      Map<String, dynamic>? winnerLoserHashMap}) {
+    if (type == 'n_bracket') {
       return N_BracketTournament(
           bracketCount: bracketCount, participantType: participantType);
+    } else if (type == "double_elimination") {
+      return DoubleElimTournament(
+          participants: participantsLength!,
+          winnerLoserHashMap: winnerLoserHashMap!);
     }
     // else if (type == 'RoundRobin') {
     //   return RoundRobinTournament(teams);
