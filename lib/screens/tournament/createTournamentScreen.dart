@@ -64,14 +64,13 @@ class _TournamentFormState extends State<TournamentForm> {
   void _createTournament() {
     // Use the input to create tournament instance
     // This is where you would normally do something with the created tournament
-    print(
-        'Tournament Created: $_tournamentType with ${_teamNames} teams and bracket count: $_bracketCount');
+
     Tournament t = Tournament.createTournament(
         type: "double_elimination",
         participantType: participantType,
+        participants: selectedParticipants,
         participantsLength: 16,
         winnerLoserHashMap: winnerLoserRoundHashMap_16_teams);
-    print("BANKKK ${t}");
   }
 
   @override
@@ -100,7 +99,6 @@ class _TournamentFormState extends State<TournamentForm> {
                   (selectedParticipants, noOfParticipants) {
                 this.selectedParticipants = selectedParticipants;
                 this.noOfparticipants = noOfParticipants;
-                print("UKKK $selectedParticipants, ${noOfparticipants}");
               },
             )),
             DropdownButton<String>(

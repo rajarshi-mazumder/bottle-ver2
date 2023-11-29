@@ -17,6 +17,7 @@ class Tournament {
       {required String type,
       int bracketCount = 0,
       required String participantType,
+      List<String>? participants,
       int participantsLength = 0,
       Map<String, dynamic>? winnerLoserHashMap}) {
     if (type == 'n_bracket') {
@@ -24,8 +25,9 @@ class Tournament {
           bracketCount: bracketCount, participantType: participantType);
     } else if (type == "double_elimination") {
       return DoubleElimTournament(
-          participants: participantsLength!,
-          winnerLoserHashMap: winnerLoserHashMap!);
+          noOfParticipants: participantsLength!,
+          winnerLoserHashMap: winnerLoserHashMap!,
+          participants: participants);
     }
     // else if (type == 'RoundRobin') {
     //   return RoundRobinTournament(teams);
@@ -152,9 +154,18 @@ class DoubleElimTournament extends Tournament {
   Map<String, dynamic> winnerLoserHashMap;
 
   DoubleElimTournament(
-      {required int participants, required this.winnerLoserHashMap}) {
-    winnerRounds = (participants / 2).floor().bitLength;
+      {required int noOfParticipants,
+      required this.winnerLoserHashMap,
+      List<String>? participants}) {
+    winnerRounds = (noOfParticipants / 2).floor().bitLength;
     // int loserRounds = winnerRounds * 2 - 1;
     loserRounds = winnerLoserHashMap["loserBracketRoundsCount"];
+    if (participants != null)
+      generateMatchesForWinnerBracketRound0(participants: participants);
+  }
+
+  generateMatchesForWinnerBracketRound0({required List<String> participants}) {
+    List matches = Round.pairParticipantsForMatches(participants);
+    print("DOUBLE ELIM MATCHES - tournamentModels.dart line 169 ${matches}");
   }
 }

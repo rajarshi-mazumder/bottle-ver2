@@ -45,7 +45,7 @@ class TournamentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     doubleElimTournament = DoubleElimTournament(
-        participants: participants, winnerLoserHashMap: tournamentHashMap);
+        noOfParticipants: participants, winnerLoserHashMap: tournamentHashMap);
 
     return MultiProvider(
       providers: [
