@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:bottle_ver2/models/tournamentModels/round.dart';
+import 'package:bottle_ver2/tournamentOperations/createTournament.dart';
 import '../../tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
 import 'team.dart';
 
@@ -160,12 +162,19 @@ class DoubleElimTournament extends Tournament {
     winnerRounds = (noOfParticipants / 2).floor().bitLength;
     // int loserRounds = winnerRounds * 2 - 1;
     loserRounds = winnerLoserHashMap["loserBracketRoundsCount"];
-    if (participants != null)
-      generateMatchesForWinnerBracketRound0(participants: participants);
+    if (participants != null) {
+      List matches = generateMatchPairs(participants: participants);
+      List doubleElimTournamentMap =
+          json.decode(doubleElimEmptyTournamentString)["brackets"];
+      doubleElimTournamentMap[0]["rounds"][0]["matches"] = matches;
+
+      print("MAPPPP ${doubleElimTournamentMap[0]}");
+    }
   }
 
-  generateMatchesForWinnerBracketRound0({required List<String> participants}) {
+  List generateMatchPairs({required List<String> participants}) {
     List matches = Round.pairParticipantsForMatches(participants);
     print("DOUBLE ELIM MATCHES - tournamentModels.dart line 169 ${matches}");
+    return matches;
   }
 }

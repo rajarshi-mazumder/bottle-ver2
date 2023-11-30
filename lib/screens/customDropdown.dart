@@ -102,7 +102,7 @@ class _ParticipantInputFormState extends State<ParticipantInputForm> {
                 String participant = widget._selectedParticipants[index];
                 String imageUrl = '';
                 return ListTile(
-                  leading: Image.network(imageUrl, width: 50, height: 50),
+                  // leading: Image.network(imageUrl, width: 50, height: 50),
                   title: Text(participant),
                   trailing: IconButton(
                     icon: Icon(Icons.close),

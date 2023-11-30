@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:bottle_ver2/tournamentOperations/createTournament.dart';
 import 'package:bottle_ver2/tournamentOperations/providers/doubleBracketTournamentDataProvider.dart';
 import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: TournamentScreen(
-        participants: 16,
+        participantsLength: 16,
         tournamentHashMap: winnerLoserRoundHashMap_16_teams,
         winnersBracketMap: winnersBracketMap_16_participants,
         losersBracketMap: losersBracketMap_16_participants,
@@ -30,27 +32,59 @@ class MyApp extends StatelessWidget {
 }
 
 class TournamentScreen extends StatelessWidget {
-  final int participants;
+  final int participantsLength;
   late DoubleElimTournament doubleElimTournament;
   Map<String, dynamic> tournamentHashMap;
+  List<String>? participants;
   Map<String, dynamic> winnersBracketMap;
   Map<String, dynamic> losersBracketMap;
 
-  TournamentScreen(
-      {required this.participants,
-      required this.tournamentHashMap,
-      required this.winnersBracketMap,
-      required this.losersBracketMap});
+  TournamentScreen({
+    required this.participantsLength,
+    required this.tournamentHashMap,
+    required this.winnersBracketMap,
+    required this.losersBracketMap,
+    this.participants,
+  });
+
+  List setFirstRoundMatches({required List<String> participants}) {
+    List matches =
+        doubleElimTournament.generateMatchPairs(participants: participants);
+
+    return matches;
+    List doubleElimTournamentMap =
+        json.decode(doubleElimEmptyTournamentString)["brackets"];
+    doubleElimTournamentMap[0]["rounds"][0]["matches"] = matches;
+
+    print("MAPPPP ${doubleElimTournamentMap[0]}");
+  }
 
   @override
   Widget build(BuildContext context) {
     doubleElimTournament = DoubleElimTournament(
-        noOfParticipants: participants, winnerLoserHashMap: tournamentHashMap);
+        noOfParticipants: participantsLength,
+        winnerLoserHashMap: tournamentHashMap);
 
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<DoubleElimTournamentDataProvider>(
           create: (context) {
+            if (participants != null) {
+              List matches = setFirstRoundMatches(participants: participants!);
+
+              for (int i = 0; i < matches.length; i++) {
+                try {
+                  winnersBracketMap["rounds"][0]["matches"][i]["participantA"]
+                      ["name"] = matches[i]["participantA"]["name"];
+                  winnersBracketMap["rounds"][0]["matches"][i]["participantB"]
+                      ["name"] = matches[i]["participantB"]["name"];
+                } catch (e) {
+                  // print("PPPPPP ${matches[i]}");
+                  print("PPPPPP ${winnersBracketMap["rounds"]["matches"][i]}");
+                }
+              }
+              matches.forEach((match) {});
+            }
             DoubleElimTournamentDataProvider doubleElimTournamentDataProvider =
                 DoubleElimTournamentDataProvider(
               winnersBracketMap: winnersBracketMap,
@@ -86,8 +120,10 @@ class TournamentScreen extends StatelessWidget {
                               doubleElimTournament: doubleElimTournament,
                               bracketType: 'winnersBracketMap',
                               roundNumber: i,
-                              matchCount: (pow(2,
-                                      (log(participants) ~/ log(2)) - (i + 1)))
+                              matchCount: (pow(
+                                      2,
+                                      (log(participantsLength) ~/ log(2)) -
+                                          (i + 1)))
                                   .toInt()),
                         ),
                       SizedBox(height: 20),

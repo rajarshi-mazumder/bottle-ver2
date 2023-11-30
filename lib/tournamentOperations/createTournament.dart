@@ -12,7 +12,7 @@ void main() {
   runApp(MyApp());
 }
 
-String tempTournamentString = """{
+String doubleElimEmptyTournamentString = """{
   "brackets": [
     {
       "bracketIndex": 0,
@@ -157,7 +157,8 @@ class _MyAppState extends State<MyApp> {
     print("-----------------------");
 
     // print(json.decode(tempTournamentString));
-    widget.tournament.brackets = json.decode(tempTournamentString)["brackets"];
+    widget.tournament.brackets =
+        json.decode(doubleElimEmptyTournamentString)["brackets"];
     widget.tournament.postBracketRounds = json.decode(postBracketRoundsString);
   }
 

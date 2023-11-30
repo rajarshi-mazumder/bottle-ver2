@@ -44,7 +44,8 @@ class _TournamentRightSectionState extends State<TournamentRightSection> {
     print("-----------------------");
 
     // print(json.decode(tempTournamentString));
-    widget.tournament.brackets = json.decode(tempTournamentString)["brackets"];
+    widget.tournament.brackets =
+        json.decode(doubleElimEmptyTournamentString)["brackets"];
     widget.tournament.postBracketRounds = json.decode(postBracketRoundsString);
   }
 

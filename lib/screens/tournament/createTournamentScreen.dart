@@ -2,6 +2,8 @@ import 'package:bottle_ver2/models/tournamentModels/tournamentModels.dart';
 import 'package:bottle_ver2/screens/customDropdown.dart';
 import 'package:flutter/material.dart';
 
+import '../../temp.dart';
+import '../../tournamentOperations/providers/doubleBracketTournamentDataProvider.dart';
 import '../../tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
 
 class TournamentForm extends StatefulWidget {
@@ -71,6 +73,17 @@ class _TournamentFormState extends State<TournamentForm> {
         participants: selectedParticipants,
         participantsLength: 16,
         winnerLoserHashMap: winnerLoserRoundHashMap_16_teams);
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => TournamentScreen(
+                  participantsLength: 16,
+                  participants: selectedParticipants,
+                  tournamentHashMap: winnerLoserRoundHashMap_16_teams,
+                  winnersBracketMap: winnersBracketMap_16_participants,
+                  losersBracketMap: losersBracketMap_16_participants,
+                )));
   }
 
   @override
