@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:bottle_ver2/models/tournamentModels/round.dart';
-import 'package:bottle_ver2/tournamentOperations/createTournament.dart';
+import 'package:bottle_ver2/tournamentFlow/views/createTournament_nBracket.dart';
 import '../../tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
 import 'team.dart';
 
@@ -26,7 +26,7 @@ class Tournament {
       return N_BracketTournament(
           bracketCount: bracketCount, participantType: participantType);
     } else if (type == "double_elimination") {
-      return DoubleElimTournament(
+      return DoubleElim_Tournament(
           noOfParticipants: participantsLength!,
           winnerLoserHashMap: winnerLoserHashMap!,
           participants: participants);
@@ -149,13 +149,13 @@ class N_BracketTournament extends Tournament {
   }
 }
 
-class DoubleElimTournament extends Tournament {
+class DoubleElim_Tournament extends Tournament {
   int winnerRounds = 0;
   int loserRounds = 0;
 
   Map<String, dynamic> winnerLoserHashMap;
 
-  DoubleElimTournament(
+  DoubleElim_Tournament(
       {required int noOfParticipants,
       required this.winnerLoserHashMap,
       List<String>? participants}) {

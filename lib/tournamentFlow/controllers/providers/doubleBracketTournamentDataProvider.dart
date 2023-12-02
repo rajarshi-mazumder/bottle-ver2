@@ -21,6 +21,7 @@ class DoubleElimTournamentDataProvider with ChangeNotifier {
 }
 
 Map<String, dynamic> winnersBracketMap_8_participants = {
+  "noOfRounds": 3,
   "rounds": [
     {
       "roundIndex": 0,
@@ -80,6 +81,7 @@ Map<String, dynamic> winnersBracketMap_8_participants = {
 };
 
 Map<String, dynamic> losersBracketMap_8_participants = {
+  "noOfRounds": 4,
   "rounds": [
     {
       "roundIndex": 0,
@@ -170,6 +172,7 @@ Map<String, dynamic> losersBracketMap_8_participants = {
 };
 
 Map<String, dynamic> winnersBracketMap_16_participants = {
+  "noOfRounds": 4,
   "rounds": [
     {
       "roundIndex": 0,
@@ -275,6 +278,7 @@ Map<String, dynamic> winnersBracketMap_16_participants = {
 };
 
 Map<String, dynamic> losersBracketMap_16_participants = {
+  "noOfRounds": 5,
   "rounds": [
     {
       "roundIndex": 0,

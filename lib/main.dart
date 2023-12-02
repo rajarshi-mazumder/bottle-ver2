@@ -7,18 +7,22 @@ import 'package:bottle_ver2/screens/gameProfileWebScreenLayout.dart';
 import 'package:bottle_ver2/screens/playerProfile/createPlayerProfileScreen.dart';
 import 'package:bottle_ver2/screens/teamDetailsScreenLayout.dart';
 import 'package:bottle_ver2/screens/temp.dart';
-import 'package:bottle_ver2/screens/tournament/createTournamentScreen.dart';
+import 'package:bottle_ver2/tournamentFlow/controllers/data/participantsData.dart';
+import 'package:bottle_ver2/tournamentFlow/controllers/providers/doubleBracketTournamentDataProvider.dart';
+import 'package:bottle_ver2/tournamentFlow/views/createTournament_doubleElim.dart';
 import 'package:bottle_ver2/screens/tournamentDetailsScreen.dart';
 import 'package:bottle_ver2/screens/tournamentDetailsScreenLayout.dart';
 import 'package:bottle_ver2/screens/tournamentsScreen.dart';
 import 'package:bottle_ver2/screens/tournamentsScreenLayout.dart';
 import 'package:bottle_ver2/themes/platformSpecificOperations/platformCheck.dart';
 import 'package:bottle_ver2/themes/themes.dart';
+import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'dbOperations/dbManager.dart';
+import 'doubleElimTournamentScreen.dart';
 import 'firebase_options.dart';
 import 'package:flutter/gestures.dart';
 
@@ -47,7 +51,13 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: customTheme,
         // home: PlayerProfileForm(),
-        home: TournamentForm(),
+        home: DoubleElimTournamentScreen(
+          participantsLength: 16,
+
+          winnerLoserHashMap: winnerLoserRoundHashMap_16_teams,
+          winnersBracketMap: winnersBracketMap_16_participants,
+          losersBracketMap: losersBracketMap_16_participants,
+        ),
         // home: MediaQuery.of(context).size.width > SCREEN_COLLAPSE_WIDTH
         //     ? GameProfileWebScreenLayout()
         //     : GameProfileMobileScreenLayout(),
@@ -59,7 +69,8 @@ class MyApp extends StatelessWidget {
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   // Override behavior methods and getters like dragDevices
   @override
-  Set<PointerDeviceKind> get dragDevices => {
+  Set<PointerDeviceKind> get dragDevices =>
+      {
         PointerDeviceKind.touch,
         PointerDeviceKind.mouse,
       };

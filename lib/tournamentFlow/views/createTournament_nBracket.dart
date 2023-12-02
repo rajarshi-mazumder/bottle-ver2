@@ -1,11 +1,10 @@
-import 'package:bottle_ver2/tournamentOperations/providers/nBracketTournamentDataProvider.dart';
-import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/tournamentContainer.dart';
+import 'package:bottle_ver2/tournamentFlow/views/tournamentContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/tournamentModels/player.dart';
-import '../models/tournamentModels/team.dart';
-import '../models/tournamentModels/tournamentModels.dart';
-import '../screens/tournamentWidgets/tournamentCreateWidgets/nBracketTournamentEditor.dart';
+import '../../models/tournamentModels/player.dart';
+import '../../models/tournamentModels/team.dart';
+import '../../models/tournamentModels/tournamentModels.dart';
+import '../../screens/tournamentWidgets/tournamentCreateWidgets/nBracketTournamentEditor.dart';
 import 'dart:convert';
 
 void main() {

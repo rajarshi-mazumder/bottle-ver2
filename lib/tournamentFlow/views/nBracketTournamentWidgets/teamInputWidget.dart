@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../createTournament.dart';
-import '../../providers/nBracketTournamentDataProvider.dart';
+import '../../../tournamentFlow/views/createTournament_nBracket.dart';
+import '../../controllers/providers/nBracketTournamentDataProvider.dart';
 
 class TeamInputWidget extends StatefulWidget {
   TeamInputWidget({

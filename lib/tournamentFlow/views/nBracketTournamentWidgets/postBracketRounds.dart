@@ -1,10 +1,10 @@
-import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/nBracketTournamentWidgets/postBracketMatchInput.dart';
-import 'package:bottle_ver2/tournamentOperations/createTournament.dart';
+import 'package:bottle_ver2/tournamentFlow/views/nBracketTournamentWidgets/postBracketMatchInput.dart';
+import 'package:bottle_ver2/tournamentFlow/views/createTournament_nBracket.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/tournamentModels/round.dart';
-import '../../providers/nBracketTournamentDataProvider.dart';
+import '../../controllers/providers/nBracketTournamentDataProvider.dart';
 import 'matchInputWidget.dart';
 import 'winnerInputWidget.dart';
 

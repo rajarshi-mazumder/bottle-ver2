@@ -1,38 +1,33 @@
 import 'package:bottle_ver2/models/tournamentModels/team.dart';
-import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/nBracketTournamentWidgets/teamInputWidget.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
-import 'package:bottle_ver2/tournamentOperations/createTournament.dart';
+import 'package:bottle_ver2/tournamentFlow/views/createTournament_nBracket.dart';
+import 'package:bottle_ver2/tournamentFlow/views/nBracketTournamentWidgets/teamInputWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../themes/themes.dart';
-import '../../providers/nBracketTournamentDataProvider.dart';
+import '../../controllers/providers/nBracketTournamentDataProvider.dart';
 
-class MatchInputWidget extends StatefulWidget {
-  MatchInputWidget(
+class PostBracketMatchInput extends StatefulWidget {
+  PostBracketMatchInput(
       {Key? key,
-      required this.bracketIndex,
       required this.matchIndex,
       required this.roundIndex,
-      // required this.roundMatchesData,
       required this.isMatchDecided,
       this.participantA = null,
       this.participantB = null});
 
   final int roundIndex;
-  final int bracketIndex;
   final int matchIndex;
-
-  // List<List<Map<String, dynamic>>> roundMatchesData;
   bool isMatchDecided;
   String? participantA;
   String? participantB;
 
   @override
-  State<MatchInputWidget> createState() => _MatchInputWidgetState();
+  State<PostBracketMatchInput> createState() => _PostBracketMatchInputState();
 }
 
-class _MatchInputWidgetState extends State<MatchInputWidget> {
+class _PostBracketMatchInputState extends State<PostBracketMatchInput> {
   String selectedTeamA = '';
   String selectedTeamB = '';
   String winner = '';
@@ -55,8 +50,8 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
   setMatchWinner(
       {required nBracketTournamentDataProvider tournamentDataProvider,
       required String winnerName}) {
-    tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
-            ["rounds"][widget.roundIndex]["matches"][widget.matchIndex]
+    tournamentDataProvider.tournamentData["postBracketRounds"]["rounds"]
+            [widget.roundIndex]["matches"][widget.matchIndex]
         .update("winner", (value) => {"name": winnerName},
             ifAbsent: () => {"name": winnerName});
   }
@@ -67,24 +62,20 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
       required nBracketTournamentDataProvider tournamentDataProvider}) {
     if ((widget.roundIndex + 1) <
         tournamentDataProvider
-            .tournamentData["brackets"][widget.bracketIndex]["rounds"].length) {
-      print(
-          "I AM PRINTINGGG ${tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]["rounds"][widget.roundIndex + 1]["matches"]}");
+            .tournamentData["postBracketRounds"]["rounds"].length) {
       if (widget.matchIndex % 2 == 0) {
-        tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
-                ["rounds"][widget.roundIndex + 1]["matches"]
-                [nextRoundMatchIndex]
+        tournamentDataProvider.tournamentData["postBracketRounds"]["rounds"]
+                [widget.roundIndex + 1]["matches"][nextRoundMatchIndex]
             .update("participantA", (value) => {"name": participantName},
                 ifAbsent: () => {"name": participantName});
       } else {
-        tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
-                ["rounds"][widget.roundIndex + 1]["matches"]
-                [nextRoundMatchIndex]
+        tournamentDataProvider.tournamentData["postBracketRounds"]["rounds"]
+                [widget.roundIndex + 1]["matches"][nextRoundMatchIndex]
             .update("participantB", (value) => {"name": participantName},
                 ifAbsent: () => {"name": participantName});
       }
     } else {
-      tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
+      tournamentDataProvider.tournamentData["postBracketRounds"]
           ["winner"] = {"name": participantName};
     }
   }
@@ -96,13 +87,15 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
 
     try {
       setState(() {
-        selectedTeamA = tournamentDataProvider.tournamentData["brackets"]
-                [widget.bracketIndex]["rounds"][widget.roundIndex]["matches"]
-            [widget.matchIndex]["participantA"]["name"];
+        selectedTeamA =
+            tournamentDataProvider.tournamentData["postBracketRounds"]["rounds"]
+                    [widget.roundIndex]["matches"][widget.matchIndex]
+                ["participantA"]["name"];
 
-        selectedTeamB = tournamentDataProvider.tournamentData["brackets"]
-                [widget.bracketIndex]["rounds"][widget.roundIndex]["matches"]
-            [widget.matchIndex]["participantB"]["name"];
+        selectedTeamB =
+            tournamentDataProvider.tournamentData["postBracketRounds"]["rounds"]
+                    [widget.roundIndex]["matches"][widget.matchIndex]
+                ["participantB"]["name"];
       });
     } catch (e) {}
 
@@ -118,7 +111,7 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
               children: [
                 TeamInputWidget(
                   selectedTeam: selectedTeamA,
-                  bracketIndex: widget.bracketIndex,
+                  bracketIndex: 0,
                   roundIndex: widget.roundIndex,
                   matchIndex: widget.matchIndex,
                   participantA_B: "participantA",
@@ -131,6 +124,8 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
                     onChanged: (value) {
                       setState(() {
                         winner = value!;
+                        // widget.roundMatchesData[widget.roundIndex]
+                        //     [widget.matchIndex]['winner'] = {"name": value};
 
                         setMatchWinner(
                             tournamentDataProvider: tournamentDataProvider,
@@ -159,7 +154,7 @@ class _MatchInputWidgetState extends State<MatchInputWidget> {
               children: [
                 TeamInputWidget(
                   selectedTeam: selectedTeamB,
-                  bracketIndex: widget.bracketIndex,
+                  bracketIndex: 0,
                   roundIndex: widget.roundIndex,
                   matchIndex: widget.matchIndex,
                   participantA_B: "participantB",

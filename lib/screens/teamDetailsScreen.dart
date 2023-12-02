@@ -5,7 +5,7 @@ import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsLeftSecti
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsWidgets/tournamentOverviewSection.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentRightSection.dart';
-import 'package:bottle_ver2/temp.dart';
+import 'package:bottle_ver2/doubleElimTournamentScreen.dart';
 import 'package:bottle_ver2/themes/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:bottle_ver2/themes/themes.dart';

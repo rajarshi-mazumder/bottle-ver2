@@ -1,4 +1,3 @@
-import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/nBracketTournamentWidgets/postBracketRounds.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,9 +6,10 @@ import '../../../models/tournamentModels/player.dart';
 import '../../../models/tournamentModels/round.dart';
 import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
-import '../../../tournamentOperations/providers/nBracketTournamentDataProvider.dart';
-import '../../../tournamentOperations/tournamentScreenWidgets/nBracketTournamentWidgets/bracketRounds.dart';
-import '../../../tournamentOperations/createTournament.dart';
+import '../../../tournamentFlow/controllers/providers/nBracketTournamentDataProvider.dart';
+import '../../../tournamentFlow/views/createTournament_nBracket.dart';
+import '../../../tournamentFlow/views/nBracketTournamentWidgets/bracketRounds.dart';
+import '../../../tournamentFlow/views/nBracketTournamentWidgets/postBracketRounds.dart';
 
 class N_BracketTournamentEditor extends StatefulWidget {
   N_BracketTournamentEditor({required this.tournament});

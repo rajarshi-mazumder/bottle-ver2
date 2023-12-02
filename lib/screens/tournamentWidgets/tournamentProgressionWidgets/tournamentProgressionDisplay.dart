@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
-import '../../../tournamentOperations/tournamentScreenWidgets/nBracketTournamentWidgets/matchInputWidget.dart';
-import '../../../tournamentOperations/tournamentScreenWidgets/nBracketTournamentWidgets/winnerInputWidget.dart';
 
 String? winner;
 

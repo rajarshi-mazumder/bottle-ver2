@@ -7,8 +7,8 @@ import '../../models/tournamentModels/player.dart';
 import '../../models/tournamentModels/team.dart';
 import '../../models/tournamentModels/tournamentModels.dart';
 import '../../themes/themes.dart';
-import '../../tournamentOperations/createTournament.dart';
-import '../../tournamentOperations/tournamentScreenWidgets/tournamentContainer.dart';
+import '../../tournamentFlow/views/createTournament_nBracket.dart';
+import '../../tournamentFlow/views/tournamentContainer.dart';
 import 'TournamentTile.dart';
 
 class TournamentRightSection extends StatefulWidget {

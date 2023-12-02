@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/tournamentModels/tournamentModels.dart';
 import '../../screens/tournamentWidgets/tournamentCreateWidgets/nBracketTournamentEditor.dart';
-import '../providers/nBracketTournamentDataProvider.dart';
+import '../controllers/providers/nBracketTournamentDataProvider.dart';
 
 class TournamentContainer extends StatefulWidget {
   TournamentContainer({super.key, required this.tournament});

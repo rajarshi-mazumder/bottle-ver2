@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../themes/themes.dart';
-import '../../providers/nBracketTournamentDataProvider.dart';
+import '../../controllers/providers/nBracketTournamentDataProvider.dart';
 
 class WinnerInputData extends StatefulWidget {
   WinnerInputData(
