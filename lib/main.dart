@@ -8,7 +8,9 @@ import 'package:bottle_ver2/screens/playerProfile/createPlayerProfileScreen.dart
 import 'package:bottle_ver2/screens/teamDetailsScreenLayout.dart';
 import 'package:bottle_ver2/screens/temp.dart';
 import 'package:bottle_ver2/tournamentFlow/controllers/data/participantsData.dart';
+import 'package:bottle_ver2/tournamentFlow/controllers/data/tournamentDatabase.dart';
 import 'package:bottle_ver2/tournamentFlow/controllers/providers/doubleBracketTournamentDataProvider.dart';
+import 'package:bottle_ver2/tournamentFlow/models/doubleElimTournament.dart';
 import 'package:bottle_ver2/tournamentFlow/views/createTournament_doubleElim.dart';
 import 'package:bottle_ver2/screens/tournamentDetailsScreen.dart';
 import 'package:bottle_ver2/screens/tournamentDetailsScreenLayout.dart';
@@ -22,18 +24,43 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'dbOperations/dbManager.dart';
-import 'doubleElimTournamentScreen.dart';
+import 'tournamentFlow/views/doubleElimTournamentScreen.dart';
 import 'firebase_options.dart';
 import 'package:flutter/gestures.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // final appDocumentDir = await getApplicationDocumentsDirectory();
+  // Hive.initFlutter(appDocumentDir.path);
+  await Hive.initFlutter();
+  Hive.registerAdapter(DoubleElimTournamentHiveAdapter());
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   UserProvider userProvider = UserProvider();
+
+  Future<DoubleElimTournament_Hive> getTournamnet() async {
+    late DoubleElimTournament_Hive tournament;
+    try {
+      tournament = await TournamentDatabase().getTournamentById(id: 0);
+    } catch (e) {
+      List<String> participants = teamsWithImages.keys.toList();
+
+      tournament = DoubleElimTournament_Hive(
+          participants: participants,
+          participantType: "Teams",
+          tournamentData: template_16_participants,
+          id: 0);
+    }
+
+    return tournament;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +78,21 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: customTheme,
         // home: PlayerProfileForm(),
-        home: DoubleElimTournamentScreen(
-          participantsLength: 16,
-
-          winnerLoserHashMap: winnerLoserRoundHashMap_16_teams,
-          winnersBracketMap: winnersBracketMap_16_participants,
-          losersBracketMap: losersBracketMap_16_participants,
+        home: FutureBuilder<DoubleElimTournament_Hive>(
+          future: getTournamnet(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return DoubleElimTournamentScreen(
+                winnerLoserHashMap: winnerLoserRoundHashMap_16_teams,
+                template: template_16_participants,
+                doubleElimTournament_Hive: snapshot.data!,
+              );
+            } else
+              return Center(
+                child: Container(
+                    height: 30, width: 30, child: CircularProgressIndicator()),
+              );
+          },
         ),
         // home: MediaQuery.of(context).size.width > SCREEN_COLLAPSE_WIDTH
         //     ? GameProfileWebScreenLayout()
@@ -69,8 +105,7 @@ class MyApp extends StatelessWidget {
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   // Override behavior methods and getters like dragDevices
   @override
-  Set<PointerDeviceKind> get dragDevices =>
-      {
+  Set<PointerDeviceKind> get dragDevices => {
         PointerDeviceKind.touch,
         PointerDeviceKind.mouse,
       };

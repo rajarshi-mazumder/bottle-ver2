@@ -1,8 +1,9 @@
 import 'package:bottle_ver2/models/tournamentModels/tournamentModels.dart';
 import 'package:bottle_ver2/screens/customDropdown.dart';
+import 'package:bottle_ver2/tournamentFlow/models/doubleElimTournament.dart';
 import 'package:flutter/material.dart';
 
-import '../../doubleElimTournamentScreen.dart';
+import 'doubleElimTournamentScreen.dart';
 import '../controllers/providers/doubleBracketTournamentDataProvider.dart';
 import '../../tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
 import 'package:bottle_ver2/tournamentFlow/controllers/data/participantsData.dart';
@@ -48,11 +49,12 @@ class _CreateTournament_DoubleElimState
         context,
         MaterialPageRoute(
             builder: (context) => DoubleElimTournamentScreen(
-                  participantsLength: 16,
-                  // participants: selectedParticipants,
+                  doubleElimTournament_Hive: DoubleElimTournament_Hive(
+                      tournamentData: template_16_participants,
+                      id: 0,
+                      participantType: "Teams"),
                   winnerLoserHashMap: winnerLoserRoundHashMap_16_teams,
-                  winnersBracketMap: winnersBracketMap_16_participants,
-                  losersBracketMap: losersBracketMap_16_participants,
+                  template: template_16_participants,
                 )));
   }
 

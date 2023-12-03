@@ -1,3 +1,5 @@
+import 'package:hive/hive.dart';
+
 final Map<String, String> teamsWithImages = {
   'Fnatic': 'https://example.com/fnatic_logo.jpg',
   'LOUD': 'https://example.com/loud_logo.jpg',

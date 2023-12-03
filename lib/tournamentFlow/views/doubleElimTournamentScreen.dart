@@ -1,28 +1,27 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:bottle_ver2/tournamentFlow/controllers/data/tournamentDatabase.dart';
 import 'package:bottle_ver2/tournamentFlow/controllers/providers/doubleBracketTournamentDataProvider.dart';
+import 'package:bottle_ver2/tournamentFlow/models/doubleElimTournament.dart';
 import 'package:bottle_ver2/tournamentFlow/views/createTournament_nBracket.dart';
 import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'models/tournamentModels/tournamentModels.dart';
+import '../../models/tournamentModels/tournamentModels.dart';
 
 class DoubleElimTournamentScreen extends StatelessWidget {
-  final int participantsLength;
-
   Map<String, dynamic> winnerLoserHashMap;
 
   // List<String>? participants;
-  Map<String, dynamic> winnersBracketMap;
-  Map<String, dynamic> losersBracketMap;
+  Map<String, dynamic> template;
+  DoubleElimTournament_Hive doubleElimTournament_Hive;
 
   DoubleElimTournamentScreen({
-    required this.participantsLength,
     required this.winnerLoserHashMap,
-    required this.winnersBracketMap,
-    required this.losersBracketMap,
+    required this.template,
+    required this.doubleElimTournament_Hive,
     // this.participants,
   });
 
@@ -33,6 +32,14 @@ class DoubleElimTournamentScreen extends StatelessWidget {
   //   return matches;
   //
   // }
+
+  saveTournament(
+      {required DoubleElimTournamentDataProvider
+          doubleElimTournamentDataProvider}) {
+    doubleElimTournament_Hive.tournamentData =
+        doubleElimTournamentDataProvider.tournamentData;
+    TournamentDatabase().saveTournament(doubleElimTournament_Hive);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +64,8 @@ class DoubleElimTournamentScreen extends StatelessWidget {
             //   matches.forEach((match) {});
             // }
             DoubleElimTournamentDataProvider doubleElimTournamentDataProvider =
-            DoubleElimTournamentDataProvider(
-              winnersBracketMap: winnersBracketMap,
-              losersBracketMap: losersBracketMap,
+                DoubleElimTournamentDataProvider(
+              tournamentData: doubleElimTournament_Hive.tournamentData,
             );
 
             return doubleElimTournamentDataProvider;
@@ -74,52 +80,73 @@ class DoubleElimTournamentScreen extends StatelessWidget {
             appBar: AppBar(
               title: Text('VCT Champions Tournament'),
             ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Text('Winners Bracket',
-                      style:
-                      TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                  Row(
+            body: Row(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
                     children: [
-                      for (int i = 0;
-                      i < winnerLoserHashMap["winnerBracketRoundsCount"];
-                      i++)
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          child: RoundWidget(
-                              tournamentHashMap: winnerLoserHashMap,
-                              bracketType: 'winnersBracketMap',
-                              roundNumber: i,
-                              matchCount: (pow(
-                                  2,
-                                  (log(participantsLength) ~/ log(2)) -
-                                      (i + 1)))
-                                  .toInt()),
-                        ),
-                      SizedBox(height: 20),
+                      Text('Winners Bracket',
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold)),
+                      Row(
+                        children: [
+                          for (int i = 0;
+                              i <
+                                  winnerLoserHashMap[
+                                      "winnerBracketRoundsCount"];
+                              i++)
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              child: RoundWidget(
+                                  tournamentHashMap: winnerLoserHashMap,
+                                  bracketType: 'winnersBracketMap',
+                                  roundNumber: i,
+                                  matchCount: (pow(
+                                          2,
+                                          (log(doubleElimTournament_Hive
+                                                          .tournamentData[
+                                                      "noOfParticipants"]) ~/
+                                                  log(2)) -
+                                              (i + 1)))
+                                      .toInt()),
+                            ),
+                          SizedBox(height: 20),
+                        ],
+                      ),
+                      Text('Losers Bracket',
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold)),
+                      Row(
+                        children: [
+                          for (int i = 0;
+                              i <
+                                  doubleElimTournamentDataProvider
+                                          .tournamentData["losersBracketMap"]
+                                      ["noOfRounds"];
+                              i++)
+                            RoundWidget(
+                                tournamentHashMap: winnerLoserHashMap,
+                                bracketType: 'losersBracketMap',
+                                roundNumber: i,
+                                // matchCount: calculateLoserBracketRoundsMatcheCount(i, winnerRounds)),
+                                matchCount: winnerLoserHashMap[
+                                    "l_bracket_rounds_match_count"][i]),
+                        ],
+                      )
                     ],
                   ),
-                  Text('Losers Bracket',
-                      style:
-                      TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                  Row(
-                    children: [
-
-                      for (int i = 0; i < doubleElimTournamentDataProvider
-                          .losersBracketMap["noOfRounds"]; i++)
-                        RoundWidget(
-                            tournamentHashMap: winnerLoserHashMap,
-
-                            bracketType: 'losersBracketMap',
-                            roundNumber: i,
-                            // matchCount: calculateLoserBracketRoundsMatcheCount(i, winnerRounds)),
-                            matchCount: winnerLoserHashMap[
-                            "l_bracket_rounds_match_count"][i]),
-                    ],
-                  )
-                ],
-              ),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      saveTournament(
+                          doubleElimTournamentDataProvider:
+                              doubleElimTournamentDataProvider);
+                    },
+                    child: Text(
+                      "Save Tournament",
+                      style: TextStyle(color: Colors.white),
+                    ))
+              ],
             ),
           );
         },
@@ -152,8 +179,7 @@ class RoundWidget extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ...List.generate(
               matchCount,
-                  (index) =>
-                  MatchWidget(
+              (index) => MatchWidget(
                     bracketType: bracketType,
                     roundNumber: roundNumber,
                     matchNumber: index,
@@ -187,66 +213,69 @@ class MatchWidget extends StatefulWidget {
 }
 
 class _MatchWidgetState extends State<MatchWidget> {
-
-
-  setWinnerBracketWinnerParticipant({required DoubleElimTournamentDataProvider
-  doubleElimTournamentDataProvider,
-    required String participant}) {
+  setWinnerBracketWinnerParticipant(
+      {required DoubleElimTournamentDataProvider
+          doubleElimTournamentDataProvider,
+      required String participant}) {
     if (widget.roundNumber <
-        doubleElimTournamentDataProvider.winnersBracketMap["noOfRounds"] - 1) {
+        doubleElimTournamentDataProvider.tournamentData["winnersBracketMap"]
+                ["noOfRounds"] -
+            1) {
       int nextRoundMatchIndex = calculateNextRoundMatchIndex();
       if (widget.matchNumber % 2 == 0) {
         doubleElimTournamentDataProvider.tournamentData["winnersBracketMap"]
-        ["rounds"][widget.roundNumber + 1]["matches"]
-        [nextRoundMatchIndex]["participantA"]["name"] = participant;
+                ["rounds"][widget.roundNumber + 1]["matches"]
+            [nextRoundMatchIndex]["participantA"]["name"] = participant;
       } else {
         doubleElimTournamentDataProvider.tournamentData["winnersBracketMap"]
-        ["rounds"][widget.roundNumber + 1]["matches"]
-        [nextRoundMatchIndex]["participantB"]["name"] = participant;
+                ["rounds"][widget.roundNumber + 1]["matches"]
+            [nextRoundMatchIndex]["participantB"]["name"] = participant;
       }
 
       doubleElimTournamentDataProvider.notifyListeners();
     }
   }
 
-  setLoserBracketLoserParticipant({required DoubleElimTournamentDataProvider
-  doubleElimTournamentDataProvider,
-    required String participantA_B,
-    required int thisParticipantIndex}) {
+  setLoserBracketLoserParticipant(
+      {required DoubleElimTournamentDataProvider
+          doubleElimTournamentDataProvider,
+      required String participantA_B,
+      required int thisParticipantIndex}) {
     int loserBracketRoundIndex = widget.tournamentHashMap["w_l"]
-    ["w_r_${widget.roundNumber}"]["loser_bracket_round_index"];
+        ["w_r_${widget.roundNumber}"]["loser_bracket_round_index"];
 
     var nextRoundParticipantIndex = widget.tournamentHashMap["w_l"]
-    ["w_r_${widget.roundNumber}"]["match_maps"]
-    ["m_${widget.matchNumber}_p_${thisParticipantIndex}"]["m"];
+            ["w_r_${widget.roundNumber}"]["match_maps"]
+        ["m_${widget.matchNumber}_p_${thisParticipantIndex}"]["m"];
 
     var nextRoundParticipant = widget.tournamentHashMap["w_l"]
-    ["w_r_${widget.roundNumber}"]["match_maps"]
-    ["m_${widget.matchNumber}_p_${thisParticipantIndex}"]["p"];
+            ["w_r_${widget.roundNumber}"]["match_maps"]
+        ["m_${widget.matchNumber}_p_${thisParticipantIndex}"]["p"];
 
     doubleElimTournamentDataProvider.tournamentData["losersBracketMap"]
-    ["rounds"][loserBracketRoundIndex]["matches"]
-    [nextRoundParticipantIndex][nextRoundParticipant]["name"] =
+                ["rounds"][loserBracketRoundIndex]["matches"]
+            [nextRoundParticipantIndex][nextRoundParticipant]["name"] =
         participantA_B; // loser goes to the losers bracket round, thats why b not A
     doubleElimTournamentDataProvider.notifyListeners();
   }
 
-  setLoserBracketWinnerParticipant({required DoubleElimTournamentDataProvider
-  doubleElimTournamentDataProvider,
-    required String participant}) {
+  setLoserBracketWinnerParticipant(
+      {required DoubleElimTournamentDataProvider
+          doubleElimTournamentDataProvider,
+      required String participant}) {
     if (!widget.tournamentHashMap["l_b"]["l_r_${widget.roundNumber}"]
-    ["isLastRound"]) {
+        ["isLastRound"]) {
       var nextRoundMatchIndex = widget.tournamentHashMap["l_b"]
-      ["l_r_${widget.roundNumber}"]["match_maps"]
-      ["m_${widget.matchNumber}_w"]["m"];
+              ["l_r_${widget.roundNumber}"]["match_maps"]
+          ["m_${widget.matchNumber}_w"]["m"];
 
       var nextRoundMatchParticipant = widget.tournamentHashMap["l_b"]
-      ["l_r_${widget.roundNumber}"]["match_maps"]
-      ["m_${widget.matchNumber}_w"]["p"];
+              ["l_r_${widget.roundNumber}"]["match_maps"]
+          ["m_${widget.matchNumber}_w"]["p"];
 
       doubleElimTournamentDataProvider.tournamentData["losersBracketMap"]
-      ["rounds"][widget.roundNumber + 1]["matches"][nextRoundMatchIndex]
-      [nextRoundMatchParticipant]["name"] = participant;
+              ["rounds"][widget.roundNumber + 1]["matches"][nextRoundMatchIndex]
+          [nextRoundMatchParticipant]["name"] = participant;
 
       doubleElimTournamentDataProvider.notifyListeners();
       // print(nextRoundMatchIndex);
@@ -266,7 +295,7 @@ class _MatchWidgetState extends State<MatchWidget> {
   @override
   Widget build(BuildContext context) {
     DoubleElimTournamentDataProvider doubleElimTournamentDataProvider =
-    context.watch<DoubleElimTournamentDataProvider>();
+        context.watch<DoubleElimTournamentDataProvider>();
 
     String participantA = "";
     String participantB = "";
@@ -274,13 +303,13 @@ class _MatchWidgetState extends State<MatchWidget> {
     try {
       participantA = doubleElimTournamentDataProvider
           .tournamentData[widget.bracketType]["rounds"][widget.roundNumber]
-      ["matches"][widget.matchNumber]["participantA"]["name"]
+              ["matches"][widget.matchNumber]["participantA"]["name"]
           .toString();
     } catch (e) {}
     try {
       participantB = doubleElimTournamentDataProvider
           .tournamentData[widget.bracketType]["rounds"][widget.roundNumber]
-      ["matches"][widget.matchNumber]["participantB"]["name"]
+              ["matches"][widget.matchNumber]["participantB"]["name"]
           .toString();
     } catch (e) {}
 
@@ -294,19 +323,19 @@ class _MatchWidgetState extends State<MatchWidget> {
               if (widget.bracketType == "winnersBracketMap") {
                 setLoserBracketLoserParticipant(
                   doubleElimTournamentDataProvider:
-                  doubleElimTournamentDataProvider,
+                      doubleElimTournamentDataProvider,
                   participantA_B: participantB,
                   thisParticipantIndex: 0,
                 );
 
                 setWinnerBracketWinnerParticipant(
                     doubleElimTournamentDataProvider:
-                    doubleElimTournamentDataProvider,
+                        doubleElimTournamentDataProvider,
                     participant: participantA);
               } else if (widget.bracketType == "losersBracketMap") {
                 setLoserBracketWinnerParticipant(
                     doubleElimTournamentDataProvider:
-                    doubleElimTournamentDataProvider,
+                        doubleElimTournamentDataProvider,
                     participant: participantA);
               }
             },
@@ -323,19 +352,19 @@ class _MatchWidgetState extends State<MatchWidget> {
               if (widget.bracketType == "winnersBracketMap") {
                 setLoserBracketLoserParticipant(
                   doubleElimTournamentDataProvider:
-                  doubleElimTournamentDataProvider,
+                      doubleElimTournamentDataProvider,
                   participantA_B: participantA,
                   thisParticipantIndex: 1,
                 );
 
                 setWinnerBracketWinnerParticipant(
                     doubleElimTournamentDataProvider:
-                    doubleElimTournamentDataProvider,
+                        doubleElimTournamentDataProvider,
                     participant: participantB);
               } else if (widget.bracketType == "losersBracketMap") {
                 setLoserBracketWinnerParticipant(
                     doubleElimTournamentDataProvider:
-                    doubleElimTournamentDataProvider,
+                        doubleElimTournamentDataProvider,
                     participant: participantB);
               }
             },
