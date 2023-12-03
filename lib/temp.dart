@@ -3,7 +3,8 @@ import 'dart:math';
 
 import 'package:bottle_ver2/tournamentOperations/createTournament.dart';
 import 'package:bottle_ver2/tournamentOperations/providers/doubleBracketTournamentDataProvider.dart';
-import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
+import 'package:bottle_ver2/views/widgets/tournamentWidgets/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
+// import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

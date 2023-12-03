@@ -1,8 +1,11 @@
-import 'package:bottle_ver2/sharedWidgets/navbar.dart';
+// import 'package:bottle_ver2/sharedWidgets/navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../sharedWidgets/bottomNavBar.dart';
+import '../../views/widgets/sharedWidgets/bottomNavBar.dart';
+import '../../views/widgets/sharedWidgets/navbar.dart';
+
+// import '../../sharedWidgets/bottomNavBar.dart';
 
 enum ScreenLayouts { WebDesktop, WebMobile, Mobile }
 
