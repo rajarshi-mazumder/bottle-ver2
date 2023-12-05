@@ -43,7 +43,7 @@ class DoubleElimTournamentScreen extends StatelessWidget {
 
   deleteTournament(
       {required DoubleElimTournament_Hive doubleElimTournament_Hive}) {
-    TournamentDatabase().deleteTournament(doubleElimTournament_Hive.id);
+    TournamentDatabase().deleteTournament(0);
   }
 
   @override
@@ -112,6 +112,39 @@ class DoubleElimTournamentScreen extends StatelessWidget {
                                       ["rounds"][i]["noOfMatches"]),
                             ),
                           SizedBox(height: 20),
+                          Column(
+                            children: [
+                              Text('Grand Final',
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold)),
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 10),
+                                child: RoundWidget(
+                                    tournamentHashMap: winnerLoserHashMap,
+                                    bracketType: 'postBracketMap',
+                                    roundNumber: 0,
+                                    matchCount: doubleElimTournament_Hive
+                                            .tournamentData["postBracketMap"]
+                                        ["rounds"][0]["noOfMatches"]),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text('Winner',
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold)),
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                    doubleElimTournamentDataProvider
+                                        .tournamentData["winner"]["name"],
+                                    style: TextStyle(color: Colors.white)),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                       Text('Losers Bracket',
@@ -234,22 +267,30 @@ class _MatchWidgetState extends State<MatchWidget> {
       {required DoubleElimTournamentDataProvider
           doubleElimTournamentDataProvider,
       required String participant}) {
-    if (widget.roundNumber <
-        doubleElimTournamentDataProvider.tournamentData["winnersBracketMap"]
-                ["noOfRounds"] -
-            1) {
-      int nextRoundMatchIndex = calculateNextRoundMatchIndex();
-      if (widget.matchNumber % 2 == 0) {
-        doubleElimTournamentDataProvider.tournamentData["winnersBracketMap"]
-                ["rounds"][widget.roundNumber + 1]["matches"]
-            [nextRoundMatchIndex]["participantA"]["name"] = participant;
-      } else {
-        doubleElimTournamentDataProvider.tournamentData["winnersBracketMap"]
-                ["rounds"][widget.roundNumber + 1]["matches"]
-            [nextRoundMatchIndex]["participantB"]["name"] = participant;
-      }
+    if (widget.tournamentHashMap["w_l"]["w_r_${widget.roundNumber}"]
+            ["isLastRound"] ==
+        false) {
+      if (widget.roundNumber <
+          doubleElimTournamentDataProvider.tournamentData["winnersBracketMap"]
+                  ["noOfRounds"] -
+              1) {
+        int nextRoundMatchIndex = calculateNextRoundMatchIndex();
+        if (widget.matchNumber % 2 == 0) {
+          doubleElimTournamentDataProvider.tournamentData["winnersBracketMap"]
+                  ["rounds"][widget.roundNumber + 1]["matches"]
+              [nextRoundMatchIndex]["participantA"]["name"] = participant;
+        } else {
+          doubleElimTournamentDataProvider.tournamentData["winnersBracketMap"]
+                  ["rounds"][widget.roundNumber + 1]["matches"]
+              [nextRoundMatchIndex]["participantB"]["name"] = participant;
+        }
 
-      doubleElimTournamentDataProvider.notifyListeners();
+        doubleElimTournamentDataProvider.notifyListeners();
+      }
+    } else {
+      setPostBracketParticipantA(
+          doubleElimTournamentDataProvider: doubleElimTournamentDataProvider,
+          participant: participant);
     }
   }
 
@@ -258,22 +299,26 @@ class _MatchWidgetState extends State<MatchWidget> {
           doubleElimTournamentDataProvider,
       required String participantA_B,
       required int thisParticipantIndex}) {
-    int loserBracketRoundIndex = widget.tournamentHashMap["w_l"]
-        ["w_r_${widget.roundNumber}"]["loser_bracket_round_index"];
+    if (widget.tournamentHashMap["l_b"]["l_r_${widget.roundNumber}"]
+            ["isLastRound"] ==
+        false) {
+      int loserBracketRoundIndex = widget.tournamentHashMap["w_l"]
+          ["w_r_${widget.roundNumber}"]["loser_bracket_round_index"];
 
-    var nextRoundParticipantIndex = widget.tournamentHashMap["w_l"]
-            ["w_r_${widget.roundNumber}"]["match_maps"]
-        ["m_${widget.matchNumber}_p_${thisParticipantIndex}"]["m"];
+      var nextRoundParticipantIndex = widget.tournamentHashMap["w_l"]
+              ["w_r_${widget.roundNumber}"]["match_maps"]
+          ["m_${widget.matchNumber}_p_${thisParticipantIndex}"]["m"];
 
-    var nextRoundParticipant = widget.tournamentHashMap["w_l"]
-            ["w_r_${widget.roundNumber}"]["match_maps"]
-        ["m_${widget.matchNumber}_p_${thisParticipantIndex}"]["p"];
+      var nextRoundParticipant = widget.tournamentHashMap["w_l"]
+              ["w_r_${widget.roundNumber}"]["match_maps"]
+          ["m_${widget.matchNumber}_p_${thisParticipantIndex}"]["p"];
 
-    doubleElimTournamentDataProvider.tournamentData["losersBracketMap"]
-                ["rounds"][loserBracketRoundIndex]["matches"]
-            [nextRoundParticipantIndex][nextRoundParticipant]["name"] =
-        participantA_B; // loser goes to the losers bracket round, thats why b not A
-    doubleElimTournamentDataProvider.notifyListeners();
+      doubleElimTournamentDataProvider.tournamentData["losersBracketMap"]
+                  ["rounds"][loserBracketRoundIndex]["matches"]
+              [nextRoundParticipantIndex][nextRoundParticipant]["name"] =
+          participantA_B; // loser goes to the losers bracket round, thats why b not A
+      doubleElimTournamentDataProvider.notifyListeners();
+    }
   }
 
   setLoserBracketWinnerParticipant(
@@ -282,6 +327,8 @@ class _MatchWidgetState extends State<MatchWidget> {
       required String participant}) {
     if (!widget.tournamentHashMap["l_b"]["l_r_${widget.roundNumber}"]
         ["isLastRound"]) {
+      print(
+          "I PRINT l_r_${widget.roundNumber}, ${widget.tournamentHashMap["l_b"]["l_r_${widget.roundNumber}"]}");
       var nextRoundMatchIndex = widget.tournamentHashMap["l_b"]
               ["l_r_${widget.roundNumber}"]["match_maps"]
           ["m_${widget.matchNumber}_w"]["m"];
@@ -295,8 +342,43 @@ class _MatchWidgetState extends State<MatchWidget> {
           [nextRoundMatchParticipant]["name"] = participant;
 
       doubleElimTournamentDataProvider.notifyListeners();
-      // print(nextRoundMatchIndex);
+    } else {
+      setPostBracketParticipantB(
+          doubleElimTournamentDataProvider: doubleElimTournamentDataProvider,
+          participant: participant);
     }
+    // print(nextRoundMatchIndex);
+  }
+
+  setPostBracketParticipantA(
+      {required DoubleElimTournamentDataProvider
+          doubleElimTournamentDataProvider,
+      required String participant}) {
+    doubleElimTournamentDataProvider.tournamentData["postBracketMap"]["rounds"]
+        [0]["matches"][0]["participantA"]["name"] = participant;
+
+    doubleElimTournamentDataProvider.notifyListeners();
+    // print(nextRoundMatchIndex);
+  }
+
+  setPostBracketParticipantB(
+      {required DoubleElimTournamentDataProvider
+          doubleElimTournamentDataProvider,
+      required String participant}) {
+    doubleElimTournamentDataProvider.tournamentData["postBracketMap"]["rounds"]
+        [0]["matches"][0]["participantB"]["name"] = participant;
+
+    doubleElimTournamentDataProvider.notifyListeners();
+    // print(nextRoundMatchIndex);
+  }
+
+  setTournamentWinner(
+      {required DoubleElimTournamentDataProvider
+          doubleElimTournamentDataProvider,
+      required String participant}) {
+    doubleElimTournamentDataProvider.tournamentData["winner"]["name"] =
+        participant;
+    doubleElimTournamentDataProvider.notifyListeners();
   }
 
   int calculateNextRoundMatchIndex() {
@@ -354,6 +436,11 @@ class _MatchWidgetState extends State<MatchWidget> {
                     doubleElimTournamentDataProvider:
                         doubleElimTournamentDataProvider,
                     participant: participantA);
+              } else if (widget.bracketType == "postBracketMap") {
+                setTournamentWinner(
+                    doubleElimTournamentDataProvider:
+                        doubleElimTournamentDataProvider,
+                    participant: participantA);
               }
             },
             child: TeamWidget(
@@ -380,6 +467,11 @@ class _MatchWidgetState extends State<MatchWidget> {
                     participant: participantB);
               } else if (widget.bracketType == "losersBracketMap") {
                 setLoserBracketWinnerParticipant(
+                    doubleElimTournamentDataProvider:
+                        doubleElimTournamentDataProvider,
+                    participant: participantB);
+              } else if (widget.bracketType == "postBracketMap") {
+                setTournamentWinner(
                     doubleElimTournamentDataProvider:
                         doubleElimTournamentDataProvider,
                     participant: participantB);

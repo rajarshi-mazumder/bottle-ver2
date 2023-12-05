@@ -85,8 +85,8 @@ class MyApp extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return DoubleElimTournamentScreen(
-                winnerLoserHashMap: winnerLoserRoundHashMap_16_teams,
-                template: template_16_participants,
+                winnerLoserHashMap: winnerLoserRoundHashMap_8_teams,
+                template: template_8_participants,
                 doubleElimTournament_Hive: snapshot.data!,
               );
             } else

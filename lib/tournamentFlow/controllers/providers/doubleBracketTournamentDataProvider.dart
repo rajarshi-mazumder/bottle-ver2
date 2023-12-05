@@ -131,7 +131,25 @@ Map<String, dynamic> template_8_participants = {
       },
     ],
     "winner": {"name": ""}
-  }
+  },
+  "postBracketMap": {
+    "noOfRounds": 1,
+    "rounds": [
+      {
+        "roundIndex": 0,
+        "noOfMatches": 1,
+        "matches": [
+          {
+            "participantA": {"name": ""},
+            "participantB": {"name": ""},
+            "winner": {"name": ""}
+          }
+        ]
+      }
+    ],
+    "winner": {"name": ""}
+  },
+  "winner": {"name": ""}
 };
 
 Map<String, dynamic> template_16_participants = {
@@ -339,6 +357,23 @@ Map<String, dynamic> template_16_participants = {
           },
         ]
       },
+    ],
+    "winner": {"name": ""}
+  },
+  "postBracketMap": {
+    "noOfRounds": 1,
+    "rounds": [
+      {
+        "roundIndex": 0,
+        "noOfMatches": 1,
+        "matches": [
+          {
+            "participantA": {"name": ""},
+            "participantB": {"name": ""},
+            "winner": {"name": ""}
+          }
+        ]
+      }
     ],
     "winner": {"name": ""}
   }
