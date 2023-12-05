@@ -21,7 +21,7 @@ Map<String, dynamic> template_8_participants = {
         "noOfMatches": 4,
         "matches": [
           {
-            "participantA": {"name": "Cloud 9"},
+            "participantA": {"name": "Cloud 10"},
             "participantB": {"name": "DRX"},
             "winner": {"name": "Cloud 9"}
           },
@@ -77,58 +77,6 @@ Map<String, dynamic> template_8_participants = {
     "rounds": [
       {
         "roundIndex": 0,
-        "noOfMatches": 4,
-        "matches": [
-          {
-            "participantA": {"name": ""},
-            "participantB": {"name": ""},
-            "winner": {"name": ""}
-          },
-          {
-            "participantA": {"name": ""},
-            "participantB": {"name": ""},
-            "winner": {"name": ""}
-          },
-          {
-            "participantA": {"name": ""},
-            "participantB": {"name": ""},
-            "winner": {"name": ""}
-          },
-          {
-            "participantA": {"name": ""},
-            "participantB": {"name": ""},
-            "winner": {"name": ""}
-          }
-        ]
-      },
-      {
-        "roundIndex": 1,
-        "noOfMatches": 4,
-        "matches": [
-          {
-            "participantA": {"name": ""},
-            "participantB": {"name": ""},
-            "winner": {"name": ""}
-          },
-          {
-            "participantA": {"name": ""},
-            "participantB": {"name": ""},
-            "winner": {"name": ""}
-          },
-          {
-            "participantA": {"name": ""},
-            "participantB": {"name": ""},
-            "winner": {"name": ""}
-          },
-          {
-            "participantA": {"name": ""},
-            "participantB": {"name": ""},
-            "winner": {"name": ""}
-          }
-        ]
-      },
-      {
-        "roundIndex": 2,
         "noOfMatches": 2,
         "matches": [
           {
@@ -136,6 +84,33 @@ Map<String, dynamic> template_8_participants = {
             "participantB": {"name": ""},
             "winner": {"name": ""}
           },
+          {
+            "participantA": {"name": ""},
+            "participantB": {"name": ""},
+            "winner": {"name": ""}
+          },
+        ]
+      },
+      {
+        "roundIndex": 1,
+        "noOfMatches": 2,
+        "matches": [
+          {
+            "participantA": {"name": ""},
+            "participantB": {"name": ""},
+            "winner": {"name": ""}
+          },
+          {
+            "participantA": {"name": ""},
+            "participantB": {"name": ""},
+            "winner": {"name": ""}
+          },
+        ]
+      },
+      {
+        "roundIndex": 2,
+        "noOfMatches": 1,
+        "matches": [
           {
             "participantA": {"name": ""},
             "participantB": {"name": ""},
@@ -145,13 +120,8 @@ Map<String, dynamic> template_8_participants = {
       },
       {
         "roundIndex": 3,
-        "noOfMatches": 2,
+        "noOfMatches": 1,
         "matches": [
-          {
-            "participantA": {"name": ""},
-            "participantB": {"name": ""},
-            "winner": {"name": ""}
-          },
           {
             "participantA": {"name": ""},
             "participantB": {"name": ""},

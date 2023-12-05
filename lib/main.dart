@@ -44,19 +44,21 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   UserProvider userProvider = UserProvider();
+  int tournamentId = 10;
 
   Future<DoubleElimTournament_Hive> getTournamnet() async {
     late DoubleElimTournament_Hive tournament;
     try {
-      tournament = await TournamentDatabase().getTournamentById(id: 0);
+      tournament =
+          await TournamentDatabase().getTournamentById(id: tournamentId);
     } catch (e) {
       List<String> participants = teamsWithImages.keys.toList();
 
       tournament = DoubleElimTournament_Hive(
           participants: participants,
           participantType: "Teams",
-          tournamentData: template_16_participants,
-          id: 0);
+          tournamentData: template_8_participants,
+          id: tournamentId);
     }
 
     return tournament;

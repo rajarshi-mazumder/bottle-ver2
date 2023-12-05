@@ -41,6 +41,11 @@ class DoubleElimTournamentScreen extends StatelessWidget {
     TournamentDatabase().saveTournament(doubleElimTournament_Hive);
   }
 
+  deleteTournament(
+      {required DoubleElimTournament_Hive doubleElimTournament_Hive}) {
+    TournamentDatabase().deleteTournament(doubleElimTournament_Hive.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -92,8 +97,9 @@ class DoubleElimTournamentScreen extends StatelessWidget {
                         children: [
                           for (int i = 0;
                               i <
-                                  winnerLoserHashMap[
-                                      "winnerBracketRoundsCount"];
+                                  doubleElimTournament_Hive
+                                          .tournamentData["winnersBracketMap"]
+                                      ["noOfRounds"];
                               i++)
                             Container(
                               margin: EdgeInsets.symmetric(horizontal: 10),
@@ -101,14 +107,9 @@ class DoubleElimTournamentScreen extends StatelessWidget {
                                   tournamentHashMap: winnerLoserHashMap,
                                   bracketType: 'winnersBracketMap',
                                   roundNumber: i,
-                                  matchCount: (pow(
-                                          2,
-                                          (log(doubleElimTournament_Hive
-                                                          .tournamentData[
-                                                      "noOfParticipants"]) ~/
-                                                  log(2)) -
-                                              (i + 1)))
-                                      .toInt()),
+                                  matchCount: doubleElimTournament_Hive
+                                          .tournamentData["winnersBracketMap"]
+                                      ["rounds"][i]["noOfMatches"]),
                             ),
                           SizedBox(height: 20),
                         ],
@@ -129,23 +130,39 @@ class DoubleElimTournamentScreen extends StatelessWidget {
                                 bracketType: 'losersBracketMap',
                                 roundNumber: i,
                                 // matchCount: calculateLoserBracketRoundsMatcheCount(i, winnerRounds)),
-                                matchCount: winnerLoserHashMap[
-                                    "l_bracket_rounds_match_count"][i]),
+                                matchCount: doubleElimTournamentDataProvider
+                                        .tournamentData["losersBracketMap"]
+                                    ["rounds"][i]["noOfMatches"]),
                         ],
                       )
                     ],
                   ),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      saveTournament(
-                          doubleElimTournamentDataProvider:
-                              doubleElimTournamentDataProvider);
-                    },
-                    child: Text(
-                      "Save Tournament",
-                      style: TextStyle(color: Colors.white),
-                    ))
+                Row(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          saveTournament(
+                              doubleElimTournamentDataProvider:
+                                  doubleElimTournamentDataProvider);
+                        },
+                        child: Text(
+                          "Save Tournament",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                    SizedBox(width: 20),
+                    ElevatedButton(
+                        onPressed: () {
+                          deleteTournament(
+                              doubleElimTournament_Hive:
+                                  doubleElimTournament_Hive);
+                        },
+                        child: Text(
+                          "Delete Tournament Box",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                  ],
+                )
               ],
             ),
           );

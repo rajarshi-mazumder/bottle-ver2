@@ -15,7 +15,15 @@ class TournamentDatabase {
         (tournament) => tournament.id == doubleElimTournament_Hive.id);
 
     if (existingTournamentIndex != -1) {
-      await box.putAt(existingTournamentIndex, doubleElimTournament_Hive);
+      DoubleElimTournament_Hive temp = DoubleElimTournament_Hive(
+        name: doubleElimTournament_Hive.name,
+        tournamentData: doubleElimTournament_Hive.tournamentData,
+        id: doubleElimTournament_Hive.id,
+        participants: doubleElimTournament_Hive.participants,
+        participantType: doubleElimTournament_Hive.participantType,
+      );
+
+      await box.putAt(existingTournamentIndex, temp);
     } else {
       // Add as a new object
       await box.add(doubleElimTournament_Hive);

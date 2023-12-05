@@ -1,6 +1,5 @@
 Map<String, dynamic> winnerLoserRoundHashMap_8_teams = {
-  "winnerBracketRoundsCount": 3,
-  "loserBracketRoundsCount": 4,
+
   "w_l": {
     "w_r_0": {
       "loser_bracket_round_index": 0,
@@ -61,8 +60,7 @@ Map<String, dynamic> winnerLoserRoundHashMap_8_teams = {
 };
 
 Map<String, dynamic> winnerLoserRoundHashMap_16_teams = {
-  "winnerBracketRoundsCount": 4,
-  "loserBracketRoundsCount": 5,
+  
   "w_l": {
     "w_r_0": {
       "loser_bracket_round_index": 0,
