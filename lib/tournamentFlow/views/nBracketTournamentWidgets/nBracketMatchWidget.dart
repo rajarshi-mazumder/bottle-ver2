@@ -63,11 +63,9 @@ class _NBracketMatchWidgetState extends State<NBracketMatchWidget> {
       {required int nextRoundMatchIndex,
       required String participantName,
       required nBracketTournamentDataProvider tournamentDataProvider}) {
-    if ((widget.roundIndex + 1) <
-        tournamentDataProvider
-            .tournamentData["brackets"][widget.bracketIndex]["rounds"].length) {
-      print(
-          "I AM PRINTINGGG ${tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]["rounds"][widget.roundIndex + 1]["matches"]}");
+    if (tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
+            ["rounds"][widget.roundIndex]["isLastRound"] ==
+        false) {
       if (widget.matchIndex % 2 == 0) {
         tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
                 ["rounds"][widget.roundIndex + 1]["matches"]
@@ -84,7 +82,27 @@ class _NBracketMatchWidgetState extends State<NBracketMatchWidget> {
     } else {
       tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
           ["winner"] = {"name": participantName};
+      setPostBracketParticipant(
+          participantName: participantName,
+          tournamentDataProvider: tournamentDataProvider);
     }
+  }
+
+  setPostBracketParticipant(
+      {required String participantName,
+      required nBracketTournamentDataProvider tournamentDataProvider}) {
+    if (widget.matchIndex % 2 == 0) {
+      tournamentDataProvider.tournamentData["postBracketRounds"]["rounds"][0]
+              ["matches"][0]
+          .update("participantA", (value) => {"name": participantName},
+              ifAbsent: () => {"name": participantName});
+    } else {
+      tournamentDataProvider.tournamentData["postBracketRounds"]["rounds"][0]
+              ["matches"][0]
+          .update("participantB", (value) => {"name": participantName},
+              ifAbsent: () => {"name": participantName});
+    }
+    tournamentDataProvider.notifyListeners();
   }
 
   @override

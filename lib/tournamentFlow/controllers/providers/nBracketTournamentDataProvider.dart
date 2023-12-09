@@ -20,6 +20,7 @@ Map<String, dynamic> nBracket_template_8_participants = {
       "bracketIndex": 0,
       "rounds": [
         {
+          "isLastRound": false,
           "roundIndex": 0,
           "noOfMatches": 4,
           "matches": [
@@ -46,6 +47,7 @@ Map<String, dynamic> nBracket_template_8_participants = {
           ]
         },
         {
+          "isLastRound": false,
           "roundIndex": 1,
           "noOfMatches": 2,
           "matches": [
@@ -62,6 +64,7 @@ Map<String, dynamic> nBracket_template_8_participants = {
           ]
         },
         {
+          "isLastRound": true,
           "roundIndex": 2,
           "noOfMatches": 1,
           "matches": [
@@ -79,6 +82,7 @@ Map<String, dynamic> nBracket_template_8_participants = {
       "bracketIndex": 1,
       "rounds": [
         {
+          "isLastRound": false,
           "roundIndex": 0,
           "noOfMatches": 2,
           "matches": [
@@ -95,6 +99,7 @@ Map<String, dynamic> nBracket_template_8_participants = {
           ]
         },
         {
+          "isLastRound": true,
           "roundIndex": 1,
           "noOfMatches": 1,
           "matches": [
@@ -112,6 +117,7 @@ Map<String, dynamic> nBracket_template_8_participants = {
   "postBracketRounds": {
     "rounds": [
       {
+        "isLastRound": true,
         "roundIndex": 0,
         "noOfMatches": 1,
         "matches": [

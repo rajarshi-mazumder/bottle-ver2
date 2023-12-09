@@ -71,7 +71,7 @@ class _BracketRoundsState extends State<BracketRounds> {
         SliverToBoxAdapter(
           child: Center(
             child: NBracketWinnerWidget(
-              bracketIndex: 0,
+              bracketIndex: widget.bracket["bracketIndex"],
               winnerType: "bracketWinner",
             ),
           ),
