@@ -14,7 +14,7 @@ import 'TournamentTile.dart';
 class TournamentRightSection extends StatefulWidget {
   TournamentRightSection({super.key, this.allBordersRounded = true});
 
-  late N_BracketTournament tournament;
+
   bool allBordersRounded;
 
   @override
@@ -30,23 +30,6 @@ class _TournamentRightSectionState extends State<TournamentRightSection> {
 
     List<String> teamsList1 = teams.map((e) => e.name ?? '').toList();
     List<String> teamsList2 = teams2.map((e) => e.name ?? '').toList();
-
-    widget.tournament = Tournament.createTournament(
-        type: "n_elimination",
-        bracketCount: 2,
-        participantType: "team") as N_BracketTournament;
-
-    widget.tournament
-        .generateNewBracket(participantsList: teamsList1, bracketIndex: 0);
-    widget.tournament
-        .generateNewBracket(participantsList: teamsList2, bracketIndex: 1);
-    print(widget.tournament.brackets);
-    print("-----------------------");
-
-    // print(json.decode(tempTournamentString));
-    widget.tournament.brackets =
-        json.decode(doubleElimEmptyTournamentString)["brackets"];
-    widget.tournament.postBracketRounds = json.decode(postBracketRoundsString);
   }
 
   @override
@@ -58,8 +41,8 @@ class _TournamentRightSectionState extends State<TournamentRightSection> {
         borderRadius: widget.allBordersRounded
             ? BorderRadius.all(Radius.circular(20))
             : BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20)),
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20)),
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -81,11 +64,7 @@ class _TournamentRightSectionState extends State<TournamentRightSection> {
                   status: tournaments[index]['status'],
                   statusColor: tournaments[index]['statusColor'],
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TournamentContainer(
-                                tournament: widget.tournament)));
+
                   },
                 );
               },

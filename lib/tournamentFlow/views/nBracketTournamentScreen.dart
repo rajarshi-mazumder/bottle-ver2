@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../controllers/providers/nBracketTournamentDataProvider.dart';
+import '../models/nBracketTournament.dart';
+import 'createTournament_nBracket.dart';
+import 'nBracketTournamentWidgets/bracketRounds.dart';
+import 'nBracketTournamentWidgets/postBracketRounds.dart';
 
-import '../../../models/tournamentModels/match.dart';
-import '../../../models/tournamentModels/player.dart';
-import '../../../models/tournamentModels/round.dart';
-import '../../../models/tournamentModels/team.dart';
-import '../../../models/tournamentModels/tournamentModels.dart';
-import '../../../tournamentFlow/controllers/providers/nBracketTournamentDataProvider.dart';
-import '../../../tournamentFlow/views/createTournament_nBracket.dart';
-import '../../../tournamentFlow/views/nBracketTournamentWidgets/bracketRounds.dart';
-import '../../../tournamentFlow/views/nBracketTournamentWidgets/postBracketRounds.dart';
-
-class N_BracketTournamentEditor extends StatefulWidget {
-  N_BracketTournamentEditor({required this.tournament});
+class N_BracketTournamentScreen extends StatefulWidget {
+  N_BracketTournamentScreen({required this.tournament});
 
   N_BracketTournament tournament;
 
   @override
-  _N_BracketTournamentEditorState createState() =>
-      _N_BracketTournamentEditorState();
+  _N_BracketTournamentScreenState createState() =>
+      _N_BracketTournamentScreenState();
 }
 
-class _N_BracketTournamentEditorState extends State<N_BracketTournamentEditor> {
+class _N_BracketTournamentScreenState extends State<N_BracketTournamentScreen> {
   int numberOfTeams = 16; // Change this to set the initial number of teams
   List<List<String>> rounds = [];
 

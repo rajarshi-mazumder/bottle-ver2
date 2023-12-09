@@ -75,18 +75,6 @@ class _BracketRoundsState extends State<BracketRounds> {
     ));
   }
 
-  createEmptyBracketInProvider(
-      {required nBracketTournamentDataProvider tournamentDataProvider}) {
-    if (tournamentDataProvider.tournamentData["brackets"].length <
-        tournamentDataProvider.bracketCount) {
-      tournamentDataProvider.tournamentData["brackets"].add({
-        "bracketIndex": widget.bracket["bracketIndex"],
-        "rounds": widget.roundMatchesData,
-        "winner": null
-      });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -98,8 +86,6 @@ class _BracketRoundsState extends State<BracketRounds> {
   Widget build(BuildContext context) {
     nBracketTournamentDataProvider tournamentDataProvider =
         context.watch<nBracketTournamentDataProvider>();
-    createEmptyBracketInProvider(
-        tournamentDataProvider: tournamentDataProvider);
 
     if (roundWidgets.isNotEmpty) {
       return CustomScrollView(

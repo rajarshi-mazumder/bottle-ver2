@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/tournamentModels/tournamentModels.dart';
-import '../../screens/tournamentWidgets/tournamentCreateWidgets/nBracketTournamentEditor.dart';
+import 'nBracketTournamentScreen.dart';
 import '../controllers/providers/nBracketTournamentDataProvider.dart';
+import '../models/nBracketTournament.dart';
 
 class TournamentContainer extends StatefulWidget {
   TournamentContainer({super.key, required this.tournament});
 
-  Tournament tournament;
+  N_BracketTournament tournament;
 
   @override
   State<TournamentContainer> createState() => _TournamentContainerState();
@@ -23,14 +23,7 @@ class _TournamentContainerState extends State<TournamentContainer> {
           create: (context) {
             nBracketTournamentDataProvider tournamentDataProvider =
                 nBracketTournamentDataProvider();
-            if (widget.tournament.runtimeType == N_BracketTournament) {
-              N_BracketTournament temp =
-                  widget.tournament as N_BracketTournament;
-              tournamentDataProvider.bracketCount = temp.bracketCount;
-              tournamentDataProvider.tournamentData["brackets"] = temp.brackets;
-              tournamentDataProvider.tournamentData["postBracketRounds"] =
-                  temp.postBracketRounds;
-            }
+
             return tournamentDataProvider;
           },
         ),
@@ -39,8 +32,7 @@ class _TournamentContainerState extends State<TournamentContainer> {
           appBar: AppBar(
             title: Text("TOURAMENT PROGRESSION"),
           ),
-          body: N_BracketTournamentEditor(
-              tournament: widget.tournament as N_BracketTournament)),
+          body: N_BracketTournamentScreen(tournament: widget.tournament)),
     );
   }
 }

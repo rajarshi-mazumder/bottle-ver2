@@ -11,6 +11,7 @@ import '../models/tournamentModels/team.dart';
 import '../models/tournamentModels/tournamentModels.dart';
 import '../sharedWidgets/rightSidebar.dart';
 import '../sharedWidgets/sidebar.dart';
+import '../tournamentFlow/models/nBracketTournament.dart';
 import 'gameProfileWidgets/gameProfileLeftSection.dart';
 
 class TournamentDetailScreenLayout extends StatefulWidget {

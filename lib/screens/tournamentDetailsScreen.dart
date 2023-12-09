@@ -3,6 +3,7 @@ import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsLeftSecti
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentDetailsWidgets/tournamentOverviewSection.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentRightSection.dart';
+import 'package:bottle_ver2/tournamentFlow/models/nBracketTournament.dart';
 import 'package:bottle_ver2/tournamentFlow/views/doubleElimTournamentScreen.dart';
 import 'package:bottle_ver2/themes/spacing.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class TournamentDetailsScreen extends StatefulWidget {
       {super.key, this.isSidebarExpanded = false, required this.tournament});
 
   bool isSidebarExpanded;
-  Tournament tournament;
+  N_BracketTournament tournament;
 
   @override
   State<TournamentDetailsScreen> createState() =>
@@ -165,7 +166,7 @@ class _TournamentDetailsScreenState extends State<TournamentDetailsScreen> {
 class TournamentDisplayFullScreen extends StatelessWidget {
   TournamentDisplayFullScreen({super.key, required this.tournament});
 
-  Tournament tournament;
+  N_BracketTournament tournament;
 
   @override
   Widget build(BuildContext context) {
