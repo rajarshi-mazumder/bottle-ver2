@@ -1,10 +1,10 @@
-import 'package:bottle_ver2/tournamentFlow/views/doubleElimTournamentWidgets/teamWidget.dart';
+import 'package:bottle_ver2/tournamentFlow/views/doubleElimTournamentWidgets/doubleElimParticipant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/providers/doubleBracketTournamentDataProvider.dart';
 
-class MatchWidget extends StatefulWidget {
+class DoubleElimMatchWidget extends StatefulWidget {
   Map<String, dynamic> tournamentHashMap;
   final String bracketType;
   final int roundNumber;
@@ -12,7 +12,7 @@ class MatchWidget extends StatefulWidget {
   String? participantA;
   String? participantB;
 
-  MatchWidget({
+  DoubleElimMatchWidget({
     required this.tournamentHashMap,
     required this.bracketType,
     required this.roundNumber,
@@ -22,10 +22,10 @@ class MatchWidget extends StatefulWidget {
   });
 
   @override
-  State<MatchWidget> createState() => _MatchWidgetState();
+  State<DoubleElimMatchWidget> createState() => _DoubleElimMatchWidgetState();
 }
 
-class _MatchWidgetState extends State<MatchWidget> {
+class _DoubleElimMatchWidgetState extends State<DoubleElimMatchWidget> {
   setWinnerBracketWinnerParticipant(
       {required DoubleElimTournamentDataProvider
           doubleElimTournamentDataProvider,
@@ -206,7 +206,7 @@ class _MatchWidgetState extends State<MatchWidget> {
                     participant: participantA);
               }
             },
-            child: TeamWidget(
+            child: DoubleElimParticipantWidget(
               teamIndex: 1,
               matchIndex: widget.matchNumber,
               roundIndex: widget.roundNumber,
@@ -240,7 +240,7 @@ class _MatchWidgetState extends State<MatchWidget> {
                     participant: participantB);
               }
             },
-            child: TeamWidget(
+            child: DoubleElimParticipantWidget(
                 teamIndex: 2,
                 matchIndex: widget.matchNumber,
                 roundIndex: widget.roundNumber,

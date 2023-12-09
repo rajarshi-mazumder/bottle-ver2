@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../../../tournamentFlow/views/createTournament_nBracket.dart';
 import '../../controllers/providers/nBracketTournamentDataProvider.dart';
 
-class TeamInputWidget extends StatefulWidget {
-  TeamInputWidget({
+class NBracketParticipantWidget extends StatefulWidget {
+  NBracketParticipantWidget({
     super.key,
     required this.bracketIndex,
     required this.selectedTeam,
@@ -24,10 +24,11 @@ class TeamInputWidget extends StatefulWidget {
   // List<List<Map<String, dynamic>>> roundMatchesData;
 
   @override
-  State<TeamInputWidget> createState() => _TeamInputWidgetState();
+  State<NBracketParticipantWidget> createState() =>
+      _NBracketParticipantWidgetState();
 }
 
-class _TeamInputWidgetState extends State<TeamInputWidget> {
+class _NBracketParticipantWidgetState extends State<NBracketParticipantWidget> {
   @override
   Widget build(BuildContext context) {
     nBracketTournamentDataProvider tournamentDataProvider =

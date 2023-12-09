@@ -1,18 +1,18 @@
-import 'package:bottle_ver2/tournamentFlow/views/nBracketTournamentWidgets/postBracketMatchInput.dart';
+import 'package:bottle_ver2/tournamentFlow/views/nBracketTournamentWidgets/postBracketMatchWidget.dart';
 import 'package:bottle_ver2/tournamentFlow/views/createTournament_nBracket.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/tournamentModels/round.dart';
 import '../../controllers/providers/nBracketTournamentDataProvider.dart';
-import 'matchInputWidget.dart';
-import 'winnerInputWidget.dart';
+import 'nBracketMatchWidget.dart';
+import 'nBracketWinnerWidget.dart';
 
 class PostBracketRounds extends StatefulWidget {
-  Map rounds;
+  Map postBracketRounds;
 
   PostBracketRounds({
-    required this.rounds,
+    required this.postBracketRounds,
   });
 
   @override
@@ -25,7 +25,7 @@ class _PostBracketRoundsState extends State<PostBracketRounds> {
   generateBracketRoundWidgets() {
     int roundIndex = -1;
 
-    widget.rounds["rounds"].forEach((round) {
+    widget.postBracketRounds["rounds"].forEach((round) {
       roundIndex++;
       int matchIndex = -1;
 
@@ -41,7 +41,7 @@ class _PostBracketRoundsState extends State<PostBracketRounds> {
                 round["matches"]?[index]["participantB"] != null)
               isMatchDecided = true;
 
-            return PostBracketMatchInput(
+            return PostBracketMatchWidget(
               matchIndex: matchIndex,
               roundIndex: roundIndex,
               isMatchDecided: isMatchDecided,
@@ -59,23 +59,11 @@ class _PostBracketRoundsState extends State<PostBracketRounds> {
     });
     roundWidgets.add(Container(
       width: 100,
-      child: WinnerInputData(
+      child: NBracketWinnerWidget(
         bracketIndex: 0,
         winnerType: "postBracketWinner",
       ),
     ));
-  }
-
-  createEmptyBracketInProvider(
-      {required nBracketTournamentDataProvider tournamentDataProvider}) {
-    if (tournamentDataProvider.tournamentData["brackets"].length <
-        tournamentDataProvider.bracketCount) {
-      tournamentDataProvider.tournamentData["brackets"].add({
-        // "bracketIndex": widget.bracket["bracketIndex"],
-        // "rounds": widget.roundMatchesData,
-        "winner": null
-      });
-    }
   }
 
   @override
@@ -90,16 +78,46 @@ class _PostBracketRoundsState extends State<PostBracketRounds> {
     nBracketTournamentDataProvider tournamentDataProvider =
         context.watch<nBracketTournamentDataProvider>();
 
-    if (roundWidgets.isNotEmpty) {
-      return Row(
-        children: roundWidgets,
-      );
-    } else {
-      return Container(
-        height: 300,
-        width: 200,
-        color: Colors.blue,
-      );
-    }
+    return CustomScrollView(
+      scrollDirection: Axis.horizontal,
+      shrinkWrap: true,
+      slivers: [
+        SliverList(
+          delegate: SliverChildListDelegate(
+              List.generate(widget.postBracketRounds["rounds"].length, (index) {
+            var round = widget.postBracketRounds["rounds"][index];
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(round["noOfMatches"], (matchIndex) {
+                bool isMatchDecided = false;
+                if (round["matches"]?[matchIndex]["participantA"] != null &&
+                    round["matches"]?[matchIndex]["participantB"] != null)
+                  isMatchDecided = true;
+
+                return PostBracketMatchWidget(
+                  matchIndex: matchIndex,
+                  roundIndex: index,
+                  isMatchDecided: isMatchDecided,
+                  participantA: round["matches"][index]["participantA"] != null
+                      ? round["matches"][index]["participantA"].toString()
+                      : "",
+                  participantB: round["matches"][index]["participantB"] != null
+                      ? round["matches"][index]["participantB"].toString()
+                      : "",
+                );
+              }),
+            );
+          })),
+        ),
+        SliverToBoxAdapter(
+          child: Center(
+            child: NBracketWinnerWidget(
+              bracketIndex: 0,
+              winnerType: "postBracketWinner",
+            ),
+          ),
+        )
+      ],
+    );
   }
 }

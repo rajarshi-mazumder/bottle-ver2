@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/tournamentModels/tournamentModels.dart';
-import 'doubleElimTournamentWidgets/matchWidget.dart';
-import 'doubleElimTournamentWidgets/roundWidget.dart';
-import 'doubleElimTournamentWidgets/teamWidget.dart';
+import 'doubleElimTournamentWidgets/doubleElimMatchWidget.dart';
+import 'doubleElimTournamentWidgets/doubleElimRoundWidget.dart';
+import 'doubleElimTournamentWidgets/doubleElimParticipant.dart';
 
 class DoubleElimTournamentScreen extends StatelessWidget {
   Map<String, dynamic> winnerLoserHashMap;
@@ -106,7 +106,7 @@ class DoubleElimTournamentScreen extends StatelessWidget {
                               i++)
                             Container(
                               margin: EdgeInsets.symmetric(horizontal: 10),
-                              child: RoundWidget(
+                              child: DoubleElimRoundWidget(
                                   tournamentHashMap: winnerLoserHashMap,
                                   bracketType: 'winnersBracketMap',
                                   roundNumber: i,
@@ -123,7 +123,7 @@ class DoubleElimTournamentScreen extends StatelessWidget {
                                       fontWeight: FontWeight.bold)),
                               Container(
                                 margin: EdgeInsets.symmetric(horizontal: 10),
-                                child: RoundWidget(
+                                child: DoubleElimRoundWidget(
                                     tournamentHashMap: winnerLoserHashMap,
                                     bracketType: 'postBracketMap',
                                     roundNumber: 0,
@@ -161,7 +161,7 @@ class DoubleElimTournamentScreen extends StatelessWidget {
                                           .tournamentData["losersBracketMap"]
                                       ["noOfRounds"];
                               i++)
-                            RoundWidget(
+                            DoubleElimRoundWidget(
                                 tournamentHashMap: winnerLoserHashMap,
                                 bracketType: 'losersBracketMap',
                                 roundNumber: i,

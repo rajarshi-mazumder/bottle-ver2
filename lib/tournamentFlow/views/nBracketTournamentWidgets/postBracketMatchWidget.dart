@@ -1,15 +1,15 @@
 import 'package:bottle_ver2/models/tournamentModels/team.dart';
 import 'package:bottle_ver2/screens/tournamentWidgets/tournamentProgressionWidgets/tournamentProgressionInput.dart';
 import 'package:bottle_ver2/tournamentFlow/views/createTournament_nBracket.dart';
-import 'package:bottle_ver2/tournamentFlow/views/nBracketTournamentWidgets/teamInputWidget.dart';
+import 'package:bottle_ver2/tournamentFlow/views/nBracketTournamentWidgets/nBracketParticipantWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../themes/themes.dart';
 import '../../controllers/providers/nBracketTournamentDataProvider.dart';
 
-class PostBracketMatchInput extends StatefulWidget {
-  PostBracketMatchInput(
+class PostBracketMatchWidget extends StatefulWidget {
+  PostBracketMatchWidget(
       {Key? key,
       required this.matchIndex,
       required this.roundIndex,
@@ -24,10 +24,10 @@ class PostBracketMatchInput extends StatefulWidget {
   String? participantB;
 
   @override
-  State<PostBracketMatchInput> createState() => _PostBracketMatchInputState();
+  State<PostBracketMatchWidget> createState() => _PostBracketMatchWidgetState();
 }
 
-class _PostBracketMatchInputState extends State<PostBracketMatchInput> {
+class _PostBracketMatchWidgetState extends State<PostBracketMatchWidget> {
   String selectedTeamA = '';
   String selectedTeamB = '';
   String winner = '';
@@ -109,39 +109,35 @@ class _PostBracketMatchInputState extends State<PostBracketMatchInput> {
           children: [
             Row(
               children: [
-                TeamInputWidget(
-                  selectedTeam: selectedTeamA,
-                  bracketIndex: 0,
-                  roundIndex: widget.roundIndex,
-                  matchIndex: widget.matchIndex,
-                  participantA_B: "participantA",
-                  // roundMatchesData: widget.roundMatchesData,
-                ),
-                if (selectedTeamA != '')
-                  Radio<String>(
-                    value: selectedTeamA,
-                    groupValue: winner,
-                    onChanged: (value) {
-                      setState(() {
-                        winner = value!;
-                        // widget.roundMatchesData[widget.roundIndex]
-                        //     [widget.matchIndex]['winner'] = {"name": value};
-
-                        setMatchWinner(
-                            tournamentDataProvider: tournamentDataProvider,
-                            winnerName: value);
-
-                        int nextRoundMatchIndex =
-                            calculateNextRoundMatchIndex();
-
-                        setNextRoundParticipant(
-                            tournamentDataProvider: tournamentDataProvider,
-                            participantName: value,
-                            nextRoundMatchIndex: nextRoundMatchIndex);
-                        tournamentDataProvider.notifyListeners();
-                      });
-                    },
+                ElevatedButton(
+                  child: NBracketParticipantWidget(
+                    selectedTeam: selectedTeamA,
+                    bracketIndex: 0,
+                    roundIndex: widget.roundIndex,
+                    matchIndex: widget.matchIndex,
+                    participantA_B: "participantA",
+                    // roundMatchesData: widget.roundMatchesData,
                   ),
+                  onPressed: () {
+                    setState(() {
+                      winner = selectedTeamA!;
+                      // widget.roundMatchesData[widget.roundIndex]
+                      //     [widget.matchIndex]['winner'] = {"name": value};
+
+                      setMatchWinner(
+                          tournamentDataProvider: tournamentDataProvider,
+                          winnerName: selectedTeamA);
+
+                      int nextRoundMatchIndex = calculateNextRoundMatchIndex();
+
+                      setNextRoundParticipant(
+                          tournamentDataProvider: tournamentDataProvider,
+                          participantName: selectedTeamA,
+                          nextRoundMatchIndex: nextRoundMatchIndex);
+                      tournamentDataProvider.notifyListeners();
+                    });
+                  },
+                ),
               ],
             ),
             Container(
@@ -152,39 +148,35 @@ class _PostBracketMatchInputState extends State<PostBracketMatchInput> {
                 )),
             Row(
               children: [
-                TeamInputWidget(
-                  selectedTeam: selectedTeamB,
-                  bracketIndex: 0,
-                  roundIndex: widget.roundIndex,
-                  matchIndex: widget.matchIndex,
-                  participantA_B: "participantB",
-                  // roundMatchesData: widget.roundMatchesData,
-                ),
-                if (selectedTeamB != '')
-                  Radio<String>(
-                    value: selectedTeamB,
-                    groupValue: winner,
-                    onChanged: (value) {
-                      setState(() {
-                        winner = value!;
-                        // widget.roundMatchesData[widget.roundIndex]
-                        //     [widget.matchIndex]['winner'] = {"name": value};
-
-                        setMatchWinner(
-                            tournamentDataProvider: tournamentDataProvider,
-                            winnerName: value);
-
-                        int nextRoundMatchIndex =
-                            calculateNextRoundMatchIndex();
-
-                        setNextRoundParticipant(
-                            tournamentDataProvider: tournamentDataProvider,
-                            participantName: value,
-                            nextRoundMatchIndex: nextRoundMatchIndex);
-                        tournamentDataProvider.notifyListeners();
-                      });
-                    },
+                ElevatedButton(
+                  child: NBracketParticipantWidget(
+                    selectedTeam: selectedTeamB,
+                    bracketIndex: 0,
+                    roundIndex: widget.roundIndex,
+                    matchIndex: widget.matchIndex,
+                    participantA_B: "participantB",
+                    // roundMatchesData: widget.roundMatchesData,
                   ),
+                  onPressed: () {
+                    setState(() {
+                      winner = selectedTeamB!;
+                      // widget.roundMatchesData[widget.roundIndex]
+                      //     [widget.matchIndex]['winner'] = {"name": value};
+
+                      setMatchWinner(
+                          tournamentDataProvider: tournamentDataProvider,
+                          winnerName: selectedTeamB);
+
+                      int nextRoundMatchIndex = calculateNextRoundMatchIndex();
+
+                      setNextRoundParticipant(
+                          tournamentDataProvider: tournamentDataProvider,
+                          participantName: selectedTeamB,
+                          nextRoundMatchIndex: nextRoundMatchIndex);
+                      tournamentDataProvider.notifyListeners();
+                    });
+                  },
+                ),
               ],
             ),
           ],

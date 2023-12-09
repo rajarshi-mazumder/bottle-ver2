@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../../../models/tournamentModels/team.dart';
 import '../../../models/tournamentModels/tournamentModels.dart';
-import '../../../tournamentFlow/views/nBracketTournamentWidgets/matchInputWidget.dart';
-import '../../../tournamentFlow/views/nBracketTournamentWidgets/winnerInputWidget.dart';
+import '../../../tournamentFlow/views/nBracketTournamentWidgets/nBracketMatchWidget.dart';
+import '../../../tournamentFlow/views/nBracketTournamentWidgets/nBracketWinnerWidget.dart';
 import '../../tournamentDetailsScreen.dart';
 import 'package:bottle_ver2/models/tournamentModels/match.dart';
 
@@ -82,7 +82,7 @@ class _TournamentProgressionInputState
       width: 100,
       child: Column(
         children: [
-          WinnerInputData(
+          NBracketWinnerWidget(
             bracketIndex: 1,
             // teamNames: List.generate(widget.tournament.participants!.length,
             //     (index) => widget.tournament.participants![index].name!)

@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import '../../../themes/themes.dart';
 import '../../controllers/providers/nBracketTournamentDataProvider.dart';
 
-class WinnerInputData extends StatefulWidget {
-  WinnerInputData(
+class NBracketWinnerWidget extends StatefulWidget {
+  NBracketWinnerWidget(
       {super.key,
       required this.bracketIndex,
       this.winnerType = "bracketWinner"});
@@ -13,10 +13,10 @@ class WinnerInputData extends StatefulWidget {
   String winnerType;
 
   @override
-  State<WinnerInputData> createState() => _WinnerInputDataState();
+  State<NBracketWinnerWidget> createState() => _NBracketWinnerWidgetState();
 }
 
-class _WinnerInputDataState extends State<WinnerInputData> {
+class _NBracketWinnerWidgetState extends State<NBracketWinnerWidget> {
   String winnerTeam = "";
 
   @override

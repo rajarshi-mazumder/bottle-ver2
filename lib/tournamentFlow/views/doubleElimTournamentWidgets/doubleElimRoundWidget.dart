@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'matchWidget.dart';
+import 'doubleElimMatchWidget.dart';
 
-class RoundWidget extends StatelessWidget {
+class DoubleElimRoundWidget extends StatelessWidget {
   final String bracketType;
   final int roundNumber;
   final int matchCount;
   Map<String, dynamic> tournamentHashMap;
 
-  RoundWidget({
+  DoubleElimRoundWidget({
     required this.bracketType,
     required this.roundNumber,
     required this.matchCount,
@@ -26,7 +26,7 @@ class RoundWidget extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ...List.generate(
               matchCount,
-              (index) => MatchWidget(
+              (index) => DoubleElimMatchWidget(
                     bracketType: bracketType,
                     roundNumber: roundNumber,
                     matchNumber: index,
