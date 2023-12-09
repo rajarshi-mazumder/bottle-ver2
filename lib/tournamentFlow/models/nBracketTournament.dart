@@ -3,15 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-class N_BracketTournament extends HiveObject{
+class N_BracketTournament extends HiveObject {
   int bracketCount;
-  List brackets = [];
-  Map postBracketRounds = {};
+
   @HiveField(1)
   Map<String, dynamic> tournamentData;
+
   // Implement Double Bracket specific methods and properties
   N_BracketTournament(
-      {required this.bracketCount, String participantType = "player"}, re);
+      {required this.bracketCount,
+      String participantType = "player",
+      required this.tournamentData});
 
   List generateRounds({required List<String> participants}) {
     double totalParticipants = double.parse(participants!.length.toString());
@@ -38,14 +40,14 @@ class N_BracketTournament extends HiveObject{
       {required List<String> participantsList, required int bracketIndex}) {
     List rounds = generateRounds(participants: participantsList);
 
-    brackets.add({
+    tournamentData["brackets"].add({
       "bracketIndex": bracketIndex,
       "rounds": rounds,
       "winner": null,
       "participants": participantsList
     });
 
-    return brackets;
+    return tournamentData["brackets"];
   }
 
   generatePostBracketRounds({required Map<String, dynamic> brackets}) {
@@ -62,8 +64,7 @@ class N_BracketTournament extends HiveObject{
     });
     if (bracketWinners.isNotEmpty) {
       List postBracketRounds = generateRounds(participants: bracketWinners);
-      this.postBracketRounds = {"rounds": postBracketRounds};
-      print(this.postBracketRounds);
+      tournamentData["postBracketRounds"] = {"rounds": postBracketRounds};
     }
   }
 }

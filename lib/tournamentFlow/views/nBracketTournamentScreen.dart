@@ -17,7 +17,7 @@ class N_BracketTournamentScreen extends StatefulWidget {
 }
 
 class _N_BracketTournamentScreenState extends State<N_BracketTournamentScreen> {
-  int numberOfTeams = 16; // Change this to set the initial number of teams
+ 
   List<List<String>> rounds = [];
 
   @override
@@ -34,32 +34,37 @@ class _N_BracketTournamentScreenState extends State<N_BracketTournamentScreen> {
       builder: (context, nBracketTournamentDataProvider tournamentDataProvider,
           child) {
         return Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
+          height: MediaQuery
+              .of(context)
+              .size
+              .height,
           child: Stack(
             children: [
               CustomScrollView(
                 slivers: [
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        List<List<Map<String, dynamic>>> roundMatchesData = [];
-
+                          (BuildContext context, int index) {
                         return Container(
                             color: index % 2 == 0
                                 ? Colors.black26
                                 : Colors.black45,
                             height: index % 2 == 0 ? 800 : 400,
                             child: BracketRounds(
-                              bracket: widget.tournament.brackets[index],
-                              roundMatchesData: roundMatchesData,
+                              bracket: widget
+                                  .tournament.tournamentData["brackets"][index],
+
                             ));
                       },
                       childCount: widget.tournament.bracketCount,
                     ),
                   ),
                   if (tournamentDataProvider.tournamentData["postBracketRounds"]
-                          ["rounds"] !=
+                  ["rounds"] !=
                       null)
                     SliverToBoxAdapter(
                       child: Container(
@@ -79,11 +84,12 @@ class _N_BracketTournamentScreenState extends State<N_BracketTournamentScreen> {
                       widget.tournament.generatePostBracketRounds(
                           brackets: tournamentDataProvider.tournamentData);
                       tournamentDataProvider
-                              .tournamentData["postBracketRounds"] =
-                          widget.tournament.postBracketRounds;
+                          .tournamentData["postBracketRounds"] =
+                      widget.tournament.tournamentData["postBracketRounds"];
 
                       print(
-                          "PROVIDER DATA ${tournamentDataProvider.tournamentData['postBracketRounds']}");
+                          "PROVIDER DATA ${tournamentDataProvider
+                              .tournamentData['postBracketRounds']}");
                       tournamentDataProvider.notifyListeners();
                     },
                     child: Text("Generate round for bracket winners")),
@@ -94,7 +100,8 @@ class _N_BracketTournamentScreenState extends State<N_BracketTournamentScreen> {
                 child: ElevatedButton(
                     onPressed: () {
                       print(
-                          "PRINTING TOURNAMNENT DATAAA : ${tournamentDataProvider.tournamentData}");
+                          "PRINTING TOURNAMNENT DATAAA : ${tournamentDataProvider
+                              .tournamentData}");
                     },
                     child: Text("Update tournament")),
               ),

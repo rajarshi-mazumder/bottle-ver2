@@ -103,10 +103,10 @@ class _TournamentDetailScreenLayoutState
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: TournamentDetailsScreen(
-                    tournament: N_BracketTournament(bracketCount: 1),
-                  ),
-                ),
+                    // child: TournamentDetailsScreen(
+                    //   tournament: N_BracketTournament(bracketCount: 1),
+                    // ),
+                    ),
               ],
             ),
           ),

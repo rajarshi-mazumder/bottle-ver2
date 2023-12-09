@@ -10,11 +10,9 @@ import 'winnerInputWidget.dart';
 
 class BracketRounds extends StatefulWidget {
   final Map<String, dynamic> bracket;
-  final List<List<Map<String, dynamic>>> roundMatchesData;
 
   BracketRounds({
     required this.bracket,
-    required this.roundMatchesData,
   });
 
   @override
@@ -30,7 +28,6 @@ class _BracketRoundsState extends State<BracketRounds> {
     widget.bracket["rounds"].forEach((round) {
       roundIndex++;
       int matchIndex = -1;
-      widget.roundMatchesData.add([]);
       roundWidgets.add(Container(
         margin: EdgeInsets.only(top: 0),
         child: Column(
@@ -39,16 +36,10 @@ class _BracketRoundsState extends State<BracketRounds> {
           children: List.generate(round["noOfMatches"], (index) {
             matchIndex++;
 
-            bool isMatchDecided = false;
-            if (round["matches"]?[index]["participantA"] != null &&
-                round["matches"]?[index]["participantB"] != null)
-              isMatchDecided = true;
-
             return MatchInputWidget(
               matchIndex: matchIndex,
               roundIndex: roundIndex,
               bracketIndex: widget.bracket["bracketIndex"],
-              isMatchDecided: isMatchDecided,
               participantA: round["matches"][index]["participantA"] != null
                   ? round["matches"][index]["participantA"].toString()
                   : "",
@@ -78,33 +69,52 @@ class _BracketRoundsState extends State<BracketRounds> {
   @override
   void initState() {
     super.initState();
-
-    generateBracketRoundWidgets();
   }
 
   @override
   Widget build(BuildContext context) {
     nBracketTournamentDataProvider tournamentDataProvider =
-        context.watch<nBracketTournamentDataProvider>();
+    context.watch<nBracketTournamentDataProvider>();
+    // generateBracketRoundWidgets();
 
-    if (roundWidgets.isNotEmpty) {
-      return CustomScrollView(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate(
-              roundWidgets,
-            ),
-          )
-        ],
-      );
-    } else {
-      return Container(
-        height: 300,
-        width: 200,
-        color: Colors.blue,
-      );
-    }
+    return CustomScrollView(
+      scrollDirection: Axis.horizontal,
+      shrinkWrap: true,
+      slivers: [
+        SliverList(
+          delegate: SliverChildListDelegate(
+              List.generate(widget.bracket["rounds"].length, (index) {
+                var round = widget.bracket["rounds"][index];
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(round["noOfMatches"], (matchIndex) {
+                    // return Column(
+                    //   children: [
+                    //     Text(round["matches"][index]["participantA"]["name"]),
+                    //     Text(round["matches"][index]["participantB"]["name"]),
+                    //   ],
+                    // );
+                    return MatchInputWidget(
+                      matchIndex: matchIndex,
+                      roundIndex: index,
+                      bracketIndex: widget.bracket["bracketIndex"],
+                      participantA:
+                      round["matches"][matchIndex]["participantA"] != null
+                          ? round["matches"][matchIndex]["participantA"]
+                          .toString()
+                          : "",
+                      participantB:
+                      round["matches"][matchIndex]["participantB"] != null
+                          ? round["matches"][matchIndex]["participantB"]
+                          .toString()
+                          : "",
+                    );
+                  }),
+                );
+              })),
+        )
+      ],
+    );
   }
 }

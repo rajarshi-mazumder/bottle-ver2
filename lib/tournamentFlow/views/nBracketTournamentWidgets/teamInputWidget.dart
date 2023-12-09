@@ -32,8 +32,9 @@ class _TeamInputWidgetState extends State<TeamInputWidget> {
   Widget build(BuildContext context) {
     nBracketTournamentDataProvider tournamentDataProvider =
         context.watch<nBracketTournamentDataProvider>();
-    // widget.roundMatchesData[widget.roundIndex][widget.matchIndex]
-    //     [widget.participantA_B] = {"name": widget.selectedTeam};
+
+    // print(tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
+    // ["rounds"]);
     return Row(
       children: [
         Container(

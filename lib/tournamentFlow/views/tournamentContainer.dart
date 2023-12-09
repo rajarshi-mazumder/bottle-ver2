@@ -23,7 +23,8 @@ class _TournamentContainerState extends State<TournamentContainer> {
           create: (context) {
             nBracketTournamentDataProvider tournamentDataProvider =
                 nBracketTournamentDataProvider();
-
+            tournamentDataProvider.tournamentData =
+                widget.tournament.tournamentData;
             return tournamentDataProvider;
           },
         ),
