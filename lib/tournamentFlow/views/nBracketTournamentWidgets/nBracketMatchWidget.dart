@@ -83,25 +83,26 @@ class _NBracketMatchWidgetState extends State<NBracketMatchWidget> {
       tournamentDataProvider.tournamentData["brackets"][widget.bracketIndex]
           ["winner"] = {"name": participantName};
       setPostBracketParticipant(
-          participantName: participantName,
-          tournamentDataProvider: tournamentDataProvider);
+          tournamentDataProvider: tournamentDataProvider,
+          participantName: participantName);
     }
   }
 
   setPostBracketParticipant(
       {required String participantName,
       required nBracketTournamentDataProvider tournamentDataProvider}) {
-    if (widget.matchIndex % 2 == 0) {
-      tournamentDataProvider.tournamentData["postBracketRounds"]["rounds"][0]
-              ["matches"][0]
-          .update("participantA", (value) => {"name": participantName},
-              ifAbsent: () => {"name": participantName});
-    } else {
-      tournamentDataProvider.tournamentData["postBracketRounds"]["rounds"][0]
-              ["matches"][0]
-          .update("participantB", (value) => {"name": participantName},
-              ifAbsent: () => {"name": participantName});
-    }
+    int matchIndex = 0;
+    String participantA_B = "participantA";
+
+    matchIndex = (widget.bracketIndex / 2).floor();
+    participantA_B =
+        (widget.bracketIndex % 2 == 0) ? "participantB" : "participantA";
+
+    tournamentDataProvider.tournamentData["postBracketRounds"]["rounds"][0]
+            ["matches"][matchIndex]
+        .update(participantA_B, (value) => {"name": participantName},
+            ifAbsent: () => {"name": participantName});
+
     tournamentDataProvider.notifyListeners();
   }
 
@@ -155,6 +156,7 @@ class _NBracketMatchWidgetState extends State<NBracketMatchWidget> {
                           tournamentDataProvider: tournamentDataProvider,
                           participantName: selectedTeamA,
                           nextRoundMatchIndex: nextRoundMatchIndex);
+
                       tournamentDataProvider.notifyListeners();
                     });
                   },
@@ -194,6 +196,7 @@ class _NBracketMatchWidgetState extends State<NBracketMatchWidget> {
                           tournamentDataProvider: tournamentDataProvider,
                           participantName: selectedTeamB,
                           nextRoundMatchIndex: nextRoundMatchIndex);
+
                       tournamentDataProvider.notifyListeners();
                     });
                   },

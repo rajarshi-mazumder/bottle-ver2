@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'doubleElimTournamentScreen.dart';
 import '../controllers/providers/doubleBracketTournamentDataProvider.dart';
-import '../../tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
+import '../controllers/data/tournamentHashMapData/doubleElimWinnerLoserRoundHashMap.dart';
 import 'package:bottle_ver2/tournamentFlow/controllers/data/participantsData.dart';
 
 class CreateTournament_DoubleElim extends StatefulWidget {
@@ -53,7 +53,8 @@ class _CreateTournament_DoubleElimState
                       tournamentData: template_16_participants,
                       id: 0,
                       participantType: "Teams"),
-                  winnerLoserHashMap: winnerLoserRoundHashMap_16_teams,
+                  winnerLoserHashMap:
+                      doubleELimWinnerLoserRoundHashMap_16_teams,
                   template: template_16_participants,
                 )));
   }

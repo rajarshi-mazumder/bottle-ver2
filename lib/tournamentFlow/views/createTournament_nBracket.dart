@@ -1,3 +1,5 @@
+import 'package:bottle_ver2/tournamentFlow/controllers/data/participantsData.dart';
+import 'package:bottle_ver2/tournamentFlow/controllers/data/tournamentHashMapData/nBracketWinnerLoserHashMap.dart';
 import 'package:bottle_ver2/tournamentFlow/views/tournamentContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,9 +27,14 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    
-    widget.tournament = N_BracketTournament(
-        bracketCount: 2, tournamentData: nBracket_template_8_participants);
+
+    Map<String, dynamic> tournamentData =
+        generateTournamentStructure(4, [4, 4, 4, 4]);
+    List<String> participants = teamsWithImages.keys.toList();
+    populateBrackets(tournamentData, participants);
+
+    widget.tournament =
+        N_BracketTournament(bracketCount: 4, tournamentData: tournamentData);
   }
 
   @override

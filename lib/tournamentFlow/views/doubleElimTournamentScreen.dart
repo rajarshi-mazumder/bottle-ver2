@@ -5,7 +5,7 @@ import 'package:bottle_ver2/tournamentFlow/controllers/data/tournamentDatabase.d
 import 'package:bottle_ver2/tournamentFlow/controllers/providers/doubleBracketTournamentDataProvider.dart';
 import 'package:bottle_ver2/tournamentFlow/models/doubleElimTournament.dart';
 import 'package:bottle_ver2/tournamentFlow/views/createTournament_nBracket.dart';
-import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
+import 'package:bottle_ver2/tournamentFlow/controllers/data/tournamentHashMapData/doubleElimWinnerLoserRoundHashMap.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

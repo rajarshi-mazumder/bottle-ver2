@@ -70,23 +70,6 @@ class _N_BracketTournamentScreenState extends State<N_BracketTournamentScreen> {
                 ],
               ),
               Positioned(
-                right: 250,
-                top: 20,
-                child: ElevatedButton(
-                    onPressed: () {
-                      widget.tournament.generatePostBracketRounds(
-                          brackets: tournamentDataProvider.tournamentData);
-                      tournamentDataProvider
-                              .tournamentData["postBracketRounds"] =
-                          widget.tournament.tournamentData["postBracketRounds"];
-
-                      print(
-                          "PROVIDER DATA ${tournamentDataProvider.tournamentData['postBracketRounds']}");
-                      tournamentDataProvider.notifyListeners();
-                    },
-                    child: Text("Generate round for bracket winners")),
-              ),
-              Positioned(
                 right: 20,
                 top: 20,
                 child: ElevatedButton(

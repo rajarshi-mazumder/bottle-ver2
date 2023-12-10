@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:bottle_ver2/models/tournamentModels/round.dart';
 import 'package:bottle_ver2/tournamentFlow/views/createTournament_nBracket.dart';
 import '../../tournamentFlow/models/nBracketTournament.dart';
-import '../../tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
+import '../../tournamentFlow/controllers/data/tournamentHashMapData/doubleElimWinnerLoserRoundHashMap.dart';
 import 'team.dart';
 
 class Tournament {

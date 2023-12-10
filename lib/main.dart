@@ -18,7 +18,7 @@ import 'package:bottle_ver2/screens/tournamentsScreen.dart';
 import 'package:bottle_ver2/screens/tournamentsScreenLayout.dart';
 import 'package:bottle_ver2/themes/platformSpecificOperations/platformCheck.dart';
 import 'package:bottle_ver2/themes/themes.dart';
-import 'package:bottle_ver2/tournamentOperations/tournamentScreenWidgets/doubleElimTournamentUtilities/winnerLoserRoundHashMap.dart';
+import 'package:bottle_ver2/tournamentFlow/controllers/data/tournamentHashMapData/doubleElimWinnerLoserRoundHashMap.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
     late DoubleElimTournament_Hive tournament;
     try {
       tournament =
-          await TournamentDatabase().getTournamentById(id: tournamentId);
+      await TournamentDatabase().getTournamentById(id: tournamentId);
     } catch (e) {
       List<String> participants = teamsWithImages.keys.toList();
 
@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return DoubleElimTournamentScreen(
-                winnerLoserHashMap: winnerLoserRoundHashMap_8_teams,
+                winnerLoserHashMap: doubleElimWinnerLoserRoundHashMap_8_teams,
                 template: template_8_participants,
                 doubleElimTournament_Hive: snapshot.data!,
               );
@@ -107,8 +107,11 @@ class MyApp extends StatelessWidget {
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   // Override behavior methods and getters like dragDevices
   @override
-  Set<PointerDeviceKind> get dragDevices => {
+  Set<PointerDeviceKind> get dragDevices =>
+      {
         PointerDeviceKind.touch,
         PointerDeviceKind.mouse,
       };
 }
+
+

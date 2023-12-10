@@ -1,4 +1,4 @@
-Map<String, dynamic> winnerLoserRoundHashMap_8_teams = {
+Map<String, dynamic> doubleElimWinnerLoserRoundHashMap_8_teams = {
   "w_l": {
     "w_r_0": {
       "loser_bracket_round_index": 0,
@@ -61,7 +61,7 @@ Map<String, dynamic> winnerLoserRoundHashMap_8_teams = {
   }
 };
 
-Map<String, dynamic> winnerLoserRoundHashMap_16_teams = {
+Map<String, dynamic> doubleELimWinnerLoserRoundHashMap_16_teams = {
   "w_l": {
     "w_r_0": {
       "loser_bracket_round_index": 0,

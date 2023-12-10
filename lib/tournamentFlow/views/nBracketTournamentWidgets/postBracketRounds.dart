@@ -98,11 +98,13 @@ class _PostBracketRoundsState extends State<PostBracketRounds> {
                   matchIndex: matchIndex,
                   roundIndex: index,
                   isMatchDecided: isMatchDecided,
-                  participantA: round["matches"][index]["participantA"] != null
-                      ? round["matches"][index]["participantA"].toString()
+                  participantA: round["matches"][matchIndex]["participantA"] !=
+                          null
+                      ? round["matches"][matchIndex]["participantA"].toString()
                       : "",
-                  participantB: round["matches"][index]["participantB"] != null
-                      ? round["matches"][index]["participantB"].toString()
+                  participantB: round["matches"][matchIndex]["participantB"] !=
+                          null
+                      ? round["matches"][matchIndex]["participantB"].toString()
                       : "",
                 );
               }),

@@ -17,6 +17,7 @@ Map<String, dynamic> template_8_participants = {
     "noOfRounds": 3,
     "rounds": [
       {
+        "isLastRound": false,
         "roundIndex": 0,
         "noOfMatches": 4,
         "matches": [
@@ -43,6 +44,7 @@ Map<String, dynamic> template_8_participants = {
         ]
       },
       {
+        "isLastRound": false,
         "roundIndex": 1,
         "noOfMatches": 2,
         "matches": [
@@ -59,6 +61,7 @@ Map<String, dynamic> template_8_participants = {
         ]
       },
       {
+        "isLastRound": true,
         "roundIndex": 2,
         "noOfMatches": 1,
         "matches": [
@@ -76,6 +79,7 @@ Map<String, dynamic> template_8_participants = {
     "noOfRounds": 4,
     "rounds": [
       {
+        "isLastRound": false,
         "roundIndex": 0,
         "noOfMatches": 2,
         "matches": [
@@ -92,6 +96,7 @@ Map<String, dynamic> template_8_participants = {
         ]
       },
       {
+        "isLastRound": false,
         "roundIndex": 1,
         "noOfMatches": 2,
         "matches": [
@@ -108,6 +113,7 @@ Map<String, dynamic> template_8_participants = {
         ]
       },
       {
+        "isLastRound": false,
         "roundIndex": 2,
         "noOfMatches": 1,
         "matches": [
@@ -119,6 +125,7 @@ Map<String, dynamic> template_8_participants = {
         ]
       },
       {
+        "isLastRound": true,
         "roundIndex": 3,
         "noOfMatches": 1,
         "matches": [
@@ -136,6 +143,7 @@ Map<String, dynamic> template_8_participants = {
     "noOfRounds": 1,
     "rounds": [
       {
+        "isLastRound": true,
         "roundIndex": 0,
         "noOfMatches": 1,
         "matches": [
@@ -158,6 +166,7 @@ Map<String, dynamic> template_16_participants = {
     "noOfRounds": 4,
     "rounds": [
       {
+        "isLastRound": false,
         "roundIndex": 0,
         "noOfMatches": 8,
         "matches": [
@@ -204,6 +213,7 @@ Map<String, dynamic> template_16_participants = {
         ]
       },
       {
+        "isLastRound": false,
         "roundIndex": 1,
         "noOfMatches": 4,
         "matches": [
@@ -230,6 +240,7 @@ Map<String, dynamic> template_16_participants = {
         ]
       },
       {
+        "isLastRound": false,
         "roundIndex": 2,
         "noOfMatches": 2,
         "matches": [
@@ -246,6 +257,7 @@ Map<String, dynamic> template_16_participants = {
         ]
       },
       {
+        "isLastRound": true,
         "roundIndex": 3,
         "noOfMatches": 1,
         "matches": [
@@ -263,6 +275,7 @@ Map<String, dynamic> template_16_participants = {
     "noOfRounds": 5,
     "rounds": [
       {
+        "isLastRound": false,
         "roundIndex": 0,
         "noOfMatches": 4,
         "matches": [
@@ -289,6 +302,7 @@ Map<String, dynamic> template_16_participants = {
         ]
       },
       {
+        "isLastRound": false,
         "roundIndex": 1,
         "noOfMatches": 4,
         "matches": [
@@ -315,6 +329,7 @@ Map<String, dynamic> template_16_participants = {
         ]
       },
       {
+        "isLastRound": false,
         "roundIndex": 2,
         "noOfMatches": 2,
         "matches": [
@@ -331,6 +346,7 @@ Map<String, dynamic> template_16_participants = {
         ]
       },
       {
+        "isLastRound": false,
         "roundIndex": 3,
         "noOfMatches": 2,
         "matches": [
@@ -347,6 +363,7 @@ Map<String, dynamic> template_16_participants = {
         ]
       },
       {
+        "isLastRound": true,
         "roundIndex": 4,
         "noOfMatches": 1,
         "matches": [
@@ -364,6 +381,7 @@ Map<String, dynamic> template_16_participants = {
     "noOfRounds": 1,
     "rounds": [
       {
+        "isLastRound": true,
         "roundIndex": 0,
         "noOfMatches": 1,
         "matches": [
