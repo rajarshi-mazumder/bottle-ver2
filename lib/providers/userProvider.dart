@@ -10,7 +10,7 @@ class UserProvider with ChangeNotifier {
   CustomUser? loggedInUser;
 
   UserProvider() {
-    getAllUsersStream();
+    // getAllUsersStream();
   }
 
   Future getAllUsersStream() async {

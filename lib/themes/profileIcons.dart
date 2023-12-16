@@ -33,7 +33,7 @@ class ProfileIconButton extends StatelessWidget {
           left: 0,
           child: Container(
             decoration: BoxDecoration(
-                color: primaryColor, borderRadius: BorderRadius.circular(20)),
+                color: Colors.green, borderRadius: BorderRadius.circular(20)),
             height: 10,
             width: 10,
           ),
