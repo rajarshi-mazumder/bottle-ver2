@@ -29,9 +29,9 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     Map<String, dynamic> tournamentData =
-        generateTournamentStructure(4, [4, 4, 4, 4]);
+        generateTournamentStructure(4, [8, 4, 4, 4]);
     List<String> participants = teamsWithImages.keys.toList();
-    populateBrackets(tournamentData, participants);
+    populateFirstRound(tournamentData, participants);
 
     widget.tournament =
         N_BracketTournament(bracketCount: 4, tournamentData: tournamentData);

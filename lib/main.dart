@@ -50,14 +50,14 @@ class MyApp extends StatelessWidget {
     late DoubleElimTournament_Hive tournament;
     try {
       tournament =
-      await TournamentDatabase().getTournamentById(id: tournamentId);
+          await TournamentDatabase().getTournamentById(id: tournamentId);
     } catch (e) {
       List<String> participants = teamsWithImages.keys.toList();
 
       tournament = DoubleElimTournament_Hive(
           participants: participants,
           participantType: "Teams",
-          tournamentData: template_8_participants,
+          tournamentData: template_16_participants,
           id: tournamentId);
     }
 
@@ -85,8 +85,8 @@ class MyApp extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return DoubleElimTournamentScreen(
-                winnerLoserHashMap: doubleElimWinnerLoserRoundHashMap_8_teams,
-                template: template_8_participants,
+                winnerLoserHashMap: doubleELimWinnerLoserRoundHashMap_16_teams,
+                template: snapshot.data!.tournamentData,
                 doubleElimTournament_Hive: snapshot.data!,
               );
             } else
@@ -107,11 +107,8 @@ class MyApp extends StatelessWidget {
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   // Override behavior methods and getters like dragDevices
   @override
-  Set<PointerDeviceKind> get dragDevices =>
-      {
+  Set<PointerDeviceKind> get dragDevices => {
         PointerDeviceKind.touch,
         PointerDeviceKind.mouse,
       };
 }
-
-

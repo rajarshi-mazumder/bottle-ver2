@@ -394,5 +394,6 @@ Map<String, dynamic> template_16_participants = {
       }
     ],
     "winner": {"name": ""}
-  }
+  },
+  "winner": {"name": ""}
 };

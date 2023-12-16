@@ -136,3 +136,30 @@ Map<String, dynamic> populateBrackets(
 
   return tournamentJson; // Return the updated JSON
 }
+
+Map<String, dynamic> populateFirstRound(
+    Map<String, dynamic> tournamentJson, List<String> participants) {
+  List<dynamic> brackets = tournamentJson['brackets'];
+
+  for (int i = 0; i < brackets.length; i++) {
+    List<dynamic> rounds = brackets[i]['rounds'];
+
+    if (rounds.isNotEmpty) {
+      List<dynamic> matches = rounds[0]['matches'];
+
+      for (int k = 0; k < matches.length; k++) {
+        if (participants.isEmpty) {
+          return tournamentJson; // Stop and return the current state of the JSON if there are no more participants
+        }
+
+        String participantA = participants.removeAt(0);
+        String participantB = participants.removeAt(0);
+
+        matches[k]['participantA']['name'] = participantA;
+        matches[k]['participantB']['name'] = participantB;
+      }
+    }
+  }
+
+  return tournamentJson; // Return the updated JSON
+}
